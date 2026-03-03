@@ -1,0 +1,43 @@
+project:
+  type: book
+
+book:
+  title: "ModernDive: Statistical Inference via Data Science"
+  subtitle: "A ModernDive into R and the Tidyverse"
+  author: "Chester Ismay and Albert Y. Kim"
+  date: "July 2, 2020"
+  chapters:
+    - index.qmd
+    - 00-foreword.qmd
+    - 00-preface.qmd
+    - 01-getting-started.qmd
+    - 02-visualization.qmd
+    - 03-wrangling.qmd
+    - 04-tidy.qmd
+    - 05-regression.qmd
+    - 06-multiple-regression.qmd
+    - 07-sampling.qmd
+    - 08-confidence-intervals.qmd
+    - 09-hypothesis-testing.qmd
+    - 10-inference-for-regression.qmd
+    - 11-tell-your-story-with-data.qmd
+    - 91-appendixA.qmd
+    - 92-appendixB.qmd
+    - 93-appendixC.qmd
+    - 94-appendixD.qmd
+    - 95-appendixE.qmd
+    - 99-references.qmd
+
+bibliography: 
+  - bib/books.bib
+  - bib/packages.bib
+  - bib/articles.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: krantz
+    include-in-header: latex/preamble.tex
