@@ -38,6 +38,7 @@ book:
     - 94-appendixD.qmd
     - 95-appendixE.qmd
     - 99-references.qmd
+    - NEWS.md
 
 bibliography: 
   - bib/books.bib
@@ -48,7 +49,3 @@ format:
   html:
     theme:
       - cosmo
-      - brand
-  pdf:
-    documentclass: krantz
-    include-in-header: latex/preamble.tex
