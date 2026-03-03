@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; (PART) tidyverse를 이용한 데이터 과학 – ModernDive: Statistical Inference via Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-wrangling.html" rel="next">
+<link href="./01-getting-started.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-803ae4f7a8810f475153517dc3c4ebae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-visualization.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>r ifelse(knitr::is_latex_output(), 'Statistical Inference via Data Science:  A ModernDive into R and the Tidyverse', 'Statistical Inference via Data Science')</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">00-foreword.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">머리말</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터 전처리</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">기초 회귀 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">표본 추출</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bootstrapping and Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART) 결론</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">통계적 배경</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">추론 예제</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">팁과 요령</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Learning Check Solutions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">사용된 R 패키지 버전</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">참고 문헌</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./NEWS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ModernDive 1.1.0.9000</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#viz" id="toc-viz" class="nav-link active" data-scroll-target="#viz"><span class="header-section-number">5</span> 데이터 시각화</a>
+  <ul class="collapse">
+  <li><a href="#필요한-패키지" id="toc-필요한-패키지" class="nav-link" data-scroll-target="#필요한-패키지">필요한 패키지</a></li>
+  <li><a href="#grammarofgraphics" id="toc-grammarofgraphics" class="nav-link" data-scroll-target="#grammarofgraphics"><span class="header-section-number">5.1</span> 그래픽 문법</a>
+  <ul class="collapse">
+  <li><a href="#문법의-구성-요소" id="toc-문법의-구성-요소" class="nav-link" data-scroll-target="#문법의-구성-요소"><span class="header-section-number">5.1.1</span> 문법의 구성 요소</a></li>
+  <li><a href="#gapminder" id="toc-gapminder" class="nav-link" data-scroll-target="#gapminder"><span class="header-section-number">5.1.2</span> Gapminder 데이터</a></li>
+  <li><a href="#다른-구성-요소" id="toc-다른-구성-요소" class="nav-link" data-scroll-target="#다른-구성-요소"><span class="header-section-number">5.1.3</span> 다른 구성 요소</a></li>
+  <li><a href="#ggplot2-패키지" id="toc-ggplot2-패키지" class="nav-link" data-scroll-target="#ggplot2-패키지"><span class="header-section-number">5.1.4</span> ggplot2 패키지</a></li>
+  </ul></li>
+  <li><a href="#FiveNG" id="toc-FiveNG" class="nav-link" data-scroll-target="#FiveNG"><span class="header-section-number">5.2</span> 다섯 가지 이름 있는 그래프 - 5NG</a></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots"><span class="header-section-number">5.3</span> 5NG#1: 산점도</a>
+  <ul class="collapse">
+  <li><a href="#geompoint" id="toc-geompoint" class="nav-link" data-scroll-target="#geompoint"><span class="header-section-number">5.3.1</span> <code>geom_point</code>를 이용한 산점도</a></li>
+  <li><a href="#overplotting" id="toc-overplotting" class="nav-link" data-scroll-target="#overplotting"><span class="header-section-number">5.3.2</span> 오버플로팅</a></li>
+  <li><a href="#요약" id="toc-요약" class="nav-link" data-scroll-target="#요약"><span class="header-section-number">5.3.3</span> 요약</a></li>
+  </ul></li>
+  <li><a href="#linegraphs" id="toc-linegraphs" class="nav-link" data-scroll-target="#linegraphs"><span class="header-section-number">5.4</span> 5NG#2: 선 그래프</a>
+  <ul class="collapse">
+  <li><a href="#geomline" id="toc-geomline" class="nav-link" data-scroll-target="#geomline"><span class="header-section-number">5.4.1</span> <code>geom_line</code>을 이용한 선 그래프</a></li>
+  <li><a href="#요약-1" id="toc-요약-1" class="nav-link" data-scroll-target="#요약-1"><span class="header-section-number">5.4.2</span> 요약</a></li>
+  </ul></li>
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms"><span class="header-section-number">5.5</span> 5NG#3: 히스토그램</a>
+  <ul class="collapse">
+  <li><a href="#geomhistogram" id="toc-geomhistogram" class="nav-link" data-scroll-target="#geomhistogram"><span class="header-section-number">5.5.1</span> <code>geom_histogram</code>을 이용한 히스토그램</a></li>
+  <li><a href="#adjustbins" id="toc-adjustbins" class="nav-link" data-scroll-target="#adjustbins"><span class="header-section-number">5.5.2</span> 빈 조정하기</a></li>
+  <li><a href="#요약-2" id="toc-요약-2" class="nav-link" data-scroll-target="#요약-2"><span class="header-section-number">5.5.3</span> 요약</a></li>
+  </ul></li>
+  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets"><span class="header-section-number">5.6</span> 분할</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">5.7</span> 5NG#4: 박스 플롯</a>
+  <ul class="collapse">
+  <li><a href="#geomboxplot" id="toc-geomboxplot" class="nav-link" data-scroll-target="#geomboxplot"><span class="header-section-number">5.7.1</span> <code>geom_boxplot</code>을 이용한 박스 플롯</a></li>
+  <li><a href="#요약-3" id="toc-요약-3" class="nav-link" data-scroll-target="#요약-3"><span class="header-section-number">5.7.2</span> 요약</a></li>
+  </ul></li>
+  <li><a href="#geombar" id="toc-geombar" class="nav-link" data-scroll-target="#geombar"><span class="header-section-number">5.8</span> 5NG#5: 막대 그래프</a>
+  <ul class="collapse">
+  <li><a href="#geom_bar-또는-geom_col을-이용한-막대-그래프" id="toc-geom_bar-또는-geom_col을-이용한-막대-그래프" class="nav-link" data-scroll-target="#geom_bar-또는-geom_col을-이용한-막대-그래프"><span class="header-section-number">5.8.1</span> <code>geom_bar</code> 또는 <code>geom_col</code>을 이용한 막대 그래프</a></li>
+  <li><a href="#two-categ-barplot" id="toc-two-categ-barplot" class="nav-link" data-scroll-target="#two-categ-barplot"><span class="header-section-number">5.8.2</span> 두 범주형 변수</a></li>
+  <li><a href="#요약-4" id="toc-요약-4" class="nav-link" data-scroll-target="#요약-4"><span class="header-section-number">5.8.3</span> 요약</a></li>
+  </ul></li>
+  <li><a href="#data-vis-conclusion" id="toc-data-vis-conclusion" class="nav-link" data-scroll-target="#data-vis-conclusion"><span class="header-section-number">5.9</span> Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#요약표" id="toc-요약표" class="nav-link" data-scroll-target="#요약표"><span class="header-section-number">5.9.1</span> 요약표</a></li>
+  <li><a href="#함수-인자-지정-방법" id="toc-함수-인자-지정-방법" class="nav-link" data-scroll-target="#함수-인자-지정-방법"><span class="header-section-number">5.9.2</span> 함수 인자 지정 방법</a></li>
+  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료"><span class="header-section-number">5.9.3</span> 추가 자료</a></li>
+  <li><a href="#whats-to-come-3" id="toc-whats-to-come-3" class="nav-link" data-scroll-target="#whats-to-come-3"><span class="header-section-number">5.9.4</span> 다음 장에서 다룰 내용</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">(PART) tidyverse를 이용한 데이터 과학</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>(ref:tidyversepart) <code>tidyverse</code>를 이용한 데이터 과학</p>
+<section id="viz" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 데이터 시각화</h1>
+<p>우리는 데이터 시각화를 통해 여러분의 데이터 과학 도구 상자 개발을 시작합니다. 데이터를 시각화함으로써, 원시 데이터 값을 그냥 보는 것만으로는 처음에 얻을 수 없었던 귀중한 통찰력을 얻을 수 있습니다. 우리는 플롯을 쉽게 커스터마이징할 수 있는 <code>ggplot2</code> 패키지를 사용할 것입니다. <code>ggplot2</code>는 릴랜드 윌킨슨(Leland Wilkinson)이 개발한 <em>그래픽 문법(the grammar of graphics)</em> <span class="citation" data-cites="wilkinson2005">(<a href="#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005</a>)</span>으로 알려진 데이터 시각화 이론에 뿌리를 두고 있습니다. </p>
+<p>가장 기본적으로 그래픽/플롯/차트(이 책에서는 이 용어들을 혼용하여 사용합니다)는 <em>이상치(outliers)</em>의 존재, 개별 변수의 <em>분포(distributions)</em>, 변수 그룹 간의 <em>관계(relationships)</em>와 같은 데이터의 패턴을 탐색하는 좋은 방법을 제공합니다. 그래픽은 여러분의 청중이 이해하기를 원하는 발견과 통찰을 강조하도록 설계되었습니다. 하지만 여기에는 균형 잡힌 행동이 필요합니다. 한편으로는 가능한 한 많은 흥미로운 발견을 강조하고 싶지만, 다른 한편으로는 청중을 압도할 정도로 많은 정보를 포함하고 싶지는 않을 것입니다.</p>
+<p>우리가 보게 될 것처럼, 플롯 역시 데이터의 패턴과 이상치를 식별하는 데 도움을 줍니다. 이러한 아이디어의 흔한 확장은 수치형 변수의 <em>분포</em> (값의 중심과 퍼짐 정도 등)를 서로 다른 범주형 변수의 수준에 따라 비교하는 것임을 알게 될 것입니다.</p>
+<section id="필요한-패키지" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="필요한-패키지">필요한 패키지</h3>
+<p>이 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). R 패키지를 설치하고 로드하는 방법에 대한 정보는 섹션 @ref(packages)를 읽어보세요.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="grammarofgraphics" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="grammarofgraphics"><span class="header-section-number">5.1</span> 그래픽 문법</h2>
+<p>우리는 “그래픽 문법(the grammar of graphics)”으로 알려진 데이터 시각화를 위한 이론적 틀에 대한 논의부터 시작하겠습니다. 이 틀은 이 장에서 광범위하게 사용할 <code>ggplot2</code> 패키지의 기초 역할을 합니다. 우리가 명사, 동사, 관사, 주어, 목적어 등과 같은 서로 다른 요소들을 결합하여 영어 문장을 구성하고 형성하는 방식을 생각해 보세요. 우리는 이러한 요소들을 임의의 순서로 결합할 수 없습니다. 언어 문법으로 알려진 일련의 규칙을 따라야 합니다. 언어 문법과 유사하게 “그래픽 문법”은 서로 다른 유형의 <em>레이어(layers)</em>를 결합하여 <em>통계 그래픽(statistical graphics)</em>을 구성하기 위한 일련의 규칙을 정의합니다. 이 문법은 릴랜드 윌킨슨 <span class="citation" data-cites="wilkinson2005">(<a href="#ref-wilkinson2005" role="doc-biblioref">Wilkinson 2005</a>)</span>에 의해 만들어졌으며 R뿐만 아니라 <a href="https://plot.ly/">Plotly</a> 및 <a href="https://www.tableau.com/">Tableau</a>와 같은 다양한 데이터 시각화 소프트웨어 플랫폼에서 구현되었습니다.</p>
+<section id="문법의-구성-요소" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="문법의-구성-요소"><span class="header-section-number">5.1.1</span> 문법의 구성 요소</h3>
+<p>요약하자면, 이 문법은 다음과 같이 말합니다:</p>
+<blockquote class="blockquote">
+<p><strong>통계 그래픽은 <code>데이터(data)</code> 변수를 <code>기하학적(geom) 객체</code>의 <code>미적(aes) 속성</code>에 <code>매핑(mapping)</code>한 것입니다.</strong></p>
+</blockquote>
+<p>구체적으로, 그래픽을 다음과 같은 세 가지 필수 구성 요소로 나눌 수 있습니다:</p>
+<ol type="1">
+<li><code>data</code>: 관심 변수를 포함하는 데이터셋.</li>
+<li><code>geom</code>: 해당 기하학적 객체. 이는 플롯에서 관찰할 수 있는 객체의 유형을 나타냅니다. 예: 점(points), 선(lines), 막대(bars).</li>
+<li><code>aes</code>: 기하학적 객체의 미적 속성. 예: x/y 위치, 색상, 모양, 크기. 미적 속성은 데이터셋의 변수에 <em>매핑</em>됩니다.</li>
+</ol>
+<p>왜 <code>data</code>, <code>geom</code>, <code>aes</code>라는 용어를 컴퓨터 코드 글꼴로 썼는지 궁금하실 겁니다. 곧 R에서 이 용어들을 사용하여 문법의 요소들을 지정하는 것을 보게 될 것입니다. 하지만 먼저 예시를 통해 문법을 분해해 보겠습니다.</p>
+</section>
+<section id="gapminder" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="gapminder"><span class="header-section-number">5.1.2</span> Gapminder 데이터</h3>
+<p>2006년 2월, 스웨덴의 의사이자 데이터 옹호가인 한스 로슬링(Hans Rosling)은 <a href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen">“여러분이 본 것 중 최고의 통계”</a>라는 제목의 TED 강연을 통해 <a href="http://www.gapminder.org/tools/#_locale_id=en;&amp;chart-type=bubbles">gapminder.org</a> 웹사이트의 글로벌 경제, 건강 및 개발 데이터를 제시했습니다. 예를 들어, 2007년 142개 국가의 데이터 중 표 @ref(tab:gapminder-2007)에 있는 몇 개 국가만 살펴보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Gapminder 2007 데이터: 142개국 중 처음 3개국</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Country</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Continent</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Life Expectancy</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Population</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GDP per Capita</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">43.8</td>
+<td style="text-align: right;">31889923</td>
+<td style="text-align: right;">975</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Albania</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">76.4</td>
+<td style="text-align: right;">3600523</td>
+<td style="text-align: right;">5937</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Algeria</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">72.3</td>
+<td style="text-align: right;">33333216</td>
+<td style="text-align: right;">6223</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>이 표의 각 행은 2007년의 한 국가에 해당합니다. 각 행에는 5개의 열이 있습니다:</p>
+<ol type="1">
+<li><strong>Country</strong>: 국가명.</li>
+<li><strong>Continent</strong>: 해당 국가가 속한 5대륙 중 하나. “Americas”에는 북미와 남미 국가가 모두 포함되며 남극은 제외됩니다.</li>
+<li><strong>Life Expectancy</strong>: 기대 수명(년).</li>
+<li><strong>Population</strong>: 국가에 거주하는 인구수.</li>
+<li><strong>GDP per Capita</strong>: 1인당 국내총생산(미국 달러 기준).</li>
+</ol>
+<p>이제 이 데이터의 모든 142개 국가를 플롯한 그림 @ref(fig:gapminder)을 생각해 봅시다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/gapminder-1.png" class="img-fluid figure-img"></p>
+<figcaption>2007년 GDP 대비 기대 수명.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>이 플롯을 그래픽 문법을 통해 살펴보겠습니다:</p>
+<ol type="1">
+<li><code>데이터</code> 변수인 <strong>GDP per Capita</strong>는 점의 <code>x</code> 위치 <code>미적(aes)</code> 속성에 매핑됩니다.</li>
+<li><code>데이터</code> 변수인 <strong>Life Expectancy</strong>는 점의 <code>y</code> 위치 <code>미적</code> 속성에 매핑됩니다.</li>
+<li><code>데이터</code> 변수인 <strong>Population</strong>은 점의 <code>크기(size)</code> <code>미적</code> 속성에 매핑됩니다.</li>
+<li><code>데이터</code> 변수인 <strong>Continent</strong>는 점의 <code>색상(color)</code> <code>미적</code> 속성에 매핑됩니다.</li>
+</ol>
+<p>곧 <code>data</code>는 우리 데이터가 저장된 특정 데이터 프레임에 해당하고, “데이터 변수”는 데이터 프레임의 특정 열에 해당함을 보게 될 것입니다. 또한 이 플롯에서 고려된 <code>기하학적(geom)</code> 객체의 유형은 점입니다. 그렇긴 하지만, 이 예시에서는 점을 고려하고 있지만 그래픽이 점에만 국한되지는 않습니다. 선, 막대 및 기타 기하학적 객체를 사용할 수도 있습니다.</p>
+<p>표 @ref(tab:summary-table-gapminder)에 문법의 세 가지 필수 구성 요소를 요약해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>이 플롯에 대한 그래픽 문법 요약</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">데이터 변수</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">aes</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">geom</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">GDP per Capita</td>
+<td style="text-align: left;">x</td>
+<td style="text-align: left;">point</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Life Expectancy</td>
+<td style="text-align: left;">y</td>
+<td style="text-align: left;">point</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Population</td>
+<td style="text-align: left;">size</td>
+<td style="text-align: left;">point</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Continent</td>
+<td style="text-align: left;">color</td>
+<td style="text-align: left;">point</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="다른-구성-요소" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="다른-구성-요소"><span class="header-section-number">5.1.3</span> 다른 구성 요소</h3>
+<p>우리가 제어할 수 있는 그래픽 문법의 다른 구성 요소들도 있습니다. 그래픽 문법을 더 깊이 파고들기 시작하면 이러한 주제들을 더 자주 마주하게 될 것입니다. 이 책에서는 내용을 단순하게 유지하기 위해 다음 두 가지 추가 구성 요소만 다룰 것입니다:</p>
+<ul>
+<li><code>분할(facet)</code>은 다른 변수의 값에 따라 플롯을 여러 개의 플롯으로 나눕니다(섹션 @ref(facets)). </li>
+<li>막대 그래프의 <code>위치(position)</code> 조정입니다(섹션 @ref(geombar)). </li>
+</ul>
+<p><code>scales</code> 및 <code>좌표(coord)</code>계와 같은 다른 복잡한 구성 요소는 <a href="http://r4ds.had.co.nz/data-visualisation.html#aesthetic-mappings"><em>R for Data Science</em></a> <span class="citation" data-cites="rds2016">(<a href="#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>와 같은 더 고급 텍스트를 위해 남겨두겠습니다. 일반적으로 말해서 그래픽 문법은 플롯의 높은 자유도의 커스터마이징을 가능하게 하며, 플롯을 쉽게 업데이트하고 수정할 수 있는 일관된 틀을 제공합니다.</p>
+</section>
+<section id="ggplot2-패키지" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="ggplot2-패키지"><span class="header-section-number">5.1.4</span> ggplot2 패키지</h3>
+<p>이 책에서는 R을 위한 그래픽 문법의 구현체인 <code>ggplot2</code> 패키지를 데이터 시각화에 사용할 것입니다 <span class="citation" data-cites="R-ggplot2">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2026</a>)</span>. 앞서 언급했듯이, 이전 섹션의 많은 부분이 컴퓨터 코드 글꼴로 작성되었습니다. 이는 그래픽 문법의 다양한 구성 요소들이 <code>ggplot2</code> 패키지에 포함된 <code>ggplot()</code> 함수에서 지정되기 때문입니다. 이 책의 목적을 위해, 우리는 항상 <code>ggplot()</code> 함수에 최소한 다음과 같은 인자(즉, 입력값)를 제공할 것입니다:</p>
+<ul>
+<li>변수가 존재하는 데이터 프레임: <code>data</code> 인자.</li>
+<li>변수를 미적 속성에 매핑하는 것: 관련된 미적 속성을 지정하는 <code>mapping</code> 인자.</li>
+</ul>
+<p>이러한 구성 요소를 지정한 후, <code>+</code> 기호를 사용하여 플롯에 <em>레이어(layers)</em>를 추가합니다. 플롯에 추가할 가장 필수적인 레이어는 플롯에 포함할 <code>기하학적(geom)</code> 객체의 유형(점, 선, 막대 등)을 지정하는 레이어입니다. 플롯에 추가할 수 있는 다른 레이어로는 플롯 제목, 축 라벨, 플롯의 시각적 테마, 그리고 분할(섹션 @ref(facets)에서 보게 될 것) 등이 있습니다.</p>
+<p>이제 그래픽 문법의 이론을 실제로 적용해 봅시다.</p>
+</section>
+</section>
+<section id="FiveNG" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="FiveNG"><span class="header-section-number">5.2</span> 다섯 가지 이름 있는 그래프 - 5NG</h2>
+<p>이 책에서는 내용을 단순하게 유지하기 위해 흔히 이름이 붙여진 다섯 가지 유형의 그래픽에만 집중할 것입니다. 우리는 이들을 “다섯 가지 이름 있는 그래프(five named graphs)” 또는 줄여서 <strong>5NG</strong>라고 부릅니다: </p>
+<ol type="1">
+<li>산점도 (scatterplots)</li>
+<li>선 그래프 (linegraphs)</li>
+<li>히스토그램 (histograms)</li>
+<li>박스 플롯 (boxplots)</li>
+<li>막대 그래프 (barplots)</li>
+</ol>
+<p>또한 이 플롯들의 몇 가지 변형도 제시하겠지만, 도구 상자에 이 다섯 가지 그래픽의 기본 레퍼토리가 있다면 광범위한 유형의 변수들을 시각화할 수 있습니다. 특정 플롯은 범주형 변수에만 적합하고, 다른 플롯은 수치형 변수에만 적합하다는 점에 유의하세요.</p>
+</section>
+<section id="scatterplots" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="scatterplots"><span class="header-section-number">5.3</span> 5NG#1: 산점도</h2>
+<p>5NG 중 가장 단순한 것은 <em>산점도(scatterplots)</em> 이며, <em>이변량 플롯(bivariate plots)</em>이라고도 합니다. 산점도를 사용하면 두 수치형 변수 간의 <em>관계</em>를 시각화할 수 있습니다. 산점도에 이미 익숙할 수도 있지만, 섹션 @ref(grammarofgraphics)에서 제시한 그래픽 문법의 렌즈를 통해 다시 살펴보겠습니다. 구체적으로, 우리는 <code>moderndive</code> 패키지에 포함된 <code>alaska_flights</code> 데이터 프레임에 있는 다음 두 수치형 변수 간의 관계를 시각화할 것입니다:</p>
+<ol type="1">
+<li>수평 “x”축의 <code>dep_delay</code>: 출발 지연 시간</li>
+<li>수직 “y”축의 <code>arr_delay</code>: 도착 지연 시간</li>
+</ol>
+<p>이 데이터는 2013년 뉴욕시를 출발한 알래스카 항공(Alaska Airlines) 항공편에 관한 것입니다. 즉, <code>alaska_flights</code>는 2013년에 뉴욕시를 출발한 <em>모든</em> 항공편으로 구성된 것이 아니라, <code>carrier</code>가 <code>AS</code>(알래스카 항공의 항공사 코드)인 항공편들로만 구성되어 있습니다.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.1)</strong> <code>nycflights13</code> 패키지의 <code>flights</code> 데이터 프레임과 <code>moderndive</code> 패키지의 <code>alaska_flights</code> 데이터 프레임을 <code>View(flights)</code>와 <code>View(alaska_flights)</code>를 실행하여 살펴보세요. 이 데이터 프레임들은 어떤 점에서 다른가요? 예를 들어, 각 데이터셋의 행의 수에 대해 생각해 보세요.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+<section id="geompoint" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="geompoint"><span class="header-section-number">5.3.1</span> <code>geom_point</code>를 이용한 산점도</h3>
+<p>이제 섹션 @ref(grammarofgraphics)에서 소개한 그래픽 문법 틀을 염두에 두면서, 원하는 산점도를 생성하는 코드를 살펴보겠습니다. 코드를 하나씩 분해해서 살펴보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> alaska_flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dep_delay, <span class="at">y =</span> arr_delay)) <span class="sc">+</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>ggplot()</code> 함수 내에서 그래픽 문법의 세 가지 구성 요소 중 두 가지를 인자(즉, 입력값)로 지정합니다:</p>
+<ol type="1">
+<li><code>data = alaska_flights</code>를 통해 <code>data</code>를 <code>alaska_flights</code> 데이터 프레임으로 지정합니다.</li>
+<li><code>mapping = aes(x = dep_delay, y = arr_delay)</code>를 통해 미적(aes) <code>매핑(mapping)</code>을 설정합니다. 구체적으로, <code>dep_delay</code> 변수는 <code>x</code> 위치 미적 속성에 매핑되고, <code>arr_delay</code> 변수는 <code>y</code> 위치 미적 속성에 매핑됩니다.</li>
+</ol>
+<p>그런 다음 <code>+</code> 기호를 사용하여 <code>ggplot()</code> 함수 호출에 레이어를 추가합니다. 추가된 레이어는 문법의 세 번째 구성 요소인 <code>기하학적(geom)</code> 객체를 지정합니다. 이 경우 기하학적 객체는 <code>geom_point()</code>를 지정하여 점으로 설정됩니다. 콘솔에서 이 두 줄의 코드를 실행하면 경고 메시지와 그림 @ref(fig:noalpha)에 표시된 그래픽이라는 두 가지 출력이 나타납니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 5 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/noalpha-1.png" class="img-fluid figure-img"></p>
+<figcaption>2013년 NYC 출발 알래스카 항공 항공편의 출발 지연 시간 대비 도착 지연 시간.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>먼저 그림 @ref(fig:noalpha)의 그래픽을 분석해 봅시다. <code>dep_delay</code>와 <code>arr_delay</code> 사이에 <em>양의 관계</em>가 존재함을 관찰할 수 있습니다. 즉, 출발 지연이 증가함에 따라 도착 지연도 증가하는 경향이 있습니다. 또한 지연되지 않고 출발하고 도착한 항공편을 나타내는 (0, 0) 근처에 밀집된 거대한 점들의 무리도 관찰해 보세요.</p>
+<p>경고 메시지에 주의를 기울여 봅시다. R은 데이터가 누락되어 5개의 행이 무시되었다는 사실을 경고하고 있습니다. 이 5개 행의 경우, <code>dep_delay</code> 또는 <code>arr_delay</code> 중 하나 또는 둘 다의 값이 누락되어(R에서 <code>NA</code>로 기록됨) 플롯에서 제외되었습니다.</p>
+<p>계속하기 전에, 산점도를 생성한 이 코드에 대해 몇 가지 더 관찰해 보겠습니다. <code>+</code> 기호는 줄의 끝에 오며 줄의 시작 부분에는 오지 않는다는 점에 유의하세요. 줄의 시작 부분에 두면 R에서 오류가 발생합니다. 플롯에 레이어를 추가할 때는 각 레이어에 대한 코드가 새 줄에 오도록 <code>+</code> 뒤에 새 줄을 시작하는 것(키보드의 Return/Enter 키를 누름)이 권장됩니다. 플롯에 더 많은 레이어를 추가할수록 이렇게 하는 것이 코드의 가독성을 크게 높여준다는 것을 알게 될 것입니다.</p>
+<p>기하학적 객체를 지정하는 레이어를 추가하는 것의 중요성을 강조하기 위해, 레이어가 추가되지 않은 그림 @ref(fig:nolayers)를 고려해 보세요. 기하학적 객체가 지정되지 않았기 때문에 빈 플롯이 나타나며, 이는 별로 유용하지 않습니다!</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> alaska_flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dep_delay, <span class="at">y =</span> arr_delay))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/nolayers-1.png" class="img-fluid figure-img"></p>
+<figcaption>레이어가 없는 플롯.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.2)</strong> <code>dep_delay</code>와 <code>arr_delay</code>가 양의 관계를 갖는 몇 가지 실질적인 이유는 무엇인가요?</p>
+<p><strong>(LC2.3)</strong> <code>weather</code> 데이터 프레임의 어떤 변수들이 <code>dep_delay</code>와 음의 상관관계(즉, 음의 관계)를 가질 것으로 예상하나요? 그 이유는 무엇인가요? 여기서는 수치형 변수에 집중하고 있다는 점을 기억하세요. 힌트: <code>View()</code> 함수를 사용하여 <code>weather</code> 데이터셋을 탐색해 보세요.</p>
+<p><strong>(LC2.4)</strong> 왜 (0, 0) 근처에 점들이 밀집되어 있다고 생각하나요? 알래스카 항공 항공편의 관점에서 (0, 0)은 무엇에 해당하나요?</p>
+<p><strong>(LC2.5)</strong> 플롯에서 눈에 띄는 다른 특징들은 무엇인가요?</p>
+<p><strong>(LC2.6)</strong> 제시된 예시를 수정하여 <code>alaska_flights</code> 데이터 프레임의 다른 변수들을 사용한 새로운 산점도를 만들어 보세요.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="overplotting" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="overplotting"><span class="header-section-number">5.3.2</span> 오버플로팅</h3>
+<p>그림 @ref(fig:noalpha)에서 (0, 0) 근처의 거대한 점들의 무리는 실제로 플롯된 점들의 수를 파악하기 어렵게 만들기 때문에 혼란을 줄 수 있습니다. 이것은 <em>오버플로팅(overplotting)</em> 이라고 불리는 현상의 결과입니다. 짐작할 수 있듯이, 이는 점들이 서로 겹쳐서 반복적으로 플롯되는 것을 의미합니다. 오버플로팅이 발생하면 플롯되는 점들의 개수를 알기 어렵습니다. 오버플로팅 문제를 해결하는 두 가지 방법이 있습니다:</p>
+<ol type="1">
+<li>점들의 투명도를 조정하거나</li>
+<li>각 점에 약간의 무작위적인 “지터(jitter)” 또는 무작위적인 “넛지(nudge)”를 추가하는 것입니다.</li>
+</ol>
+<p><strong>방법 1: 투명도 변경</strong></p>
+<p>오버플로팅을 해결하는 첫 번째 방법은 <code>geom_point()</code>에서 <code>alpha</code> 인자를 설정하여 점들의 투명도/불투명도를 변경하는 것입니다. <code>alpha</code> 인자는 <code>0</code>에서 <code>1</code> 사이의 값으로 설정할 수 있습니다. 여기서 <code>0</code>은 점들을 100% 투명하게 만들고, <code>1</code>은 점들을 100% 불투명하게 만듭니다. 기본적으로 <code>alpha</code>는 <code>1</code>로 설정되어 있습니다. 즉, <code>alpha</code> 값을 명시적으로 설정하지 않으면 R은 <code>alpha = 1</code>을 사용합니다.</p>
+<p>다음 코드가 오버플로팅이 있는 산점도를 생성했던 섹션 @ref(scatterplots)의 코드와 동일하지만, <code>geom_point()</code> 함수에 <code>alpha = 0.2</code>가 추가되었다는 점에 주목하세요:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> alaska_flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dep_delay, <span class="at">y =</span> arr_delay)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/alpha-1.png" class="img-fluid figure-img"></p>
+<figcaption>alpha = 0.2를 적용한 도착 지연 시간 대비 출발 지연 시간 산점도.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:alpha)에서 주목해야 할 주요 특징은 점들의 투명도 가 누적된다는 점입니다. 오버플로팅 정도가 높은 영역은 더 어둡게 나타나고, 정도가 낮은 영역은 덜 어둡게 나타납니다. 또한 <code>alpha = 0.2</code> 주위에 <code>aes()</code>가 없다는 점에 유의하세요. 이는 변수를 미적 속성에 매핑하는 것이 아니라 단순히 <code>alpha</code>의 기본 설정을 변경하는 것이기 때문입니다. 실제로 두 번째 줄을 <code>geom_point(aes(alpha = 0.2))</code>로 변경하려고 하면 오류가 발생합니다.</p>
+<p><strong>방법 2: 점들에 지터 추가하기</strong></p>
+<p>오버플로팅을 해결하는 두 번째 방법은 모든 점들에 <em>지터(jitter)</em>를 추가하는 것입니다. 이는 각 점에 무작위 방향으로 작은 “넛지”를 주는 것을 의미합니다. “지터링(jittering)”은 플롯 위의 점들을 약간씩 흔드는 것으로 생각할 수 있습니다. 먼저 간단한 예시로 설명해 보겠습니다. x와 y 값이 (0,0), (0,0), (0,0), (0,0)인 동일한 4개의 행을 가진 데이터 프레임이 있다고 가정해 봅시다. 그림 @ref(fig:jitter-example-plot-1)에서 이 4개 점에 대한 일반 산점도(왼쪽)와 지터가 적용된 산점도(오른쪽)를 모두 보여줍니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/jitter-example-plot-1-1.png" class="img-fluid figure-img"></p>
+<figcaption>일반 산점도와 지터 산점도.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>왼쪽의 일반 산점도에서는 4개의 점이 서로 겹쳐져 있음을 관찰할 수 있습니다. 우리는 4개의 값이 플롯되고 있다는 것을 알고 있지만, 다른 사람들에게는 이 사실이 분명하지 않을 수 있습니다. 오른쪽의 지터 산점도에서는 각 점에 무작위 “넛지”가 주어졌기 때문에 이 플롯이 4개의 점을 포함하고 있다는 것이 이제 명확하게 드러납니다.</p>
+<p>하지만 지터링은 엄밀히 말해 시각화 도구일 뿐이며, 지터 산점도를 만든 후에도 데이터 프레임에 저장된 원래 값은 변경되지 않은 상태로 유지된다는 점을 명심하세요. </p>
+<p>지터 산점도를 생성하려면 <code>geom_point()</code> 대신 <code>geom_jitter()</code>를 사용합니다. 다음 코드가 소섹션 @ref(geompoint)에서 오버플로팅이 있는 산점도를 생성했던 코드와 매우 유사하며, <code>geom_point()</code> 가 <code>geom_jitter()</code>로 대체되었다는 점을 관찰해 보세요.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> alaska_flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dep_delay, <span class="at">y =</span> arr_delay)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">30</span>, <span class="at">height =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/jitter-1.png" class="img-fluid figure-img"></p>
+<figcaption>도착 지연 시간 대비 출발 지연 시간 지터 산점도.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>추가할 지터의 양을 지정하기 위해 <code>geom_jitter()</code>에 <code>width</code>와 <code>height</code> 인자를 조정했습니다. 이는 각각 가로 x축 단위와 세로 y축 단위로 플롯을 얼마나 세게 흔들고 싶은지에 해당합니다. 이 경우 두 축 모두 분 단위입니다. <code>width</code>와 <code>height</code> 인자를 사용하여 지터를 얼마나 추가해야 할까요? 한편으로는 점들의 겹침을 해소할 수 있을 정도의 지터를 추가하는 것이 중요하지만, 다른 한편으로는 점들의 원래 패턴을 완전히 바꿀 정도로 많이 추가해서는 안 됩니다.</p>
+<p>그림 @ref(fig:jitter)에서 볼 수 있듯이, 이 경우 지터링은 실제로는 별로 새로운 통찰력을 제공하지 않습니다. 이 특정한 경우에는 <code>alpha</code>를 설정하여 점들의 투명도를 변경하는 것이 더 효과적이었다고 주장할 수 있습니다. 언제 지터 산점도를 사용하는 것이 더 좋을까요? 언제 점들의 투명도를 변경하는 것이 더 좋을까요? 모든 상황에 적용되는 단 하나의 정답은 없습니다. 주관적인 선택을 내려야 하며 그 선택에 책임을 져야 합니다. 하지만 오버플로팅에 직면했을 때 최소한 두 가지 유형의 플롯을 모두 만들어 보고 어떤 것이 여러분이 전달하려는 요점을 더 잘 강조하는지 확인해 보기를 권장합니다.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.7)</strong> 산점도에서 <code>alpha</code> 인자 값을 설정하는 것이 왜 유용한가요? 일반 산점도가 제공하지 못하는 어떤 추가 정보를 제공하나요?</p>
+<p><strong>(LC2.8)</strong> 그림 @ref(fig:alpha)를 살펴본 후, 가장 빈번하게 발생하는 도착 지연 시간과 출발 지연 시간의 대략적인 범위를 제시하세요. 그림 @ref(fig:noalpha)에서 <code>alpha = 0.2</code>를 설정하지 않고 동일한 플롯을 보았을 때와 비교하여 그 영역이 어떻게 변했나요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="요약" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="요약"><span class="header-section-number">5.3.3</span> 요약</h3>
+<p>산점도는 두 수치형 변수 간의 관계를 보여줍니다. 산점도는 한 수치형 변수 대 다른 수치형 변수의 추세를 즉각적으로 볼 수 있는 방법을 제공하기 때문에 가장 흔히 사용되는 플롯 중 하나입니다. 하지만 두 변수 중 하나라도 수치형이 아닌데 산점도를 만들려고 하면 이상한 결과가 나올 수 있습니다. 주의하세요!</p>
+<p>중간에서 대규모 데이터셋의 경우, 점들의 투명도/불투명도를 변경하거나 점들을 지터링하는 등 우리가 살펴본 산점도에 대한 다양한 수정을 시도해 볼 필요가 있습니다. 플롯을 만지작거리면서 서로 다른 관계가 나타나는 것을 볼 수 있기 때문에, 이러한 미세 조정은 종종 데이터 시각화의 즐거운 부분이 됩니다.</p>
+</section>
+</section>
+<section id="linegraphs" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="linegraphs"><span class="header-section-number">5.4</span> 5NG#2: 선 그래프</h2>
+<p>다섯 가지 이름 있는 그래프 중 다음은 선 그래프(linegraphs)입니다. 선 그래프 는 x축의 변수(주로 <em>설명(explanatory)</em> 변수라고 함)가 연속적인 성질을 가질 때 두 수치형 변수 간의 관계를 보여줍니다. 즉, 변수에 내재된 순서가 있습니다.</p>
+<p>선 그래프의 가장 흔한 예시는 x축에 시간의 개념(시간, 일, 주, 년 등)이 있는 경우입니다. 시간은 연속적이기 때문에 y축 변수의 연속된 관측치를 선으로 연결합니다. x축에 시간의 개념이 있는 선 그래프는 <em>시계열(time series)</em> 플롯이라고도 합니다. <code>nycflights13</code> 패키지의 또 다른 데이터셋인 <code>weather</code> 데이터 프레임을 사용하여 선 그래프를 설명해 보겠습니다.</p>
+<p><code>View(weather)</code>와 <code>glimpse(weather)</code>를 실행하여 <code>nycflights13</code> 패키지의 <code>weather</code> 데이터 프레임을 탐색해 보세요. 또한 <code>?weather</code>를 실행하여 관련 도움말 파일을 읽어보세요.</p>
+<p>뉴욕시의 세 주요 공항인 뉴어크(<code>origin</code> 코드 <code>EWR</code>), 존 F. 케네디 국제공항(<code>JFK</code>), 라과디아(<code>LGA</code>) 근처의 기상 관측소에서 측정된 매시간 기온(화씨)이 기록된 <code>temp</code>라는 변수가 있음을 관찰해 보세요.</p>
+<p>하지만 세 공항 모두에 대해 2013년 전체 일수 동안의 매시간 기온을 고려하는 대신, 단순화를 위해 1월 첫 15일 동안 뉴어크 공항의 매시간 기온만 고려해 보겠습니다. 이 데이터는 <code>moderndive</code> 패키지에 포함된 <code>early_january_weather</code> 데이터 프레임에서 접근할 수 있습니다. 즉, <code>early_january_weather</code>는 <code>origin</code>이 <code>EWR</code>(뉴어크 공항 코드)이고, <code>month</code>가 <code>1</code>이며, <code>day</code>가 <code>15</code> 이하인 매시간 기상 관측 데이터를 포함하고 있습니다.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.9)</strong> <code>nycflights13</code> 패키지의 <code>weather</code> 데이터 프레임과 <code>moderndive</code> 패키지의 <code>early_january_weather</code> 데이터 프레임을 <code>View(weather)</code>와 <code>View(early_january_weather)</code>를 실행하여 살펴보세요. 이 데이터 프레임들은 어떤 점에서 다른가요?</p>
+<p><strong>(LC2.10)</strong> <code>flights</code> 데이터 프레임을 다시 <code>View()</code>로 살펴보세요. 왜 <code>time_hour</code> 변수는 측정 시간을 고유하게 식별하는 반면, <code>hour</code> 변수는 그렇지 못한가요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+<section id="geomline" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="geomline"><span class="header-section-number">5.4.1</span> <code>geom_line</code>을 이용한 선 그래프</h3>
+<p>이전에 산점도를 만들기 위해 <code>geom_point()</code>를 사용했던 것 대신, 선 그래프를 만들기 위해 <code>geom_line()</code>을 사용하여 <code>early_january_weather</code> 데이터 프레임에 저장된 매시간 기온의 시계열 플롯을 만들어 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> early_january_weather, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time_hour, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/hourlytemp-1.png" class="img-fluid figure-img"></p>
+<figcaption>2013년 1월 1~15일 뉴어크의 매시간 기온.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:noalpha)에서 알래스카 항공 항공편의 출발 및 도착 지연 시간 산점도를 생성했던 <code>ggplot()</code> 코드와 마찬가지로, 이 코드를 그래픽 문법의 관점에서 하나씩 분해해 보겠습니다.</p>
+<p><code>ggplot()</code> 함수 호출 내에서 그래픽 문법의 두 가지 구성 요소를 인자로 지정합니다:</p>
+<ol type="1">
+<li><code>data = early_january_weather</code>를 설정하여 <code>data</code>를 <code>early_january_weather</code> 데이터 프레임으로 지정합니다.</li>
+<li><code>mapping = aes(x = time_hour, y = temp)</code>를 설정하여 미적 <code>매핑</code>을 지정합니다. 구체적으로, <code>time_hour</code> 변수는 <code>x</code> 위치 미적 속성에 매핑되고, <code>temp</code> 변수는 <code>y</code> 위치 미적 속성에 매핑됩니다.</li>
+</ol>
+<p><code>+</code> 기호를 사용하여 <code>ggplot()</code> 함수 호출에 레이어를 추가합니다. 해당 레이어는 문법의 세 번째 구성 요소인 기하학적 객체를 지정합니다. 이 경우 기하학적 객체는 <code>geom_line()</code>을 지정하여 설정된 <code>선(line)</code>입니다.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.11)</strong> 수평축에 명확한 순서가 없을 때 왜 선 그래프를 피해야 하나요?</p>
+<p><strong>(LC2.12)</strong> 시간이 x축의 설명 변수일 때 왜 선 그래프가 자주 사용되나요?</p>
+<p><strong>(LC2.13)</strong> 2013년 1월 첫 15일 동안 뉴어크 공항의 <code>temp</code> 이외의 변수에 대한 시계열을 플롯해 보세요.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="요약-1" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="요약-1"><span class="header-section-number">5.4.2</span> 요약</h3>
+<p>선 그래프는 산점도와 마찬가지로 두 수치형 변수 간의 관계를 보여줍니다. 하지만 시간의 개념과 같이 x축 변수(즉, 설명 변수)에 내재된 순서가 있는 경우에는 산점도보다 선 그래프를 사용하는 것이 선호됩니다.</p>
+</section>
+</section>
+<section id="histograms" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="histograms"><span class="header-section-number">5.5</span> 5NG#3: 히스토그램</h2>
+<p>다시 한번 <code>weather</code> 데이터 프레임의 <code>temp</code> 변수를 고려해 봅시다. 하지만 섹션 @ref(linegraphs)의 선 그래프와 달리, 시간과의 관계에는 관심이 없고 오직 <code>temp</code> 값이 어떻게 <em>분포</em>하는지에만 관심이 있다고 가정해 봅시다. 즉:</p>
+<ol type="1">
+<li>최솟값과 최댓값은 무엇인가요?</li>
+<li>“중심” 또는 “가장 전형적인” 값은 무엇인가요?</li>
+<li>값들이 어떻게 퍼져 있나요?</li>
+<li>빈번한 값과 드문 값은 무엇인가요?</li>
+</ol>
+<p>이 단일 변수 <code>temp</code>가 어떻게 <em>분포</em> 하는지 시각화하는 한 가지 방법은 그림 @ref(fig:temp-on-line)에서와 같이 수평선 위에 플롯하는 것입니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/temp-on-line-1.png" class="img-fluid figure-img"></p>
+<figcaption>2013년 NYC 매시간 기온 기록 플롯.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>이는 <code>temp</code> 값이 어떻게 분포하는지에 대한 일반적인 아이디어를 제공합니다. 기온이 약 11°F (-11°C)에서 약 100°F (38°C)까지 변하는 것을 관찰할 수 있습니다. 또한 40°F에서 60°F 사이가 이 범위를 벗어나는 영역보다 더 많은 온도가 기록된 것으로 보입니다. 하지만 점들의 오버플로팅 정도가 높기 때문에, 예를 들어 50°F와 55°F 사이에 정확히 얼마나 많은 값이 있는지 파악하기는 어렵습니다.</p>
+<p>그림 @ref(fig:temp-on-line) 대신 흔히 생성되는 것이 바로 <em>히스토그램(histogram)</em> 입니다. 히스토그램은 다음과 같이 수치형 값의 <em>분포</em>를 시각화하는 플롯입니다.</p>
+<ol type="1">
+<li>먼저 x축을 일련의 <em>빈(bins)</em> 으로 나눕니다. 여기서 각 빈은 값의 범위를 나타냅니다.</li>
+<li>각 빈에 대해 해당 빈의 범위에 속하는 관측치의 수를 셉니다.</li>
+<li>그런 다음 각 빈에 대해 높이가 해당 개수를 나타내는 막대를 그립니다.</li>
+</ol>
+<p>그림 @ref(fig:histogramexample)에 표시된 히스토그램 예시를 자세히 살펴보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/histogramexample-1.png" class="img-fluid figure-img"></p>
+<figcaption>히스토그램 예시.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>지금은 30°F (-1°C)와 60°F (15°C) 사이의 기온에만 집중해 봅시다. 30°F와 60°F 사이에 너비가 같은 세 개의 빈이 있음을 관찰할 수 있습니다. 따라서 너비가 각각 10°F인 세 개의 빈을 갖게 됩니다. 30~40°F 범위에 대한 빈 하나, 40~50°F 범위에 대한 빈 하나, 50~60°F 범위에 대한 빈 하나입니다. 다음을 따릅니다:</p>
+<ol type="1">
+<li>30~40°F 범위에 대한 빈의 높이는 약 5000입니다. 즉, 매시간 기온 기록 중 약 5000개가 30°F에서 40°F 사이입니다.</li>
+<li>40~50°F 범위에 대한 빈의 높이는 약 4300입니다. 즉, 매시간 기온 기록 중 약 4300개가 40°F에서 50°F 사이입니다.</li>
+<li>50~60°F 범위에 대한 빈의 높이는 약 3500입니다. 즉, 매시간 기온 기록 중 약 3500개가 50°F에서 60°F 사이입니다.</li>
+</ol>
+<p>x축에서 10°F에서 100°F까지 펼쳐진 9개 빈 모두 이와 같이 해석됩니다.</p>
+<section id="geomhistogram" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="geomhistogram"><span class="header-section-number">5.5.1</span> <code>geom_histogram</code>을 이용한 히스토그램</h3>
+<p>이제 첫 번째 히스토그램을 그리는 <code>ggplot()</code> 코드를 제시하겠습니다! 산점도나 선 그래프와 달리, 이제 <code>aes()</code>에 매핑되는 변수는 단일 수치형 변수인 <code>temp</code> 하나뿐입니다. 각 빈에 있는 관측치 수인 히스토그램의 y축 미적 속성은 자동으로 계산됩니다. 또한 기하학적 객체 레이어는 이제 <code>geom_histogram()</code>입니다. 다음 코드를 실행하면 경고 메시지와 함께 그림 @ref(fig:weather-histogram)의 히스토그램을 볼 수 있습니다. 먼저 경고 메시지에 대해 논의해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/weather-histogram-1.png" class="img-fluid figure-img"></p>
+<figcaption>NYC 세 공항의 매시간 기온 히스토그램.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>첫 번째 메시지는 히스토그램이 동일한 간격의 30개 빈을 나타내는 <code>bins = 30</code>을 사용하여 구성되었음을 알려줍니다. 이는 컴퓨터 프로그래밍에서 기본값(default value)으로 알려져 있습니다. 여러분이 지정한 숫자로 이 기본 빈 개수를 덮어쓰지 않는 한, R은 기본적으로 30을 선택합니다. 다음 섹션에서 빈의 개수를 기본값 이외의 값으로 변경하는 방법을 살펴보겠습니다.</p>
+<p>두 번째 메시지는 그림 @ref(fig:noalpha)에서 알래스카 항공 항공편의 출발 및 도착 지연 시간 산점도를 생성하는 코드를 실행했을 때 받았던 경고 메시지와 유사한 내용을 알려줍니다. 즉, 한 행의 <code>temp</code> 값이 누락된 <code>NA</code>이기 때문에 히스토그램에서 제외되었다는 것입니다. R은 단지 이런 경우가 있었다는 것을 친절하게 알려주는 것입니다.</p>
+<p>이제 그림 @ref(fig:weather-histogram)의 결과 히스토그램을 분석해 봅시다. 25°F 미만의 값과 80°F 이상의 값은 다소 드물다는 것을 관찰할 수 있습니다. 하지만 빈의 개수가 많기 때문에 각 빈이 어느 범위의 온도를 차지하는지 파악하기 어렵습니다. 모든 것이 하나의 거대한 부정형 덩어리처럼 보입니다. 따라서 <code>geom_histogram()</code>에 <code>color = "white"</code> 인자를 추가하여 빈을 구분하는 하얀색 수직 경계선을 추가하고, 빈의 개수를 더 나은 값으로 설정하라는 경고는 무시해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/weather-histogram-2-1.png" class="img-fluid figure-img"></p>
+<figcaption>하얀색 경계선이 있는 NYC 세 공항의 매시간 기온 히스토그램.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>이제 그림 @ref(fig:weather-histogram-2)에서 각 빈에 해당하는 온도 범위를 더 쉽게 연결 지을 수 있습니다. 또한 <code>fill</code> 인자를 설정하여 막대의 색상을 다양하게 바꿀 수도 있습니다. 예를 들어, <code>fill = "steelblue"</code>를 설정하여 빈 색상을 “스틸 블루”로 설정할 수 있습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>궁금하다면 <code>colors()</code> 를 실행하여 R에서 선택 가능한 657가지 색상을 모두 확인해 보세요!</p>
+</section>
+<section id="adjustbins" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="adjustbins"><span class="header-section-number">5.5.2</span> 빈 조정하기</h3>
+<p>그림 @ref(fig:weather-histogram-2)에서 50~75°F 범위에 대략 8개의 빈이 있음을 관찰할 수 있습니다. 따라서 각 빈의 너비는 25를 8로 나눈 3.125°F이며, 이는 다루기에 매우 해석하기 쉬운 범위는 아닙니다. 다음 두 가지 방법 중 하나로 히스토그램의 빈 수를 조정하여 이를 개선해 보겠습니다.</p>
+<ol type="1">
+<li><code>geom_histogram()</code>의 <code>bins</code> 인자를 통해 빈의 개수를 조정합니다.</li>
+<li><code>geom_histogram()</code>의 <code>binwidth</code> 인자를 통해 빈의 너비를 조정합니다.</li>
+</ol>
+<p>첫 번째 방법을 사용하면 x축을 몇 개의 빈으로 나눌지 지정할 수 있는 권한이 생깁니다. 이전 섹션에서 언급했듯이 기본 빈 개수는 30개입니다. 다음과 같이 이 기본값을 40개 빈으로 덮어쓸 수 있습니다:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>두 번째 방법을 사용하면 빈의 개수를 지정하는 대신, <code>geom_histogram()</code> 레이어에서 <code>binwidth</code> 인자를 사용하여 빈의 너비를 지정합니다. 예를 들어, 각 빈의 너비를 10°F로 설정해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>그림 @ref(fig:hist-bins)에서 두 결과 히스토그램을 나란히 비교해 봅니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/hist-bins-1.png" class="img-fluid figure-img"></p>
+<figcaption>히스토그램 빈을 설정하는 두 가지 방법.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.14)</strong> 빈의 개수를 30개에서 40개로 변경했을 때 기온의 분포에 대해 무엇을 알 수 있나요?</p>
+<p><strong>(LC2.15)</strong> 기온의 분포를 대칭이라고 보시나요, 아니면 한쪽 방향으로 치우쳐(skewed) 있다고 보시나요?</p>
+<p><strong>(LC2.16)</strong> 이 분포의 “중심” 값은 무엇이라고 추측하시나요? 왜 그런 선택을 하셨나요?</p>
+<p><strong>(LC2.17)</strong> 이 데이터는 중심에서 크게 퍼져 있나요, 아니면 밀집되어 있나요? 그 이유는 무엇인가요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="요약-2" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="요약-2"><span class="header-section-number">5.5.3</span> 요약</h3>
+<p>히스토그램은 산점도나 선 그래프와 달리 단 하나의 수치형 변수에 대한 정보만 제공합니다. 구체적으로, 해당 수치형 변수의 분포를 시각화한 것입니다.</p>
+</section>
+</section>
+<section id="facets" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="facets"><span class="header-section-number">5.6</span> 분할</h2>
+<p>다음 5NG를 계속하기 전에 <em>분할(faceting)</em>이라는 새로운 개념을 간략하게 소개하겠습니다. 분할은 특정 시각화를 다른 변수의 값에 따라 나누고 싶을 때 사용됩니다. 이렇게 하면 x축과 y축은 일치하지만 내용이 다른 동일한 유형의 플롯이 여러 개 생성됩니다.</p>
+<p>예를 들어, 그림 @ref(fig:histogramexample)에서 보았던 NYC 세 공항의 매시간 기온 기록 히스토그램이 각 달마다 어떻게 다른지 확인하고 싶다고 가정해 봅시다. 이 히스토그램을 해당 연도의 12개월로 “나눌” 수 있습니다. 다시 말해, 각 <code>month</code>별로 <code>temp</code>의 히스토그램을 따로 그리는 것입니다. 이는 <code>facet_wrap(~ month)</code> 레이어를 추가하여 수행합니다. <code>~</code>는 “물결표(tilde)”이며 일반적으로 미국식 키보드의 “1” 키 옆에 있는 키에서 찾을 수 있습니다. 물결표는 필수이며, 이를 포함하지 않으면 <code>Error in as.quoted(facets) : object 'month' not found</code>와 같은 오류가 발생합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/facethistogram-1.png" class="img-fluid figure-img"></p>
+<figcaption>달별 매시간 기온의 분할 히스토그램.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>또한 <code>facet_wrap()</code> 안에서 <code>nrow</code>와 <code>ncol</code> 인자를 사용하여 그리드의 행과 열 개수를 지정할 수 있습니다. 예를 들어, 분할된 히스토그램을 3행 대신 4행으로 만들고 싶다면 <code>facet_wrap(~ month)</code>에 <code>nrow = 4</code> 인자를 추가하면 됩니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> month, <span class="at">nrow =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/facethistogram2-1.png" class="img-fluid figure-img"></p>
+<figcaption>3행 대신 4행으로 구성된 분할 히스토그램.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:facethistogram)와 @ref(fig:facethistogram2) 모두에서 북반구에서 예상할 수 있듯이 여름철에는 기온이 높고 겨울철에는 낮은 경향이 있음을 관찰할 수 있습니다.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.18)</strong> 이 분할된 플롯에서 또 무엇을 알 수 있나요? 분할된 플롯이 두 변수 사이의 관계를 파악하는 데 어떻게 도움이 되나요?</p>
+<p><strong>(LC2.19)</strong> 플롯의 숫자 1-12는 무엇에 해당하나요? 25, 50, 75, 100은 어떤가요?</p>
+<p><strong>(LC2.20)</strong> 어떤 유형의 데이터셋에서 분할된 플롯이 변수 간의 관계를 비교하는 데 효과적이지 않을까요? 이러한 변수의 성격과 다른 중요한 특징을 설명하는 예를 들어보세요.</p>
+<p><strong>(LC2.21)</strong> <code>weather</code> 데이터셋의 <code>temp</code> 변수는 가변성(variability)이 큰가요? 왜 그렇게 생각하시나요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="boxplots" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="boxplots"><span class="header-section-number">5.7</span> 5NG#4: 박스 플롯</h2>
+<p>분할된 히스토그램이 다른 변수의 값에 따라 나누어진 수치형 변수의 분포를 비교하는 데 사용되는 시각화 유형 중 하나라면, 동일한 목표를 달성하는 또 다른 시각화 유형은 <em>나란히 배치된 박스 플롯(side-by-side boxplot)</em>입니다. 박스 플롯 은 수치형 변수의 <em>다섯 수치 요약(five-number summary)</em>에서 제공된 정보를 바탕으로 구성됩니다(부록 @ref(appendix-stat-terms) 참고).</p>
+<p>지금은 단순하게 하기 위해 11월의 2141건의 매시간 기온 기록만 고려해 보겠습니다. 그림 @ref(fig:nov1)에서는 각 기록을 지터링된 점으로 표시했습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/nov1-1.png" class="img-fluid figure-img"></p>
+<figcaption>지터링된 점으로 표현된 11월 기온.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>이 2141개의 관측치는 다음과 같은 <em>다섯 수치 요약</em>을 가집니다:</p>
+<ol type="1">
+<li>최솟값: 21°F</li>
+<li>제1사분위수 (25번째 백분위수): 36°F</li>
+<li>중간값 (제2사분위수, 50번째 백분위수): 45°F</li>
+<li>제3사분위수 (75번째 백분위수): 52°F</li>
+<li>최댓값: 71°F</li>
+</ol>
+<p>그림 @ref(fig:nov2)의 가장 왼쪽 플롯에서 2141개의 점 위에 이 5개 값을 점선 수평선으로 표시해 보겠습니다. 그림 @ref(fig:nov2)의 가운데 플롯에는 <em>박스 플롯</em>을 추가해 보겠습니다. 그림 @ref(fig:nov2)의 가장 오른쪽 플롯에서는 명확성을 위해 점과 점선 수평선을 제거해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/nov2-1.png" class="img-fluid figure-img"></p>
+<figcaption>11월 기온 박스 플롯 구성 과정.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>박스 플롯이 하는 일은 2141개의 기온 기록을 점선에서 <em>사분위수</em>로 잘라 2141개의 점을 시각적으로 요약하는 것입니다. 각 사분위수에는 대략 2141 <span class="math inline">\(\div\)</span> 4 <span class="math inline">\(\approx\)</span> 535개의 관측치가 포함됩니다. 따라서 다음과 같습니다:</p>
+<ol type="1">
+<li>점의 25%는 상자의 아래쪽 가장자리인 제1사분위수 36°F 아래에 위치합니다. 즉, 관측치의 25%가 36°F 미만이었습니다.</li>
+<li>점의 25%는 상자의 아래쪽 가장자리와 중간값 45°F인 굵은 중간선 사이에 위치합니다. 따라서 관측치의 25%는 36°F와 45°F 사이였으며, 관측치의 50%가 45°F 미만이었습니다.</li>
+<li>점의 25%는 굵은 중간선과 상자의 위쪽 가장자리인 제3사분위수 52°F 사이에 위치합니다. 결과적으로 관측치의 25%는 45°F와 52°F 사이였으며, 관측치의 75%가 52°F 미만이었습니다.</li>
+<li>점의 25%는 상자의 위쪽 가장자리 위에 위치합니다. 다시 말해, 관측치의 25%가 52°F보다 높았습니다.</li>
+<li>가운데 50%의 점은 제1사분위수와 제3사분위수 사이의 <em>사분위수 범위(IQR, Interquartile Range)</em> 내에 위치합니다. 따라서 이 예의 IQR은 52 - 36 = 16°F입니다. 사분위수 범위는 수치형 변수의 <em>퍼짐(spread)</em> 정도를 나타내는 척도입니다.</li>
+</ol>
+<p>또한 그림 @ref(fig:nov2)의 가장 오른쪽 플롯에서 박스 플롯의 <em>수염(whiskers)</em> 을 볼 수 있습니다. 수염은 상자의 양 끝에서 관측된 최저 및 최고 기온인 21°F와 71°F까지 각각 뻗어 있습니다. 하지만 수염이 항상 여기서처럼 가장 작거나 큰 관측값까지 뻗어 나가는 것은 아닙니다. 실제로 상자의 양 끝에서 사분위수 범위의 1.5배 이상 뻗어 나가지 않습니다. 11월 기온의 경우, 상자 양 끝에서 <span class="math inline">\(1.5 \times 16&amp;deg;F = 24&amp;deg;F\)</span>를 넘지 않습니다. 이 범위를 벗어나는 관측값은 <em>이상치(outliers)</em>라는 점으로 표시되며, 이는 다음 섹션에서 살펴보겠습니다.</p>
+<section id="geomboxplot" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="geomboxplot"><span class="header-section-number">5.7.1</span> <code>geom_boxplot</code>을 이용한 박스 플롯</h3>
+<p>이제 앞서 분할 히스토그램에서 했던 것처럼 12개월로 나누어진 매시간 기온의 나란히 배치된 박스 플롯 을 만들어 보겠습니다. <code>month</code> 변수를 x축 미적 속성에 매핑하고, <code>temp</code> 변수를 y축 미적 속성에 매핑한 후 <code>geom_boxplot()</code> 레이어를 추가합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/badbox-1.png" class="img-fluid figure-img"></p>
+<figcaption>잘못된 박스 플롯 지정.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<pre><code>정지 메시지:
+1: Continuous x aesthetic -- group=...?를 잊으셨나요? 
+2: 결측값을 포함하는 1행이 제거되었습니다 (stat_boxplot). </code></pre>
+<p>그림 @ref(fig:badbox)에서 이 플롯이 월별로 분리된 기온 정보를 제공하지 않음을 관찰할 수 있습니다. 첫 번째 경고 메시지가 그 이유를 알려줍니다. x축 미적 속성에 “연속형” 또는 수치형 변수가 있다는 뜻입니다. 하지만 박스 플롯은 범주형 변수가 x축 미적 속성에 매핑되어야 합니다. 두 번째 경고 메시지는 매시간 기온 히스토그램을 그릴 때와 동일하게 값 하나가 <code>NA</code>로 누락되었다는 내용입니다.</p>
+<p><code>factor()</code> 함수를 사용하여 수치형 변수 <code>month</code>를 <code>factor</code> 범주형 변수로 변환할 수 있습니다. <code>factor(month)</code>를 적용하면 month는 단순히 1, 2, …, 12라는 수치 값을 갖는 것에서 연관된 순서를 갖게 됩니다. 이 순서를 통해 <code>ggplot()</code>은 이제 이 변수를 사용하여 필요한 플롯을 생성하는 방법을 알게 됩니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(month), <span class="at">y =</span> temp)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/monthtempbox-1.png" class="img-fluid figure-img"></p>
+<figcaption>월별로 나누어진 기온의 나란히 배치된 박스 플롯.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>결과 그림 @ref(fig:monthtempbox)는 11월 기온에 대해서만 나타냈던 그림 @ref(fig:nov2)의 가장 오른쪽 플롯과 유사한 12개의 별도 “상자와 수염” 플롯을 보여줍니다. 따라서 서로 다른 박스 플롯들이 “나란히(side-by-side)” 표시됩니다.</p>
+<ul>
+<li>시각화의 “상자” 부분은 제1사분위수, 중간값(제2사분위수), 제3사분위수를 나타냅니다.</li>
+<li>각 상자의 높이(제3사분위수 값 - 제1사분위수 값)는 사분위수 범위(IQR)입니다. 이는 중간 50% 값들의 퍼짐 정도를 측정하는 척도이며, 상자가 길수록 가변성이 큼을 나타냅니다.</li>
+<li>이 플롯의 “수염” 부분은 상자의 아래쪽과 위쪽에서 뻗어 나오며 각각 25번째 백분위수 미만과 75번째 백분위수 이상의 점들을 나타냅니다. 수염은 상자 끝에서 <span class="math inline">\(1.5 \times IQR\)</span> 단위 이상 뻗어 나가지 않도록 설정되어 있습니다. 수염의 끝은 관측된 기온과 일치해야 하므로 “이상”이라고 표현했습니다. 이 수염의 길이는 중간 50%를 벗어난 데이터가 어떻게 변하는지 보여주며, 수염이 길수록 가변성이 큼을 나타냅니다.</li>
+<li>수염을 벗어난 값을 나타내는 점들을 <em>이상치(outliers)</em> 라고 합니다. 이들은 이례적인(“평범하지 않은”) 값으로 생각할 수 있습니다.</li>
+</ul>
+<p>이상치의 정의는 다소 임의적이며 절대적인 것이 아니라는 점을 명심하는 것이 중요합니다. 이 경우에는 각 박스 플롯에 대해 길이가 <span class="math inline">\(1.5 \times IQR\)</span> 이내인 수염에 의해 정의됩니다. 나란히 배치된 이 플롯을 보면 상자 중앙의 굵은 실선이 더 높게 위치한 것을 통해 예상대로 여름철(6월~8월)의 중간값 기온이 더 높음을 알 수 있습니다. 플롯 전체에 가상의 수평선을 그려서 월별 기온을 쉽게 비교할 수 있습니다. 또한 사분위수 범위로 정량화된 12개 상자의 높이도 유익한 정보를 제공합니다. 이는 특정 달에 기록된 기온의 가변성 또는 퍼짐 정도를 알려줍니다.</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.22)</strong> 5월 플롯의 맨 아래에 있는 점은 무엇에 해당하나요? 5월에 어떤 일이 일어나서 이런 점이 생겼을지 설명해 보세요.</p>
+<p><strong>(LC2.23)</strong> 기온의 가변성이 가장 큰 달은 언제인가요? 이에 대해 어떤 이유를 들 수 있을까요?</p>
+<p><strong>(LC2.24)</strong> 나란히 배치된 박스 플롯을 만들기 위해 <code>factor()</code> 함수를 사용하여 변환한 수치형 변수 <code>month</code>로 나누어진 수치형 변수 <code>temp</code>의 분포를 살펴보았습니다. 수치형 변수 <code>pressure</code>를 마찬가지로 <code>factor()</code>를 사용하여 범주형 변환하여 <code>temp</code>를 나눈 박스 플롯은 왜 유익하지 않을까요?</p>
+<p><strong>(LC2.25)</strong> 박스 플롯은 이상치를 식별하는 간단한 방법을 제공합니다. 분할된 히스토그램을 볼 때보다 박스 플롯을 볼 때 왜 이상치를 식별하기가 더 쉬울까요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="요약-3" class="level3" data-number="5.7.2">
+<h3 data-number="5.7.2" class="anchored" data-anchor-id="요약-3"><span class="header-section-number">5.7.2</span> 요약</h3>
+<p>나란히 배치된 박스 플롯은 다른 변수의 여러 값에 걸쳐 수치형 변수의 분포를 비교할 수 있는 방법을 제공합니다. 상자 중앙의 굵은 실선을 비교함으로써 서로 다른 그룹 간에 중간값이 어디에 위치하는지 알 수 있습니다.</p>
+<p>상자 중 하나의 수치형 변수의 퍼짐 정도를 연구하려면 상자의 길이와 상자의 양쪽 끝에서 수염이 얼마나 뻗어 있는지를 모두 살펴보세요. 이상치는 별개의 점으로 표시되기 때문에 히스토그램을 볼 때보다 박스 플롯을 볼 때 훨씬 더 쉽게 식별할 수 있습니다.</p>
+</section>
+</section>
+<section id="geombar" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="geombar"><span class="header-section-number">5.8</span> 5NG#5: 막대 그래프</h2>
+<p>히스토그램과 박스 플롯은 모두 수치형 변수의 분포를 시각화하는 도구입니다. 또 다른 흔한 작업은 범주형 변수의 분포를 시각화하는 것입니다. 이는 범주형 변수 내의 서로 다른 범주, 즉 해당 범주형 변수의 <em>수준(levels)</em>을 단순히 세는 것이므로 더 간단한 작업입니다. 이러한 개수(또는 <em>빈도(frequencies)</em>)를 시각화하는 가장 좋은 방법은 대개 막대 그래프(barplot 또는 barchart)입니다.</p>
+<p>하지만 한 가지 복잡한 점은 데이터가 어떻게 표현되어 있느냐 하는 것입니다. 관심 있는 범주형 변수가 이미 “개수가 세어져(pre-counted)” 있습니까, 아니면 그렇지 않습니까? 예를 들어, 사과 3개와 오렌지 2개로 구성된 과일 모음을 나타내는 두 개의 데이터 프레임을 수동으로 생성하는 다음 코드를 실행해 보세요.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fruit =</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"apple"</span>, <span class="st">"orange"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>fruits_counted <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fruit =</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"orange"</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">number =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>fruits</code>와 <code>fruits_counted</code> 데이터 프레임 모두 동일한 과일 모음을 나타내는 것을 알 수 있습니다. <code>fruits</code>는 단순히 과일들을 개별적으로 나열하고 있는 반면…</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  fruit 
+  &lt;chr&gt; 
+1 apple 
+2 apple 
+3 orange
+4 apple 
+5 orange</code></pre>
+</div>
+</div>
+<p>… <code>fruits_counted</code>는 각 과일의 “이미 세어진” 값을 나타내는 <code>number</code> 변수를 가지고 있습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  fruit  number
+  &lt;chr&gt;   &lt;dbl&gt;
+1 apple       3
+2 orange      2</code></pre>
+</div>
+</div>
+<p>범주형 데이터가 어떻게 표현되어 있는지에 따라, 막대 그래프를 만들기 위해 <code>ggplot()</code>에 서로 다른 <code>geom</code> 레이어 유형을 추가해야 합니다. 이제 이를 살펴보겠습니다.</p>
+<section id="geom_bar-또는-geom_col을-이용한-막대-그래프" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="geom_bar-또는-geom_col을-이용한-막대-그래프"><span class="header-section-number">5.8.1</span> <code>geom_bar</code> 또는 <code>geom_col</code>을 이용한 막대 그래프</h3>
+<p>사과 3개와 오렌지 2개가 담긴 동일한 과일 바구니의 두 가지 서로 다른 표현을 사용하여 막대 그래프를 생성해 봅시다. 5개의 과일이 5행에 개별적으로 나열된 <code>fruits</code> 데이터 프레임을 사용하는 경우, <code>fruit</code> 변수를 x축 위치 미적 속성에 매핑하고 <code>geom_bar()</code> 레이어를 추가합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fruits, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> fruit)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/geombar-1.png" class="img-fluid figure-img"></p>
+<figcaption>개수가 미리 세어지지 않았을 때의 막대 그래프.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>하지만 과일 개수가 이미 세어진 <code>fruits_counted</code> 데이터 프레임을 사용하는 경우, 다시 한번 <code>fruit</code> 변수를 x축 위치 미적 속성에 매핑하지만, 여기서는 <code>number</code> 변수를 y축 위치 미적 속성에도 매핑하고 대신 <code>geom_col()</code> 레이어를 추가합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fruits_counted, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> fruit, <span class="at">y =</span> number)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/geomcol-1.png" class="img-fluid figure-img"></p>
+<figcaption>개수가 미리 세어졌을 때의 막대 그래프.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:geombar)와 @ref(fig:geomcol)의 막대 그래프를 비교해 보세요. 동일한 다섯 개의 과일 개수를 나타내므로 결과는 동일합니다. 하지만 범주형 데이터가 “미리 세어졌는지” 여부에 따라 서로 다른 <code>geom</code> 레이어를 추가해야 합니다. 분포를 시각화하려는 범주형 변수가 다음과 같은 경우:</p>
+<ul>
+<li>데이터 프레임에서 미리 세어지지 <em>않았다면</em>, <code>geom_bar()</code>를 사용합니다.</li>
+<li>데이터 프레임에서 미리 세어졌다면, 개수가 포함된 변수를 y축 위치 미적 속성에 매핑하여 <code>geom_col()</code>을 사용합니다.</li>
+</ul>
+<p>이제 <code>nycflights13</code> 패키지의 <code>flights</code> 데이터 프레임으로 돌아가서 범주형 변수 <code>carrier</code>의 분포를 시각화해 봅시다. 즉, 2013년에 각 항공사가 뉴욕 시에서 출발하는 국내선을 몇 회 운항했는지 시각화해 보겠습니다. 소섹션 @ref(exploredataframes)에서 <code>flights</code> 데이터 프레임을 처음 탐색했을 때, 각 행이 하나의 항공편에 해당한다는 것을 확인했습니다. 다시 말해, <code>flights</code> 데이터 프레임은 항공편을 <code>carrier</code>별로 미리 세어 놓지 않았기 때문에 <code>fruits_counted</code>보다는 <code>fruits</code> 데이터 프레임과 더 비슷합니다. 따라서 막대 그래프를 만들기 위해 <code>geom_col()</code> 대신 <code>geom_bar()</code>를 사용해야 합니다. <code>geom_histogram()</code>과 마찬가지로 <code>aes()</code> 미적 매핑에는 하나의 변수만 들어갑니다. <code>carrier</code> 변수가 <code>x</code> 위치에 매핑됩니다. 하지만 히스토그램은 막대들이 서로 붙어 있는 반면, 막대 그래프는 왼쪽에서 오른쪽으로 진행되면서 막대 사이에 빈 공간이 있습니다.</p>
+<p>(ref:geombar) geom_bar()를 사용하여 2013년 항공사별 NYC 출발 항공편 수 시각화.</p>
+</section>
+<section id="two-categ-barplot" class="level3" data-number="5.8.2">
+<h3 data-number="5.8.2" class="anchored" data-anchor-id="two-categ-barplot"><span class="header-section-number">5.8.2</span> 두 범주형 변수</h3>
+<p>막대 그래프는 단일 범주형 변수의 서로 다른 범주 또는 수준의 빈도를 시각화하는 매우 일반적인 방법입니다. 막대 그래프의 또 다른 용도는 두 범주형 변수의 <em>결합(joint)</em> 분포를 동시에 시각화하는 것입니다. <code>carrier</code>와 <code>origin</code>에 따른 NYC 출발 국내선 항공편의 <em>결합</em> 분포를 살펴봅시다. 즉, 각 <code>carrier</code>와 <code>origin</code> 조합에 대한 항공편 수입니다.</p>
+<p>예를 들어, <code>JFK</code> 출발 WestJet 항공편 수, <code>LGA</code> 출발 WestJet 항공편 수, <code>EWR</code> 출발 WestJet 항공편 수, <code>JFK</code> 출발 American Airlines 항공편 수 등이 있습니다. 그림 @ref(fig:flightsbar)에서 <code>carrier</code> 빈도 막대 그래프를 생성했던 <code>ggplot()</code> 코드를 다시 떠올려 보세요.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier)) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>이제 <code>aes()</code> 미적 매핑 안에 <code>fill = origin</code>을 추가하여 추가 변수인 <code>origin</code>을 매핑할 수 있습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/flights-stacked-bar-1.png" class="img-fluid figure-img"></p>
+<figcaption>항공사와 출발 공항별 항공편 수에 대한 누적 막대 그래프.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:flights-stacked-bar)는 <em>누적 막대 그래프(stacked barplot)</em>의 예입니다. 만들기는 간단하지만, 어떤 측면에서는 이상적이지 않습니다. 예를 들어, 막대 내에서 서로 다른 색상의 높이를 비교하기가 어려운데, 이는 곧 항공사 간에 각 <code>origin</code> 공항에서 출발하는 항공편 수를 비교하기가 어렵다는 것을 의미합니다.</p>
+<p>계속하기 전에, 새로운 R 사용자들이 흔히 겪는 몇 가지 혼동되는 점들을 짚고 넘어가겠습니다. 첫째, <code>fill</code> 미적 속성은 막대를 채우는 데 사용되는 색상에 해당하고, <code>color</code> 미적 속성은 막대의 테두리 색상에 해당합니다. 이는 소섹션 @ref(geomhistogram)에서 히스토그램에 색상을 추가한 방식과 동일합니다. <code>color = "white"</code>로 설정하여 막대의 테두리를 흰색으로 만들고, <code>fill = "steelblue"</code>로 설정하여 막대의 색상을 블루 스틸 색상으로 만들었습니다. 그림 @ref(fig:flights-stacked-bar-color)에서 <code>origin</code>을 <code>fill</code>이 아닌 <code>color</code>에 매핑하면 막대는 회색이고 테두리 색상만 다르게 나타나는 것을 확인하세요.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">color =</span> origin)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/flights-stacked-bar-color-1.png" class="img-fluid figure-img"></p>
+<figcaption>fill 대신 color 미적 속성을 사용한 누적 막대 그래프.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>둘째, <code>fill</code>은 <code>x</code> 위치와 마찬가지로 또 다른 미적 매핑이므로 <code>aes()</code> 매핑의 괄호 안에 포함해야 한다는 점에 유의하세요. 다음 코드와 같이 <code>fill</code> 미적 속성을 <code>aes()</code> 매핑 외부에서 지정하면 오류가 발생합니다. 이는 새로운 <code>ggplot</code> 사용자들이 상당히 자주 저지르는 실수입니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier), <span class="at">fill =</span> origin) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>누적 막대 그래프의 대안은 그림 @ref(fig:flights-dodged-bar-color)에서 볼 수 있듯이 <em>나란히 배치된 막대 그래프(side-by-side barplot)</em>이며 <em>dodged barplot</em>이라고도 합니다. 나란히 배치된 막대 그래프를 만드는 코드는 누적 막대 그래프를 만드는 코드와 동일하지만, <code>geom_bar()</code>에 <code>position = "dodge"</code> 인자를 추가합니다. 즉, 기본 막대 그래프 유형인 <em>누적</em> 막대 그래프를 무시하고 대신 나란히 배치된 막대 그래프로 지정하는 것입니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/flights-dodged-bar-color-1.png" class="img-fluid figure-img"></p>
+<figcaption>항공사와 출발 공항별 항공편 수를 비교하는 나란히 배치된 막대 그래프.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><code>AS</code>, <code>F9</code>, <code>FL</code>, <code>HA</code>, <code>YV</code> 항공사의 막대 너비가 다른 항공사와 다르다는 점에 유의하세요. 더 견고한 <code>position_dodge()</code> 함수를 사용하여 <code>position</code> 인자를 약간 수정하면 이러한 막대들의 너비를 다른 막대들과 동일하게 만들 수 있습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">preserve =</span> <span class="st">"single"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/flights-dodged-bar-color-tweak-1.png" class="img-fluid figure-img"></p>
+<figcaption>항공사와 출발 공항별 항공편 수를 비교하는 나란히 배치된 막대 그래프 (서식 수정 적용).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>마지막으로, 또 다른 유형의 막대 그래프는 <em>분할된 막대 그래프(faceted barplot)</em>입니다. 섹션 @ref(facets)에서 분할(facet)을 사용하여 NYC 세 공항의 매시간 기온 분포를 각 달로 <em>나누어</em> 시각화했던 것을 기억해 보세요. <code>carrier</code> 빈도를 <code>origin</code>별로 나누어 시각화하는 막대 그래프에도 동일한 원리를 적용할 수 있습니다. <code>origin</code>을 <code>fill</code>에 매핑하는 대신, <code>origin</code>의 수준별로 플롯의 작은 사본들을 생성할 변수로 포함시킵니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> origin, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-visualization_files/figure-html/facet-bar-vert-1.png" class="img-fluid figure-img"></p>
+<figcaption>항공사와 출발 공항별 항공편 수를 비교하는 분할된 막대 그래프.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC2.26)</strong> 그림 @ref(fig:flights-stacked-bar)를 보는 것만으로는 어떤 종류의 질문에 쉽게 답하기 어려울까요?</p>
+<p><strong>(LC2.27)</strong> 2013년 NYC에서 출발하는 항공편 수와 관련하여 항공사와 공항 사이의 관계에 대해 말할 수 있는 것이 있다면 무엇인가요?</p>
+<p><strong>(LC2.28)</strong> 이 경우 왜 나란히 배치된 막대 그래프가 누적 막대 그래프보다 선호될 수 있을까요?</p>
+<p><strong>(LC2.29)</strong> 일반적으로 dodged barplot을 사용할 때의 단점은 무엇인가요?</p>
+<p><strong>(LC2.30)</strong> 이 경우 왜 분할된 막대 그래프가 나란히 배치된 막대 그래프나 누적 막대 그래프보다 선호되나요?</p>
+<p><strong>(LC2.31)</strong> 분할된 막대 그래프에서는 서로 다른 공항의 항공사들에 대한 어떤 정보를 더 쉽게 볼 수 있나요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+<section id="요약-4" class="level3" data-number="5.8.3">
+<h3 data-number="5.8.3" class="anchored" data-anchor-id="요약-4"><span class="header-section-number">5.8.3</span> 요약</h3>
+<p>막대 그래프는 범주형 변수의 분포, 다시 말해 서로 다른 범주(순서가 있는 경우 <em>수준</em>이라고도 함)가 나타나는 빈도를 표시하는 일반적인 방법입니다. 이해하기 쉽고 수준 간의 비교를 용이하게 합니다. 또한, 두 범주형 변수의 관계를 시각화할 때 누적 막대 그래프, 나란히 배치된 막대 그래프, 분할된 막대 그래프 등 많은 옵션이 있습니다. 관계의 어떤 측면을 강조하고 싶은지에 따라 이 세 가지 유형의 막대 그래프 중에서 선택해야 하며, 그 선택에 책임을 져야 합니다.</p>
+</section>
+</section>
+<section id="data-vis-conclusion" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="data-vis-conclusion"><span class="header-section-number">5.9</span> Conclusion</h2>
+<section id="요약표" class="level3" data-number="5.9.1">
+<h3 data-number="5.9.1" class="anchored" data-anchor-id="요약표"><span class="header-section-number">5.9.1</span> 요약표</h3>
+<p>표 @ref(tab:viz-summary-table)에서 다섯 가지 주요 그래프(5NG) 의 차이점을 다시 한번 정리해 봅시다. 이 5NG를 사용하면 광범위한 데이터셋에 포함된 변수들의 분포와 관계를 시각화할 수 있습니다. 각 <code>geom</code> 객체의 <code>aes</code> 미적 속성 옵션에 더 많은 변수를 매핑하기 시작하면 <code>ggplot2</code> 패키지의 강력한 기능을 더욱 만끽할 수 있을 것입니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>다섯 가지 주요 그래프(5NG) 요약</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Named graph</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Shows</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Geometric object</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Scatterplot</td>
+<td style="text-align: left;">Relationship between 2 numerical variables</td>
+<td style="text-align: left;">`geom_point()`</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Linegraph</td>
+<td style="text-align: left;">Relationship between 2 numerical variables</td>
+<td style="text-align: left;">`geom_line()`</td>
+<td style="text-align: left;">Used when there is a sequential order to x-variable, e.g., time</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Histogram</td>
+<td style="text-align: left;">Distribution of 1 numerical variable</td>
+<td style="text-align: left;">`geom_histogram()`</td>
+<td style="text-align: left;">Facetted histograms show the distribution of 1 numerical variable split by the values of another variable</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Boxplot</td>
+<td style="text-align: left;">Distribution of 1 numerical variable split by the values of another variable</td>
+<td style="text-align: left;">`geom_boxplot()`</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Barplot</td>
+<td style="text-align: left;">Distribution of 1 categorical variable</td>
+<td style="text-align: left;">`geom_bar()` when counts are not pre-counted, `geom_col()` when counts are pre-counted</td>
+<td style="text-align: left;">Stacked, side-by-side, and faceted barplots show the joint distribution of 2 categorical variables</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="함수-인자-지정-방법" class="level3" data-number="5.9.2">
+<h3 data-number="5.9.2" class="anchored" data-anchor-id="함수-인자-지정-방법"><span class="header-section-number">5.9.2</span> 함수 인자 지정 방법</h3>
+<p>함수에 인자(즉, 입력값)를 지정하는 몇 가지 중요한 사항을 살펴보겠습니다. 다음 두 개의 코드 세그먼트를 실행해 보세요.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 세그먼트 1:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 세그먼트 2:</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flights, <span class="fu">aes</span>(<span class="at">x =</span> carrier)) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>두 번째 세그먼트에서 <code>data =</code>와 <code>mapping =</code>이라는 인자 이름을 생략했음에도 불구하고 두 코드 세그먼트가 동일한 막대 그래프를 생성한다는 것을 알 수 있습니다. 이는 <code>ggplot()</code> 함수가 기본적으로 첫 번째 인자는 <code>data</code>, 두 번째 인자는 <code>mapping</code>이라고 가정하기 때문입니다. 해당하는 데이터 프레임을 첫 번째로 지정하고 <code>aes()</code> 매핑을 두 번째로 지정하는 한, <code>data =</code>와 <code>mapping =</code>과 같은 인자 이름을 명시적으로 작성하는 것을 생략할 수 있습니다.</p>
+<p>이 책의 나머지 부분에서는 모든 <code>ggplot()</code> 코드에서 인자의 기본 순서를 준수하면서 <code>data =</code> 및 <code>mapping =</code>과 같은 명시적인 이름을 생략한 두 번째 세그먼트와 같은 스타일을 사용할 것입니다. 이는 간결함을 위한 것이며, 다른 R 사용자들의 코드를 검토할 때도 흔히 볼 수 있는 스타일입니다.</p>
+</section>
+<section id="추가-자료" class="level3" data-number="5.9.3">
+<h3 data-number="5.9.3" class="anchored" data-anchor-id="추가-자료"><span class="header-section-number">5.9.3</span> 추가 자료</h3>
+<div class="cell" data-layout-align="center">
+<p>이 장에서 사용된 모든 R 코드의 R 스크립트 파일은 <a href="scripts/02-visualization.R">여기</a>에서 이용 가능합니다.</p>
+</div>
+<p>데이터 시각화를 위한 <code>ggplot2</code> 패키지의 기능을 더 자세히 알고 싶다면 RStudio의 “Data Visualization with ggplot2” 치트시트(cheatsheet)를 확인해 보시기 바랍니다. 이 치트시트는 우리가 이 장에서 논의한 것보다 훨씬 많은 내용을 요약하고 있습니다. 특히, 이 장에서 다룬 5가지 <code>geom</code> 객체보다 훨씬 많은 객체를 제시하면서 빠르고 읽기 쉬운 시각적 설명을 제공합니다. 또한 모든 <code>geom</code> 객체에 대해 조정 가능한 모든 미적 속성 목록도 제공합니다. 2024년 중반 기준 RStudio 최신 버전에서는 RStudio 메뉴 바 -&gt; Help -&gt; Cheatsheets -&gt; “Data Visualization with ggplot2”를 통해 이 치트시트에 접속할 수 있습니다. 아래 그림에서 미리보기를 확인할 수 있습니다. 또는 이 <a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf">링크</a>를 통해 ggplot2 Github 페이지에서 치트시트를 미리 볼 수 있습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cheatsheets/ggplot_cheatsheet-1.png" class="img-fluid figure-img"></p>
+<figcaption>ggplot2를 이용한 데이터 시각화 치트시트.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="whats-to-come-3" class="level3" data-number="5.9.4">
+<h3 data-number="5.9.4" class="anchored" data-anchor-id="whats-to-come-3"><span class="header-section-number">5.9.4</span> 다음 장에서 다룰 내용</h3>
+<p>섹션 @ref(scatterplots)의 그림 @ref(fig:noalpha)에서 우리는 모든 항공편이 아니라 알래스카 항공(Alaska Airlines) 항공편에 대해서만 출발 지연과 도착 지연 사이의 관계를 시각화했던 것을 기억해 보세요. 이 데이터는 <code>moderndive</code> 패키지의 <code>alaska_flights</code> 데이터 프레임에 저장되어 있습니다.</p>
+<p>실제로 <code>alaska_flights</code> 데이터 프레임은 2013년에 NYC를 출발한 <em>모든</em> 항공편으로 구성된 <code>nycflights13</code> 패키지의 <code>flights</code> 데이터 프레임의 하위 집합일 뿐입니다. 우리는 데이터 전처리를 위한 <code>dplyr</code> 패키지를 사용하는 다음 코드를 통해 <code>alaska_flights</code>를 만들었습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>alaska_flights <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carrier <span class="sc">==</span> <span class="st">"AS"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> alaska_flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dep_delay, <span class="at">y =</span> arr_delay)) <span class="sc">+</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>이 코드는 <code>flights</code> 데이터 프레임을 가져와 <code>carrier</code>가 알래스카 항공의 항공사 코드인 <code>"AS"</code>와 같은 714행만 반환하도록 <code>filter()</code>합니다. (섹션 @ref(code)에서 같음 여부를 테스트할 때는 <code>=</code>가 아니라 <code>==</code>를 사용한다는 점을 기억하세요.) 그런 다음 코드는 <code>&lt;-</code> <em>할당(assignment)</em> 연산자를 사용하여 결과를 <code>alaska_flights</code>라는 새로운 데이터 프레임에 저장합니다.</p>
+<p>마찬가지로 섹션 @ref(linegraphs)의 그림 @ref(fig:hourlytemp)에서 우리는 2013년 1월의 처음 15일 동안에 대해서만 뉴어크(Newark) 공항의 매시간 기온 기록을 시각화했습니다. 이 데이터는 <code>moderndive</code> 패키지의 <code>early_january_weather</code> 데이터 프레임에 저장되어 있습니다.</p>
+<p>실제로 <code>early_january_weather</code> 데이터 프레임은 NYC의 <em>세 개</em> 공항 모두에 대한 2013년의 <em>모든</em> 매시간 기상 관측 값으로 구성된 <code>nycflights13</code> 패키지의 <code>weather</code> 데이터 프레임의 하위 집합일 뿐입니다. 우리는 다음과 같은 <code>dplyr</code> 코드를 사용하여 <code>early_january_weather</code>를 만들었습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>early_january_weather <span class="ot">&lt;-</span> weather <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(origin <span class="sc">==</span> <span class="st">"EWR"</span> <span class="sc">&amp;</span> month <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> day <span class="sc">&lt;=</span> <span class="dv">15</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> early_january_weather, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time_hour, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>이 코드는 <code>weather</code> 데이터 프레임을 <code>origin == "EWR"</code>, <code>month == 1</code>, 그리고 <code>day</code>가 <code>15</code> 이하인 매시간 기온 기록만 포함하는 새로운 데이터 프레임 <code>early_january_weather</code>로 축소합니다.</p>
+<p>이 두 코드 세그먼트는 <code>dplyr</code> 패키지를 사용한 데이터 전처리에 관한 제 @ref(wrangling)장의 예고편입니다. 데이터 전처리(data wrangling)는 분석 목적에 더 적합하도록 기존 데이터를 변형하고 수정하는 과정입니다. 예를 들어, 이 두 코드 세그먼트는 <code>filter()</code> 함수를 사용하여 기존 데이터 프레임(<code>flights</code>와 <code>weather</code>)의 행 중 일부만 선택하여 새로운 데이터 프레임(<code>alaska_flights</code>와 <code>early_january_weather</code>)을 생성했습니다. 다음 장에서는 <code>filter()</code> 및 다른 데이터 전처리 함수와 함께, 여러 데이터 전처리 작업을 하나의 순차적인 작업 <em>체인(chain)</em>으로 결합할 수 있게 해주는 <em>파이프 연산자(pipe operator)</em> <code>%&gt;%</code>를 정식으로 소개하겠습니다. 이제 데이터 전처리에 관한 제 @ref(wrangling)장으로 가봅시다!</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-rds2016" class="csl-entry" role="listitem">
+Grolemund, Garrett, and Hadley Wickham. 2017. <em>R for Data Science</em>. First. Sebastopol, CA: O’Reilly Media. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
+</div>
+<div id="ref-R-ggplot2" class="csl-entry" role="listitem">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, and Teun van den Brand. 2026. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+</div>
+<div id="ref-wilkinson2005" class="csl-entry" role="listitem">
+Wilkinson, Leland. 2005. <em>The Grammar of Graphics (Statistics and Computing)</em>. First. Secaucus, NJ: Springer-Verlag.
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-getting-started.html" class="pagination-link" aria-label="R 데이터 시작하기">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-wrangling.html" class="pagination-link" aria-label="데이터 전처리">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터 전처리</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

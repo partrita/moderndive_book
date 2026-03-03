@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>(PART) 결론 – ModernDive: Statistical Inference via Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./91-appendixA.html" rel="next">
+<link href="./10-inference-for-regression.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-803ae4f7a8810f475153517dc3c4ebae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-tell-your-story-with-data.html">(PART) 결론</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>r ifelse(knitr::is_latex_output(), 'Statistical Inference via Data Science:  A ModernDive into R and the Tidyverse', 'Statistical Inference via Data Science')</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">00-foreword.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">머리말</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터 전처리</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">기초 회귀 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">표본 추출</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bootstrapping and Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">(PART) 결론</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">통계적 배경</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">추론 예제</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">팁과 요령</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Learning Check Solutions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">사용된 R 패키지 버전</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">참고 문헌</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./NEWS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ModernDive 1.1.0.9000</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#thinking-with-data" id="toc-thinking-with-data" class="nav-link active" data-scroll-target="#thinking-with-data">데이터로 여러분의 이야기 들려주기</a>
+  <ul class="collapse">
+  <li><a href="#복습" id="toc-복습" class="nav-link" data-scroll-target="#복습">복습</a>
+  <ul class="collapse">
+  <li><a href="#story-packages" id="toc-story-packages" class="nav-link" data-scroll-target="#story-packages">필요한 패키지</a></li>
+  </ul></li>
+  <li><a href="#seattle-house-prices" id="toc-seattle-house-prices" class="nav-link" data-scroll-target="#seattle-house-prices">사례 연구: 시애틀 주택 가격</a>
+  <ul class="collapse">
+  <li><a href="#house-prices-EDA-I" id="toc-house-prices-EDA-I" class="nav-link" data-scroll-target="#house-prices-EDA-I">탐색적 데이터 분석: 1부</a></li>
+  <li><a href="#house-prices-EDA-II" id="toc-house-prices-EDA-II" class="nav-link" data-scroll-target="#house-prices-EDA-II">탐색적 데이터 분석: 2부</a></li>
+  <li><a href="#house-prices-regression" id="toc-house-prices-regression" class="nav-link" data-scroll-target="#house-prices-regression">회귀 모델링</a></li>
+  <li><a href="#house-prices-making-predictions" id="toc-house-prices-making-predictions" class="nav-link" data-scroll-target="#house-prices-making-predictions">예측하기</a></li>
+  </ul></li>
+  <li><a href="#data-journalism" id="toc-data-journalism" class="nav-link" data-scroll-target="#data-journalism">사례 연구: 효과적인 데이터 스토리텔링</a>
+  <ul class="collapse">
+  <li><a href="#할리우드의-성별-대표성에-대한-벡델-테스트" id="toc-할리우드의-성별-대표성에-대한-벡델-테스트" class="nav-link" data-scroll-target="#할리우드의-성별-대표성에-대한-벡델-테스트">할리우드의 성별 대표성에 대한 벡델 테스트</a></li>
+  <li><a href="#년-미국-출생아-수" id="toc-년-미국-출생아-수" class="nav-link" data-scroll-target="#년-미국-출생아-수">1999년 미국 출생아 수</a></li>
+  <li><a href="#r-코드-스크립트" id="toc-r-코드-스크립트" class="nav-link" data-scroll-target="#r-코드-스크립트">R 코드 스크립트</a></li>
+  </ul></li>
+  <li><a href="#맺음말" id="toc-맺음말" class="nav-link" data-scroll-target="#맺음말">맺음말</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">(PART) 결론</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="thinking-with-data" class="level1">
+<h1>데이터로 여러분의 이야기 들려주기</h1>
+<p>이 책의 서문과 각 장의 마지막 부분에서 여러분의 여정을 보여주는 “<em>ModernDive</em> 플로우차트”를 보았습니다.</p>
+<p>(ref:finalflowchart) <em>ModernDive</em> 플로우차트.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/flowcharts/flowchart/flowchart.002.png" style="width:100.0%;height:100.0%" class="figure-img"></p>
+<figcaption>(ref:finalflowchart)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="복습" class="level2">
+<h2 class="anchored" data-anchor-id="복습">복습</h2>
+<p>지금까지 다룬 내용을 다시 한 번 짚어보겠습니다. 먼저 챕터 @ref(getting-started)에서 R과 RStudio의 차이점을 배우고, R 코딩을 시작하며, 첫 번째 R 패키지를 설치하고 로드하고, 여러분의 첫 번째 데이터셋인 2013년 뉴욕시 주요 공항에서 출발한 모든 국내선 <code>flights</code> 데이터를 탐색하며 데이터 여행을 시작했습니다. 그런 다음 이 책의 다음 세 부분을 다루었습니다(2부와 4부는 하나의 부분으로 결합되었습니다).</p>
+<ol type="1">
+<li><code>tidyverse</code>를 이용한 데이터 과학. 여러분은 <code>tidyverse</code> 패키지들을 사용하여 데이터 과학 도구 상자를 조립했습니다. 구체적으로는 다음과 같습니다:
+<ul>
+<li>챕터 @ref(viz): <code>ggplot2</code> 패키지를 사용하여 데이터를 시각화했습니다.</li>
+<li>챕터 @ref(wrangling): <code>dplyr</code> 패키지를 사용하여 데이터를 정제(wrangle)했습니다.</li>
+<li>챕터 @ref(tidy): 모든 <code>tidyverse</code> 패키지의 표준화된 데이터 프레임 입력 및 출력 형식으로서 “깔끔한(tidy)” 데이터의 개념을 배웠습니다. 또한 <code>readr</code> 패키지를 사용하여 스프레드시트 파일을 R로 불러오는 방법을 배웠습니다.</li>
+</ul></li>
+<li><code>moderndive</code>를 이용한 데이터 모델링. 이러한 데이터 과학 도구와 <code>moderndive</code> 패키지의 도우미 함수들을 사용하여 첫 번째 데이터 모델을 적합시켰습니다. 구체적으로는 다음과 같습니다:
+<ul>
+<li>챕터 @ref(regression): 하나의 설명 변수만 있는 기초 회귀 모델을 발견했습니다.</li>
+<li>챕터 @ref(multiple-regression): 둘 이상의 설명 변수가 있는 다중 회귀 모델을 조사했습니다.</li>
+</ul></li>
+<li><code>infer</code>를 이용한 통계적 추론. 새로 습득한 데이터 과학 도구들을 다시 한 번 사용하여 <code>infer</code> 패키지로 통계적 추론의 실체를 파헤쳤습니다. 구체적으로는 다음과 같습니다:
+<ul>
+<li>챕터 @ref(sampling): 통계적 추론에서 표집 변동(sampling variability)이 수행하는 역할과 이 표집 변동에서 표본 크기가 수행하는 역할을 배웠습니다.</li>
+<li>챕터 @ref(confidence-intervals): 부트스트래핑을 사용하여 신뢰 구간을 구축했습니다.</li>
+<li>챕터 @ref(hypothesis-testing): 순열(permutation)을 사용하여 가설 검정을 수행했습니다.</li>
+</ul></li>
+<li><code>moderndive</code>를 이용한 데이터 모델링(재방문): 통계적 추론에 대한 이해를 바탕으로, 챕터 @ref(regression)와 @ref(multiple-regression)에서 구축한 모델들을 재방문하고 검토했습니다. 구체적으로는 다음과 같습니다:
+<ul>
+<li>챕터 @ref(inference-for-regression): 회귀 환경에서 신뢰 구간과 가설 검정을 해석했습니다.</li>
+</ul></li>
+</ol>
+<p>우리는 원래 다이앤 램버트(Diane Lambert) 박사가 만든 표현인 <a href="https://arxiv.org/pdf/1410.3127.pdf">“데이터로 생각하기(thinking with data)”</a>의 첫 경험을 여러분과 함께해 왔습니다. 이 표현의 저변에 깔린 철학은 그림 @ref(fig:moderndive-figure-conclusion)의 플로우차트에서 여러분의 길을 안내했습니다.</p>
+<p>이 철학은 <a href="https://twitter.com/jennybryan">제니퍼 브라이언(Jennifer Bryan)</a> 박사와 <a href="https://twitter.com/hadleywickham">해들리 위컴(Hadley Wickham)</a> 박사가 큐레이팅한 데이터 과학 워크플로와 통계 분석의 실질적인 측면에 초점을 맞춘 프리프린트 모음인 <a href="https://peerj.com/collections/50-practicaldatascistats/">“Practical Data Science for Stats”</a>에도 잘 요약되어 있습니다. 그들은 다음과 같이 언급했습니다:</p>
+<blockquote class="blockquote">
+<p>기존의 통계 문헌이나 커리큘럼에는 일상적인 분석 작업의 많은 측면이 거의 빠져 있습니다. 하지만 이러한 활동은 데이터 분석가와 응용 통계학자들의 시간과 노력의 상당 부분을 차지합니다. 이 모음집의 목표는 현대적인 데이터 분석 워크플로의 가시성을 높이고 채택을 촉진하는 것입니다. 우리는 산업계와 학계 사이, 소프트웨어 공학 상의 통계 및 컴퓨터 과학 사이, 그리고 서로 다른 도메인 사이에서 도구와 프레임워크의 전수를 용이하게 하는 것을 목표로 합니다.</p>
+</blockquote>
+<p>즉, 21세기에 “데이터로 생각할” 준비를 갖추기 위해서는 분석가들이 서문에서 보았던 <a href="http://r4ds.had.co.nz/explore-intro.html">“데이터/과학 파이프라인”</a>(그림 @ref(fig:pipeline-figure-conclusion)에 다시 표시됨)을 거치는 연습이 필요합니다. 너무 오랫동안 통계 교육은 이 파이프라인을 <strong>전체적으로</strong> 살펴보는 대신 일부분에만 집중해 왔다는 것이 우리의 생각입니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/r4ds/data_science_pipeline.png" style="width:70.0%;height:70.0%" class="figure-img"></p>
+<figcaption>데이터/과학 파이프라인.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>이 책을 마무리하며, 데이터를 다루는 몇 가지 추가 사례 연구를 제시해 드리겠습니다. 섹션 @ref(seattle-house-prices)에서는 미국 워싱턴주 시애틀의 주택 매매 가격을 분석하기 위해 “데이터/과학 파이프라인”을 완전히 한 번 통과해 볼 것입니다. 섹션 @ref(data-journalism)에서는 데이터 저널리즘 웹사이트인 <a href="https://fivethirtyeight.com/">FiveThirtyEight.com</a>에서 가져온 효과적인 데이터 스토리텔링의 몇 가지 예를 제시해 드립니다. 이러한 사례 연구를 제시하는 이유는 여러분이 “데이터로 생각할” 수 있을 뿐만 아니라, “데이터로 여러분의 이야기를 들려줄” 수도 있어야 한다고 믿기 때문입니다. 어떻게 하는지 알아봅시다!</p>
+<section id="story-packages" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="story-packages">필요한 패키지</h3>
+<p>이 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). R 패키지를 설치하고 로드하는 방법에 대한 정보는 섹션 @ref(packages)를 읽어보십시오.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fivethirtyeight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="seattle-house-prices" class="level2">
+<h2 class="anchored" data-anchor-id="seattle-house-prices">사례 연구: 시애틀 주택 가격</h2>
+<p><a href="https://www.kaggle.com/">Kaggle.com</a>은 기업, 정부 기관 및 개인이 업로드한 데이터셋을 호스팅하는 머신 러닝 및 예측 모델링 경진대회 웹사이트입니다. 그들의 데이터셋 중 하나는 <a href="https://www.kaggle.com/harlfoxem/housesalesprediction">“미국 킹 카운티의 주택 매매(House Sales in King County, USA)”</a>입니다. 이 데이터셋은 그레이터 시애틀 대도시 지역을 포함하는 미국 워싱턴주 킹 카운티에서 2014년 5월부터 2015년 5월 사이에 팔린 주택의 매매 가격으로 구성되어 있습니다. 이 데이터셋은 <code>moderndive</code> 패키지에 포함된 <code>house_prices</code> 데이터 프레임에 들어 있습니다.</p>
+<p>이 데이터셋은 21,613채의 주택과 이 주택들을 설명하는 21개의 변수로 구성되어 있습니다(이 변수들의 전체 목록과 설명은 콘솔에서 <code>?house_prices</code>를 실행하여 도움말 파일을 확인하십시오). 이 사례 연구에서 우리는 다음과 같은 다중 회귀 모델을 만들 것입니다:</p>
+<ul>
+<li>결과 변수 <span class="math inline">\(y\)</span>는 주택의 매매 가격(<code>price</code>)입니다.</li>
+<li>두 개의 설명 변수:
+<ol type="1">
+<li>수치형 설명 변수 <span class="math inline">\(x_1\)</span>: 거주 공간의 면적을 평방 피트(square feet)로 측정한 주택 크기(<code>sqft_living</code>)입니다. 참고로 1평방 피트는 약 0.09평방 미터입니다.</li>
+<li>범주형 설명 변수 <span class="math inline">\(x_2\)</span>: 주택 상태(<code>condition</code>)로, <code>1</code>은 “불량(poor)”을 나타내고 <code>5</code>는 “최상(excellent)”을 나타내는 5개 레벨의 범주형 변수입니다.</li>
+</ol></li>
+</ul>
+<section id="house-prices-EDA-I" class="level3">
+<h3 class="anchored" data-anchor-id="house-prices-EDA-I">탐색적 데이터 분석: 1부</h3>
+<p>이 책 전체에서 수없이 말했듯이, 데이터가 주어졌을 때 가장 중요한 첫 번째 단계는 탐색적 데이터 분석(EDA)을 수행하는 것입니다. 탐색적 데이터 분석을 통해 데이터의 느낌을 파악하고, 데이터의 문제를 식별하며, 이상치(outlier)를 찾아내고, 모델 구축에 도움을 얻을 수 있습니다.</p>
+<p>하위 섹션 @ref(model1EDA)에서 소개한 탐색적 데이터 분석의 공통된 세 단계를 상기해 보십시오:</p>
+<ol type="1">
+<li>가공되지 않은 데이터 값 살펴보기.</li>
+<li>요약 통계량 계산하기.</li>
+<li>데이터 시각화 만들기.</li>
+</ol>
+<p>먼저, RStudio’s spreadsheet viewer를 불러오는 <code>View()</code>와 <code>dplyr</code> 패키지의 <code>glimpse()</code> 함수를 사용하여 가공되지 않은 데이터를 살펴보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(house_prices)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(house_prices)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 21,613
+Columns: 21
+$ id            &lt;chr&gt; "7129300520", "6414100192", "5631500400", "2487200875", …
+$ date          &lt;date&gt; 2014-10-13, 2014-12-09, 2015-02-25, 2014-12-09, 2015-02…
+$ price         &lt;dbl&gt; 221900, 538000, 180000, 604000, 510000, 1225000, 257500,…
+$ bedrooms      &lt;int&gt; 3, 3, 2, 4, 3, 4, 3, 3, 3, 3, 3, 2, 3, 3, 5, 4, 3, 4, 2,…
+$ bathrooms     &lt;dbl&gt; 1.00, 2.25, 1.00, 3.00, 2.00, 4.50, 2.25, 1.50, 1.00, 2.…
+$ sqft_living   &lt;int&gt; 1180, 2570, 770, 1960, 1680, 5420, 1715, 1060, 1780, 189…
+$ sqft_lot      &lt;int&gt; 5650, 7242, 10000, 5000, 8080, 101930, 6819, 9711, 7470,…
+$ floors        &lt;dbl&gt; 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 2.0, 1.0, 1…
+$ waterfront    &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, …
+$ view          &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0,…
+$ condition     &lt;fct&gt; 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3, 3, 4, 4,…
+$ grade         &lt;fct&gt; 7, 7, 6, 7, 8, 11, 7, 7, 7, 7, 8, 7, 7, 7, 7, 9, 7, 7, 7…
+$ sqft_above    &lt;int&gt; 1180, 2170, 770, 1050, 1680, 3890, 1715, 1060, 1050, 189…
+$ sqft_basement &lt;int&gt; 0, 400, 0, 910, 0, 1530, 0, 0, 730, 0, 1700, 300, 0, 0, …
+$ yr_built      &lt;int&gt; 1955, 1951, 1933, 1965, 1987, 2001, 1995, 1963, 1960, 20…
+$ yr_renovated  &lt;int&gt; 0, 1991, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ zipcode       &lt;fct&gt; 98178, 98125, 98028, 98136, 98074, 98053, 98003, 98198, …
+$ lat           &lt;dbl&gt; 47.5, 47.7, 47.7, 47.5, 47.6, 47.7, 47.3, 47.4, 47.5, 47…
+$ long          &lt;dbl&gt; -122, -122, -122, -122, -122, -122, -122, -122, -122, -1…
+$ sqft_living15 &lt;int&gt; 1340, 1690, 2720, 1360, 1800, 4760, 2238, 1650, 1780, 23…
+$ sqft_lot15    &lt;int&gt; 5650, 7639, 8062, 5000, 7503, 101930, 6819, 9711, 8113, …</code></pre>
+</div>
+</div>
+<p>이 단계의 EDA에서 스스로에게 던져볼 수 있는 질문들은 다음과 같습니다: 어떤 변수가 수치형인가? 어떤 변수가 범주형인가? 범주형 변수의 경우, 그 레벨은 무엇인가? 우리가 회귀 모델에서 사용할 변수 외에, 주택 가격 모델에 사용하면 유용할 것 같은 다른 변수는 무엇인가?</p>
+<p>예를 들어, <code>condition</code> 변수가 <code>1</code>부터 <code>5</code>까지의 값을 가지고 있지만, R에는 범주형 변수를 저장하는 방식 중 하나인 “요인(factors)”을 뜻하는 <code>fct</code>로 저장되어 있음에 주목하십시오. 따라서 여러분은 이것들을 수치값 1에서 5가 아니라 “라벨” 1에서 5로 생각해야 합니다.</p>
+<p>이제 EDA의 두 번째 단계인 요약 통계량 계산을 수행해 보겠습니다. 섹션 @ref(summarize)에서 <strong>요약 통계량</strong>은 많은 수의 값을 요약하는 단일 수치값임을 배웠습니다. 요약 통계량의 예로는 평균, 중앙값, 표준 편차 및 다양한 백분위수가 있습니다.</p>
+<p><code>dplyr</code> 패키지의 <code>summarize()</code> 함수와 R의 내장 <strong>요약 함수</strong>인 <code>mean()</code>, <code>median()</code> 등을 사용하여 이를 수행할 수 있습니다. 하지만 섹션 @ref(mutate)에서 비행기가 공중에서 메운 시간인 <code>gain</code> 변수의 다양한 요약 통계량을 계산하는 다음 코드를 보았습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gain_summary <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="fu">min</span>(gain, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">q1 =</span> <span class="fu">quantile</span>(gain, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">quantile</span>(gain, <span class="fl">0.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">q3 =</span> <span class="fu">quantile</span>(gain, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="fu">max</span>(gain, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(gain, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(gain, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(gain))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>이 과정을 <code>price</code>, <code>sqft_living</code>, <code>condition</code> 세 변수 모두에 대해 반복하는 것은 코딩하기가 번거로울 것입니다. 대신에, 하위 섹션 @ref(model4EDA)에서 처음 사용했던 <code>skimr</code> 패키지의 편리한 <code>skim()</code> 함수를 사용하여 우리 모델에 관심 있는 변수들만 <code>select()</code> 해봅시다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>house_prices <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, sqft_living, condition) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Skim summary statistics
+ n obs: 21613 
+ n variables: 3 
+
+── Variable type:factor 
+  variable missing complete     n n_unique                         top_counts ordered
+ condition       0    21613 21613        5 3: 14031, 4: 5679, 5: 1701, 2: 172   FALSE
+
+── Variable type:integer 
+    variable missing complete     n   mean     sd  p0  p25  p50  p75  p100
+ sqft_living       0    21613 21613 2079.9 918.44 290 1427 1910 2550 13540 
+
+── Variable type:numeric 
+ variable missing complete     n      mean       sd    p0    p25    p50    p75    p100
+    price       0    21613 21613 540088.14 367127.2 75000 321950 450000 645000 7700000</code></pre>
+<p>평균 가격(<code>price</code>)인 $540,088이 중앙값인 $450,000보다 큰 것을 확인해 보십시오. 이는 소수의 매우 비싼 주택이 평균을 높이고 있기 때문입니다. 즉, 우리 데이터셋에는 “이상치” 주택 가격이 존재합니다. (이 사실은 다음에 시각화를 만들 때 더욱 명확해질 것입니다.)</p>
+<p>하지만 중앙값은 이러한 이상치 주택 가격에 민감하지 않습니다. 이것이 부동산 시장에 대한 뉴스에서 일반적으로 평균 가격이 아닌 중앙 주택 가격을 보도하는 이유입니다. 여기서 우리는 중앙값이 평균보다 <strong>이상치에 더 강건(robust)</strong>하다고 말합니다. 마찬가지로 표준 편차와 사분위수 범위(IQR)는 모두 퍼짐과 변동성의 척도이지만, IQR이 <strong>이상치에 더 강건</strong>합니다.</p>
+<p>이제 탐색적 데이터 분석의 공통된 세 단계 중 마지막인 데이터 시각화 만들기를 수행해 보겠습니다. 먼저 <strong>단변량(univariate)</strong> 시각화를 만들어 봅시다. 이것은 한 번에 하나의 변수에만 집중하는 그래프입니다. <code>price</code>와 <code>sqft_living</code>은 수치형 변수이므로, 섹션 @ref(histograms)의 히스토그램에서 보았듯이 <code>geom_histogram()</code>을 사용하여 그 분포를 시각화할 수 있습니다. 반면 <code>condition</code>은 범주형이므로 <code>geom_bar()</code>를 사용하여 그 분포를 시각화할 수 있습니다. 막대 그래프에 관한 섹션 @ref(geombar)에서 상기했듯이, <code>condition</code>은 “미리 집계”되어 있지 않으므로 <code>geom_col()</code>이 아닌 <code>geom_bar()</code>를 사용합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of house price:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"price (USD)"</span>, <span class="at">title =</span> <span class="st">"House price"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of sqft_living:</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> sqft_living)) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"living space (square feet)"</span>, <span class="at">title =</span> <span class="st">"House size"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot of condition:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> condition)) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"condition"</span>, <span class="at">title =</span> <span class="st">"House condition"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>그림 @ref(fig:house-prices-viz)에서 이 세 가지 시각화를 한 번에 표시합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/house-prices-viz-1.png" class="img-fluid figure-img"></p>
+<figcaption>시애틀 주택 가격 데이터의 탐색적 시각화.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>먼저 맨 아래 그래프에서 대부분의 주택이 상태 “3”이며, 그 다음으로 “4”와 “5”가 많고 “1”이나 “2”는 거의 없음을 확인해 보십시오.</p>
+<p>다음으로 왼쪽 상단의 <code>price</code> 히스토그램에서 대다수의 주택이 200만 달러 미만임을 확인해 보십시오. 또한 해당 가격에 가까운 주택이 없는 것처럼 보임에도 불구하고 x축이 800만 달러까지 늘어나 있음을 알 수 있습니다. 이는 가격이 800만 달러에 가까운 주택이 <strong>아주 소수</strong> 존재하기 때문입니다. 이들이 앞서 언급한 이상치 주택 가격입니다. 우리는 긴 오른쪽 꼬리가 나타내는 것처럼 <code>price</code> 변수가 <strong>오른쪽으로 치우쳐(right-skewed)</strong> 있다고 말합니다.</p>
+<p>또한 가운데의 <code>sqft_living</code> 히스토그램을 보면 대부분의 주택이 5,000평방 피트 미만의 거주 공간을 가지고 있는 것으로 보입니다. 비교를 위해 미국 미식축구 경기장은 약 57,600평방 피트인 반면, 일반적인 축구 경기장은 약 64,000평방 피트입니다. 또한 이 변수 역시 <code>price</code> 변수만큼 극단적이지는 않지만 오른쪽으로 치우쳐 있음을 확인해 보십시오.</p>
+<p><code>price</code>와 <code>sqft_living</code> 변수 모두에서 오른쪽으로 치우친 특성 때문에 x축의 하단에 있는 주택들을 구별하기가 어렵습니다. 이는 매우 비싸고 거대한 크기의 극소수 주택들 때문에 x축의 눈금이 압축되어 있기 때문입니다.</p>
+<p>그렇다면 이 치우침(skew)에 대해 무엇을 할 수 있을까요? 이 변수들에 <strong>log10 변환(log10 transformation)</strong>을 적용해 봅시다. 이러한 변환이 익숙하지 않다면 로그(log) 변환에 대한 부록 @ref(appendix-log10-transformations)를 읽어보시길 강력히 권장합니다. 요약하자면, 로그 변환을 사용하면 변수의 척도를 변경하여 <strong>가산적(additive)</strong> 변화 대신 <strong>승법적(multiplicative)</strong> 변화에 집중할 수 있습니다. 즉, 관점을 <strong>절대적</strong> 변화에서 <strong>상대적</strong> 변화로 옮겨줍니다. 이러한 승법적/상대적 변화를 <strong>자릿수(orders of magnitude)</strong> 변화라고도 합니다.</p>
+<p>섹션 @ref(mutate)의 <code>mutate()</code> 함수를 사용하여 오른쪽으로 치우친 변수인 <code>price</code>와 <code>sqft_living</code>의 새로운 log10 변환 버전을 만들어 보겠습니다. 후자의 경우 <code>log10_sqft_living</code>이라는 이름보다 짧고 이해하기 쉬운 <code>log10_size</code>라는 이름을 붙이겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>house_prices <span class="ot">&lt;-</span> house_prices <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">log10_price =</span> <span class="fu">log10</span>(price),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">log10_size =</span> <span class="fu">log10</span>(sqft_living)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>변환 전후의 효과를 확인하기 위해 <code>house_prices</code>의 첫 10개 행에 대해서만 <code>price</code>와 <code>sqft_living</code> 변수의 결과를 살펴보겠습니다:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>house_prices <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, log10_price, sqft_living, log10_size)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21,613 × 4
+     price log10_price sqft_living log10_size
+     &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;      &lt;dbl&gt;
+ 1  221900        5.35        1180       3.07
+ 2  538000        5.73        2570       3.41
+ 3  180000        5.26         770       2.89
+ 4  604000        5.78        1960       3.29
+ 5  510000        5.71        1680       3.23
+ 6 1225000        6.09        5420       3.73
+ 7  257500        5.41        1715       3.23
+ 8  291850        5.47        1060       3.03
+ 9  229500        5.36        1780       3.25
+10  323000        5.51        1890       3.28
+# ℹ 21,603 more rows</code></pre>
+</div>
+</div>
+<p>특히 여섯 번째와 세 번째 행의 주택들을 보십시오. 여섯 번째 행의 주택 가격(<code>price</code>)은 $1,225,000로, 100만 달러를 약간 상회합니다. <span class="math inline">\(10^6\)</span>이 100만이므로 이 집의 <code>log10_price</code>는 약 6.09입니다.</p>
+<p>반면 <code>log10_price</code>가 6보다 작은 다른 모든 주택들의 가격은 $1,000,000 미만입니다. 세 번째 행의 주택은 <code>sqft_living</code>이 1,000 미만인 유일한 주택입니다. <span class="math inline">\(1000 = 10^3\)</span>이므로, <code>log10_size</code>가 3보다 작은 유일한 주택입니다.</p>
+<p>이제 그림 @ref(fig:log10-price-viz)에서 <code>price</code>의 변환 전후 효과를 시각화해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># log10 변환 전:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"price (USD)"</span>, <span class="at">title =</span> <span class="st">"House price: Before"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># log10 변환 후:</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> log10_price)) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log10 price (USD)"</span>, <span class="at">title =</span> <span class="st">"House price: After"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/log10-price-viz-1.png" class="img-fluid figure-img"></p>
+<figcaption>log10 변환 전후의 주택 가격.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>변환 후에는 분포의 치우침이 훨씬 덜하며, 이 경우에는 더 대칭적이고 종 모양에 가까워졌음을 알 수 있습니다. 이제 저가 주택들을 더 쉽게 구별할 수 있습니다.</p>
+<p>주택 크기에 대해서도 마찬가지로 <code>sqft_living</code> 변수를 <code>log10_size</code>로 log10 변환하여 확인해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># log10 변환 전:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> sqft_living)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"living space (square feet)"</span>, <span class="at">title =</span> <span class="st">"House size: Before"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># log10 변환 후:</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, <span class="fu">aes</span>(<span class="at">x =</span> log10_size)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log10 living space (square feet)"</span>, <span class="at">title =</span> <span class="st">"House size: After"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/log10-size-viz-1.png" class="img-fluid figure-img"></p>
+<figcaption>log10 변환 전후의 주택 크기.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:log10-size-viz)를 보면 log10 변환이 변수의 치우침을 해결하는 데 비슷한 효과를 주는 것을 알 수 있습니다. 이 두 경우에서 결과적인 분포가 더 대칭적이고 종 모양이 되었지만, 항상 그런 것은 아니라는 점을 강조합니다.</p>
+<p>이제 <code>log10_price</code>와 <code>log10_size</code>가 대칭적이 되었으므로, 새로운 변수들을 사용하도록 다중 회귀 모델을 수정하겠습니다.</p>
+<ol type="1">
+<li>결과 변수 <span class="math inline">\(y\)</span>는 주택의 매매 가격의 로그값(<code>log10_price</code>)입니다.</li>
+<li>두 개의 설명 변수:
+<ol type="1">
+<li>수치형 설명 변수 <span class="math inline">\(x_1\)</span>: 상용로그를 취한 거주 공간의 면적(<code>log10_size</code>)입니다.</li>
+<li>범주형 설명 변수 <span class="math inline">\(x_2\)</span>: 주택 상태(<code>condition</code>)로, 1(불량)에서 5(최상)까지의 레벨을 가집니다.</li>
+</ol></li>
+</ol>
+</section>
+<section id="house-prices-EDA-II" class="level3">
+<h3 class="anchored" data-anchor-id="house-prices-EDA-II">탐색적 데이터 분석: 2부</h3>
+<p>이제 <strong>다변량(multivariate)</strong> 시각화를 만들며 EDA를 이어가겠습니다. 앞서 본 단변량 히스토그램이나 막대 그래프와 달리, 다변량 시각화는 둘 이상의 변수 사이의 관계를 보여줍니다. 모델링의 목표가 변수들 사이의 관계를 탐구하는 것이기 때문에 이는 EDA의 아주 중요한 단계입니다.</p>
+<p>우리 모델은 수치형 결과 변수와 수치형 설명 변수 하나, 그리고 범주형 설명 변수 하나를 포함하므로, 텍스트북의 섹션 @ref(model4)에서 UT 오스틴의 강의 점수 데이터셋을 공부했던 것과 유사한 회귀 모델링 상황입니다. 당시 수치형 결과 변수는 강의 점수(<code>score</code>)였고, 수치형 설명 변수는 강사의 연령(<code>age</code>), 범주형 설명 변수는 성별(<code>gender</code>)이었습니다.</p>
+<p>따라서 우리는 두 가지 모델 선택지를 가집니다. 하나는 각 <code>condition</code> 레벨의 회귀 직선이 서로 다른 기울기와 절편을 가지는 (1) <strong>상호작용 모델(interaction model)</strong>이고, 다른 하나는 각 <code>condition</code> 레벨의 회귀 직선이 동일한 기울기를 가지지만 절편만 다른 (2) <strong>평행 기울기 모델(parallel slopes model)</strong>입니다.</p>
+<p>하위 섹션 @ref(model4table)에서 언급했듯이, <code>ggplot2</code> 패키지의 <code>geom_smooth()</code> 방식은 평행 기울기 모델을 그리는 편리한 방법이 없기 때문에 <code>moderndive</code> 패키지에 포함된 <code>geom_parallel_slopes()</code> 함수를 사용하여 그립니다. 그림 @ref(fig:house-price-parallel-slopes)에서 두 모델의 결과를 모두 표시하며, 왼쪽은 상호작용 모델입니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 상호작용 모델 그리기</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> log10_size, <span class="at">y =</span> log10_price, <span class="at">col =</span> condition)) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"log10 price"</span>, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log10 size"</span>, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"시애틀 주택 가격"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 평행 기울기 모델 그리기</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> log10_size, <span class="at">y =</span> log10_price, <span class="at">col =</span> condition)) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_parallel_slopes</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"log10 price"</span>, </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log10 size"</span>, </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"시애틀 주택 가격"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/house-price-parallel-slopes-1.png" class="img-fluid figure-img"></p>
+<figcaption>상호작용 모델과 평행 기울기 모델.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>두 경우 모두 주택 가격과 크기 사이에 양의 관계(positive relationship)가 있음을 알 수 있습니다. 즉, 주택이 클수록 더 비싼 경향이 있습니다. 또한, 두 그래프 모두에서 <code>condition</code> 5인 주택의 직선이 가장 높은 곳에 위치하고, 그 뒤를 <code>condition</code> 4와 3이 잇는 것으로 보아 대부분의 주택 크기에서 <code>condition</code> 5인 주택이 가장 비싼 경향이 있음을 알 수 있습니다. <code>condition</code> 1과 2의 경우 이 패턴이 그리 명확하지 않습니다. 그림 @ref(fig:house-prices-viz)의 <code>condition</code>에 대한 단변량 막대 그래프에서 상기했듯이, <code>condition</code> 1 또는 2인 주택은 극소수이기 때문입니다.</p>
+<p>그림 @ref(fig:house-price-interaction-2)에서 상호작용 모델의 분할(faceted) 버전을 보여줍니다. 이제 <code>condition</code> 1 또는 2인 주택이 얼마나 적은지 훨씬 더 분명하게 드러납니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(house_prices, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> log10_size, <span class="at">y =</span> log10_price, <span class="at">col =</span> condition)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"log10 price"</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"log10 size"</span>, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"시애틀 주택 가격"</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> condition)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/house-price-interaction-2-1.png" class="img-fluid figure-img"></p>
+<figcaption>상호작용 모델의 분할 버전.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>그림 @ref(fig:house-price-parallel-slopes)의 왼쪽 그래프에 있는 상호작용 모델의 시각화와 그림 @ref(fig:house-price-interaction-2)의 분할 버전 중 어느 탐색적 시각화가 더 나을까요? 보편적인 정답은 없습니다. 여러분이 전달하고자 하는 내용에 따라 선택하고 그 선택을 고수해야 하며, 필요에 따라 두 가지를 모두 포함하고 논의하는 것도 하나의 옵션이 될 수 있습니다.</p>
+</section>
+<section id="house-prices-regression" class="level3">
+<h3 class="anchored" data-anchor-id="house-prices-regression">회귀 모델링</h3>
+<p>그림 @ref(fig:house-price-parallel-slopes)의 두 모델 중 어느 것이 “더 나을까요”? 왼쪽 그래프의 상호작용 모델일까요, 아니면 오른쪽 그래프의 평행 기울기 모델일까요?</p>
+<p>우리는 하위 섹션 @ref(model-selection)의 <strong>모델 선택(model selection)</strong>에서 이와 유사한 논의를 했습니다. 추가된 복잡성이 <strong>정당화(warranted)</strong>되는 경우에만 더 복잡한 모델을 선호해야 한다고 언급했던 것을 상기해 보십시오. 이 사례의 경우, 총 5개의 절편과 5개의 기울기를 고려하는 상호작용 모델이 더 복잡한 모델입니다. 이는 5개의 절편을 고려하지만 기울기는 하나만 공통으로 고려하는 평행 기울기 모델과 대조됩니다.</p>
+<p>상호작용 모델의 추가된 복잡성이 정당화될까요? 그림 @ref(fig:house-price-parallel-slopes)의 왼쪽 그래프를 보면, 몇몇 직선들이 약간 교차하는(x-like) 패턴을 보인다는 점에서 상호작용 모델이 정당화된다는 것이 우리의 의견입니다. 따라서 우리는 이 분석의 나머지 부분에서 상호작용 모델에만 집중할 것입니다. 하지만 이러한 시각적 접근 방식은 다분히 주관적이므로 자유롭게 반론을 제기하셔도 좋습니다! 상호작용 모델의 다섯 가지 다른 기울기와 다섯 가지 다른 절편은 무엇일까요? 회귀 표에서 이 값들을 얻을 수 있습니다. 회귀 표를 얻기 위한 두 단계 과정을 상기해 보십시오:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합시키기:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>price_interaction <span class="ot">&lt;-</span> <span class="fu">lm</span>(log10_price <span class="sc">~</span> log10_size <span class="sc">*</span> condition, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> house_prices)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 표 얻기:</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">get_regression_table</span>(price_interaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>상호작용 모델의 회귀 표</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">estimate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">std_error</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_value</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">lower_ci</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">upper_ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">intercept</td>
+<td style="text-align: right;">3.330</td>
+<td style="text-align: right;">0.451</td>
+<td style="text-align: right;">7.380</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">2.446</td>
+<td style="text-align: right;">4.215</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">log10_size</td>
+<td style="text-align: right;">0.690</td>
+<td style="text-align: right;">0.148</td>
+<td style="text-align: right;">4.652</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.399</td>
+<td style="text-align: right;">0.980</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">condition: 2</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">0.498</td>
+<td style="text-align: right;">0.094</td>
+<td style="text-align: right;">0.925</td>
+<td style="text-align: right;">-0.930</td>
+<td style="text-align: right;">1.024</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">condition: 3</td>
+<td style="text-align: right;">-0.367</td>
+<td style="text-align: right;">0.452</td>
+<td style="text-align: right;">-0.812</td>
+<td style="text-align: right;">0.417</td>
+<td style="text-align: right;">-1.253</td>
+<td style="text-align: right;">0.519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">condition: 4</td>
+<td style="text-align: right;">-0.398</td>
+<td style="text-align: right;">0.453</td>
+<td style="text-align: right;">-0.879</td>
+<td style="text-align: right;">0.380</td>
+<td style="text-align: right;">-1.286</td>
+<td style="text-align: right;">0.490</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">condition: 5</td>
+<td style="text-align: right;">-0.883</td>
+<td style="text-align: right;">0.457</td>
+<td style="text-align: right;">-1.931</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">-1.779</td>
+<td style="text-align: right;">0.013</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">log10_size:condition2</td>
+<td style="text-align: right;">-0.024</td>
+<td style="text-align: right;">0.163</td>
+<td style="text-align: right;">-0.148</td>
+<td style="text-align: right;">0.882</td>
+<td style="text-align: right;">-0.344</td>
+<td style="text-align: right;">0.295</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">log10_size:condition3</td>
+<td style="text-align: right;">0.133</td>
+<td style="text-align: right;">0.148</td>
+<td style="text-align: right;">0.893</td>
+<td style="text-align: right;">0.372</td>
+<td style="text-align: right;">-0.158</td>
+<td style="text-align: right;">0.424</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">log10_size:condition4</td>
+<td style="text-align: right;">0.146</td>
+<td style="text-align: right;">0.149</td>
+<td style="text-align: right;">0.979</td>
+<td style="text-align: right;">0.328</td>
+<td style="text-align: right;">-0.146</td>
+<td style="text-align: right;">0.437</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">log10_size:condition5</td>
+<td style="text-align: right;">0.310</td>
+<td style="text-align: right;">0.150</td>
+<td style="text-align: right;">2.067</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">0.604</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>우리는 하위 섹션 @ref(model4interactiontable)에서 수치형 설명 변수와 범주형 설명 변수가 모두 있을 때 회귀 표를 해석하는 방법을 이미 보았습니다. 이제 표 @ref(tab:seattle-interaction)의 <code>estimate</code> 열에 있는 10개 값 모두에 대해 동일한 작업을 해보겠습니다.</p>
+<p>이 경우, 범주형 변수 <code>condition</code>의 “비교 기준(baseline for comparison)” 그룹은 알파벳순으로 “1”이 가장 앞에 오기 때문에 <code>condition1</code> 주택입니다. 따라서 <code>intercept</code>와 <code>log10_size</code> 값은 이 기준 그룹에 대한 <code>log10_size</code>의 절편과 기울기입니다. 그 다음으로 <code>condition2</code>부터 <code>condition5</code> 항들은 <code>condition1</code> 절편에 대한 절편의 <strong>차이(offsets)</strong>입니다. 마지막으로 <code>log10_size:condition2</code>부터 <code>log10_size:condition5</code>는 <code>condition1</code>의 <code>log10_size</code> 기울기에 대한 <code>log10_size</code> 기울기의 <strong>차이(offsets)</strong>입니다.</p>
+<p>이 10개의 <code>estimate</code> 값을 사용하여 5개 회귀 직선 각각의 방정식을 써서 이를 단순화해 보겠습니다. 각 직선을 다음 형식으로 작성하겠습니다:</p>
+<p><span class="math display">\[
+\widehat{\log10(\text{price})} = \hat{\beta}_0 + \hat{\beta}_{\text{size}} \cdot \log10(\text{size})
+\]</span></p>
+<ol type="1">
+<li>상태 1(Condition 1):</li>
+</ol>
+<!--
+참고: 아래 LaTeX의 마크다운 미리보기가 깨져 보일 수 있지만, 
+HTML 출력물에서는 올바르게 나옵니다.
+-->
+<p><span class="math display">\[\widehat{\log10(\text{price})} = 3.33 + 0.69 \cdot \log10(\text{size})\]</span></p>
+<ol start="2" type="1">
+<li>상태 2(Condition 2):</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{\log10(\text{price})} &amp;= (3.33 + 0.047) + (0.69 - 0.024) \cdot \log10(\text{size}) \\
+                               &amp;= 3.377 + 0.666 \cdot \log10(\text{size})
+\end{aligned}
+\]</span></p>
+<ol start="3" type="1">
+<li>상태 3(Condition 3):</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{\log10(\text{price})} &amp;= (3.33 - 0.367) + (0.69 + 0.133) \cdot \log10(\text{size}) \\
+                               &amp;= 2.963 + 0.823 \cdot \log10(\text{size})
+\end{aligned}
+\]</span></p>
+<ol start="4" type="1">
+<li>상태 4(Condition 4):</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{\log10(\text{price})} &amp;= (3.33 - 0.398) + (0.69 + 0.146) \cdot \log10(\text{size}) \\
+                               &amp;= 2.932 + 0.836 \cdot \log10(\text{size})
+\end{aligned}
+\]</span></p>
+<ol start="5" type="1">
+<li>상태 5(Condition 5):</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{\log10(\text{price})} &amp;= (3.33 - 0.883) + (0.69 + 0.31) \cdot \log10(\text{size}) \\
+                               &amp;= 2.447 + 1 \cdot \log10(\text{size})
+\end{aligned}
+\]</span></p>
+<p>이것들은 그림 @ref(fig:house-price-parallel-slopes)의 왼쪽 그래프와 그림 @ref(fig:house-price-interaction-2)의 분할 그래프에 있는 회귀 직선들에 해당합니다. 다섯 가지 상태 유형 모두에서 집의 크기가 커질수록 가격이 상승합니다. 이는 대부분의 사람들이 예상하는 바입니다. 하지만 집 크기에 따른 가격 증가율(rate of increase)은 상태가 3, 4, 5인 집에서 각각 0.823, 0.836, 1로 가장 빠릅니다. 이들은 다섯 가지 기울기 중 가장 큰 세 개의 기울기입니다.</p>
+</section>
+<section id="house-prices-making-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="house-prices-making-predictions">예측하기</h3>
+<p>여러분이 부동산 중개인(realtor)이고 어떤 사람이 전화를 걸어 자신의 집이 얼마에 팔릴지 묻는다고 가정해 봅시다. 그들은 집의 상태(<code>condition</code>)가 5이고 크기는 1900평방 피트라고 말합니다. 그들에게 뭐라고 대답하시겠습니까? 우리가 적합시킨 상호작용 모델을 사용하여 예측해 봅시다!</p>
+<p>먼저 그림 @ref(fig:house-price-interaction-3)에서 시각적으로 이 예측을 수행해 보겠습니다. 이 집의 예측된 <code>log10_price</code>는 검은색 점으로 표시되어 있습니다. 이 점은 다음 두 선이 교차하는 지점입니다:</p>
+<ul>
+<li>상태가 5인 주택들의 회귀 직선과</li>
+<li><code>log10_size</code>가 3.28인 수직 점선. 우리의 예측 변수가 거주 공간 평방 피트를 log10 변환한 값인 <span class="math inline">\(\log10(1900) = 3.28\)</span>이기 때문입니다.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/house-price-interaction-3-1.png" class="img-fluid figure-img"></p>
+<figcaption>예측값이 포함된 상호작용 모델.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>눈대중으로 보면 예측된 <code>log10_price</code>는 약 5.75으로 보입니다. 이제 상태가 5인 주택들의 회귀 직선 방정식을 사용하여 예측된 정확한 수치값을 얻어 보겠습니다. 이때 먼저 평방 피트에 <code>log10()</code>을 취해야 함을 잊지 마십시오.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.45</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">log10</span>(<span class="dv">1900</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.73</code></pre>
+</div>
+</div>
+<p>이 값은 앞서 시각적으로 내린 예측값인 5.75과 매우 가깝습니다. 하지만 잠깐만요! 이 집의 가격에 대한 우리 예측값이 $5.75일까요? 아닙니다! 우리는 <code>log10_price</code>를 결과 변수로 사용하고 있다는 점을 기억하십시오! 따라서 달러 단위의 <code>price</code> 예측값을 얻으려면 부록 @ref(appendix-log10-transformations)에서 설명한 대로 10의 거듭제곱을 취하여 로그를 풀어야(unlog) 합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(<span class="fl">2.45</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">log10</span>(<span class="dv">1900</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 535493</code></pre>
+</div>
+</div>
+<p>따라서 상태가 5이고 크기가 1900평방 피트인 이 집의 예측 가격은 $535,493입니다.</p>
+<!--
+v2 TODO: Inference for regression for Seattle house prices
+
+### Inference for regression {#house-prices-inference-for-regression}
+
+- Interpret offset in slope terms
+- All possible partial residual plots
+- Then add back LC below
+
+-->
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>Learning check</em></strong>
+</p>
+</div>
+</div>
+<!--
+v2 TODO: Inference for regression for Seattle house prices
+
+**` paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Check that the LINE conditions are met for inference to be made in this Seattle house prices example.
+-->
+<p><strong>(LC11.1)</strong> Repeat the regression modeling in Subsection @ref(house-prices-regression) and the prediction making you just did on the house of condition 5 and size 1900 square feet in Subsection @ref(house-prices-making-predictions), but using the parallel slopes model you visualized in Figure @ref(fig:house-price-parallel-slopes). Show that it’s $524,807!</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+</section>
+</section>
+<section id="data-journalism" class="level2">
+<h2 class="anchored" data-anchor-id="data-journalism">사례 연구: 효과적인 데이터 스토리텔링</h2>
+<p>이 책을 진행하면서 여러분은 다양한 방식으로 데이터를 다루는 방법을 보았습니다. 어떤 변수 유형의 조합에 어떤 유형의 그래프가 가장 적합한지 이해함으로써 데이터를 그리는 효과적인 전략을 배웠습니다. 스프레드시트 형식으로 데이터를 요약하고 다양한 변수에 대한 요약 통계량을 계산했습니다. 또한, 표집(sampling)을 사용하여 모집단에 대한 결론을 도출하는 과정으로서 통계적 추론의 가치를 확인했습니다. 마지막으로 선형 회귀 모델을 적합시키는 방법과 모든 신뢰 구간 및 가설 검정이 타당한 해석을 갖도록 필요한 조건을 확인하는 것의 중요성을 탐구했습니다. 이 과정 전반에 걸쳐 여러분은 많은 계산 기법을 배웠고, 재현 가능한 R 코드를 작성하는 데 집중했습니다.</p>
+<p>이제 또 다른 사례 연구 세트를 제시하겠습니다. 이번에는 전 세계의 데이터 저널리스트들이 수행한 “효과적인 데이터 스토리텔링”에 관한 것입니다. 훌륭한 데이터 스토리는 독자를 오도하지 않으며, 오히려 스토리텔링을 통해 데이터가 우리 삶에서 차지하는 중요성을 이해하도록 독자를 몰입시킵니다.</p>
+<section id="할리우드의-성별-대표성에-대한-벡델-테스트" class="level3">
+<h3 class="anchored" data-anchor-id="할리우드의-성별-대표성에-대한-벡델-테스트">할리우드의 성별 대표성에 대한 벡델 테스트</h3>
+<p>Walt Hickey의 FiveThirtyEight.com 기사인 <a href="http://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/">“할리우드의 여성 배제에 반대하는 달러와 센트의 논거(The Dollar-And-Cents Case Against Hollywood’s Exclusion of Women)”</a>를 읽고 분석해 보시길 권장합니다. 이 기사에서 Walt는 Alison Bechdel이 만든 영화 내 성별 대표성에 대한 비공식 테스트인 <a href="https://bechdeltest.com/">벡델 테스트(Bechdel test)</a>를 얼마나 많은 영화가 통과하는지에 대해 수십 년간의 연구를 완료했습니다.</p>
+<p>기사를 읽으면서 Walt Hickey가 독자에게 이야기를 들려주기 위해 데이터, 그래픽 및 분석을 어떻게 사용하고 있는지 신중하게 생각해 보십시오. 재현성(reproducibility)의 정신에 입각하여 FiveThirtyEight은 이 기사에 사용한 <a href="https://github.com/fivethirtyeight/data/tree/master/bechdel">데이터와 R 코드</a>도 공유했습니다. 그들의 <a href="https://github.com/fivethirtyeight/data">GitHub</a> 페이지에서 더 많은 기사에 사용된 데이터를 찾을 수 있습니다.</p>
+<p><em>ModernDive</em>의 공동 저자인 Chester Ismay와 Albert Y. Kim은 Jennifer Chunn과 함께 이러한 데이터셋에 R에서 더 쉽게 접근할 수 있도록 <code>fivethirtyeight</code> 패키지를 만들어 한 걸음 더 나아갔습니다. <code>fivethirtyeight</code> 패키지에 포함된 모든 129개의 데이터셋 전체 목록은 패키지 웹페이지 <a href="https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html" class="uri">https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html</a>를 확인하십시오.</p>
+<p>또한, <code>dplyr</code>, <code>ggplot2</code> 및 <code>tidyverse</code>의 다른 패키지들을 사용하여 이러한 데이터 중 일부를 처음부터 끝까지 완전히 재현 가능하게 분석한 “비네트(vignettes)” 예시들을 <a href="https://fivethirtyeight-r.netlify.app/articles/">여기</a>에서 볼 수 있습니다. 예를 들어, 벡델 테스트에 관한 기사 마지막 부분에 있는 그래프 중 하나를 재현하는 방법을 보여주는 비네트는 <a href="https://fivethirtyeightdata.github.io/fivethirtyeightdata/articles/bechdel.html">여기</a>에서 확인할 수 있습니다.</p>
+</section>
+<section id="년-미국-출생아-수" class="level3">
+<h3 class="anchored" data-anchor-id="년-미국-출생아-수">1999년 미국 출생아 수</h3>
+<p><code>fivethirtyeight</code> 패키지에 포함된 <code>US_births_1994_2003</code> 데이터 프레임은 1994년부터 2003년 사이의 미국 일별 출생아 수에 대한 정보를 제공합니다. 원래 FiveThirtyEight.com 기사에 대한 링크를 포함하여 이 데이터 프레임에 대한 자세한 정보는 콘솔에서 <code>?US_births_1994_2003</code>을 실행하여 도움말 파일을 확인하십시오.</p>
+<p>항상 RStudio의 스프레드시트 <code>View()</code> 함수를 사용하거나 <code>dplyr</code> 패키지의 <code>glimpse()</code>를 사용하여 데이터를 미리 살펴보는 것이 좋습니다:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(US_births_1994_2003)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,652
+Columns: 6
+$ year          &lt;int&gt; 1994, 1994, 1994, 1994, 1994, 1994, 1994, 1994, 1994, 19…
+$ month         &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ date_of_month &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
+$ date          &lt;date&gt; 1994-01-01, 1994-01-02, 1994-01-03, 1994-01-04, 1994-01…
+$ day_of_week   &lt;ord&gt; Sat, Sun, Mon, Tues, Wed, Thurs, Fri, Sat, Sun, Mon, Tue…
+$ births        &lt;int&gt; 8096, 7772, 10142, 11248, 11053, 11406, 11251, 8653, 791…</code></pre>
+</div>
+</div>
+<p>우리는 각 날짜(<code>date</code>)별 출생아 수(<code>births</code>)에 집중하되, 1999년에 발생한 출생아만 살펴보겠습니다. 섹션 @ref(filter)에서 보았듯이 <code>dplyr</code> 패키지의 <code>filter()</code> 함수를 사용하여 이를 수행할 수 있습니다:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>US_births_1999 <span class="ot">&lt;-</span> US_births_1994_2003 <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1999</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>섹션 @ref(linegraphs)에서 논의한 바와 같이, <code>date</code>는 시간의 개념이므로 순차적인 순서가 있습니다. 따라서 산점도보다는 꺾은선 그래프(linegraph)가 더 적절한 시각화 방법입니다. 즉, <code>geom_point()</code> 대신 <code>geom_line()</code>을 사용해야 합니다. 이러한 그래프를 <strong>시계열(time series)</strong> 그래프라고 부른다는 것을 상기해 보십시오.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(US_births_1999, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> births)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"날짜"</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"출생아 수"</span>, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"1999년 미국 출생아 수"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11-tell-your-story-with-data_files/figure-html/us-births-1.png" class="img-fluid figure-img"></p>
+<figcaption>1999년 미국 출생아 수.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>2000년 1월 1일 직전에 출생아 수가 크게 급감하는 것을 볼 수 있는데, 이는 아마도 연말 연시 휴가 시즌 때문일 것입니다. 그런데 1999년 10월 1일 직전에 14,000명이 넘는 출생아가 발생한 커다란 스파이크(spike)는 무엇일까요? 이 이례적으로 높은 스파이크의 원인은 무엇일까요?</p>
+<p><code>US_births_1999</code>의 행들을 출생아 수의 내림차순으로 정렬해 보겠습니다. 섹션 @ref(arrange)에서 배웠듯이 <code>dplyr</code> 패키지의 <code>arrange()</code> 함수를 사용하여 <code>births</code>를 내림차순(<code>desc</code>)으로 정렬하면 됩니다:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>US_births_1999 <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(births))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 365 × 6
+    year month date_of_month date       day_of_week births
+   &lt;int&gt; &lt;int&gt;         &lt;int&gt; &lt;date&gt;     &lt;ord&gt;        &lt;int&gt;
+ 1  1999     9             9 1999-09-09 Thurs        14540
+ 2  1999    12            21 1999-12-21 Tues         13508
+ 3  1999     9             8 1999-09-08 Wed          13437
+ 4  1999     9            21 1999-09-21 Tues         13384
+ 5  1999     9            28 1999-09-28 Tues         13358
+ 6  1999     7             7 1999-07-07 Wed          13343
+ 7  1999     7             8 1999-07-08 Thurs        13245
+ 8  1999     8            17 1999-08-17 Tues         13201
+ 9  1999     9            10 1999-09-10 Fri          13181
+10  1999    12            28 1999-12-28 Tues         13158
+# ℹ 355 more rows</code></pre>
+</div>
+</div>
+<p>출생아 수가 가장 많은 날(14,540명)은 사실 1999년 9월 9일입니다. 이 날짜를 미국 표준 형식인 월/일/년 형식으로 써보면, 출생아 수가 가장 많은 날은 9/9/99입니다! 온통 9뿐입니다! 부모들이 의도적으로 이 날짜에 맞춰 더 높은 비율로 분동을 유도했을 가능성이 있을까요? 그럴 수도 있겠죠? 원인이 무엇이든, 이 사실은 재미있는 이야기가 됩니다!</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+<p>
+<strong><em>학습 확인(Learning check)</em></strong>
+</p>
+</div>
+</div>
+<p><strong>(LC11.2)</strong> 1994년과 2003년 사이에 미국에서 출생아 수가 가장 적은 날짜는 언제인가요? 그 원인에 대해 어떤 이야기를 들려줄 수 있을까요?</p>
+<div class="cell" data-layout-align="center" type="learncheck">
+<div class="learncheck">
+
+</div>
+</div>
+<p>데이터로 생각하고, 여러분의 이야기를 더 들려줄 시간입니다! 통계적 모델링이 여기서 어떤 도움이 될 수 있을까요? 어떤 종류의 통계적 추론이 유용할까요? 또 무엇을 찾을 수 있으며 이 분석을 어디까지 확장할 수 있을까요? 이 분석에서 여러분은 어떤 가정을 했나요? 이러한 질문들은 독자 여러분이 직접 탐구하고 검토해 볼 수 있도록 남겨두겠습니다.</p>
+<p>서문에 있는 저희 연락처를 통해 저희에게 연락해 주십시오. 여러분이 어떤 결과물을 만들어낼지 정말 기대됩니다!</p>
+<p><a href="https://moderndive.com/labs" class="uri">https://moderndive.com/labs</a>에서 추가적인 문제 세트와 실습(labs)도 확인해 보시기 바랍니다.</p>
+</section>
+<section id="r-코드-스크립트" class="level3">
+<h3 class="anchored" data-anchor-id="r-코드-스크립트">R 코드 스크립트</h3>
+<div class="cell" data-layout-align="center">
+<p>이 장에서 사용된 모든 R 코드의 R 스크립트 파일은 <a href="scripts/11-tell-your-story-with-data.R">여기</a>에서 이용 가능합니다.</p>
+</div>
+<p>책 전체에 걸쳐 모든 관련 장들에 대해 *.R 파일로 저장된 R 코드 파일들이 다음 표에 정리되어 있습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">chapter</th>
+<th style="text-align: left;">link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">https://moderndive.com/scripts/01-getting-started.R</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">https://moderndive.com/scripts/02-visualization.R</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">https://moderndive.com/scripts/03-wrangling.R</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">https://moderndive.com/scripts/04-tidy.R</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">https://moderndive.com/scripts/05-regression.R</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">https://moderndive.com/scripts/06-multiple-regression.R</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">https://moderndive.com/scripts/07-sampling.R</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">https://moderndive.com/scripts/08-confidence-intervals.R</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">https://moderndive.com/scripts/09-hypothesis-testing.R</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">https://moderndive.com/scripts/10-inference-for-regression.R</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">https://moderndive.com/scripts/11-tell-your-story-with-data.R</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="맺음말" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="맺음말">맺음말</h2>
+<p>이제 이 책의 여기까지 오셨으니, 여러분은 R에서 데이터를 다루는 방법에 대해 꽤 많은 것을 알고 계실 것입니다! 또한 통계적 추론을 위해 시뮬레이션 기반 기법을 사용하는 방법과 이러한 기법이 <span class="math inline">\(t\)</span>-검정과 같은 전통적인 이론 기반 추론 방법에 대한 직관을 기르는 데 어떻게 도움이 되는지에 대해서도 많은 지식을 얻으셨습니다.</p>
+<p>우리는 여러분이 데이터 전처리(data wrangling), 데이터 정리(tidying), 데이터 시각화, 데이터 모델링 및 통계적 추론과 같은 모든 측면에서 데이터의 힘을 깨닫게 되기를 바랍니다. 저희의 의견으로는 이 모든 것이 중요하지만, 시민 데이터 과학자나 전문 데이터 과학자가 갖춰야 할 가장 중요한 도구는 데이터 시각화일 것입니다. 여러분이 독자가 명확하게 이해할 수 있는 방식으로 정보를 표시하는 진정으로 아름다운 그래픽을 만들 수 있다면, 여러분은 데이터로 이야기를 들려주는 강력한 힘을 갖게 된 것입니다. 이러한 기술들이 앞으로 여러분이 데이터로 멋진 이야기를 들려주는 데 도움이 되기를 바랍니다. R과 <code>tidyverse</code>를 사용하여 현대적인 데이터 분석의 세계에 뛰어든 이 여정에 함께해 주셔서 감사합니다!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./10-inference-for-regression.html" class="pagination-link" aria-label="회귀 분석을 위한 추론">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./91-appendixA.html" class="pagination-link" aria-label="통계적 배경">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">통계적 배경</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
