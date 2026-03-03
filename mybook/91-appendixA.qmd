@@ -1,14 +1,18 @@
+```{r, include=FALSE}
+source("_common.R")
+```
+
 \cleardoublepage
 
 ```{r echo=FALSE, results='asis'}
-if(!is_latex_output()){
+if(!knitr::is_latex_output()){
   cat("# (APPENDIX) Appendix {-}")
 } else {
   cat("\\appendix")
 }
 ```
 
-# Statistical Background {#appendixA}
+# 통계적 배경 {#appendixA}
 
 ```{r setup_appA, include=FALSE}
 chap <- "A"
@@ -17,7 +21,7 @@ rq <- 0
 # **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**
 # **`r paste0("(RQ", chap, ".", (rq <- rq + 1), ")")`**
 
-opts_chunk$set(
+knitr::opts_chunk$set(
   tidy = FALSE, 
   out.width = '\\textwidth', 
   fig.height = 4,
@@ -26,12 +30,12 @@ opts_chunk$set(
 
 options(scipen = 99, digits = 3)
 
-# Set random number generator see value for replicable pseudorandomness.
+# 재현 가능한 의사 난수 생성을 위해 난수 생성기 시드 값을 설정합니다.
 set.seed(76)
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-# Packages needed internally, but not in text.
+# 내부적으로 필요하지만 본문에서는 필요하지 않은 패키지들.
 library(scales)
 library(tidyverse)
 library(ggrepel)
@@ -41,72 +45,72 @@ library(ggrepel)
 
 
 
-## Basic statistical terms {#appendix-stat-terms}
+## 기초 통계 용어 {#appendix-stat-terms}
 
-Note that all the following statistical terms apply only to *numerical* variables, except the *distribution* which can exist for both numerical and categorical variables. 
+다음의 모든 통계 용어는 *수치형(numerical)* 변수에만 적용되지만, *분포(distribution)*는 수치형과 범주형 변수 모두에 존재할 수 있습니다.
 
 
-### Mean
+### 평균 (Mean)
 
-The *mean* is the most commonly reported measure of center.  It is commonly called the *average* though this term can be a little ambiguous.  The mean is the sum of all of the data elements divided by how many elements there are. If we have $n$ data points, the mean is given by: 
+*평균(mean)*은 가장 흔히 보고되는 중심 측도(measure of center)입니다. 흔히 *average*라고도 불리지만, 이 용어는 다소 모호할 수 있습니다. 평균은 모든 데이터 요소의 합을 요소의 개수로 나눈 값입니다. $n$개의 데이터 포인트가 있다면 평균은 다음과 같습니다.
 
 $$Mean = \frac{x_1 + x_2 + \cdots + x_n}{n}$$
 
 
-### Median
+### 중앙값 (Median)
 
-The median is calculated by first sorting a variable's data from smallest to largest.  After sorting the data, the middle element in the list is the *median*.  If the middle falls between two values, then the median is the mean of those two middle values.
+중앙값은 먼저 변수의 데이터를 가장 작은 것부터 가장 큰 것 순으로 정렬하여 계산합니다. 데이터를 정렬한 후 리스트에서 가운데 있는 요소가 *중앙값(median)*입니다. 만약 가운데가 두 값 사이에 있다면, 중앙값은 그 두 중간값의 평균입니다.
 
 
-### Standard deviation and variance {#appendix-sd-variance}
+### 표준 편차와 분산 {#appendix-sd-variance}
 
-We will next discuss the *standard deviation* ($sd$) of a variable.  The formula can be a little intimidating at first but it is important to remember that it is essentially a measure of how far we expect a given data value will be from its mean:
+다음으로 변수의 *표준 편차(standard deviation, sd)*에 대해 논의하겠습니다. 공식이 처음에는 다소 위협적일 수 있지만, 이는 본질적으로 주어진 데이터 값이 평균에서 얼마나 떨어져 있을 것으로 기대되는지를 측정하는 지표라는 점을 기억하는 것이 중요합니다.
 
 $$sd = \sqrt{\frac{(x_1 - Mean)^2 + (x_2 - Mean)^2 + \cdots + (x_n - Mean)^2}{n - 1}}$$
 
-The *variance* of a variable is merely the standard deviation squared.
+변수의 *분산(variance)*은 단지 표준 편차를 제곱한 것입니다.
 
 $$variance = sd^2 = \frac{(x_1 - Mean)^2 + (x_2 - Mean)^2 + \cdots + (x_n - Mean)^2}{n - 1}$$
 
 
-### Five-number summary
+### 다섯 수치 요약 (Five-number summary)
 
-The *five-number summary* consists of five summary statistics: the minimum, the first quantile AKA 25th percentile, the second quantile AKA median or 50th percentile, the third quantile AKA 75th, and the maximum. The five-number summary of a variable is used when constructing boxplots, as seen in Section \@ref(boxplots).
+*다섯 수치 요약(five-number summary)*은 다섯 개의 요약 통계량으로 구성됩니다: 최솟값, 제1사분위수(25백분위수), 제2사분위수(중앙값 또는 50백분위수), 제3사분위수(75백분위수), 그리고 최댓값입니다. 변수의 다섯 수치 요약은 2.7.1절(\@ref(boxplots))에서 본 것처럼 박스 그래프를 그릴 때 사용됩니다.
 
-The quantiles are calculated as
+사분위수는 다음과 같이 계산됩니다:
 
-- first quantile ($Q_1$): the median of the first half of the sorted data
-- third quantile ($Q_3$): the median of the second half of the sorted data
+- 제1사분위수($Q_1$): 정렬된 데이터의 전반부 중앙값
+- 제3사분위수($Q_3$): 정렬된 데이터의 후반부 중앙값
 
-The *interquartile range (IQR)*\index{interquartile range (IQR)} is defined as $Q_3 - Q_1$ and is a measure of how spread out the middle 50% of values are. The IQR corresponds to the length of the box in a boxplot.
+*사분위수 범위(interquartile range, IQR)*\index{interquartile range (IQR)}는 $Q_3 - Q_1$로 정의되며, 중앙 50%의 값이 얼마나 퍼져 있는지를 나타내는 척도입니다. IQR은 박스 그래프에서 상자의 길이에 해당합니다.
 
-The median and the IQR are not influenced by the presence of outliers in the ways that the mean and standard deviation are. They are, thus, recommended for skewed datasets. We say in this case that the median and IQR are more *robust to outliers*.
-
-
-### Distribution
-
-The *distribution* of a variable shows how frequently different values of a variable occur. Looking at the visualization of a distribution can show where the values are centered, show how the values vary, and give some information about where a typical value might fall.  It can also alert you to the presence of outliers. 
-
-Recall from Chapter \@ref(viz) that we can visualize the distribution of a numerical variable using binning in a histogram and that we can visualize the distribution of a categorical variable using a barplot.
+중앙값과 IQR은 평균 및 표준 편차와 달리 이상치(outliers)의 영향을 크게 받지 않습니다. 따라서 비대칭(skewed) 데이터셋에는 이들을 사용하는 것이 권장됩니다. 이 경우 중앙값과 IQR이 이상치에 더 *강건하다(robust to outliers)*고 말합니다.
 
 
-### Outliers
+### 분포 (Distribution)
 
-*Outliers* correspond to values in the dataset that fall far outside the range of "ordinary" values.  In the context of a boxplot, by default they correspond to values below $Q_1 - (1.5 \cdot IQR)$ or above $Q_3 + (1.5 \cdot IQR)$.
+변수의 *분포(distribution)*는 변수의 서로 다른 값들이 얼마나 자주 나타나는지를 보여줍니다. 분포 시각화를 통해 값들이 어디에 집중되어 있는지, 어떻게 변하는지, 그리고 전형적인 값이 어디쯤일지에 대한 정보를 얻을 수 있습니다. 또한 이상치의 존재를 알려주기도 합니다.
+
+2장(\@ref(viz))에서 배운 것처럼, 히스토그램에서 구간 나누기(binning)를 사용하여 수치형 변수의 분포를 시각화할 수 있고, 막대 그래프를 사용하여 범주형 변수의 분포를 시각화할 수 있음을 상기하세요.
 
 
+### 이상치 (Outliers)
+
+*이상치(outliers)*는 "보통의" 값 범위를 크게 벗어나는 데이터셋의 값들에 해당합니다. 박스 그래프의 맥락에서, 기본적으로 이들은 $Q_1 - (1.5 \cdot IQR)$보다 작거나 $Q_3 + (1.5 \cdot IQR)$보다 큰 값들에 해당합니다.
 
 
 
-## Normal distribution {#appendix-normal-curve}
 
-Let's next discuss one particular kind of distribution: \index{distribution!normal} *normal distributions*. Such bell-shaped distributions are defined by two values: (1) the *mean* $\mu$ ("mu") which locates the center of the distribution and (2) the *standard deviation* $\sigma$ ("sigma") which determines the variation of the distribution. In Figure \@ref(fig:normal-curves), we plot three normal distributions where:
 
-1. The solid normal curve has mean $\mu = 5$ \& standard deviation $\sigma = 2$.
-1. The dotted normal curve has mean $\mu = 5$ \& standard deviation $\sigma = 5$.
-1. The dashed normal curve has mean $\mu = 15$ \& standard deviation $\sigma = 2$.
+## 정규 분포 {#appendix-normal-curve}
 
-```{r normal-curves, echo=FALSE, fig.cap="Three normal distributions.", purl=FALSE, out.width="90%"}
+이제 특별한 종류의 분포인 \index{distribution!normal} *정규 분포(normal distributions)*에 대해 논의해 보겠습니다. 이러한 종 모양의 분포는 두 가지 값에 의해 정의됩니다: (1) 분포의 중심을 위치시키는 *평균* $\mu$ ("mu")와 (2) 분포의 변동(variation)을 결정하는 *표준 편차* $\sigma$ ("sigma")입니다. 그림 \@ref(fig:normal-curves)에는 다음 세 가지 정규 분포를 그렸습니다:
+
+1. 실선 정규 곡선: 평균 $\mu = 5$, 표준 편차 $\sigma = 2$.
+1. 점선 정규 곡선: 평균 $\mu = 5$, 표준 편차 $\sigma = 5$.
+1. 파선 정규 곡선: 평균 $\mu = 15$, 표준 편차 $\sigma = 2$.
+
+```{r normal-curves, echo=FALSE, fig.cap="세 개의 정규 분포.", purl=FALSE, out.width="90%"}
 all_points <- tibble(
   domain = seq(from = -10, to = 25, by = 0.01),
   `mu = 5, sigma = 2` = dnorm(x = domain, mean = 5, sd = 2),
@@ -144,23 +148,23 @@ all_points %>%
   )
 ```
 
-Notice how the solid and dotted line normal curves have the same center due to their common mean $\mu$ = 5. However, the dotted line normal curve is wider due to its larger standard deviation of $\sigma$ = 5. On the other hand, the solid and dashed line normal curves have the same variation due to their common standard deviation $\sigma$ = 2. However, they are centered at different locations. 
+실선과 점선 정규 곡선은 공통 평균 $\mu = 5$로 인해 중심이 같음을 알 수 있습니다. 하지만 점선 정규 곡선은 표준 편차가 $\sigma = 5$로 더 크기 때문에 더 넓게 퍼져 있습니다. 반면, 실선과 파선 정규 곡선은 공통 표준 편차 $\sigma = 2$로 인해 변동 폭이 같습니다. 하지만 이들은 서로 다른 위치에 중심이 있습니다.
 
-When the mean $\mu$ = 0 and the standard deviation $\sigma$ = 1, the normal distribution has a special name. It's called the *standard normal distribution* or the *$z$-curve*\index{distribution!standard normal}.
+평균 $\mu = 0$이고 표준 편차 $\sigma = 1$일 때, 이 정규 분포는 특별한 이름을 가집니다. 이를 *표준 정규 분포(standard normal distribution)* 또는 *$z$-곡선*\index{distribution!standard normal}이라고 부릅니다.
 
-Furthermore, if a variable follows a normal curve, there are *three rules of thumb* we can use:
+게다가 변수가 정규 곡선을 따른다면, 우리가 사용할 수 있는 세 가지 *경험적 법칙(rules of thumb)*이 있습니다:
 
-1. 68% of values will lie within $\pm$ 1 standard deviation of the mean.
-1. 95% of values will lie within $\pm$ 1.96 $\approx$ 2 standard deviations of the mean.
-1. 99.7% of values will lie within $\pm$ 3 standard deviations of the mean.
+1. 값의 68%는 평균의 $\pm$ 1 표준 편차 범위 내에 있습니다.
+1. 값의 95%는 평균의 $\pm$ 1.96 $\approx$ 2 표준 편차 범위 내에 있습니다.
+1. 값의 99.7%는 평균의 $\pm$ 3 표준 편차 범위 내에 있습니다.
 
-Let's illustrate this on a standard normal curve in Figure \@ref(fig:normal-rule-of-thumb). The dashed lines are at -3, -1.96, -1, 0, 1, 1.96, and 3. These 7 lines cut up the x-axis into 8 segments. The areas under the normal curve for each of the 8 segments are marked and add up to 100%. For example:
+이를 그림 \@ref(fig:normal-rule-of-thumb)의 표준 정규 곡선에서 설명해 보겠습니다. 파선은 -3, -1.96, -1, 0, 1, 1.96, 3 지점에 있습니다. 이 7개의 선은 x축을 8개의 구간으로 나눕니다. 각 8개 구간에 대한 정규 곡선 아래 면적이 표시되어 있으며, 이를 모두 더하면 100%가 됩니다. 예를 들어:
 
-1. The middle two segments represent the interval -1 to 1. The shaded area above this interval represents 34% + 34% = 68% of the area under the curve. In other words, 68% of values. 
-1. The middle four segments represent the interval -1.96 to 1.96. The shaded area above this interval represents 13.5% + 34% + 34% + 13.5% = 95% of the area under the curve. In other words, 95% of values. 
-1. The middle six segments represent the interval -3 to 3. The shaded area above this interval represents 2.35% + 13.5% + 34% + 34% + 13.5% + 2.35% = 99.7% of the area under the curve. In other words, 99.7% of values. 
+1. 중간 두 구간은 -1에서 1 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 34% + 34% = 68%를 나타냅니다. 즉, 값의 68%에 해당합니다.
+1. 중간 네 구간은 -1.96에서 1.96 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 13.5% + 34% + 34% + 13.5% = 95%를 나타냅니다. 즉, 값의 95%에 해당합니다.
+1. 중간 여섯 구간은 -3에서 3 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 2.35% + 13.5% + 34% + 34% + 13.5% + 2.35% = 99.7%를 나타냅니다. 즉, 값의 99.7%에 해당합니다.
 
-```{r normal-rule-of-thumb, echo=FALSE, fig.cap="Rules of thumb about areas under normal curves.", purl=FALSE, out.width = "80%"}
+```{r normal-rule-of-thumb, echo=FALSE, fig.cap="정규 곡선 아래 면적에 대한 경험적 법칙.", purl=FALSE, out.width = "80%"}
 shade_3_sd <- function(x) {
   y <- dnorm(x, mean = 0, sd = 1)
   y[x <= -3 | x >= 3] <- NA
@@ -207,19 +211,19 @@ ggplot(data = tibble(x = c(-4, 4)), aes(x)) +
 
 ```{block, type='learncheck', purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
 <!--
-v2 TODO: Consider LC using this later on: <https://gallery.shinyapps.io/dist_calc/>
+v2 TODO: 이후에 다음을 사용한 LC를 고려해 보세요: <https://gallery.shinyapps.io/dist_calc/>
 -->
 
-Say you have a normal distribution with mean $\mu = 6$ and standard deviation $\sigma = 3$. 
+평균 $\mu = 6$이고 표준 편차 $\sigma = 3$인 정규 분포가 있다고 가정해 보겠습니다.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What proportion of the area under the normal curve is less than 3? Greater than 12? Between 0 and 12?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 정규 곡선 아래 면적 중 3보다 작은 비율은 얼마인가요? 12보다 큰 비율은요? 0과 12 사이의 비율은요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What is the 2.5th percentile of the area under the normal curve? The 97.5th percentile? The 100th percentile?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 정규 곡선 아래 면적의 2.5백분위수는 얼마인가요? 97.5백분위수는요? 100백분위수는요?
 
 ```{block, type='learncheck', purl=FALSE}
 \vspace{-0.25in}
@@ -232,16 +236,15 @@ Say you have a normal distribution with mean $\mu = 6$ and standard deviation $\
 
 
 
-## log10 transformations {#appendix-log10-transformations}
+## log10 변환 {#appendix-log10-transformations}
 
-At its simplest, log10 transformations return base 10 *logarithms*. For example, since $1000 = 10^3$, running `log10(1000)` returns `3` in R. To undo a log10 transformation, we raise 10 to this value. For example, to undo the previous log10 transformation and return the original value of 1000, we raise 10 to the power of 3 by running `10^(3) = 1000` in R. \index{log transformations}
+가장 간단하게 말해서, log10 변환은 밑이 10인 *로그(logarithms)*를 반환합니다. 예를 들어 $1000 = 10^3$이므로, R에서 `log10(1000)`을 실행하면 `3`이 반환됩니다. log10 변환을 되돌리려면 10을 이 값만큼 거듭제곱합니다. 예를 들어, 이전의 log10 변환을 되돌려 원래 값인 1000을 얻으려면 R에서 `10^(3) = 1000`을 실행하여 10의 3승을 계산합니다. \index{log transformations}
 
-Log transformations allow us to focus on changes in *orders of magnitude*. In other words, they allow us to focus on *multiplicative changes* instead of *additive ones*. Let's illustrate this idea in Table \@ref(tab:logten) with examples of prices of consumer goods in 2019 US dollars. 
+로그 변환을 사용하면 *규모의 차수(orders of magnitude)*의 변화에 집중할 수 있습니다. 즉, *가산적 변화(additive changes)* 대신 *승법적 변화(multiplicative changes)*에 집중할 수 있게 해줍니다. 이 아이디어를 2019년 미국 달러 기준 소비재 가격 예시와 함께 표 \@ref(tab:logten)에서 설명해 보겠습니다.
 
 <!--
-v2 TODO: Add text like:
-We can also frame such changes as being relative percentage increases/decreases
-instead of absolute increases/decreases.
+v2 TODO: 다음과 같은 텍스트 추가:
+절대적인 증가/감소 대신 상대적인 백분율 증가/감소로 이러한 변화를 표현할 수도 있습니다.
 -->
 
 ```{r logten, echo=FALSE}
@@ -249,22 +252,22 @@ tibble(Price = c(1,10,100,1000,10000,100000,1000000)) %>%
   mutate(
     `log10(Price)` = log10(Price),
     Price = dollar(Price),
-    `Order of magnitude` = c("Singles", "Tens", "Hundreds", "Thousands", "Tens of thousands", "Hundreds of thousands", "Millions"),
-    `Examples` = c("Cups of coffee", "Books", "Mobile phones", "High definition TVs", "Cars", "Luxury cars and houses", "Luxury houses")
+    `Order of magnitude` = c("일 단위(Singles)", "십 단위(Tens)", "백 단위(Hundreds)", "천 단위(Thousands)", "만 단위(Tens of thousands)", "십만 단위(Hundreds of thousands)", "백만 단위(Millions)"),
+    `Examples` = c("커피 한 잔", "책", "휴대전화", "고화질 TV", "자동차", "고급 자동차 및 주택", "고급 주택")
   ) %>% 
   kable(
     digits = 3, 
-    caption = "log10 transformed prices, orders of magnitude, and examples", 
+    caption = "log10 변환된 가격, 규모의 차수 및 예시", 
     booktabs = TRUE,
     linesep = ""
   ) %>% 
-  kable_styling(font_size = ifelse(is_latex_output(), 10, 16), 
+  kable_styling(font_size = ifelse(knitr::is_latex_output(), 10, 16), 
                 latex_options = c("hold_position"))
 ```
 
-Let's make some remarks about log10 transformations based on Table \@ref(tab:logten):
+표 \@ref(tab:logten)을 바탕으로 log10 변환에 대해 몇 가지 언급해 보겠습니다:
 
-1. When purchasing a cup of coffee, we tend to think of prices ranging in single dollars, such as \$2 or \$3. However, when purchasing a mobile phone, we don't tend to think of their prices in units of single dollars such as \$313 or \$727. Instead, we tend to think of their prices in units of hundreds of dollars like \$300 or \$700. Thus, cups of coffee and mobile phones are of different *orders of magnitude* in price.
-1. Let's say we want to know the log10 transformed value of \$76. This would be hard to compute exactly without a calculator. However, since \$76 is between \$10 and \$100 and since log10(10) = 1 and log10(100) = 2, we know log10(76) will be between 1 and 2. In fact, log10(76) is 1.880814.
-1. log10 transformations are *monotonic*, meaning they preserve orders. So if Price A is lower than Price B, then log10(Price A) will also be lower than log10(Price B).
-1. Most importantly, increments of one in log10-scale correspond to *relative multiplicative changes* in the original scale and not *absolute additive changes*. For example, increasing a log10(Price) from 3 to 4 corresponds to a multiplicative increase by a factor of 10: \$100 to \$1000.
+1. 커피 한 잔을 살 때 우리는 보통 \$2나 \$3와 같이 일 달러 단위의 가격을 생각합니다. 하지만 휴대전화를 살 때는 \$313나 \$727와 같이 일 달러 단위로 가격을 생각하지 않습니다. 대신 \$300나 \$700와 같은 백 달러 단위로 가격을 생각하는 경향이 있습니다. 따라서 커피 한 잔과 휴대전화는 가격의 *규모의 차수(orders of magnitude)*가 다릅니다.
+1. \$76의 log10 변환된 값을 알고 싶다고 합시다. 계산기 없이는 정확히 계산하기 어렵습니다. 하지만 \$76은 \$10와 \$100 사이에 있고 log10(10) = 1, log10(100) = 2이므로, log10(76)은 1과 2 사이에 있음을 알 수 있습니다. 실제로 log10(76)은 1.880814입니다.
+1. log10 변환은 *단조적(monotonic)*입니다. 즉, 순서를 보존합니다. 따라서 가격 A가 가격 B보다 낮다면, log10(가격 A) 역시 log10(가격 B)보다 낮을 것입니다.
+1. 가장 중요한 점은, log10 스케일에서 1의 증가는 원래 스케일에서 *절대적인 가산적 변화*가 아니라 *상대적인 승법적 변화*에 대응한다는 것입니다. 예를 들어 log10(가격)이 3에서 4로 증가하는 것은 10배의 승법적 증가(\$100에서 \$1000로)에 대응합니다.

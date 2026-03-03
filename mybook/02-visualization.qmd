@@ -1,22 +1,26 @@
-(ref:tidyversepart) Data Science with `tidyverse`
+```{r, include=FALSE}
+source("_common.R")
+```
+
+(ref:tidyversepart) `tidyverse`를 이용한 데이터 과학
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   cat("# (PART) (ref:tidyversepart) {-} ")
 } else {
-  cat("# (PART) Data Science with tidyverse {-} ")
+  cat("# (PART) tidyverse를 이용한 데이터 과학 {-} ")
 }
 ```
 
-# Data Visualization {#viz}
+# 데이터 시각화 {#viz}
 
 ```{r setup-viz, include=FALSE, purl=FALSE}
-# Used to define Learning Check numbers:
+# 학습 확인(Learning Check) 번호를 정의하는 데 사용됨:
 chap <- 2
 lc <- 0
 
-# Set R code chunk defaults:
-opts_chunk$set(
+# R 코드 청크 기본값 설정:
+knitr::opts_chunk$set(
   echo = TRUE,
   eval = TRUE,
   warning = FALSE,
@@ -28,26 +32,26 @@ opts_chunk$set(
   fig.align = "center"
 )
 
-# Set output digit precision
+# 출력 자릿수 정밀도 설정
 options(scipen = 99, digits = 3)
 
-# In kable printing replace all NA's with blanks
+# kable 출력에서 모든 NA를 공백으로 대체
 options(knitr.kable.NA = "")
 
-# Set random number generator see value for replicable pseudorandomness.
+# 재현 가능한 의사 난수 생성을 위해 난수 생성기 시드 값 설정.
 set.seed(76)
 ```
 
-We begin the development of your data science toolbox with data visualization. By visualizing data, we gain valuable insights we couldn't initially obtain from just looking at the raw data values.  We'll use the `ggplot2` package, as it provides an easy way to customize your plots. `ggplot2` is rooted in the data visualization theory known as _the grammar of graphics_ [@wilkinson2005], developed by Leland Wilkinson. \index{Wilkinson, Leland}
+우리는 데이터 시각화를 통해 여러분의 데이터 과학 도구 상자 개발을 시작합니다. 데이터를 시각화함으로써, 원시 데이터 값을 그냥 보는 것만으로는 처음에 얻을 수 없었던 귀중한 통찰력을 얻을 수 있습니다. 우리는 플롯을 쉽게 커스터마이징할 수 있는 `ggplot2` 패키지를 사용할 것입니다. `ggplot2`는 릴랜드 윌킨슨(Leland Wilkinson)이 개발한 *그래픽 문법(the grammar of graphics)* [@wilkinson2005]으로 알려진 데이터 시각화 이론에 뿌리를 두고 있습니다. \index{Wilkinson, Leland}
 
-At their most basic, graphics/plots/charts (we use these terms interchangeably in this book) provide a nice way to explore the patterns in data, such as the presence of *outliers*, *distributions* of individual variables, and *relationships* between groups of variables. Graphics are designed to emphasize the findings and insights you want your audience to understand.  This does, however, require a balancing act.  On the one hand, you want to highlight as many interesting findings as possible. On the other hand, you don't want to include so much information that it overwhelms your audience.  
+가장 기본적으로 그래픽/플롯/차트(이 책에서는 이 용어들을 혼용하여 사용합니다)는 *이상치(outliers)*의 존재, 개별 변수의 *분포(distributions)*, 변수 그룹 간의 *관계(relationships)*와 같은 데이터의 패턴을 탐색하는 좋은 방법을 제공합니다. 그래픽은 여러분의 청중이 이해하기를 원하는 발견과 통찰을 강조하도록 설계되었습니다. 하지만 여기에는 균형 잡힌 행동이 필요합니다. 한편으로는 가능한 한 많은 흥미로운 발견을 강조하고 싶지만, 다른 한편으로는 청중을 압도할 정도로 많은 정보를 포함하고 싶지는 않을 것입니다.
 
-As we will see, plots \index{plots} also help us to identify patterns and outliers in our data.  We'll see that a common extension of these ideas is to compare the *distribution* \index{distribution} of one numerical variable, such as what are the center and spread of the values, as we go across the levels of a different categorical variable.
+우리가 보게 될 것처럼, 플롯 \index{plots} 역시 데이터의 패턴과 이상치를 식별하는 데 도움을 줍니다. 이러한 아이디어의 흔한 확장은 수치형 변수의 *분포* \index{distribution}(값의 중심과 퍼짐 정도 등)를 서로 다른 범주형 변수의 수준에 따라 비교하는 것임을 알게 될 것입니다.
 
 
-### Needed packages {-}
+### 필요한 패키지 {-}
 
-Let's load all the packages needed for this chapter (this assumes you've already installed them). Read Section \@ref(packages) for information on how to install and load R packages.
+이 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). R 패키지를 설치하고 로드하는 방법에 대한 정보는 섹션 \@ref(packages)를 읽어보세요.
 
 ```{r message=FALSE}
 library(nycflights13)
@@ -56,7 +60,7 @@ library(moderndive)
 ```
 
 ```{r message=FALSE, echo=FALSE, purl=FALSE}
-# Packages needed internally, but not in book.
+# 내부적으로는 필요하지만 책에는 나오지 않는 패키지들.
 library(dplyr)
 library(gapminder)
 library(kableExtra)
@@ -70,26 +74,26 @@ library(stringr)
 
 
 
-## The grammar of graphics {#grammarofgraphics}
+## 그래픽 문법 {#grammarofgraphics}
 
-We start with a discussion of a theoretical framework for data visualization known as "the grammar of graphics." This framework serves as the foundation for the \index{R packages!ggplot2} `ggplot2` package which we'll use extensively in this chapter. \index{Grammar of Graphics, The} Think of how we construct and form sentences in English by combining different elements, like nouns, verbs, articles, subjects, objects, etc. We can't just combine these elements in any arbitrary order; we must do so following a set of rules known as a linguistic grammar. Similarly to a linguistic grammar, "the grammar of graphics" defines a set of rules for constructing *statistical graphics* by combining different types of *layers*. This grammar was created by Leland Wilkinson [@wilkinson2005] and has been implemented in a variety of data visualization software platforms like R, but also [Plotly](https://plot.ly/) and [Tableau](https://www.tableau.com/).
+우리는 "그래픽 문법(the grammar of graphics)"으로 알려진 데이터 시각화를 위한 이론적 틀에 대한 논의부터 시작하겠습니다. 이 틀은 이 장에서 광범위하게 사용할 `ggplot2` \index{R packages!ggplot2} 패키지의 기초 역할을 합니다. \index{Grammar of Graphics, The} 우리가 명사, 동사, 관사, 주어, 목적어 등과 같은 서로 다른 요소들을 결합하여 영어 문장을 구성하고 형성하는 방식을 생각해 보세요. 우리는 이러한 요소들을 임의의 순서로 결합할 수 없습니다. 언어 문법으로 알려진 일련의 규칙을 따라야 합니다. 언어 문법과 유사하게 "그래픽 문법"은 서로 다른 유형의 *레이어(layers)*를 결합하여 *통계 그래픽(statistical graphics)*을 구성하기 위한 일련의 규칙을 정의합니다. 이 문법은 릴랜드 윌킨슨 [@wilkinson2005]에 의해 만들어졌으며 R뿐만 아니라 [Plotly](https://plot.ly/) 및 [Tableau](https://www.tableau.com/)와 같은 다양한 데이터 시각화 소프트웨어 플랫폼에서 구현되었습니다.
 
-### Components of the grammar
+### 문법의 구성 요소
 
-In short, the grammar tells us that:
+요약하자면, 이 문법은 다음과 같이 말합니다:
 
-> **A statistical graphic is a `mapping` of `data` variables to `aes`thetic attributes of `geom`etric objects.**
+> **통계 그래픽은 `데이터(data)` 변수를 `기하학적(geom) 객체`의 `미적(aes) 속성`에 `매핑(mapping)`한 것입니다.**
 
-Specifically, we can break a graphic into the following three essential components:
+구체적으로, 그래픽을 다음과 같은 세 가지 필수 구성 요소로 나눌 수 있습니다:
 
-1. `data`: the dataset containing the variables of interest.
-1. `geom`: the geometric object in question. This refers to the type of object we can observe in a plot. For example: points, lines, and bars.
-1. `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size.  Aesthetic attributes are *mapped* to variables in the dataset.
+1. `data`: 관심 변수를 포함하는 데이터셋.
+1. `geom`: 해당 기하학적 객체. 이는 플롯에서 관찰할 수 있는 객체의 유형을 나타냅니다. 예: 점(points), 선(lines), 막대(bars).
+1. `aes`: 기하학적 객체의 미적 속성. 예: x/y 위치, 색상, 모양, 크기. 미적 속성은 데이터셋의 변수에 *매핑*됩니다.
 
-You might be wondering why we wrote the terms `data`, `geom`, and `aes` in a computer code type font. We'll see very shortly that we'll specify the elements of the grammar in R using these terms. However, let's first break down the grammar with an example.
+왜 `data`, `geom`, `aes`라는 용어를 컴퓨터 코드 글꼴로 썼는지 궁금하실 겁니다. 곧 R에서 이 용어들을 사용하여 문법의 요소들을 지정하는 것을 보게 될 것입니다. 하지만 먼저 예시를 통해 문법을 분해해 보겠습니다.
 
 
-### Gapminder data {#gapminder}
+### Gapminder 데이터 {#gapminder}
 
 ```{r, echo=FALSE, purl=FALSE}
 gapminder_2007 <- gapminder %>%
@@ -104,32 +108,32 @@ gapminder_2007 <- gapminder %>%
   )
 ```
 
-In February 2006, a Swedish physician and data advocate named Hans Rosling gave a TED talk titled ["The best stats you've ever seen"](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen) where he presented global economic, health, and development data from the website [gapminder.org](http://www.gapminder.org/tools/#_locale_id=en;&chart-type=bubbles). For example, for data on `r gapminder_2007 %>% nrow()` countries in 2007, let's consider only a few countries in Table \@ref(tab:gapminder-2007) as a peek into the data.
+2006년 2월, 스웨덴의 의사이자 데이터 옹호가인 한스 로슬링(Hans Rosling)은 ["여러분이 본 것 중 최고의 통계"](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen)라는 제목의 TED 강연을 통해 [gapminder.org](http://www.gapminder.org/tools/#_locale_id=en;&chart-type=bubbles) 웹사이트의 글로벌 경제, 건강 및 개발 데이터를 제시했습니다. 예를 들어, 2007년 `r gapminder_2007 %>% nrow()`개 국가의 데이터 중 표 \@ref(tab:gapminder-2007)에 있는 몇 개 국가만 살펴보겠습니다.
 
 ```{r gapminder-2007, echo=FALSE, purl=FALSE}
 gapminder_2007 %>%
   head(3) %>%
   kbl(
     digits = 2,
-    caption = "Gapminder 2007 Data: First 3 of 142 countries" # ,
+    caption = "Gapminder 2007 데이터: 142개국 중 처음 3개국" # ,
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Each row in this table corresponds to a country in 2007. For each row, we have `r gapminder_2007 %>% ncol()` columns:
+이 표의 각 행은 2007년의 한 국가에 해당합니다. 각 행에는 `r gapminder_2007 %>% ncol()`개의 열이 있습니다:
 
-1. **Country**: Name of country.
-1. **Continent**: Which of the five continents the country is part of. Note that "Americas" includes countries in both North and South America and that Antarctica is excluded.
-1. **Life Expectancy**: Life expectancy in years.
-1. **Population**: Number of people living in the country.
-1. **GDP per Capita**: Gross domestic product (in US dollars).
+1. **Country**: 국가명.
+1. **Continent**: 해당 국가가 속한 5대륙 중 하나. "Americas"에는 북미와 남미 국가가 모두 포함되며 남극은 제외됩니다.
+1. **Life Expectancy**: 기대 수명(년).
+1. **Population**: 국가에 거주하는 인구수.
+1. **GDP per Capita**: 1인당 국내총생산(미국 달러 기준).
 
-Now consider Figure \@ref(fig:gapminder), which plots this for all `r gapminder_2007 %>% nrow()` of the data's countries.
+이제 이 데이터의 모든 `r gapminder_2007 %>% nrow()`개 국가를 플롯한 그림 \@ref(fig:gapminder)을 생각해 봅시다.
 
-```{r gapminder, echo=FALSE, fig.cap="Life expectancy over GDP per capita in 2007.", fig.height=2.95, purl=FALSE}
+```{r gapminder, echo=FALSE, fig.cap="2007년 GDP 대비 기대 수명.", fig.height=2.95, purl=FALSE}
 gapminder_plot <- ggplot(
   data = gapminder_2007,
   mapping = aes(
@@ -140,101 +144,101 @@ gapminder_plot <- ggplot(
   )
 ) +
   geom_point() +
-  labs(x = "GDP per capita", y = "Life expectancy")
+  labs(x = "1인당 GDP", y = "기대 수명")
 
-if (is_html_output()) {
+if (knitr::is_html_output()) {
   gapminder_plot
 } else {
   gapminder_plot + scale_color_grey()
 }
 ```
 
-Let's view this plot through the grammar of graphics:
+이 플롯을 그래픽 문법을 통해 살펴보겠습니다:
 
-1. The `data` variable **GDP per Capita** gets mapped to the `x`-position `aes`thetic \index{ggplot2!aes()} of the points.
-1. The `data` \index{ggplot2!data} variable **Life Expectancy** gets mapped to the `y`-position `aes`thetic of the points.
-1. The `data` variable **Population** gets mapped to the `size` `aes`thetic of the points.
-1. The `data` variable **Continent** gets mapped to the `color` `aes`thetic of the points.
+1. `데이터` 변수인 **GDP per Capita**는 점의 `x` 위치 `미적(aes)` \index{ggplot2!aes()} 속성에 매핑됩니다.
+1. `데이터` \index{ggplot2!data} 변수인 **Life Expectancy**는 점의 `y` 위치 `미적` 속성에 매핑됩니다.
+1. `데이터` 변수인 **Population**은 점의 `크기(size)` `미적` 속성에 매핑됩니다.
+1. `데이터` 변수인 **Continent**는 점의 `색상(color)` `미적` 속성에 매핑됩니다.
 
-We'll see shortly that `data` corresponds to the particular data frame where our data is saved and that "data variables" correspond to particular columns in the data frame. Furthermore, the type of `geom`etric object \index{ggplot2!geom} considered in this plot are points. That being said, while in this example we are considering points, graphics are not limited to just points. We can also use lines, bars, and other geometric objects.
+곧 `data`는 우리 데이터가 저장된 특정 데이터 프레임에 해당하고, "데이터 변수"는 데이터 프레임의 특정 열에 해당함을 보게 될 것입니다. 또한 이 플롯에서 고려된 `기하학적(geom)` \index{ggplot2!geom} 객체의 유형은 점입니다. 그렇긴 하지만, 이 예시에서는 점을 고려하고 있지만 그래픽이 점에만 국한되지는 않습니다. 선, 막대 및 기타 기하학적 객체를 사용할 수도 있습니다.
 
-Let's summarize the three essential components of the grammar in Table \@ref(tab:summary-table-gapminder).
+표 \@ref(tab:summary-table-gapminder)에 문법의 세 가지 필수 구성 요소를 요약해 보겠습니다.
 
 ```{r summary-table-gapminder, echo=FALSE, purl=FALSE}
 tibble(
-  `data variable` = c("GDP per Capita", "Life Expectancy", "Population", "Continent"),
+  `데이터 변수` = c("GDP per Capita", "Life Expectancy", "Population", "Continent"),
   aes = c("x", "y", "size", "color"),
   geom = c("point", "point", "point", "point")
 ) %>%
   kbl(
-    caption = "Summary of the grammar of graphics for this plot",
+    caption = "이 플롯에 대한 그래픽 문법 요약",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
 
-### Other components
+### 다른 구성 요소
 
-There are other components of the grammar of graphics we can control as well.  As you start to delve deeper into the grammar of graphics, you'll start to encounter these topics more frequently. In this book, we'll keep things simple and only work with these two additional components:
+우리가 제어할 수 있는 그래픽 문법의 다른 구성 요소들도 있습니다. 그래픽 문법을 더 깊이 파고들기 시작하면 이러한 주제들을 더 자주 마주하게 될 것입니다. 이 책에서는 내용을 단순하게 유지하기 위해 다음 두 가지 추가 구성 요소만 다룰 것입니다:
 
-- `facet`ing breaks up a plot into several plots split by the values of another variable (Section \@ref(facets)) \index{ggplot2!facet}
-- `position` adjustments for barplots (Section \@ref(geombar)) \index{ggplot2!position}
+- `분할(facet)`은 다른 변수의 값에 따라 플롯을 여러 개의 플롯으로 나눕니다(섹션 \@ref(facets)). \index{ggplot2!facet}
+- 막대 그래프의 `위치(position)` 조정입니다(섹션 \@ref(geombar)). \index{ggplot2!position}
 
-Other more complex components like `scales` and `coord`inate systems are left for a more advanced text such as [*R for Data Science*](http://r4ds.had.co.nz/data-visualisation.html#aesthetic-mappings) [@rds2016].  Generally speaking, the grammar of graphics allows for a high degree of customization of plots and also a consistent framework for easily updating and modifying them.
-
-
-### ggplot2 package
-
-In this book, we will use the `ggplot2` package for data visualization, which is an implementation of the **g**rammar of **g**raphics for R [@R-ggplot2]. As we noted earlier, a lot of the previous section was written in a computer code type font. This is because the various components of the grammar of graphics are specified in the `ggplot()` \index{ggplot2!ggplot()} function included in the `ggplot2` package. For the purposes of this book, we'll always provide the `ggplot()` function with the following arguments (i.e., inputs) at a minimum:
-
-* The data frame where the variables exist: the `data` argument.
-* The mapping of the variables to aesthetic attributes: the `mapping` argument which specifies the `aes`thetic attributes involved.
-
-After we've specified these components, we then add *layers* to the plot using the `+` sign. The most essential layer to add to a plot is the layer that specifies which type of `geom`etric object we want the plot to involve: points, lines, bars, and others. Other layers we can add to a plot include the plot title, axes labels, visual themes for the plots, and facets (which we'll see in Section \@ref(facets)).
-
-Let's now put the theory of the grammar of graphics into practice.
+`scales` 및 `좌표(coord)`계와 같은 다른 복잡한 구성 요소는 [*R for Data Science*](http://r4ds.had.co.nz/data-visualisation.html#aesthetic-mappings) [@rds2016]와 같은 더 고급 텍스트를 위해 남겨두겠습니다. 일반적으로 말해서 그래픽 문법은 플롯의 높은 자유도의 커스터마이징을 가능하게 하며, 플롯을 쉽게 업데이트하고 수정할 수 있는 일관된 틀을 제공합니다.
 
 
+### ggplot2 패키지
 
+이 책에서는 R을 위한 그래픽 문법의 구현체인 `ggplot2` 패키지를 데이터 시각화에 사용할 것입니다 [@R-ggplot2]. 앞서 언급했듯이, 이전 섹션의 많은 부분이 컴퓨터 코드 글꼴로 작성되었습니다. 이는 그래픽 문법의 다양한 구성 요소들이 `ggplot2` 패키지에 포함된 `ggplot()` \index{ggplot2!ggplot()} 함수에서 지정되기 때문입니다. 이 책의 목적을 위해, 우리는 항상 `ggplot()` 함수에 최소한 다음과 같은 인자(즉, 입력값)를 제공할 것입니다:
 
+* 변수가 존재하는 데이터 프레임: `data` 인자.
+* 변수를 미적 속성에 매핑하는 것: 관련된 미적 속성을 지정하는 `mapping` 인자.
 
-## Five named graphs - the 5NG {#FiveNG}
+이러한 구성 요소를 지정한 후, `+` 기호를 사용하여 플롯에 *레이어(layers)*를 추가합니다. 플롯에 추가할 가장 필수적인 레이어는 플롯에 포함할 `기하학적(geom)` 객체의 유형(점, 선, 막대 등)을 지정하는 레이어입니다. 플롯에 추가할 수 있는 다른 레이어로는 플롯 제목, 축 라벨, 플롯의 시각적 테마, 그리고 분할(섹션 \@ref(facets)에서 보게 될 것) 등이 있습니다.
 
-In order to keep things simple in this book, we will only focus on five different types of graphics, each with a commonly given name. We term these "five named graphs" or in abbreviated form, the **5NG**: \index{five named graphs}
-
-1. scatterplots 
-1. linegraphs
-1. histograms
-1. boxplots 
-1. barplots
-
-We'll also present some variations of these plots, but with this basic repertoire of five graphics in your toolbox, you can visualize a wide array of different variable types. Note that certain plots are only appropriate for categorical variables, while others are only appropriate for numerical variables. 
+이제 그래픽 문법의 이론을 실제로 적용해 봅시다.
 
 
 
 
 
-## 5NG#1: Scatterplots {#scatterplots}
+## 다섯 가지 이름 있는 그래프 - 5NG {#FiveNG}
 
-The simplest of the 5NG are *scatterplots*, \index{scatterplots} also called *bivariate plots*. They allow you to visualize the *relationship* between two numerical variables. While you may already be familiar with scatterplots, let's view them through the lens of the grammar of graphics we presented in Section \@ref(grammarofgraphics). Specifically, we will visualize the relationship between the following two numerical variables in the `alaska_flights` data frame included in the \index{R packages!moderndive} `moderndive` package:
+이 책에서는 내용을 단순하게 유지하기 위해 흔히 이름이 붙여진 다섯 가지 유형의 그래픽에만 집중할 것입니다. 우리는 이들을 "다섯 가지 이름 있는 그래프(five named graphs)" 또는 줄여서 **5NG**라고 부릅니다: \index{five named graphs}
 
-1. `dep_delay`: departure delay on the horizontal "x" axis and
-1. `arr_delay`: arrival delay on the vertical "y" axis
+1. 산점도 (scatterplots)
+1. 선 그래프 (linegraphs)
+1. 히스토그램 (histograms)
+1. 박스 플롯 (boxplots)
+1. 막대 그래프 (barplots)
 
-for Alaska Airlines flights leaving NYC in 2013. In other words, `alaska_flights` does not consist of *all* flights that left NYC in 2013, but rather only those flights where `carrier` is `AS` (which is Alaska Airlines' carrier code).
+또한 이 플롯들의 몇 가지 변형도 제시하겠지만, 도구 상자에 이 다섯 가지 그래픽의 기본 레퍼토리가 있다면 광범위한 유형의 변수들을 시각화할 수 있습니다. 특정 플롯은 범주형 변수에만 적합하고, 다른 플롯은 수치형 변수에만 적합하다는 점에 유의하세요.
+
+
+
+
+
+## 5NG#1: 산점도 {#scatterplots}
+
+5NG 중 가장 단순한 것은 *산점도(scatterplots)* \index{scatterplots}이며, *이변량 플롯(bivariate plots)*이라고도 합니다. 산점도를 사용하면 두 수치형 변수 간의 *관계*를 시각화할 수 있습니다. 산점도에 이미 익숙할 수도 있지만, 섹션 \@ref(grammarofgraphics)에서 제시한 그래픽 문법의 렌즈를 통해 다시 살펴보겠습니다. 구체적으로, 우리는 `moderndive` \index{R packages!moderndive} 패키지에 포함된 `alaska_flights` 데이터 프레임에 있는 다음 두 수치형 변수 간의 관계를 시각화할 것입니다:
+
+1. 수평 "x"축의 `dep_delay`: 출발 지연 시간
+1. 수직 "y"축의 `arr_delay`: 도착 지연 시간
+
+이 데이터는 2013년 뉴욕시를 출발한 알래스카 항공(Alaska Airlines) 항공편에 관한 것입니다. 즉, `alaska_flights`는 2013년에 뉴욕시를 출발한 *모든* 항공편으로 구성된 것이 아니라, `carrier`가 `AS`(알래스카 항공의 항공사 코드)인 항공편들로만 구성되어 있습니다.
 
 ```{block lc-alaska_flights, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**  Take a look at both the `flights` data frame from the `nycflights13` package and the `alaska_flights` data frame from the `moderndive` package by running `View(flights)` and `View(alaska_flights)`. In what respect do these data frames differ? For example, think about the number of rows in each dataset.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `nycflights13` 패키지의 `flights` 데이터 프레임과 `moderndive` 패키지의 `alaska_flights` 데이터 프레임을 `View(flights)`와 `View(alaska_flights)`를 실행하여 살펴보세요. 이 데이터 프레임들은 어떤 점에서 다른가요? 예를 들어, 각 데이터셋의 행의 수에 대해 생각해 보세요.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -242,13 +246,13 @@ for Alaska Airlines flights leaving NYC in 2013. In other words, `alaska_flights
 ```
 
 
-### Scatterplots via `geom_point` {#geompoint}
+### `geom_point`를 이용한 산점도 {#geompoint}
 
-Let's now go over the code that will create the desired scatterplot, while keeping in mind the grammar of graphics framework we introduced in Section \@ref(grammarofgraphics). Let's take a look at the code and break it down piece-by-piece.
+이제 섹션 \@ref(grammarofgraphics)에서 소개한 그래픽 문법 틀을 염두에 두면서, 원하는 산점도를 생성하는 코드를 살펴보겠습니다. 코드를 하나씩 분해해서 살펴보겠습니다.
 
 ```{r echo=FALSE, purl=FALSE, results="asis"}
-if (is_latex_output()) {
-  cat("**Note**: The printed version of this book uses `theme_light()` instead of the default `theme_grey()` for the plots created with `ggplot2` throughout the book. Bars and points are also converted to greyscale using `scale_color_grey()` and `scale_fill_grey()`. This helps with readability of the plots in the printed copy. As you follow along and run the code yourself, your plots will have a grey background instead of the white background in the printed book. Also, your plots will have colors beyond the greyscale versions provided in this printing.")
+if (knitr::is_latex_output()) {
+  cat("**참고**: 이 책의 인쇄본은 책 전체에서 `ggplot2`로 생성된 플롯에 기본값인 `theme_grey()` 대신 `theme_light()`를 사용합니다. 막대와 점들도 `scale_color_grey()`와 `scale_fill_grey()`를 사용하여 회색조로 변환되었습니다. 이는 인쇄본에서 플롯의 가독성을 높여줍니다. 코드를 직접 실행해 보면, 플롯은 인쇄본의 흰색 배경 대신 회색 배경을 갖게 될 것입니다. 또한, 인쇄본에서 제공되는 회색조 버전 이외의 색상들도 볼 수 있을 것입니다.")
 }
 ```
 
@@ -257,45 +261,45 @@ ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
   geom_point()
 ```
 
-Within the `ggplot()` \index{ggplot2!ggplot()} function, we specify two of the components of the grammar of graphics as arguments (i.e., inputs):
+`ggplot()` \index{ggplot2!ggplot()} 함수 내에서 그래픽 문법의 세 가지 구성 요소 중 두 가지를 인자(즉, 입력값)로 지정합니다:
 
-1. The `data` as the `alaska_flights` data frame via `data = alaska_flights`.
-1. The `aes`thetic \index{ggplot2!mapping} `mapping` by setting `mapping = aes(x = dep_delay, y = arr_delay)`. Specifically, the variable `dep_delay` maps to the `x` position aesthetic, while the variable `arr_delay` maps to the `y` position.
+1. `data = alaska_flights`를 통해 `data`를 `alaska_flights` 데이터 프레임으로 지정합니다.
+1. `mapping = aes(x = dep_delay, y = arr_delay)`를 통해 미적(aes) \index{ggplot2!mapping} `매핑(mapping)`을 설정합니다. 구체적으로, `dep_delay` 변수는 `x` 위치 미적 속성에 매핑되고, `arr_delay` 변수는 `y` 위치 미적 속성에 매핑됩니다.
         
-We then add a layer to the `ggplot()` function call using the `+` sign. The added layer in question specifies the third component of the grammar: the `geom`etric object. In this case, the geometric object is set to be points by specifying `geom_point()`. After running these two lines of code in your console, you'll notice two outputs: a warning message and the graphic shown in Figure \@ref(fig:noalpha).
+그런 다음 `+` 기호를 사용하여 `ggplot()` 함수 호출에 레이어를 추가합니다. 추가된 레이어는 문법의 세 번째 구성 요소인 `기하학적(geom)` 객체를 지정합니다. 이 경우 기하학적 객체는 `geom_point()`를 지정하여 점으로 설정됩니다. 콘솔에서 이 두 줄의 코드를 실행하면 경고 메시지와 그림 \@ref(fig:noalpha)에 표시된 그래픽이라는 두 가지 출력이 나타납니다.
 
-```{r noalpha, fig.cap="Arrival delays versus departure delays for Alaska Airlines flights from NYC in 2013.", fig.height=1.8, warning=TRUE, echo=FALSE, purl=FALSE}
+```{r noalpha, fig.cap="2013년 NYC 출발 알래스카 항공 항공편의 출발 지연 시간 대비 도착 지연 시간.", fig.height=1.8, warning=TRUE, echo=FALSE, purl=FALSE}
 ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
   geom_point()
 ```
 
-Let's first unpack the graphic in Figure \@ref(fig:noalpha). Observe that a *positive relationship* exists between `dep_delay` and `arr_delay`: as departure delays increase, arrival delays tend to also increase.  Observe also the large mass of points clustered near (0, 0), the point indicating flights that neither departed nor arrived late. 
+먼저 그림 \@ref(fig:noalpha)의 그래픽을 분석해 봅시다. `dep_delay`와 `arr_delay` 사이에 *양의 관계*가 존재함을 관찰할 수 있습니다. 즉, 출발 지연이 증가함에 따라 도착 지연도 증가하는 경향이 있습니다. 또한 지연되지 않고 출발하고 도착한 항공편을 나타내는 (0, 0) 근처에 밀집된 거대한 점들의 무리도 관찰해 보세요.
 
-Let's turn our attention to the warning message. R is alerting us to the fact that five rows were ignored due to them being missing. For these 5 rows, either the value for `dep_delay` or `arr_delay` or both were missing (recorded in R as `NA`), and thus these rows were ignored in our plot.
+경고 메시지에 주의를 기울여 봅시다. R은 데이터가 누락되어 5개의 행이 무시되었다는 사실을 경고하고 있습니다. 이 5개 행의 경우, `dep_delay` 또는 `arr_delay` 중 하나 또는 둘 다의 값이 누락되어(R에서 `NA`로 기록됨) 플롯에서 제외되었습니다.
 
-Before we continue, let's make a few more observations about this code that created the scatterplot. Note that the `+` sign comes at the end of lines, and not at the beginning. You'll get an error in R if you put it at the beginning of a line. \index{ggplot2!+} When adding layers to a plot, you are encouraged to start a new line after the `+` (by pressing the Return/Enter button on your keyboard) so that the code for each layer is on a new line. As we add more and more layers to plots, you'll see this will greatly improve the legibility of your code.
+계속하기 전에, 산점도를 생성한 이 코드에 대해 몇 가지 더 관찰해 보겠습니다. `+` 기호는 줄의 끝에 오며 줄의 시작 부분에는 오지 않는다는 점에 유의하세요. 줄의 시작 부분에 두면 R에서 오류가 발생합니다. \index{ggplot2!+} 플롯에 레이어를 추가할 때는 각 레이어에 대한 코드가 새 줄에 오도록 `+` 뒤에 새 줄을 시작하는 것(키보드의 Return/Enter 키를 누름)이 권장됩니다. 플롯에 더 많은 레이어를 추가할수록 이렇게 하는 것이 코드의 가독성을 크게 높여준다는 것을 알게 될 것입니다.
 
-To stress the importance of adding the layer specifying the `geom`etric object, consider Figure \@ref(fig:nolayers) where no layers are added. Because the `geom`etric object was not specified, we have a blank plot which is not very useful!
+기하학적 객체를 지정하는 레이어를 추가하는 것의 중요성을 강조하기 위해, 레이어가 추가되지 않은 그림 \@ref(fig:nolayers)를 고려해 보세요. 기하학적 객체가 지정되지 않았기 때문에 빈 플롯이 나타나며, 이는 별로 유용하지 않습니다!
 
-```{r nolayers, fig.cap="A plot with no layers.", fig.height=2.5}
+```{r nolayers, fig.cap="레이어가 없는 플롯.", fig.height=2.5}
 ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay))
 ```
 
 ```{block lc-scatterplots, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**  What are some practical reasons why `dep_delay` and `arr_delay` have a positive relationship?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `dep_delay`와 `arr_delay`가 양의 관계를 갖는 몇 가지 실질적인 이유는 무엇인가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**  What variables in the `weather` data frame would you expect to have a negative correlation (i.e., a negative relationship) with `dep_delay`? Why? Remember that we are focusing on numerical variables here. Hint: Explore the `weather` dataset by using the `View()` function. 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `weather` 데이터 프레임의 어떤 변수들이 `dep_delay`와 음의 상관관계(즉, 음의 관계)를 가질 것으로 예상하나요? 그 이유는 무엇인가요? 여기서는 수치형 변수에 집중하고 있다는 점을 기억하세요. 힌트: `View()` 함수를 사용하여 `weather` 데이터셋을 탐색해 보세요.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why do you believe there is a cluster of points near (0, 0)? What does (0, 0) correspond to in terms of the Alaska Air flights?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 왜 (0, 0) 근처에 점들이 밀집되어 있다고 생각하나요? 알래스카 항공 항공편의 관점에서 (0, 0)은 무엇에 해당하나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What are some other features of the plot that stand out to you?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 플롯에서 눈에 띄는 다른 특징들은 무엇인가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Create a new scatterplot using different variables in the `alaska_flights` data frame by modifying the example given.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 제시된 예시를 수정하여 `alaska_flights` 데이터 프레임의 다른 변수들을 사용한 새로운 산점도를 만들어 보세요.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -303,31 +307,31 @@ ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay))
 ```
 
 
-### Overplotting {#overplotting}
+### 오버플로팅 {#overplotting}
 
-The large mass of points near (0, 0) in Figure \@ref(fig:noalpha) can cause some confusion since it is hard to tell the true number of points that are plotted.  This is the result of a phenomenon called \index{overplotting} *overplotting*.  As one may guess, this corresponds to points being plotted on top of each other over and over again.  When overplotting occurs, it is difficult to know the number of points being plotted. There are two methods to address the issue of overplotting. Either by
+그림 \@ref(fig:noalpha)에서 (0, 0) 근처의 거대한 점들의 무리는 실제로 플롯된 점들의 수를 파악하기 어렵게 만들기 때문에 혼란을 줄 수 있습니다. 이것은 *오버플로팅(overplotting)* \index{overplotting}이라고 불리는 현상의 결과입니다. 짐작할 수 있듯이, 이는 점들이 서로 겹쳐서 반복적으로 플롯되는 것을 의미합니다. 오버플로팅이 발생하면 플롯되는 점들의 개수를 알기 어렵습니다. 오버플로팅 문제를 해결하는 두 가지 방법이 있습니다:
 
-1. Adjusting the transparency of the points or
-1. Adding a little random "jitter", or random "nudges", to each of the points.
+1. 점들의 투명도를 조정하거나
+1. 각 점에 약간의 무작위적인 "지터(jitter)" 또는 무작위적인 "넛지(nudge)"를 추가하는 것입니다.
 
-**Method 1: Changing the transparency**
+**방법 1: 투명도 변경**
 
-The first way of addressing overplotting is to change the transparency/opacity of the points by setting the `alpha` argument in `geom_point()`. We can change the `alpha` argument to be any value between `0` and `1`, where `0` sets the points to be 100% transparent and `1` sets the points to be 100% opaque. By default, `alpha` is set to `1`. In other words, if we don't explicitly set an `alpha` value, R will use `alpha = 1`.
+오버플로팅을 해결하는 첫 번째 방법은 `geom_point()`에서 `alpha` 인자를 설정하여 점들의 투명도/불투명도를 변경하는 것입니다. `alpha` 인자는 `0`에서 `1` 사이의 값으로 설정할 수 있습니다. 여기서 `0`은 점들을 100% 투명하게 만들고, `1`은 점들을 100% 불투명하게 만듭니다. 기본적으로 `alpha`는 `1`로 설정되어 있습니다. 즉, `alpha` 값을 명시적으로 설정하지 않으면 R은 `alpha = 1`을 사용합니다.
 
-Note how the following code is identical to the code in Section \@ref(scatterplots) that created the scatterplot with overplotting, but with `alpha = 0.2` added to the `geom_point()` function:
+다음 코드가 오버플로팅이 있는 산점도를 생성했던 섹션 \@ref(scatterplots)의 코드와 동일하지만, `geom_point()` 함수에 `alpha = 0.2`가 추가되었다는 점에 주목하세요:
 
-```{r alpha, fig.cap="Arrival vs. departure delays scatterplot with alpha = 0.2.", fig.height=4.9}
+```{r alpha, fig.cap="alpha = 0.2를 적용한 도착 지연 시간 대비 출발 지연 시간 산점도.", fig.height=4.9}
 ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
   geom_point(alpha = 0.2)
 ```
 
-The key feature to note in Figure \@ref(fig:alpha) is that the transparency \index{ggplot2!alpha} \index{adding transparency to plots} of the points is cumulative: areas with a high-degree of overplotting are darker, whereas areas with a lower degree are less dark. Note furthermore that there is no `aes()` surrounding `alpha = 0.2`.  This is because we are not mapping a variable to an aesthetic attribute, but rather merely changing the default setting of `alpha`. In fact, you'll receive an error if you try to change the second line to read `geom_point(aes(alpha = 0.2))`.
+그림 \@ref(fig:alpha)에서 주목해야 할 주요 특징은 점들의 투명도 \index{ggplot2!alpha} \index{adding transparency to plots}가 누적된다는 점입니다. 오버플로팅 정도가 높은 영역은 더 어둡게 나타나고, 정도가 낮은 영역은 덜 어둡게 나타납니다. 또한 `alpha = 0.2` 주위에 `aes()`가 없다는 점에 유의하세요. 이는 변수를 미적 속성에 매핑하는 것이 아니라 단순히 `alpha`의 기본 설정을 변경하는 것이기 때문입니다. 실제로 두 번째 줄을 `geom_point(aes(alpha = 0.2))`로 변경하려고 하면 오류가 발생합니다.
 
-**Method 2: Jittering the points**
+**방법 2: 점들에 지터 추가하기**
 
-The second way of addressing overplotting is by *jittering* all the points. This means giving each point a small "nudge" in a random direction. You can think of "jittering" as shaking the points around a bit on the plot. Let's illustrate using a simple example first. Say we have a data frame with 4 identical rows of x and y values: (0,0), (0,0), (0,0), and (0,0). In Figure \@ref(fig:jitter-example-plot-1), we present both the regular scatterplot of these 4 points (on the left) and its jittered counterpart (on the right). 
+오버플로팅을 해결하는 두 번째 방법은 모든 점들에 *지터(jitter)*를 추가하는 것입니다. 이는 각 점에 무작위 방향으로 작은 "넛지"를 주는 것을 의미합니다. "지터링(jittering)"은 플롯 위의 점들을 약간씩 흔드는 것으로 생각할 수 있습니다. 먼저 간단한 예시로 설명해 보겠습니다. x와 y 값이 (0,0), (0,0), (0,0), (0,0)인 동일한 4개의 행을 가진 데이터 프레임이 있다고 가정해 봅시다. 그림 \@ref(fig:jitter-example-plot-1)에서 이 4개 점에 대한 일반 산점도(왼쪽)와 지터가 적용된 산점도(오른쪽)를 모두 보여줍니다.
 
-```{r jitter-example-plot-1, fig.cap="Regular and jittered scatterplot.", echo=FALSE, fig.height=5, purl=FALSE}
+```{r jitter-example-plot-1, fig.cap="일반 산점도와 지터 산점도.", echo=FALSE, fig.height=5, purl=FALSE}
 jitter_example <- tibble(
   x = rep(0, 4),
   y = rep(0, 4)
@@ -335,38 +339,38 @@ jitter_example <- tibble(
 jittered_plot_1 <- ggplot(data = jitter_example, mapping = aes(x = x, y = y)) +
   geom_point() +
   coord_cartesian(xlim = c(-0.025, 0.025), ylim = c(-0.025, 0.025)) +
-  labs(title = "Regular scatterplot")
+  labs(title = "일반 산점도")
 jittered_plot_2 <- ggplot(data = jitter_example, mapping = aes(x = x, y = y)) +
   geom_jitter(width = 0.01, height = 0.01) +
   coord_cartesian(xlim = c(-0.025, 0.025), ylim = c(-0.025, 0.025)) +
-  labs(title = "Jittered scatterplot")
+  labs(title = "지터 산점도")
 jittered_plot_1 + jittered_plot_2
 ```
 
-In the left-hand regular scatterplot, observe that the 4 points are superimposed on top of each other. While we know there are 4 values being plotted, this fact might not be apparent to others. In the right-hand jittered scatterplot, it is now plainly evident that this plot involves four points since each point is given a random "nudge."  
+왼쪽의 일반 산점도에서는 4개의 점이 서로 겹쳐져 있음을 관찰할 수 있습니다. 우리는 4개의 값이 플롯되고 있다는 것을 알고 있지만, 다른 사람들에게는 이 사실이 분명하지 않을 수 있습니다. 오른쪽의 지터 산점도에서는 각 점에 무작위 "넛지"가 주어졌기 때문에 이 플롯이 4개의 점을 포함하고 있다는 것이 이제 명확하게 드러납니다.
 
-Keep in mind, however, that jittering is strictly a visualization tool; even after creating a jittered scatterplot, the original values saved in the data frame remain unchanged. \index{ggplot2!geom\_jitter()}
+하지만 지터링은 엄밀히 말해 시각화 도구일 뿐이며, 지터 산점도를 만든 후에도 데이터 프레임에 저장된 원래 값은 변경되지 않은 상태로 유지된다는 점을 명심하세요. \index{ggplot2!geom\_jitter()}
 
-To create a jittered scatterplot, instead of using `geom_point()`, we use `geom_jitter()`. Observe how the following code is very similar to the code that created the scatterplot with overplotting in Subsection \@ref(geompoint), but with `geom_point()` \index{ggplot2!geom\_point()} replaced with `geom_jitter()`. 
+지터 산점도를 생성하려면 `geom_point()` 대신 `geom_jitter()`를 사용합니다. 다음 코드가 소섹션 \@ref(geompoint)에서 오버플로팅이 있는 산점도를 생성했던 코드와 매우 유사하며, `geom_point()` \index{ggplot2!geom\_point()}가 `geom_jitter()`로 대체되었다는 점을 관찰해 보세요.
 
-```{r jitter, fig.cap="Arrival versus departure delays jittered scatterplot.", fig.height=4.7}
+```{r jitter, fig.cap="도착 지연 시간 대비 출발 지연 시간 지터 산점도.", fig.height=4.7}
 ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
   geom_jitter(width = 30, height = 30)
 ```
 
-In order to specify how much jitter to add, we adjusted the `width` and `height` arguments to `geom_jitter()`.  This corresponds to how hard you'd like to shake the plot in horizontal x-axis units and vertical y-axis units, respectively. In this case, both axes are in minutes. How much jitter should we add using the `width` and `height` arguments? On the one hand, it is important to add just enough jitter to break any overlap in points, but on the other hand, not so much that we completely alter the original pattern in points.
+추가할 지터의 양을 지정하기 위해 `geom_jitter()`에 `width`와 `height` 인자를 조정했습니다. 이는 각각 가로 x축 단위와 세로 y축 단위로 플롯을 얼마나 세게 흔들고 싶은지에 해당합니다. 이 경우 두 축 모두 분 단위입니다. `width`와 `height` 인자를 사용하여 지터를 얼마나 추가해야 할까요? 한편으로는 점들의 겹침을 해소할 수 있을 정도의 지터를 추가하는 것이 중요하지만, 다른 한편으로는 점들의 원래 패턴을 완전히 바꿀 정도로 많이 추가해서는 안 됩니다.
 
-As can be seen in the resulting Figure \@ref(fig:jitter), in this case jittering doesn't really provide much new insight. In this particular case, it can be argued that changing the transparency of the points by setting `alpha` proved more effective.  When would it be better to use a jittered scatterplot? When would it be better to alter the points' transparency? There is no single right answer that applies to all situations. You need to make a subjective choice and own that choice. At the very least when confronted with overplotting, however, we suggest you make both types of plots and see which one better emphasizes the point you are trying to make. 
+그림 \@ref(fig:jitter)에서 볼 수 있듯이, 이 경우 지터링은 실제로는 별로 새로운 통찰력을 제공하지 않습니다. 이 특정한 경우에는 `alpha`를 설정하여 점들의 투명도를 변경하는 것이 더 효과적이었다고 주장할 수 있습니다. 언제 지터 산점도를 사용하는 것이 더 좋을까요? 언제 점들의 투명도를 변경하는 것이 더 좋을까요? 모든 상황에 적용되는 단 하나의 정답은 없습니다. 주관적인 선택을 내려야 하며 그 선택에 책임을 져야 합니다. 하지만 오버플로팅에 직면했을 때 최소한 두 가지 유형의 플롯을 모두 만들어 보고 어떤 것이 여러분이 전달하려는 요점을 더 잘 강조하는지 확인해 보기를 권장합니다.
 
 ```{block lc-overplotting, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**  Why is setting the `alpha` argument value useful with scatterplots? What further information does it give you that a regular scatterplot cannot?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 산점도에서 `alpha` 인자 값을 설정하는 것이 왜 유용한가요? 일반 산점도가 제공하지 못하는 어떤 추가 정보를 제공하나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** After viewing Figure \@ref(fig:alpha), give an approximate range of arrival delays and departure delays that occur most frequently. How has that region changed compared to when you observed the same plot without `alpha = 0.2` set in Figure \@ref(fig:noalpha)?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 그림 \@ref(fig:alpha)를 살펴본 후, 가장 빈번하게 발생하는 도착 지연 시간과 출발 지연 시간의 대략적인 범위를 제시하세요. 그림 \@ref(fig:noalpha)에서 `alpha = 0.2`를 설정하지 않고 동일한 플롯을 보았을 때와 비교하여 그 영역이 어떻게 변했나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -374,37 +378,37 @@ As can be seen in the resulting Figure \@ref(fig:jitter), in this case jittering
 ```
 
 
-### Summary
+### 요약
 
-Scatterplots display the relationship between two numerical variables.  They are among the most commonly used plots because they can provide an immediate way to see the trend in one numerical variable versus another.  However, if you try to create a scatterplot where either one of the two variables is not numerical, you might get strange results.  Be careful! 
+산점도는 두 수치형 변수 간의 관계를 보여줍니다. 산점도는 한 수치형 변수 대 다른 수치형 변수의 추세를 즉각적으로 볼 수 있는 방법을 제공하기 때문에 가장 흔히 사용되는 플롯 중 하나입니다. 하지만 두 변수 중 하나라도 수치형이 아닌데 산점도를 만들려고 하면 이상한 결과가 나올 수 있습니다. 주의하세요!
 
-With medium to large datasets, you may need to play around with the different modifications to scatterplots we saw such as changing the transparency/opacity of the points or by jittering the points. This tweaking is often a fun part of data visualization, since you'll have the chance to see different relationships emerge as you tinker with your plots.
-
-
+중간에서 대규모 데이터셋의 경우, 점들의 투명도/불투명도를 변경하거나 점들을 지터링하는 등 우리가 살펴본 산점도에 대한 다양한 수정을 시도해 볼 필요가 있습니다. 플롯을 만지작거리면서 서로 다른 관계가 나타나는 것을 볼 수 있기 때문에, 이러한 미세 조정은 종종 데이터 시각화의 즐거운 부분이 됩니다.
 
 
 
-## 5NG#2: Linegraphs {#linegraphs}
 
-The next of the five named graphs are linegraphs. Linegraphs \index{linegraphs} show the relationship between two numerical variables when the variable on the x-axis, also called the *explanatory* variable\index{explanatory variable}, is of a sequential nature. In other words, there is an inherent ordering to the variable. 
 
-The most common examples of linegraphs have some notion of time on the x-axis: hours, days, weeks, years, etc. Since time is sequential, we connect consecutive observations of the variable on the y-axis with a line. Linegraphs that have some notion of time on the x-axis are also called *time series* plots\index{time series plots}. Let's illustrate linegraphs using another dataset in the `nycflights13` \index{R packages!nycflights13} package: the `weather` data frame. 
+## 5NG#2: 선 그래프 {#linegraphs}
 
-Let's explore the `weather` data frame from the `nycflights13` package  by running `View(weather)` and `glimpse(weather)`. Furthermore let's read the associated help file by running `?weather` to bring up the help file.
+다섯 가지 이름 있는 그래프 중 다음은 선 그래프(linegraphs)입니다. 선 그래프 \index{linegraphs}는 x축의 변수(주로 *설명(explanatory)* 변수\index{explanatory variable}라고 함)가 연속적인 성질을 가질 때 두 수치형 변수 간의 관계를 보여줍니다. 즉, 변수에 내재된 순서가 있습니다.
 
-Observe that there is a variable called `temp` of hourly temperature recordings in Fahrenheit at weather stations near all three major airports in New York City: Newark (`origin` code `EWR`), John F. Kennedy International (`JFK`), and LaGuardia (`LGA`). 
+선 그래프의 가장 흔한 예시는 x축에 시간의 개념(시간, 일, 주, 년 등)이 있는 경우입니다. 시간은 연속적이기 때문에 y축 변수의 연속된 관측치를 선으로 연결합니다. x축에 시간의 개념이 있는 선 그래프는 *시계열(time series)* 플롯\index{time series plots}이라고도 합니다. `nycflights13` \index{R packages!nycflights13} 패키지의 또 다른 데이터셋인 `weather` 데이터 프레임을 사용하여 선 그래프를 설명해 보겠습니다.
 
-However, instead of considering hourly temperatures for all days in 2013 for all three airports, for simplicity let's only consider hourly temperatures at Newark airport for the first 15 days in January. This data is accessible in the `early_january_weather` data frame included in the `moderndive` package. In other words, `early_january_weather` contains hourly weather observations for `origin` equal to `EWR` (Newark's airport code), `month` equal to `1`, and `day` less than or equal to `15`. 
+`View(weather)`와 `glimpse(weather)`를 실행하여 `nycflights13` 패키지의 `weather` 데이터 프레임을 탐색해 보세요. 또한 `?weather`를 실행하여 관련 도움말 파일을 읽어보세요.
+
+뉴욕시의 세 주요 공항인 뉴어크(`origin` 코드 `EWR`), 존 F. 케네디 국제공항(`JFK`), 라과디아(`LGA`) 근처의 기상 관측소에서 측정된 매시간 기온(화씨)이 기록된 `temp`라는 변수가 있음을 관찰해 보세요.
+
+하지만 세 공항 모두에 대해 2013년 전체 일수 동안의 매시간 기온을 고려하는 대신, 단순화를 위해 1월 첫 15일 동안 뉴어크 공항의 매시간 기온만 고려해 보겠습니다. 이 데이터는 `moderndive` 패키지에 포함된 `early_january_weather` 데이터 프레임에서 접근할 수 있습니다. 즉, `early_january_weather`는 `origin`이 `EWR`(뉴어크 공항 코드)이고, `month`가 `1`이며, `day`가 `15` 이하인 매시간 기상 관측 데이터를 포함하고 있습니다.
 
 ```{block lc-early_january_weather, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Take a look at both the `weather` data frame from the `nycflights13` package and the `early_january_weather` data frame from the `moderndive` package by running `View(weather)` and `View(early_january_weather)`. In what respect do these data frames differ?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `nycflights13` 패키지의 `weather` 데이터 프레임과 `moderndive` 패키지의 `early_january_weather` 데이터 프레임을 `View(weather)`와 `View(early_january_weather)`를 실행하여 살펴보세요. 이 데이터 프레임들은 어떤 점에서 다른가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `View()` the `flights` data frame again. Why does the `time_hour` variable uniquely identify the hour of the measurement, whereas the `hour` variable does not? 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `flights` 데이터 프레임을 다시 `View()`로 살펴보세요. 왜 `time_hour` 변수는 측정 시간을 고유하게 식별하는 반면, `hour` 변수는 그렇지 못한가요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -412,36 +416,36 @@ However, instead of considering hourly temperatures for all days in 2013 for all
 ```
 
 
-### Linegraphs via `geom_line` {#geomline}
+### `geom_line`을 이용한 선 그래프 {#geomline}
 
-Let's create a time series plot of the hourly temperatures saved in the `early_january_weather` data frame by using `geom_line()` to create a linegraph\index{ggplot2!geom\_line()}, instead of using `geom_point()` like we used previously to create scatterplots:
+이전에 산점도를 만들기 위해 `geom_point()`를 사용했던 것 대신, 선 그래프를 만들기 위해 `geom_line()`을 사용하여\index{ggplot2!geom\_line()} `early_january_weather` 데이터 프레임에 저장된 매시간 기온의 시계열 플롯을 만들어 보겠습니다.
 
-```{r hourlytemp, fig.cap="Hourly temperature in Newark for January 1-15, 2013."}
+```{r hourlytemp, fig.cap="2013년 1월 1~15일 뉴어크의 매시간 기온."}
 ggplot(data = early_january_weather, 
        mapping = aes(x = time_hour, y = temp)) +
   geom_line()
 ```
 
-Much as with the `ggplot()` code that created the scatterplot of departure and arrival delays for Alaska Airlines flights in Figure \@ref(fig:noalpha), let's break down this code piece-by-piece in terms of the grammar of graphics:
+그림 \@ref(fig:noalpha)에서 알래스카 항공 항공편의 출발 및 도착 지연 시간 산점도를 생성했던 `ggplot()` 코드와 마찬가지로, 이 코드를 그래픽 문법의 관점에서 하나씩 분해해 보겠습니다.
 
-Within the `ggplot()` function call, we specify two of the components of the grammar of graphics as arguments:
+`ggplot()` 함수 호출 내에서 그래픽 문법의 두 가지 구성 요소를 인자로 지정합니다:
 
-1. The `data` to be the `early_january_weather` data frame by setting `data = early_january_weather`.
-1. The `aes`thetic `mapping` by setting `mapping = aes(x = time_hour, y = temp)`. Specifically, the variable `time_hour` maps to the `x` position aesthetic, while the variable `temp` maps to the `y` position aesthetic.
+1. `data = early_january_weather`를 설정하여 `data`를 `early_january_weather` 데이터 프레임으로 지정합니다.
+1. `mapping = aes(x = time_hour, y = temp)`를 설정하여 미적 `매핑`을 지정합니다. 구체적으로, `time_hour` 변수는 `x` 위치 미적 속성에 매핑되고, `temp` 변수는 `y` 위치 미적 속성에 매핑됩니다.
 
-We add a layer to the `ggplot()` function call using the `+` sign. The layer in question specifies the third component of the grammar:  the `geom`etric object in question. In this case, the geometric object is a `line` set by specifying `geom_line()`. 
+`+` 기호를 사용하여 `ggplot()` 함수 호출에 레이어를 추가합니다. 해당 레이어는 문법의 세 번째 구성 요소인 기하학적 객체를 지정합니다. 이 경우 기하학적 객체는 `geom_line()`을 지정하여 설정된 `선(line)`입니다.
 
 ```{block lc-linegraph, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**  Why should linegraphs be avoided when there is not a clear ordering of the horizontal axis?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 수평축에 명확한 순서가 없을 때 왜 선 그래프를 피해야 하나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why are linegraphs frequently used when time is the explanatory variable on the x-axis?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 시간이 x축의 설명 변수일 때 왜 선 그래프가 자주 사용되나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Plot a time series of a variable other than `temp` for Newark Airport in the first 15 days of January 2013.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 2013년 1월 첫 15일 동안 뉴어크 공항의 `temp` 이외의 변수에 대한 시계열을 플롯해 보세요.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -449,26 +453,26 @@ We add a layer to the `ggplot()` function call using the `+` sign. The layer in 
 ```
 
 
-### Summary
+### 요약
 
-Linegraphs, just like scatterplots, display the relationship between two numerical variables. However, it is preferred to use linegraphs over scatterplots when the variable on the x-axis (i.e., the explanatory variable) has an inherent ordering, such as some notion of time.  
-
-
+선 그래프는 산점도와 마찬가지로 두 수치형 변수 간의 관계를 보여줍니다. 하지만 시간의 개념과 같이 x축 변수(즉, 설명 변수)에 내재된 순서가 있는 경우에는 산점도보다 선 그래프를 사용하는 것이 선호됩니다.
 
 
 
-## 5NG#3: Histograms {#histograms}
 
-Let's consider the `temp` variable in the `weather` data frame once again, but unlike with the linegraphs in Section \@ref(linegraphs), let's say we don't care about its relationship with time, but rather we only care about how the values of `temp` *distribute*. In other words:
 
-1. What are the smallest and largest values?
-1. What is the "center" or "most typical" value?
-1. How do the values spread out?
-1. What are frequent and infrequent values?
+## 5NG#3: 히스토그램 {#histograms}
 
-One way to visualize this *distribution* \index{distribution} of this single variable `temp` is to plot them on a horizontal line as we do in Figure \@ref(fig:temp-on-line):
+다시 한번 `weather` 데이터 프레임의 `temp` 변수를 고려해 봅시다. 하지만 섹션 \@ref(linegraphs)의 선 그래프와 달리, 시간과의 관계에는 관심이 없고 오직 `temp` 값이 어떻게 *분포*하는지에만 관심이 있다고 가정해 봅시다. 즉:
 
-```{r temp-on-line, echo=FALSE, fig.height=0.8, fig.cap="Plot of hourly temperature recordings from NYC in 2013."}
+1. 최솟값과 최댓값은 무엇인가요?
+1. "중심" 또는 "가장 전형적인" 값은 무엇인가요?
+1. 값들이 어떻게 퍼져 있나요?
+1. 빈번한 값과 드문 값은 무엇인가요?
+
+이 단일 변수 `temp`가 어떻게 *분포* \index{distribution}하는지 시각화하는 한 가지 방법은 그림 \@ref(fig:temp-on-line)에서와 같이 수평선 위에 플롯하는 것입니다.
+
+```{r temp-on-line, echo=FALSE, fig.height=0.8, fig.cap="2013년 NYC 매시간 기온 기록 플롯."}
 ggplot(data = weather, mapping = aes(x = temp, y = factor("A"))) +
   geom_point() +
   theme(
@@ -476,109 +480,109 @@ ggplot(data = weather, mapping = aes(x = temp, y = factor("A"))) +
     axis.title.y = element_blank(),
     axis.text.y = element_blank()
   )
-hist_title <- "Histogram of Hourly Temperature Recordings from NYC in 2013"
+hist_title <- "2013년 NYC 매시간 기온 기록 히스토그램"
 ```
 
-This gives us a general idea of how the values of `temp` distribute: observe that temperatures vary from around `r round(min(weather$temp, na.rm = TRUE), 0)`&deg;F (-11&deg;C) up to `r round(max(weather$temp, na.rm = TRUE), 0)`&deg;F (38&deg;C).  Furthermore, there appear to be more recorded temperatures between 40&deg;F and 60&deg;F than outside this range. However, because of the high degree of overplotting in the points, it's hard to get a sense of exactly how many values are between say 50&deg;F and 55&deg;F.
+이는 `temp` 값이 어떻게 분포하는지에 대한 일반적인 아이디어를 제공합니다. 기온이 약 `r round(min(weather$temp, na.rm = TRUE), 0)`&deg;F (-11&deg;C)에서 약 `r round(max(weather$temp, na.rm = TRUE), 0)`&deg;F (38&deg;C)까지 변하는 것을 관찰할 수 있습니다. 또한 40&deg;F에서 60&deg;F 사이가 이 범위를 벗어나는 영역보다 더 많은 온도가 기록된 것으로 보입니다. 하지만 점들의 오버플로팅 정도가 높기 때문에, 예를 들어 50&deg;F와 55&deg;F 사이에 정확히 얼마나 많은 값이 있는지 파악하기는 어렵습니다.
 
-What is commonly produced instead of Figure \@ref(fig:temp-on-line) is known as a \index{histograms} *histogram*.  A histogram is a plot that visualizes the *distribution* of a numerical value as follows:
+그림 \@ref(fig:temp-on-line) 대신 흔히 생성되는 것이 바로 *히스토그램(histogram)* \index{histograms}입니다. 히스토그램은 다음과 같이 수치형 값의 *분포*를 시각화하는 플롯입니다.
 
-1. We first cut up the x-axis into a series of \index{histograms!bins} *bins*, where each bin represents a range of values. 
-1. For each bin, we count the number of observations that fall in the range corresponding to that bin.
-1. Then for each bin, we draw a bar whose height marks the corresponding count.
+1. 먼저 x축을 일련의 *빈(bins)* \index{histograms!bins}으로 나눕니다. 여기서 각 빈은 값의 범위를 나타냅니다.
+1. 각 빈에 대해 해당 빈의 범위에 속하는 관측치의 수를 셉니다.
+1. 그런 다음 각 빈에 대해 높이가 해당 개수를 나타내는 막대를 그립니다.
 
-Let's drill-down on an example of a histogram, shown in Figure \@ref(fig:histogramexample).
+그림 \@ref(fig:histogramexample)에 표시된 히스토그램 예시를 자세히 살펴보겠습니다.
 
-```{r histogramexample, echo=FALSE, fig.cap="Example histogram.", fig.height=2, purl=FALSE}
+```{r histogramexample, echo=FALSE, fig.cap="히스토그램 예시.", fig.height=2, purl=FALSE}
 ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(binwidth = 10, boundary = 70, color = "white")
 ```
 
-Let's focus only on temperatures between 30&deg;F (-1&deg;C) and 60&deg;F (15&deg;C) for now. Observe that there are three bins of equal width between 30&deg;F and 60&deg;F. Thus we have three bins of width 10&deg;F each: one bin for the 30-40&deg;F range, another bin for the 40-50&deg;F range, and another bin for the 50-60&deg;F range. Since:
+지금은 30&deg;F (-1&deg;C)와 60&deg;F (15&deg;C) 사이의 기온에만 집중해 봅시다. 30&deg;F와 60&deg;F 사이에 너비가 같은 세 개의 빈이 있음을 관찰할 수 있습니다. 따라서 너비가 각각 10&deg;F인 세 개의 빈을 갖게 됩니다. 30~40&deg;F 범위에 대한 빈 하나, 40~50&deg;F 범위에 대한 빈 하나, 50~60&deg;F 범위에 대한 빈 하나입니다. 다음을 따릅니다:
 
-1. The bin for the 30-40&deg;F range has a height of around 5000. In other words, around 5000 of the hourly temperature recordings are between 30&deg;F and 40&deg;F.
-1. The bin for the 40-50&deg;F range has a height of around 4300. In other words, around 4300 of the hourly temperature recordings are between 40&deg;F and 50&deg;F.
-1. The bin for the 50-60&deg;F range has a height of around 3500. In other words, around 3500 of the hourly temperature recordings are between 50&deg;F and 60&deg;F.
+1. 30~40&deg;F 범위에 대한 빈의 높이는 약 5000입니다. 즉, 매시간 기온 기록 중 약 5000개가 30&deg;F에서 40&deg;F 사이입니다.
+1. 40~50&deg;F 범위에 대한 빈의 높이는 약 4300입니다. 즉, 매시간 기온 기록 중 약 4300개가 40&deg;F에서 50&deg;F 사이입니다.
+1. 50~60&deg;F 범위에 대한 빈의 높이는 약 3500입니다. 즉, 매시간 기온 기록 중 약 3500개가 50&deg;F에서 60&deg;F 사이입니다.
 
-All nine bins spanning 10&deg;F to 100&deg;F on the x-axis have this interpretation.
+x축에서 10&deg;F에서 100&deg;F까지 펼쳐진 9개 빈 모두 이와 같이 해석됩니다.
 
 
-### Histograms via `geom_histogram` {#geomhistogram}
+### `geom_histogram`을 이용한 히스토그램 {#geomhistogram}
 
-Let's now present the `ggplot()` code to plot your first histogram! Unlike with scatterplots and linegraphs, there is now only one variable being mapped in `aes()`: the single numerical variable `temp`. The y-aesthetic of a histogram, the count of the observations in each bin, gets computed for you automatically. Furthermore, the geometric object layer is now a `geom_histogram()`. \index{ggplot2!geom\_histogram()} After running the following code, you'll see the histogram in Figure \@ref(fig:weather-histogram) as well as warning messages. We'll discuss the warning messages first. 
+이제 첫 번째 히스토그램을 그리는 `ggplot()` 코드를 제시하겠습니다! 산점도나 선 그래프와 달리, 이제 `aes()`에 매핑되는 변수는 단일 수치형 변수인 `temp` 하나뿐입니다. 각 빈에 있는 관측치 수인 히스토그램의 y축 미적 속성은 자동으로 계산됩니다. 또한 기하학적 객체 레이어는 이제 `geom_histogram()`입니다. \index{ggplot2!geom\_histogram()} 다음 코드를 실행하면 경고 메시지와 함께 그림 \@ref(fig:weather-histogram)의 히스토그램을 볼 수 있습니다. 먼저 경고 메시지에 대해 논의해 보겠습니다.
 
-```{r weather-histogram, warning=TRUE, fig.cap="Histogram of hourly temperatures at three NYC airports.", fig.height=2.3}
+```{r weather-histogram, warning=TRUE, fig.cap="NYC 세 공항의 매시간 기온 히스토그램.", fig.height=2.3}
 ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram()
 ```
 
-The first message is telling us that the histogram was constructed using `bins = 30` for 30 equally spaced bins. This is known in computer programming as a default value; unless you override this default number of bins with a number you specify, R will choose 30 by default. We'll see in the next section how to change the number of bins to another value than the default.
+첫 번째 메시지는 히스토그램이 동일한 간격의 30개 빈을 나타내는 `bins = 30`을 사용하여 구성되었음을 알려줍니다. 이는 컴퓨터 프로그래밍에서 기본값(default value)으로 알려져 있습니다. 여러분이 지정한 숫자로 이 기본 빈 개수를 덮어쓰지 않는 한, R은 기본적으로 30을 선택합니다. 다음 섹션에서 빈의 개수를 기본값 이외의 값으로 변경하는 방법을 살펴보겠습니다.
 
-The second message is telling us something similar to the warning message we received when we ran the code to create a scatterplot of departure and arrival delays for Alaska Airlines flights in Figure \@ref(fig:noalpha): that because one row has a missing `NA` value for `temp`, it was omitted from the histogram. R is just giving us a friendly heads up that this was the case. 
+두 번째 메시지는 그림 \@ref(fig:noalpha)에서 알래스카 항공 항공편의 출발 및 도착 지연 시간 산점도를 생성하는 코드를 실행했을 때 받았던 경고 메시지와 유사한 내용을 알려줍니다. 즉, 한 행의 `temp` 값이 누락된 `NA`이기 때문에 히스토그램에서 제외되었다는 것입니다. R은 단지 이런 경우가 있었다는 것을 친절하게 알려주는 것입니다.
 
-Now let's unpack the resulting histogram in Figure \@ref(fig:weather-histogram). Observe that values less than 25&deg;F as well as values above 80&deg;F are rather rare. However, because of the large number of bins, it's hard to get a sense for which range of temperatures is spanned by each bin; everything is one giant amorphous blob. So let's add white vertical borders demarcating the bins by adding a `color = "white"` argument to `geom_histogram()` and ignore the warning about setting the number of bins to a better value:
+이제 그림 \@ref(fig:weather-histogram)의 결과 히스토그램을 분석해 봅시다. 25&deg;F 미만의 값과 80&deg;F 이상의 값은 다소 드물다는 것을 관찰할 수 있습니다. 하지만 빈의 개수가 많기 때문에 각 빈이 어느 범위의 온도를 차지하는지 파악하기 어렵습니다. 모든 것이 하나의 거대한 부정형 덩어리처럼 보입니다. 따라서 `geom_histogram()`에 `color = "white"` 인자를 추가하여 빈을 구분하는 하얀색 수직 경계선을 추가하고, 빈의 개수를 더 나은 값으로 설정하라는 경고는 무시해 보겠습니다.
 
-```{r weather-histogram-2, message=FALSE, fig.cap="Histogram of hourly temperatures at three NYC airports with white borders.", fig.height=3}
+```{r weather-histogram-2, message=FALSE, fig.cap="하얀색 경계선이 있는 NYC 세 공항의 매시간 기온 히스토그램.", fig.height=3}
 ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(color = "white")
 ```
 
-We now have an easier time associating ranges of temperatures to each of the bins in Figure \@ref(fig:weather-histogram-2). We can also vary the color of the bars by setting the \index{ggplot2!fill} `fill` argument. For example, you can set the bin colors to be "blue steel" by setting `fill = "steelblue"`:
+이제 그림 \@ref(fig:weather-histogram-2)에서 각 빈에 해당하는 온도 범위를 더 쉽게 연결 지을 수 있습니다. 또한 `fill` \index{ggplot2!fill} 인자를 설정하여 막대의 색상을 다양하게 바꿀 수도 있습니다. 예를 들어, `fill = "steelblue"`를 설정하여 빈 색상을 "스틸 블루"로 설정할 수 있습니다.
 
 ```{r, eval=FALSE}
 ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(color = "white", fill = "steelblue")
 ```
 
-If you're curious, run \index{colors()} `colors()` to see all `r colors() %>% length()` possible choice of colors in R!
+궁금하다면 `colors()` \index{colors()}를 실행하여 R에서 선택 가능한 `r colors() %>% length()`가지 색상을 모두 확인해 보세요!
 
 
-### Adjusting the bins {#adjustbins}
+### 빈 조정하기 {#adjustbins}
 
-Observe in Figure \@ref(fig:weather-histogram-2) that in the 50-75&deg;F range there appear to be roughly 8 bins. Thus each bin has width 25 divided by 8, or  3.125&deg;F, which is not a very easily interpretable range to work with. Let's improve this by adjusting the number of bins in our histogram in one of two ways:
+그림 \@ref(fig:weather-histogram-2)에서 50~75&deg;F 범위에 대략 8개의 빈이 있음을 관찰할 수 있습니다. 따라서 각 빈의 너비는 25를 8로 나눈 3.125&deg;F이며, 이는 다루기에 매우 해석하기 쉬운 범위는 아닙니다. 다음 두 가지 방법 중 하나로 히스토그램의 빈 수를 조정하여 이를 개선해 보겠습니다.
 
-1. By adjusting the number of bins via the \index{geom\_histogram()!bins} `bins` argument to `geom_histogram()`. 
-1. By adjusting the width of the bins via the \index{geom\_histogram()!binwidth} `binwidth` argument to `geom_histogram()`. 
+1. `geom_histogram()`의 `bins` \index{geom\_histogram()!bins} 인자를 통해 빈의 개수를 조정합니다.
+1. `geom_histogram()`의 `binwidth` \index{geom\_histogram()!binwidth} 인자를 통해 빈의 너비를 조정합니다.
 
-Using the first method, we have the power to specify how many bins we would like to cut the x-axis up in. As mentioned in the previous section, the default number of bins is 30. We can override this default, to say 40 bins, as follows:
+첫 번째 방법을 사용하면 x축을 몇 개의 빈으로 나눌지 지정할 수 있는 권한이 생깁니다. 이전 섹션에서 언급했듯이 기본 빈 개수는 30개입니다. 다음과 같이 이 기본값을 40개 빈으로 덮어쓸 수 있습니다:
 
 ```{r, eval=FALSE}
 ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(bins = 40, color = "white")
 ```
 
-Using the second method, instead of specifying the number of bins, we specify the width of the bins by using the `binwidth` argument in the `geom_histogram()` layer. For example, let's set the width of each bin to be 10&deg;F.
+두 번째 방법을 사용하면 빈의 개수를 지정하는 대신, `geom_histogram()` 레이어에서 `binwidth` 인자를 사용하여 빈의 너비를 지정합니다. 예를 들어, 각 빈의 너비를 10&deg;F로 설정해 보겠습니다.
 
 ```{r, eval=FALSE}
 ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(binwidth = 10, color = "white")
 ```
 
-We compare both resulting histograms side-by-side in Figure \@ref(fig:hist-bins). 
+그림 \@ref(fig:hist-bins)에서 두 결과 히스토그램을 나란히 비교해 봅니다.
 
-```{r hist-bins, message=FALSE, fig.cap= "Setting histogram bins in two ways.", echo=FALSE, purl=FALSE}
+```{r hist-bins, message=FALSE, fig.cap= "히스토그램 빈을 설정하는 두 가지 방법.", echo=FALSE, purl=FALSE}
 hist_1 <- ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(bins = 40, color = "white") +
-  labs(title = "With 40 bins")
+  labs(title = "40개 빈 사용")
 hist_2 <- ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(binwidth = 10, color = "white") +
-  labs(title = "With binwidth = 10 degrees F")
+  labs(title = "binwidth = 10도(F) 사용")
 hist_1 + hist_2
 ```
 
 ```{block lc-histogram, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does changing the number of bins from 30 to 40 tell us about the distribution of temperatures?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 빈의 개수를 30개에서 40개로 변경했을 때 기온의 분포에 대해 무엇을 알 수 있나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Would you classify the distribution of temperatures as symmetric or skewed in one direction or another?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 기온의 분포를 대칭이라고 보시나요, 아니면 한쪽 방향으로 치우쳐(skewed) 있다고 보시나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What would you guess is the "center" value in this distribution?  Why did you make that choice?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 이 분포의 "중심" 값은 무엇이라고 추측하시나요? 왜 그런 선택을 하셨나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Is this data spread out greatly from the center or is it close?  Why?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 이 데이터는 중심에서 크게 퍼져 있나요, 아니면 밀집되어 있나요? 그 이유는 무엇인가요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -586,19 +590,19 @@ hist_1 + hist_2
 ```
 
 
-### Summary
+### 요약
 
-Histograms, unlike scatterplots and linegraphs, present information on only a single numerical variable. Specifically, they are visualizations of the distribution of the numerical variable in question. 
-
-
+히스토그램은 산점도나 선 그래프와 달리 단 하나의 수치형 변수에 대한 정보만 제공합니다. 구체적으로, 해당 수치형 변수의 분포를 시각화한 것입니다.
 
 
 
-## Facets {#facets}
 
-Before continuing with the next of the 5NG, let's briefly introduce a new concept called *faceting*.  Faceting is used when we'd like to split a particular visualization by the values of another variable. This will create multiple copies of the same type of plot with matching x and y axes, but whose content will differ. 
 
-For example, suppose we were interested in looking at how the histogram of hourly temperature recordings at the three NYC airports we saw in Figure \@ref(fig:histogramexample) differed in each month. We could "split" this histogram by the 12 possible months in a given year. In other words, we would plot histograms of `temp` for each `month` separately. We do this by adding `facet_wrap(~ month)` layer. Note the `~` is a "tilde" and can generally be found on the key next to the "1" key on US keyboards. The tilde is required and you'll receive the error `Error in as.quoted(facets) : object 'month' not found` if you don't include it here. 
+## 분할 {#facets}
+
+다음 5NG를 계속하기 전에 *분할(faceting)*이라는 새로운 개념을 간략하게 소개하겠습니다. 분할은 특정 시각화를 다른 변수의 값에 따라 나누고 싶을 때 사용됩니다. 이렇게 하면 x축과 y축은 일치하지만 내용이 다른 동일한 유형의 플롯이 여러 개 생성됩니다.
+
+예를 들어, 그림 \@ref(fig:histogramexample)에서 보았던 NYC 세 공항의 매시간 기온 기록 히스토그램이 각 달마다 어떻게 다른지 확인하고 싶다고 가정해 봅시다. 이 히스토그램을 해당 연도의 12개월로 "나눌" 수 있습니다. 다시 말해, 각 `month`별로 `temp`의 히스토그램을 따로 그리는 것입니다. 이는 `facet_wrap(~ month)` 레이어를 추가하여 수행합니다. `~`는 "물결표(tilde)"이며 일반적으로 미국식 키보드의 "1" 키 옆에 있는 키에서 찾을 수 있습니다. 물결표는 필수이며, 이를 포함하지 않으면 `Error in as.quoted(facets) : object 'month' not found`와 같은 오류가 발생합니다.
 
 ```{r eval=FALSE}
 ggplot(data = weather, mapping = aes(x = temp)) +
@@ -606,12 +610,12 @@ ggplot(data = weather, mapping = aes(x = temp)) +
   facet_wrap(~ month)
 ```
 
-```{r facethistogram, fig.cap="Faceted histogram of hourly temperatures by month.", echo=FALSE, purl=FALSE, fig.height=3.3}
+```{r facethistogram, fig.cap="달별 매시간 기온의 분할 히스토그램.", echo=FALSE, purl=FALSE, fig.height=3.3}
 month_facet <- ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(binwidth = 5, color = "white") +
   facet_wrap(~month)
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   month_facet +
     theme(
       strip.text = element_text(colour = "black"),
@@ -622,7 +626,7 @@ if (is_latex_output()) {
 }
 ```
 
-We can also specify the number of rows and columns in the grid by using the `nrow` and `ncol` arguments inside of \index{ggplot2!facet\_wrap()} `facet_wrap()`. For example, say we would like our faceted histogram to have 4 rows instead of 3. We simply add an `nrow = 4` argument to `facet_wrap(~ month)`.
+또한 `facet_wrap()` 안에서 `nrow`와 `ncol` 인자를 사용하여 그리드의 행과 열 개수를 지정할 수 있습니다. \index{ggplot2!facet\_wrap()} 예를 들어, 분할된 히스토그램을 3행 대신 4행으로 만들고 싶다면 `facet_wrap(~ month)`에 `nrow = 4` 인자를 추가하면 됩니다.
 
 ```{r eval=FALSE}
 ggplot(data = weather, mapping = aes(x = temp)) +
@@ -630,12 +634,12 @@ ggplot(data = weather, mapping = aes(x = temp)) +
   facet_wrap(~ month, nrow = 4)
 ```
 
-```{r facethistogram2, fig.cap="Faceted histogram with 4 instead of 3 rows.", echo=FALSE, purl=FALSE, fig.height=3.3}
+```{r facethistogram2, fig.cap="3행 대신 4행으로 구성된 분할 히스토그램.", echo=FALSE, purl=FALSE, fig.height=3.3}
 month_facet_4 <- ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(binwidth = 5, color = "white") +
   facet_wrap(~month, nrow = 4)
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   month_facet_4 +
     theme(
       strip.text = element_text(colour = "black"),
@@ -646,21 +650,21 @@ if (is_latex_output()) {
 }
 ```
 
-Observe in both Figures \@ref(fig:facethistogram) and \@ref(fig:facethistogram2) that as we might expect in the Northern Hemisphere, temperatures tend to be higher in the summer months, while they tend to be lower in the winter. 
+그림 \@ref(fig:facethistogram)와 \@ref(fig:facethistogram2) 모두에서 북반구에서 예상할 수 있듯이 여름철에는 기온이 높고 겨울철에는 낮은 경향이 있음을 관찰할 수 있습니다.
 
 ```{block lc-facet, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What other things do you notice about this faceted plot?  How does a faceted plot help us see relationships between two variables?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 이 분할된 플롯에서 또 무엇을 알 수 있나요? 분할된 플롯이 두 변수 사이의 관계를 파악하는 데 어떻게 도움이 되나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What do the numbers 1-12 correspond to in the plot?  What about 25, 50, 75, 100?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 플롯의 숫자 1-12는 무엇에 해당하나요? 25, 50, 75, 100은 어떤가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** For which types of datasets would faceted plots not work well in comparing relationships between variables? Give an example describing the nature of these variables and other important characteristics.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 어떤 유형의 데이터셋에서 분할된 플롯이 변수 간의 관계를 비교하는 데 효과적이지 않을까요? 이러한 변수의 성격과 다른 중요한 특징을 설명하는 예를 들어보세요.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Does the `temp` variable in the `weather` dataset have a lot of variability?  Why do you say that?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `weather` 데이터셋의 `temp` 변수는 가변성(variability)이 큰가요? 왜 그렇게 생각하시나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -671,7 +675,7 @@ Observe in both Figures \@ref(fig:facethistogram) and \@ref(fig:facethistogram2)
 
 
 
-## 5NG#4: Boxplots {#boxplots}
+## 5NG#4: 박스 플롯 {#boxplots}
 
 ```{r, echo=FALSE, purl=FALSE}
 n_nov <- weather %>%
@@ -697,11 +701,11 @@ five_number_summary <- tibble(
 )
 ```
 
-While faceted histograms are one type of visualization used to compare the distribution of a numerical variable split by the values of another variable, another type of visualization that achieves this same goal is a *side-by-side boxplot*. A boxplot \index{boxplots} is constructed from the information provided in the *five-number summary* of a numerical variable (see Appendix \@ref(appendix-stat-terms)).  
+분할된 히스토그램이 다른 변수의 값에 따라 나누어진 수치형 변수의 분포를 비교하는 데 사용되는 시각화 유형 중 하나라면, 동일한 목표를 달성하는 또 다른 시각화 유형은 *나란히 배치된 박스 플롯(side-by-side boxplot)*입니다. 박스 플롯 \index{boxplots}은 수치형 변수의 *다섯 수치 요약(five-number summary)*에서 제공된 정보를 바탕으로 구성됩니다(부록 \@ref(appendix-stat-terms) 참고).
 
-To keep things simple for now, let's only consider the `r n_nov` hourly temperature recordings for the month of November, each represented as a jittered point in Figure \@ref(fig:nov1). 
+지금은 단순하게 하기 위해 11월의 `r n_nov`건의 매시간 기온 기록만 고려해 보겠습니다. 그림 \@ref(fig:nov1)에서는 각 기록을 지터링된 점으로 표시했습니다.
 
-```{r nov1, echo=FALSE, fig.cap="November temperatures represented as jittered points.", fig.height=1.7, purl=FALSE}
+```{r nov1, echo=FALSE, fig.cap="지터링된 점으로 표현된 11월 기온.", fig.height=1.7, purl=FALSE}
 base_plot <- weather %>%
   filter(month %in% c(11)) %>%
   ggplot(mapping = aes(x = factor(month), y = temp)) +
@@ -710,17 +714,17 @@ base_plot +
   geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
 ```
 
-These `r n_nov` observations have the following *five-number summary*:
+이 `r n_nov`개의 관측치는 다음과 같은 *다섯 수치 요약*을 가집니다:
 
-1. Minimum: `r min_nov`&deg;F
-1. First quartile (25th percentile): `r quartiles[1]`&deg;F
-1. Median (second quartile, 50th percentile): `r quartiles[2]`&deg;F
-1. Third quartile (75th percentile): `r quartiles[3]`&deg;F
-1. Maximum: `r max_nov`&deg;F
+1. 최솟값: `r min_nov`&deg;F
+1. 제1사분위수 (25번째 백분위수): `r quartiles[1]`&deg;F
+1. 중간값 (제2사분위수, 50번째 백분위수): `r quartiles[2]`&deg;F
+1. 제3사분위수 (75번째 백분위수): `r quartiles[3]`&deg;F
+1. 최댓값: `r max_nov`&deg;F
 
-In the leftmost plot of Figure \@ref(fig:nov2), let's mark these 5 values with dashed horizontal lines on top of the `r n_nov` points. In the middle plot of Figure \@ref(fig:nov2) let's add the *boxplot*. In the rightmost plot of Figure \@ref(fig:nov2), let's remove the points and the dashed horizontal lines for clarity's sake.
+그림 \@ref(fig:nov2)의 가장 왼쪽 플롯에서 `r n_nov`개의 점 위에 이 5개 값을 점선 수평선으로 표시해 보겠습니다. 그림 \@ref(fig:nov2)의 가운데 플롯에는 *박스 플롯*을 추가해 보겠습니다. 그림 \@ref(fig:nov2)의 가장 오른쪽 플롯에서는 명확성을 위해 점과 점선 수평선을 제거해 보겠습니다.
 
-```{r nov2, echo=FALSE, fig.cap="Building up a boxplot of November temperatures.", fig.height=3, purl=FALSE}
+```{r nov2, echo=FALSE, fig.cap="11월 기온 박스 플롯 구성 과정.", fig.height=3, purl=FALSE}
 boxplot_1 <- base_plot +
   geom_hline(data = five_number_summary, aes(yintercept = temp), linetype = "dashed") +
   geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
@@ -733,7 +737,7 @@ boxplot_3 <- base_plot +
 boxplot_1 + boxplot_2 + boxplot_3
 ```
 
-What the boxplot does is visually summarize the `r weather %>% filter(month == 11) %>% nrow()` points by cutting the `r n_nov` temperature recordings into *quartiles* at the dashed lines, where each quartile contains roughly `r n_nov` $\div$ 4 $\approx$ `r round(n_nov / 4)` observations. Thus
+박스 플롯이 하는 일은 `r n_nov`개의 기온 기록을 점선에서 *사분위수*로 잘라 `r weather %>% filter(month == 11) %>% nrow()`개의 점을 시각적으로 요약하는 것입니다. 각 사분위수에는 대략 `r n_nov` $\div$ 4 $\approx$ `r round(n_nov / 4)`개의 관측치가 포함됩니다. 따라서 다음과 같습니다:
 
 ```{r echo=FALSE, purl=FALSE}
 # This redundant code is used for dynamic non-static in-line text output purposes
@@ -742,61 +746,61 @@ quartile_2 <- quartiles[2] %>% round(3)
 quartile_3 <- quartiles[3] %>% round(3)
 ```
   
-1. 25% of points fall below the bottom edge of the box, which is the first quartile of `r quartile_1`&deg;F. In other words, 25% of observations were below `r quartile_1`&deg;F.
-1. 25% of points fall between the bottom edge of the box and the solid middle line, which is the median of `r quartile_2`&deg;F. Thus, 25% of observations were between `r quartile_1`&deg;F and `r quartile_2`&deg;F and 50% of observations were below `r quartile_2`&deg;F.
-1. 25% of points fall between the solid middle line and the top edge of the box, which is the third quartile of `r quartile_3`&deg;F. It follows that 25% of observations were between `r quartile_2`&deg;F and `r quartile_3`&deg;F and 75% of observations were below `r quartile_3`&deg;F.
-1. 25% of points fall above the top edge of the box. In other words, 25% of observations were above `r quartile_3`&deg;F.
-1. The middle 50% of points lie within the *interquartile range (IQR)* \index{interquartile range (IQR)} between the first and third quartile. Thus, the IQR for this example is `r quartile_3` - `r quartile_1` = `r (quartiles[3] - quartiles[1]) %>% round(3)`&deg;F. The interquartile range is a measure of a numerical variable's *spread*.
+1. 점의 25%는 상자의 아래쪽 가장자리인 제1사분위수 `r quartile_1`&deg;F 아래에 위치합니다. 즉, 관측치의 25%가 `r quartile_1`&deg;F 미만이었습니다.
+1. 점의 25%는 상자의 아래쪽 가장자리와 중간값 `r quartile_2`&deg;F인 굵은 중간선 사이에 위치합니다. 따라서 관측치의 25%는 `r quartile_1`&deg;F와 `r quartile_2`&deg;F 사이였으며, 관측치의 50%가 `r quartile_2`&deg;F 미만이었습니다.
+1. 점의 25%는 굵은 중간선과 상자의 위쪽 가장자리인 제3사분위수 `r quartile_3`&deg;F 사이에 위치합니다. 결과적으로 관측치의 25%는 `r quartile_2`&deg;F와 `r quartile_3`&deg;F 사이였으며, 관측치의 75%가 `r quartile_3`&deg;F 미만이었습니다.
+1. 점의 25%는 상자의 위쪽 가장자리 위에 위치합니다. 다시 말해, 관측치의 25%가 `r quartile_3`&deg;F보다 높았습니다.
+1. 가운데 50%의 점은 제1사분위수와 제3사분위수 사이의 *사분위수 범위(IQR, Interquartile Range)* \index{interquartile range (IQR)} 내에 위치합니다. 따라서 이 예의 IQR은 `r quartile_3` - `r quartile_1` = `r (quartiles[3] - quartiles[1]) %>% round(3)`&deg;F입니다. 사분위수 범위는 수치형 변수의 *퍼짐(spread)* 정도를 나타내는 척도입니다.
 
-Furthermore, in the rightmost plot of Figure \@ref(fig:nov2), we see the *whiskers* \index{boxplots!whiskers} of the boxplot. The whiskers stick out from either end of the box all the way to the minimum and maximum observed temperatures of `r min_nov`&deg;F and `r max_nov`&deg;F, respectively. However, the whiskers don't always extend to the smallest and largest observed values as they do here. They in fact extend no more than 1.5 $\times$ the interquartile range from either end of the box. In this case of the November temperatures, no more than 1.5 $\times$ `r (quartiles[3] - quartiles[1]) %>% round(3)`&deg;F = `r (1.5*(quartiles[3] - quartiles[1])) %>% round(3)`&deg;F from either end of the box. Any observed values outside this range get marked with points called *outliers*, which we'll see in the next section.
+또한 그림 \@ref(fig:nov2)의 가장 오른쪽 플롯에서 박스 플롯의 *수염(whiskers)* \index{boxplots!whiskers}을 볼 수 있습니다. 수염은 상자의 양 끝에서 관측된 최저 및 최고 기온인 `r min_nov`&deg;F와 `r max_nov`&deg;F까지 각각 뻗어 있습니다. 하지만 수염이 항상 여기서처럼 가장 작거나 큰 관측값까지 뻗어 나가는 것은 아닙니다. 실제로 상자의 양 끝에서 사분위수 범위의 1.5배 이상 뻗어 나가지 않습니다. 11월 기온의 경우, 상자 양 끝에서 $1.5 \times `r (quartiles[3] - quartiles[1]) %>% round(3)`&deg;F = `r (1.5*(quartiles[3] - quartiles[1])) %>% round(3)`&deg;F$를 넘지 않습니다. 이 범위를 벗어나는 관측값은 *이상치(outliers)*라는 점으로 표시되며, 이는 다음 섹션에서 살펴보겠습니다.
 
 
-### Boxplots via `geom_boxplot` {#geomboxplot}
+### `geom_boxplot`을 이용한 박스 플롯 {#geomboxplot}
 
-Let's now create a side-by-side boxplot \index{boxplots!side-by-side} of hourly temperatures split by the 12 months as we did previously with the faceted histograms. We do this by mapping the `month` variable to the x-position aesthetic, the `temp` variable to the y-position aesthetic, and by adding a `geom_boxplot()` layer:
+이제 앞서 분할 히스토그램에서 했던 것처럼 12개월로 나누어진 매시간 기온의 나란히 배치된 박스 플롯 \index{boxplots!side-by-side}을 만들어 보겠습니다. `month` 변수를 x축 미적 속성에 매핑하고, `temp` 변수를 y축 미적 속성에 매핑한 후 `geom_boxplot()` 레이어를 추가합니다.
 
-```{r badbox, fig.cap="Invalid boxplot specification.", fig.height=2.4}
+```{r badbox, fig.cap="잘못된 박스 플롯 지정.", fig.height=2.4}
 ggplot(data = weather, mapping = aes(x = month, y = temp)) +
   geom_boxplot()
 ```
 
 ```
-Warning messages:
-1: Continuous x aesthetic -- did you forget aes(group=...)? 
-2: Removed 1 rows containing non-finite values (stat_boxplot). 
+정지 메시지:
+1: Continuous x aesthetic -- group=...?를 잊으셨나요? 
+2: 결측값을 포함하는 1행이 제거되었습니다 (stat_boxplot). 
 ```
 
-Observe in Figure \@ref(fig:badbox) that this plot does not provide information about temperature separated by month. The first warning message clues us in as to why. It is telling us that we have a "continuous", or numerical variable, on the x-position aesthetic. Boxplots, however, require a categorical variable to be mapped to the x-position aesthetic. The second warning message is identical to the warning message when plotting a histogram of hourly temperatures: that one of the values was recorded as `NA` missing. 
+그림 \@ref(fig:badbox)에서 이 플롯이 월별로 분리된 기온 정보를 제공하지 않음을 관찰할 수 있습니다. 첫 번째 경고 메시지가 그 이유를 알려줍니다. x축 미적 속성에 "연속형" 또는 수치형 변수가 있다는 뜻입니다. 하지만 박스 플롯은 범주형 변수가 x축 미적 속성에 매핑되어야 합니다. 두 번째 경고 메시지는 매시간 기온 히스토그램을 그릴 때와 동일하게 값 하나가 `NA`로 누락되었다는 내용입니다.
 
-We can convert the numerical variable `month` into a `factor` categorical variable by using the `factor()` \index{factors} function. So after applying `factor(month)`, month goes from having numerical values just the 1, 2, ..., and 12 to having an associated ordering. With this ordering, `ggplot()` now knows how to work with this variable to produce the needed plot. 
+`factor()` \index{factors} 함수를 사용하여 수치형 변수 `month`를 `factor` 범주형 변수로 변환할 수 있습니다. `factor(month)`를 적용하면 month는 단순히 1, 2, ..., 12라는 수치 값을 갖는 것에서 연관된 순서를 갖게 됩니다. 이 순서를 통해 `ggplot()`은 이제 이 변수를 사용하여 필요한 플롯을 생성하는 방법을 알게 됩니다.
 
-```{r monthtempbox, fig.cap="Side-by-side boxplot of temperature split by month.", fig.height=4.2}
+```{r monthtempbox, fig.cap="월별로 나누어진 기온의 나란히 배치된 박스 플롯.", fig.height=4.2}
 ggplot(data = weather, mapping = aes(x = factor(month), y = temp)) +
   geom_boxplot()
 ```
 
-The resulting Figure \@ref(fig:monthtempbox) shows 12 separate "box and whiskers" plots similar to the rightmost plot of Figure \@ref(fig:nov2) of only November temperatures. Thus the different boxplots are shown "side-by-side."
+결과 그림 \@ref(fig:monthtempbox)는 11월 기온에 대해서만 나타냈던 그림 \@ref(fig:nov2)의 가장 오른쪽 플롯과 유사한 12개의 별도 "상자와 수염" 플롯을 보여줍니다. 따라서 서로 다른 박스 플롯들이 "나란히(side-by-side)" 표시됩니다.
 
-* The "box" portions of the visualization represent the 1st quartile, the median (the 2nd quartile), and the 3rd quartile.
-* The height of each box (the value of the 3rd quartile minus the value of the 1st quartile) is the interquartile range (IQR). It is a measure of the spread of the middle 50% of values, with longer boxes indicating more variability.
-* The "whisker" portions of these plots extend out from the bottoms and tops of the boxes and represent points less than the 25th percentile and greater than the 75th percentiles, respectively. They're set to extend out no more than $1.5 \times IQR$ units away from either end of the boxes. We say "no more than" because the ends of the whiskers have to correspond to observed temperatures.  The length of these whiskers show how the data outside the middle 50% of values vary, with longer whiskers indicating more variability.
-* The dots representing values falling outside the whiskers are called \index{outliers} *outliers*. These can be thought of as anomalous ("out-of-the-ordinary") values.
+* 시각화의 "상자" 부분은 제1사분위수, 중간값(제2사분위수), 제3사분위수를 나타냅니다.
+* 각 상자의 높이(제3사분위수 값 - 제1사분위수 값)는 사분위수 범위(IQR)입니다. 이는 중간 50% 값들의 퍼짐 정도를 측정하는 척도이며, 상자가 길수록 가변성이 큼을 나타냅니다.
+* 이 플롯의 "수염" 부분은 상자의 아래쪽과 위쪽에서 뻗어 나오며 각각 25번째 백분위수 미만과 75번째 백분위수 이상의 점들을 나타냅니다. 수염은 상자 끝에서 $1.5 \times IQR$ 단위 이상 뻗어 나가지 않도록 설정되어 있습니다. 수염의 끝은 관측된 기온과 일치해야 하므로 "이상"이라고 표현했습니다. 이 수염의 길이는 중간 50%를 벗어난 데이터가 어떻게 변하는지 보여주며, 수염이 길수록 가변성이 큼을 나타냅니다.
+* 수염을 벗어난 값을 나타내는 점들을 *이상치(outliers)* \index{outliers}라고 합니다. 이들은 이례적인("평범하지 않은") 값으로 생각할 수 있습니다.
 
-It is important to keep in mind that the definition of an outlier is somewhat arbitrary and not absolute. In this case, they are defined by the length of the whiskers, which are no more than $1.5 \times IQR$ units long for each boxplot. Looking at this side-by-side plot we can see, as expected, that summer months (6 through 8) have higher median temperatures as evidenced by the higher solid lines in the middle of the boxes. We can easily compare temperatures across months by drawing imaginary horizontal lines across the plot. Furthermore, the heights of the 12 boxes as quantified by the interquartile ranges are informative too; they tell us about variability, or spread, of temperatures recorded in a given month. 
+이상치의 정의는 다소 임의적이며 절대적인 것이 아니라는 점을 명심하는 것이 중요합니다. 이 경우에는 각 박스 플롯에 대해 길이가 $1.5 \times IQR$ 이내인 수염에 의해 정의됩니다. 나란히 배치된 이 플롯을 보면 상자 중앙의 굵은 실선이 더 높게 위치한 것을 통해 예상대로 여름철(6월~8월)의 중간값 기온이 더 높음을 알 수 있습니다. 플롯 전체에 가상의 수평선을 그려서 월별 기온을 쉽게 비교할 수 있습니다. 또한 사분위수 범위로 정량화된 12개 상자의 높이도 유익한 정보를 제공합니다. 이는 특정 달에 기록된 기온의 가변성 또는 퍼짐 정도를 알려줍니다.
 
 ```{block lc-boxplot, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does the dot at the bottom of the plot for May correspond to?  Explain what might have occurred in May to produce this point.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 5월 플롯의 맨 아래에 있는 점은 무엇에 해당하나요? 5월에 어떤 일이 일어나서 이런 점이 생겼을지 설명해 보세요.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Which months have the highest variability in temperature?  What reasons can you give for this?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 기온의 가변성이 가장 큰 달은 언제인가요? 이에 대해 어떤 이유를 들 수 있을까요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** We looked at the distribution of the numerical variable `temp` split by the numerical variable `month` that we converted using the `factor()` function in order to make a side-by-side boxplot. Why would a boxplot of `temp` split by the numerical variable `pressure` similarly converted to a categorical variable using the `factor()` not be informative?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 나란히 배치된 박스 플롯을 만들기 위해 `factor()` 함수를 사용하여 변환한 수치형 변수 `month`로 나누어진 수치형 변수 `temp`의 분포를 살펴보았습니다. 수치형 변수 `pressure`를 마찬가지로 `factor()`를 사용하여 범주형 변환하여 `temp`를 나눈 박스 플롯은 왜 유익하지 않을까요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Boxplots provide a simple way to identify outliers.  Why may outliers be easier to identify when looking at a boxplot instead of a faceted histogram?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 박스 플롯은 이상치를 식별하는 간단한 방법을 제공합니다. 분할된 히스토그램을 볼 때보다 박스 플롯을 볼 때 왜 이상치를 식별하기가 더 쉬울까요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -804,21 +808,19 @@ It is important to keep in mind that the definition of an outlier is somewhat ar
 ```
 
 
-### Summary
+### 요약
 
-Side-by-side boxplots provide us with a way to compare the distribution of a numerical variable across multiple values of another variable. One can see where the median falls across the different groups by comparing the solid lines in the center of the boxes. 
+나란히 배치된 박스 플롯은 다른 변수의 여러 값에 걸쳐 수치형 변수의 분포를 비교할 수 있는 방법을 제공합니다. 상자 중앙의 굵은 실선을 비교함으로써 서로 다른 그룹 간에 중간값이 어디에 위치하는지 알 수 있습니다. 
 
-To study the spread of a numerical variable within one of the boxes, look at both the length of the box and also how far the whiskers extend from either end of the box. Outliers are even more easily identified when looking at a boxplot than when looking at a histogram as they are marked with distinct points.
-
-
+상자 중 하나의 수치형 변수의 퍼짐 정도를 연구하려면 상자의 길이와 상자의 양쪽 끝에서 수염이 얼마나 뻗어 있는지를 모두 살펴보세요. 이상치는 별개의 점으로 표시되기 때문에 히스토그램을 볼 때보다 박스 플롯을 볼 때 훨씬 더 쉽게 식별할 수 있습니다.
 
 
 
-## 5NG#5: Barplots {#geombar}
+## 5NG#5: 막대 그래프 {#geombar}
 
-Both histograms and boxplots are tools to visualize the distribution of numerical variables. Another commonly desired task is to visualize the distribution of a categorical variable. This is a simpler task, as we are simply counting different categories within a categorical variable, also known as the \index{levels} *levels* of the categorical variable. Often the best way to visualize these different counts, also known as \index{frequencies} *frequencies*, is with barplots (also called barcharts).
+히스토그램과 박스 플롯은 모두 수치형 변수의 분포를 시각화하는 도구입니다. 또 다른 흔한 작업은 범주형 변수의 분포를 시각화하는 것입니다. 이는 범주형 변수 내의 서로 다른 범주, 즉 해당 범주형 변수의 \index{levels} *수준(levels)*을 단순히 세는 것이므로 더 간단한 작업입니다. 이러한 개수(또는 \index{frequencies} *빈도(frequencies)*)를 시각화하는 가장 좋은 방법은 대개 막대 그래프(barplot 또는 barchart)입니다.
 
-One complication, however, is how your data is represented. Is the categorical variable of interest "pre-counted" or not? For example, run the following code that manually creates two data frames representing a collection of fruit: 3 apples and 2 oranges.
+하지만 한 가지 복잡한 점은 데이터가 어떻게 표현되어 있느냐 하는 것입니다. 관심 있는 범주형 변수가 이미 "개수가 세어져(pre-counted)" 있습니까, 아니면 그렇지 않습니까? 예를 들어, 사과 3개와 오렌지 2개로 구성된 과일 모음을 나타내는 두 개의 데이터 프레임을 수동으로 생성하는 다음 코드를 실행해 보세요.
 
 ```{r}
 fruits <- tibble(
@@ -830,174 +832,68 @@ fruits_counted <- tibble(
 )
 ```
 
-We see both the `fruits` and `fruits_counted` data frames represent the same collection of fruit. Whereas `fruits` just lists the fruit individually...
+`fruits`와 `fruits_counted` 데이터 프레임 모두 동일한 과일 모음을 나타내는 것을 알 수 있습니다. `fruits`는 단순히 과일들을 개별적으로 나열하고 있는 반면...
 
 ```{r fruits, echo=FALSE, purl=FALSE}
 fruits
 ```
 
-... `fruits_counted` has a variable `count` which represent the "pre-counted" values of each fruit. 
+... `fruits_counted`는 각 과일의 "이미 세어진" 값을 나타내는 `number` 변수를 가지고 있습니다. 
 
 ```{r fruitscounted, echo=FALSE, purl=FALSE}
 fruits_counted
 ```
 
-Depending on how your categorical data is represented, you'll need to add a different `geom`etric layer type to your `ggplot()` to create a barplot, as we now explore. 
+범주형 데이터가 어떻게 표현되어 있는지에 따라, 막대 그래프를 만들기 위해 `ggplot()`에 서로 다른 `geom` 레이어 유형을 추가해야 합니다. 이제 이를 살펴보겠습니다.
 
 
-### Barplots via `geom_bar` or `geom_col`
+### `geom_bar` 또는 `geom_col`을 이용한 막대 그래프
 
-Let's generate barplots using these two different representations of the same basket of fruit: 3 apples and 2 oranges. Using the `fruits` data frame where all 5 fruits are listed individually in 5 rows, we map the `fruit` variable to the x-position aesthetic and add a \index{ggplot2!geom\_bar()} `geom_bar()` layer:
+사과 3개와 오렌지 2개가 담긴 동일한 과일 바구니의 두 가지 서로 다른 표현을 사용하여 막대 그래프를 생성해 봅시다. 5개의 과일이 5행에 개별적으로 나열된 `fruits` 데이터 프레임을 사용하는 경우, `fruit` 변수를 x축 위치 미적 속성에 매핑하고 \index{ggplot2!geom\_bar()} `geom_bar()` 레이어를 추가합니다.
 
-```{r geombar, fig.cap="Barplot when counts are not pre-counted.", fig.height=1.8}
+```{r geombar, fig.cap="개수가 미리 세어지지 않았을 때의 막대 그래프.", fig.height=1.8}
 ggplot(data = fruits, mapping = aes(x = fruit)) +
   geom_bar()
 ```
 
-However, using the `fruits_counted` data frame where the fruits have been "pre-counted", we once again map the `fruit` variable to the x-position aesthetic, but here we also map the `count` variable to the y-position aesthetic, and add a \index{ggplot2!geom\_col()} `geom_col()` layer instead.
+하지만 과일 개수가 이미 세어진 `fruits_counted` 데이터 프레임을 사용하는 경우, 다시 한번 `fruit` 변수를 x축 위치 미적 속성에 매핑하지만, 여기서는 `number` 변수를 y축 위치 미적 속성에도 매핑하고 대신 \index{ggplot2!geom\_col()} `geom_col()` 레이어를 추가합니다.
 
-```{r, geomcol, fig.cap="Barplot when counts are pre-counted.", fig.height=2.5}
+```{r, geomcol, fig.cap="개수가 미리 세어졌을 때의 막대 그래프.", fig.height=2.5}
 ggplot(data = fruits_counted, mapping = aes(x = fruit, y = number)) +
   geom_col()
 ```
 
-Compare the barplots in Figures \@ref(fig:geombar) and \@ref(fig:geomcol). They are identical because they reflect counts of the same five fruits. However, depending on how our categorical data is represented, either "pre-counted" or not, we must add a different `geom` layer. When the categorical variable whose distribution you want to visualize
+그림 \@ref(fig:geombar)와 \@ref(fig:geomcol)의 막대 그래프를 비교해 보세요. 동일한 다섯 개의 과일 개수를 나타내므로 결과는 동일합니다. 하지만 범주형 데이터가 "미리 세어졌는지" 여부에 따라 서로 다른 `geom` 레이어를 추가해야 합니다. 분포를 시각화하려는 범주형 변수가 다음과 같은 경우:
 
-* Is *not* pre-counted in your data frame, we use `geom_bar()`.
-* Is pre-counted in your data frame, we use `geom_col()` with the y-position aesthetic mapped to the variable that has the counts.
+* 데이터 프레임에서 미리 세어지지 *않았다면*, `geom_bar()`를 사용합니다.
+* 데이터 프레임에서 미리 세어졌다면, 개수가 포함된 변수를 y축 위치 미적 속성에 매핑하여 `geom_col()`을 사용합니다.
 
-Let's now go back to the `flights` data frame in the `nycflights13` package and visualize the distribution of the categorical variable `carrier`. In other words, let's visualize the number of domestic flights out of New York City each airline company flew in 2013. Recall from Subsection \@ref(exploredataframes) when you first explored the `flights` data frame, you saw that each row corresponds to a flight. In other words, the `flights` data frame is more like the `fruits` data frame than the `fruits_counted` data frame because the flights have not been pre-counted by `carrier`. Thus we should use `geom_bar()` instead of `geom_col()` to create a barplot. Much like a `geom_histogram()`, there is only one variable in the `aes()` aesthetic mapping: the variable `carrier` gets mapped to the `x`-position. As a difference though, histograms have bars that touch whereas bar graphs have white space between the bars going from left to right.
+이제 `nycflights13` 패키지의 `flights` 데이터 프레임으로 돌아가서 범주형 변수 `carrier`의 분포를 시각화해 봅시다. 즉, 2013년에 각 항공사가 뉴욕 시에서 출발하는 국내선을 몇 회 운항했는지 시각화해 보겠습니다. 소섹션 \@ref(exploredataframes)에서 `flights` 데이터 프레임을 처음 탐색했을 때, 각 행이 하나의 항공편에 해당한다는 것을 확인했습니다. 다시 말해, `flights` 데이터 프레임은 항공편을 `carrier`별로 미리 세어 놓지 않았기 때문에 `fruits_counted`보다는 `fruits` 데이터 프레임과 더 비슷합니다. 따라서 막대 그래프를 만들기 위해 `geom_col()` 대신 `geom_bar()`를 사용해야 합니다. `geom_histogram()`과 마찬가지로 `aes()` 미적 매핑에는 하나의 변수만 들어갑니다. `carrier` 변수가 `x` 위치에 매핑됩니다. 하지만 히스토그램은 막대들이 서로 붙어 있는 반면, 막대 그래프는 왼쪽에서 오른쪽으로 진행되면서 막대 사이에 빈 공간이 있습니다.
 
-(ref:geombar) Number of flights departing NYC in 2013 by airline using geom_bar().
-
-```{r flightsbar, fig.cap="(ref:geombar)", fig.height=2.8}
-ggplot(data = flights, mapping = aes(x = carrier)) +
-  geom_bar()
-```
-
-Observe in Figure \@ref(fig:flightsbar) that United Airlines (UA), JetBlue Airways (B6), and ExpressJet Airlines (EV) had the most flights depart NYC in 2013. If you don't know which airlines correspond to which carrier codes, then run `View(airlines)` to see a directory of airlines. For example, B6 is JetBlue Airways. Alternatively, say you had a data frame where the number of flights for each `carrier` was pre-counted as in Table \@ref(tab:flights-counted).
-
-```{r flights-counted, message=FALSE, echo=FALSE, purl=FALSE}
-flights_counted <- flights %>%
-  group_by(carrier) %>%
-  summarize(number = n())
-kbl(flights_counted,
-  digits = 3,
-  caption = "Number of flights pre-counted for each carrier",
-  booktabs = TRUE,
-  longtable = TRUE,
-  linesep = ""
-) %>%
-  kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
-    latex_options = c("hold_position")
-  )
-```
-
-In order to create a barplot visualizing the distribution of the categorical variable `carrier` in this case, we would now use `geom_col()` instead of `geom_bar()`, with an additional `y = number` in the aesthetic mapping on top of the `x = carrier`. The resulting barplot would be identical to Figure \@ref(fig:flightsbar).
-
-```{block lc-barplot, type="learncheck", purl=FALSE}
-\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why are histograms inappropriate for categorical variables?
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What is the difference between histograms and barplots?
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** How many Envoy Air flights departed NYC in 2013?
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What was the 7th highest airline for departed flights from NYC in 2013? How could we better present the table to get this answer quickly?
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-\vspace{-0.25in}
-```
+(ref:geombar) geom_bar()를 사용하여 2013년 항공사별 NYC 출발 항공편 수 시각화.
 
 
-### Must avoid pie charts!
 
-One of the most common plots used to visualize the distribution of categorical data is the \index{pie charts} pie chart. While they may seem harmless enough, pie charts actually present a problem in that humans are unable to judge angles well. As Naomi Robbins describes in her book, *Creating More Effective Graphs* [@robbins2013], we overestimate angles greater than 90 degrees and we underestimate angles less than 90 degrees. In other words, it is difficult for us to determine the relative size of one piece of the pie compared to another.  
+### 두 범주형 변수 {#two-categ-barplot}
 
-Let's examine the same data used in our previous barplot of the number of flights departing NYC by airline in Figure \@ref(fig:flightsbar), but this time we will use a pie chart in Figure \@ref(fig:carrierpie). Try to answer the following questions:
+막대 그래프는 단일 범주형 변수의 서로 다른 범주 또는 수준의 빈도를 시각화하는 매우 일반적인 방법입니다. 막대 그래프의 또 다른 용도는 두 범주형 변수의 *결합(joint)* 분포를 동시에 시각화하는 것입니다. `carrier`와 `origin`에 따른 NYC 출발 국내선 항공편의 *결합* 분포를 살펴봅시다. 즉, 각 `carrier`와 `origin` 조합에 대한 항공편 수입니다. 
 
-* How much larger is the portion of the pie for ExpressJet Airlines (`EV`)  compared to US Airways (`US`)? 
-* What is the third largest carrier in terms of departing flights?
-* How many carriers have fewer flights than United Airlines (`UA`)?
-
-```{r carrierpie, echo=FALSE, fig.cap="The dreaded pie chart.", fig.height=4.8, purl=FALSE}
-if (is_html_output()) {
-  ggplot(flights, mapping = aes(x = factor(1), fill = carrier)) +
-    geom_bar(width = 1) +
-    coord_polar(theta = "y") +
-    theme(
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text.y = element_blank(),
-      axis.text.x = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
-    ) +
-    guides(fill = guide_legend(keywidth = 0.8, keyheight = 0.8))
-} else {
-  ggplot(flights, mapping = aes(x = factor(1), fill = carrier)) +
-    geom_bar(width = 1) +
-    coord_polar(theta = "y") +
-    theme_light() +
-    theme(
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text.y = element_blank(),
-      axis.text.x = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
-    ) +
-    guides(fill = guide_legend(keywidth = 0.8, keyheight = 0.8)) +
-    scale_fill_grey()
-}
-```
-
-While it is quite difficult to answer these questions when looking at the pie chart in Figure \@ref(fig:carrierpie), we can much more easily answer these questions using the barchart in Figure \@ref(fig:flightsbar). This is true since barplots present the information in a way such that comparisons between categories can be made with single horizontal lines, whereas pie charts present the information in a way such that comparisons must be made by \index{pie charts!problems with} comparing angles. 
-
-```{block lc-pie-charts, type="learncheck", purl=FALSE}
-\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why should pie charts be avoided and replaced by barplots?
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why do you think people continue to use pie charts?
-
-```{block, type="learncheck", purl=FALSE}
-\vspace{-0.25in}
-\vspace{-0.25in}
-```
-
-
-### Two categorical variables {#two-categ-barplot}
-
-Barplots are a very common way to visualize the frequency of different categories, or levels, of a single categorical variable. Another use of barplots is to visualize the *joint* distribution of two categorical variables at the same time.  Let's examine the *joint* distribution of outgoing domestic flights from NYC by `carrier` as well as `origin`. In other words, the number of flights for each `carrier` and `origin` combination. 
-
-For example, the number of WestJet flights from `JFK`, the number of WestJet flights from `LGA`, the number of WestJet flights from `EWR`, the number of American Airlines flights from `JFK`, and so on. Recall the `ggplot()` code that created the barplot of `carrier` frequency in Figure \@ref(fig:flightsbar):
+예를 들어, `JFK` 출발 WestJet 항공편 수, `LGA` 출발 WestJet 항공편 수, `EWR` 출발 WestJet 항공편 수, `JFK` 출발 American Airlines 항공편 수 등이 있습니다. 그림 \@ref(fig:flightsbar)에서 `carrier` 빈도 막대 그래프를 생성했던 `ggplot()` 코드를 다시 떠올려 보세요.
 
 ```{r, eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier)) + 
   geom_bar()
 ```
 
-We can now map the additional variable `origin` by adding a `fill = origin` inside the `aes()` aesthetic mapping.
+이제 `aes()` 미적 매핑 안에 `fill = origin`을 추가하여 추가 변수인 `origin`을 매핑할 수 있습니다.
 
 ```{r eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
   geom_bar()
 ```
 
-```{r flights-stacked-bar, echo=FALSE, fig.cap="Stacked barplot of flight amount by carrier and origin.", fig.height=2.8, purl=FALSE}
-if (is_html_output()) {
+```{r flights-stacked-bar, echo=FALSE, fig.cap="항공사와 출발 공항별 항공편 수에 대한 누적 막대 그래프.", fig.height=2.8, purl=FALSE}
+if (knitr::is_html_output()) {
   ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
     geom_bar()
 } else {
@@ -1007,17 +903,17 @@ if (is_html_output()) {
 }
 ```
 
-Figure \@ref(fig:flights-stacked-bar) is an example of a \index{barplot!stacked} *stacked barplot*.  While simple to make, in certain aspects it is not ideal. For example, it is difficult to compare the heights of the different colors between the bars, corresponding to comparing the number of flights from each `origin` airport between the carriers.
+그림 \@ref(fig:flights-stacked-bar)는 \index{barplot!stacked} *누적 막대 그래프(stacked barplot)*의 예입니다. 만들기는 간단하지만, 어떤 측면에서는 이상적이지 않습니다. 예를 들어, 막대 내에서 서로 다른 색상의 높이를 비교하기가 어려운데, 이는 곧 항공사 간에 각 `origin` 공항에서 출발하는 항공편 수를 비교하기가 어렵다는 것을 의미합니다.
 
-Before we continue, let's address some common points of confusion among new R users. First, the `fill` aesthetic corresponds to the color used to fill the bars, while the `color` aesthetic corresponds to the color of the outline of the bars. This is identical to how we added color to our histogram in Subsection \@ref(geomhistogram): we set the outline of the bars to white by setting `color = "white"` and the colors of the bars to blue steel by setting `fill = "steelblue"`. Observe in Figure \@ref(fig:flights-stacked-bar-color) that mapping `origin` to `color` and not `fill` yields grey bars with different colored outlines.
+계속하기 전에, 새로운 R 사용자들이 흔히 겪는 몇 가지 혼동되는 점들을 짚고 넘어가겠습니다. 첫째, `fill` 미적 속성은 막대를 채우는 데 사용되는 색상에 해당하고, `color` 미적 속성은 막대의 테두리 색상에 해당합니다. 이는 소섹션 \@ref(geomhistogram)에서 히스토그램에 색상을 추가한 방식과 동일합니다. `color = "white"`로 설정하여 막대의 테두리를 흰색으로 만들고, `fill = "steelblue"`로 설정하여 막대의 색상을 블루 스틸 색상으로 만들었습니다. 그림 \@ref(fig:flights-stacked-bar-color)에서 `origin`을 `fill`이 아닌 `color`에 매핑하면 막대는 회색이고 테두리 색상만 다르게 나타나는 것을 확인하세요.
 
 ```{r eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
   geom_bar()
 ```
 
-```{r flights-stacked-bar-color, fig.cap="Stacked barplot with color aesthetic used instead of fill.", fig.height=2.2, echo=FALSE, purl=FALSE}
-if (is_html_output()) {
+```{r flights-stacked-bar-color, fig.cap="fill 대신 color 미적 속성을 사용한 누적 막대 그래프.", fig.height=2.2, echo=FALSE, purl=FALSE}
+if (knitr::is_html_output()) {
   ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
     geom_bar()
 } else {
@@ -1027,22 +923,22 @@ if (is_html_output()) {
 }
 ```
 
-Second, note that `fill` is another aesthetic mapping much like `x`-position; thus we were careful to include it within the parentheses of the `aes()` mapping. The following code, where the `fill` aesthetic is specified outside the `aes()` mapping will yield an error. This is a fairly common error that new `ggplot` users make:
+둘째, `fill`은 `x` 위치와 마찬가지로 또 다른 미적 매핑이므로 `aes()` 매핑의 괄호 안에 포함해야 한다는 점에 유의하세요. 다음 코드와 같이 `fill` 미적 속성을 `aes()` 매핑 외부에서 지정하면 오류가 발생합니다. 이는 새로운 `ggplot` 사용자들이 상당히 자주 저지르는 실수입니다.
 
 ```{r, eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier), fill = origin) +
   geom_bar()
 ```
 
-An alternative to stacked barplots are \index{barplot!side-by-side} *side-by-side barplots*, also known as *dodged barplots*, as seen in Figure \@ref(fig:flights-dodged-bar-color). The code to create a side-by-side barplot is identical to the code to create a stacked barplot, but with a \index{ggplot2!position} `position = "dodge"` argument added to `geom_bar()`. In other words, we are overriding the default barplot type, which is a *stacked* barplot, and specifying it to be a side-by-side barplot instead.
+누적 막대 그래프의 대안은 그림 \@ref(fig:flights-dodged-bar-color)에서 볼 수 있듯이 *나란히 배치된 막대 그래프(side-by-side barplot)*이며 \index{barplot!side-by-side} *dodged barplot*이라고도 합니다. 나란히 배치된 막대 그래프를 만드는 코드는 누적 막대 그래프를 만드는 코드와 동일하지만, `geom_bar()`에 \index{ggplot2!position} `position = "dodge"` 인자를 추가합니다. 즉, 기본 막대 그래프 유형인 *누적* 막대 그래프를 무시하고 대신 나란히 배치된 막대 그래프로 지정하는 것입니다.
 
 ```{r eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
   geom_bar(position = "dodge")
 ```
 
-```{r flights-dodged-bar-color, fig.cap="Side-by-side barplot comparing number of flights by carrier and origin.", fig.height=3.5, echo=FALSE, purl=FALSE}
-if (is_html_output()) {
+```{r flights-dodged-bar-color, fig.cap="항공사와 출발 공항별 항공편 수를 비교하는 나란히 배치된 막대 그래프.", fig.height=3.5, echo=FALSE, purl=FALSE}
+if (knitr::is_html_output()) {
   ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
     geom_bar(position = "dodge")
 } else {
@@ -1052,15 +948,15 @@ if (is_html_output()) {
 }
 ```
 
-Note the width of the bars for `AS`, `F9`, `FL`, `HA` and `YV` is different than the others. We can make one tweak to the `position` argument to get them to be the same size in terms of width as the other bars by using the more robust `position_dodge()` function.
+`AS`, `F9`, `FL`, `HA`, `YV` 항공사의 막대 너비가 다른 항공사와 다르다는 점에 유의하세요. 더 견고한 `position_dodge()` 함수를 사용하여 `position` 인자를 약간 수정하면 이러한 막대들의 너비를 다른 막대들과 동일하게 만들 수 있습니다.
 
 ```{r eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
   geom_bar(position = position_dodge(preserve = "single"))
 ```
 
-```{r flights-dodged-bar-color-tweak, echo=FALSE, fig.cap="Side-by-side barplot comparing number of flights by carrier and origin (with formatting tweak).", fig.height=2.5, purl=FALSE}
-if (is_html_output()) {
+```{r flights-dodged-bar-color-tweak, echo=FALSE, fig.cap="항공사와 출발 공항별 항공편 수를 비교하는 나란히 배치된 막대 그래프 (서식 수정 적용).", fig.height=2.5, purl=FALSE}
+if (knitr::is_html_output()) {
   ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
     geom_bar(position = position_dodge(preserve = "single"))
 } else {
@@ -1070,7 +966,7 @@ if (is_html_output()) {
 }
 ```
 
-Lastly, another type of barplot is a \index{barplot!faceted} *faceted barplot*. Recall in Section \@ref(facets) we visualized the distribution of hourly temperatures at the 3 NYC airports *split* by month using facets. We apply the same principle to our barplot visualizing the frequency of `carrier` split by `origin`: instead of mapping `origin` to `fill` we include it as the variable to create small multiples of the plot across the levels of `origin`.
+마지막으로, 또 다른 유형의 막대 그래프는 \index{barplot!faceted} *분할된 막대 그래프(faceted barplot)*입니다. 섹션 \@ref(facets)에서 분할(facet)을 사용하여 NYC 세 공항의 매시간 기온 분포를 각 달로 *나누어* 시각화했던 것을 기억해 보세요. `carrier` 빈도를 `origin`별로 나누어 시각화하는 막대 그래프에도 동일한 원리를 적용할 수 있습니다. `origin`을 `fill`에 매핑하는 대신, `origin`의 수준별로 플롯의 작은 사본들을 생성할 변수로 포함시킵니다.
 
 ```{r eval=FALSE}
 ggplot(data = flights, mapping = aes(x = carrier)) +
@@ -1078,12 +974,12 @@ ggplot(data = flights, mapping = aes(x = carrier)) +
   facet_wrap(~ origin, ncol = 1)
 ```
 
-```{r facet-bar-vert, fig.cap="Faceted barplot comparing the number of flights by carrier and origin.", fig.height=6, echo=FALSE, purl=FALSE}
+```{r facet-bar-vert, fig.cap="항공사와 출발 공항별 항공편 수를 비교하는 분할된 막대 그래프.", fig.height=6, echo=FALSE, purl=FALSE}
 month_facet_ncol <- ggplot(data = flights, mapping = aes(x = carrier)) +
   geom_bar() +
   facet_wrap(~origin, ncol = 1)
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   month_facet_ncol +
     theme(
       strip.text = element_text(colour = "black"),
@@ -1096,21 +992,21 @@ if (is_latex_output()) {
 
 ```{block lc-barplot-stacked, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What kinds of questions are not easily answered by looking at Figure \@ref(fig:flights-stacked-bar)?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 그림 \@ref(fig:flights-stacked-bar)를 보는 것만으로는 어떤 종류의 질문에 쉽게 답하기 어려울까요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What can you say, if anything, about the relationship between airline and airport in NYC in 2013 in regards to the number of departing flights?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 2013년 NYC에서 출발하는 항공편 수와 관련하여 항공사와 공항 사이의 관계에 대해 말할 수 있는 것이 있다면 무엇인가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why might the side-by-side barplot be preferable to a stacked barplot in this case?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 이 경우 왜 나란히 배치된 막대 그래프가 누적 막대 그래프보다 선호될 수 있을까요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What are the disadvantages of using a dodged barplot, in general?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 일반적으로 dodged barplot을 사용할 때의 단점은 무엇인가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why is the faceted barplot preferred to the side-by-side and stacked barplots in this case?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 이 경우 왜 분할된 막대 그래프가 나란히 배치된 막대 그래프나 누적 막대 그래프보다 선호되나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What information about the different carriers at different airports is more easily seen in the faceted barplot?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 분할된 막대 그래프에서는 서로 다른 공항의 항공사들에 대한 어떤 정보를 더 쉽게 볼 수 있나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -1118,9 +1014,9 @@ if (is_latex_output()) {
 ```
 
 
-### Summary
+### 요약
 
-Barplots are a common way of displaying the distribution of a categorical variable, or in other words the frequency with which the different categories (also called *levels*) occur.  They are easy to understand and make it easy to make comparisons across levels.  Furthermore, when trying to visualize the relationship of two categorical variables, you have many options: stacked barplots, side-by-side barplots, and faceted barplots. Depending on what aspect of the relationship you are trying to emphasize, you will need to make a choice between these three types of barplots and own that choice.
+막대 그래프는 범주형 변수의 분포, 다시 말해 서로 다른 범주(순서가 있는 경우 *수준*이라고도 함)가 나타나는 빈도를 표시하는 일반적인 방법입니다. 이해하기 쉽고 수준 간의 비교를 용이하게 합니다. 또한, 두 범주형 변수의 관계를 시각화할 때 누적 막대 그래프, 나란히 배치된 막대 그래프, 분할된 막대 그래프 등 많은 옵션이 있습니다. 관계의 어떤 측면을 강조하고 싶은지에 따라 이 세 가지 유형의 막대 그래프 중에서 선택해야 하며, 그 선택에 책임을 져야 합니다.
 
 
 
@@ -1128,9 +1024,9 @@ Barplots are a common way of displaying the distribution of a categorical variab
 
 ## Conclusion {#data-vis-conclusion}
 
-### Summary table
+### 요약표
 
-Let's recap all five of the five named graphs (5NG) \index{five named graphs} in Table \@ref(tab:viz-summary-table) summarizing their differences. Using these 5NG, you'll be able to visualize the distributions and relationships of variables contained in a wide array of datasets. This will be even more the case as we start to map more variables to more of each `geom`etric object's `aes`thetic attribute options, further unlocking the awesome power of the `ggplot2` package.
+표 \@ref(tab:viz-summary-table)에서 다섯 가지 주요 그래프(5NG) \index{five named graphs}의 차이점을 다시 한번 정리해 봅시다. 이 5NG를 사용하면 광범위한 데이터셋에 포함된 변수들의 분포와 관계를 시각화할 수 있습니다. 각 `geom` 객체의 `aes` 미적 속성 옵션에 더 많은 변수를 매핑하기 시작하면 `ggplot2` 패키지의 강력한 기능을 더욱 만끽할 수 있을 것입니다.
 
 ```{r viz-summary-table, echo=FALSE, message=FALSE, purl=FALSE}
 # The following Google Doc is published to CSV and loaded using read_csv():
@@ -1140,19 +1036,19 @@ if (!file.exists("rds/summary_table_ch2.rds")) {
   summary_table_ch3 <-
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vRGaUW6EMIGPhg2V7CahoSdVi_JCcESFRYV5tov6bjcwOcn7DZDzfpZgrvjfFG6PV57gcJYIrwl_Q2c/pub?gid=0&single=true&output=csv" %>%
     read_csv(na = "")
-  summary_table_ch3$Notes[2] <- "Used when there is a sequential order to x-variable, e.g., time"
+  summary_table_ch3$Notes[2] <- "시간과 같이 x 변수에 순차적인 순서가 있을 때 사용"
   write_rds(summary_table_ch3, "rds/summary_table_ch2.rds")
 } else {
   summary_table_ch2 <- read_rds("rds/summary_table_ch2.rds") %>%
     rename(` ` = `X1`)
 }
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   summary_table_ch2 %>%
     # Weird tick marks show up in PDF:
     mutate(`Geometric object` = str_replace_all(`Geometric object`, "`", "")) %>%
     kbl(
-      caption = "Summary of Five Named Graphs",
+      caption = "다섯 가지 주요 그래프(5NG) 요약",
       booktabs = TRUE,
       format = "latex",
       linesep = ""
@@ -1164,7 +1060,7 @@ if (is_latex_output()) {
 } else {
   summary_table_ch2 %>%
     kbl(
-      caption = "Summary of Five Named Graphs",
+      caption = "다섯 가지 주요 그래프(5NG) 요약",
       booktabs = TRUE,
       format = "html"
     )
@@ -1172,30 +1068,30 @@ if (is_latex_output()) {
 ```
 
 
-### Function argument specification
+### 함수 인자 지정 방법
 
-Let's go over some important points about specifying the arguments (i.e., inputs) to functions. Run the following two segments of code:
+함수에 인자(즉, 입력값)를 지정하는 몇 가지 중요한 사항을 살펴보겠습니다. 다음 두 개의 코드 세그먼트를 실행해 보세요.
 
 ```{r, eval=FALSE}
-# Segment 1:
+# 세그먼트 1:
 ggplot(data = flights, mapping = aes(x = carrier)) +
   geom_bar()
 
-# Segment 2:
+# 세그먼트 2:
 ggplot(flights, aes(x = carrier)) +
   geom_bar()
 ```
 
-You'll notice that both code segments create the same barplot, even though in the second segment we omitted the `data = ` and `mapping = ` code argument names. This is because the `ggplot()` function by default assumes that the `data` argument comes first and the `mapping` argument comes second. \index{functions!argument order} As long as you specify the data frame in question first and the `aes()` mapping second, you can omit the explicit statement of the argument names `data = ` and `mapping = `. 
+두 번째 세그먼트에서 `data = `와 `mapping = `이라는 인자 이름을 생략했음에도 불구하고 두 코드 세그먼트가 동일한 막대 그래프를 생성한다는 것을 알 수 있습니다. 이는 `ggplot()` 함수가 기본적으로 첫 번째 인자는 `data`, 두 번째 인자는 `mapping`이라고 가정하기 때문입니다. \index{functions!argument order} 해당하는 데이터 프레임을 첫 번째로 지정하고 `aes()` 매핑을 두 번째로 지정하는 한, `data = `와 `mapping = `과 같은 인자 이름을 명시적으로 작성하는 것을 생략할 수 있습니다. 
 
-Going forward for the rest of this book, all `ggplot()` code will be like the second segment: with the `data = ` and `mapping = ` explicit naming of the argument omitted with the default ordering of arguments respected. We'll do this for brevity's sake; it's common to see this style when reviewing other R users' code.
+이 책의 나머지 부분에서는 모든 `ggplot()` 코드에서 인자의 기본 순서를 준수하면서 `data = ` 및 `mapping = `과 같은 명시적인 이름을 생략한 두 번째 세그먼트와 같은 스타일을 사용할 것입니다. 이는 간결함을 위한 것이며, 다른 R 사용자들의 코드를 검토할 때도 흔히 볼 수 있는 스타일입니다.
 
 
-### Additional resources
+### 추가 자료
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
-  cat("Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).")
+if (knitr::is_latex_output()) {
+  cat("모든 *학습 확인*에 대한 해답은 온라인 [부록 D](https://moderndive.com/D-appendixD.html)에서 확인할 수 있습니다.")
 }
 ```
 
@@ -1203,16 +1099,16 @@ if (is_latex_output()) {
 generate_r_file_link("02-visualization.R")
 ```
 
-If you want to further unlock the power of the `ggplot2` package for data visualization, we suggest that you check out RStudio's "Data Visualization with ggplot2" cheatsheet. This cheatsheet summarizes much more than what we've discussed in this chapter. In particular, it presents many more than the 5 `geom`etric objects we covered in this chapter while providing quick and easy to read visual descriptions. For all the `geom`etric objects, it also lists all the possible aesthetic attributes one can tweak. In the current version of RStudio in mid 2024, you can access this cheatsheet by going to the RStudio Menu Bar -> Help -> Cheatsheets -> "Data Visualization with ggplot2." `r if(is_html_output()) "You can see a preview in the figure below."` Alternatively, you can preview the cheat sheet by going to the ggplot2 Github page with this [link](https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf).
+데이터 시각화를 위한 `ggplot2` 패키지의 기능을 더 자세히 알고 싶다면 RStudio의 "Data Visualization with ggplot2" 치트시트(cheatsheet)를 확인해 보시기 바랍니다. 이 치트시트는 우리가 이 장에서 논의한 것보다 훨씬 많은 내용을 요약하고 있습니다. 특히, 이 장에서 다룬 5가지 `geom` 객체보다 훨씬 많은 객체를 제시하면서 빠르고 읽기 쉬운 시각적 설명을 제공합니다. 또한 모든 `geom` 객체에 대해 조정 가능한 모든 미적 속성 목록도 제공합니다. 2024년 중반 기준 RStudio 최신 버전에서는 RStudio 메뉴 바 -> Help -> Cheatsheets -> "Data Visualization with ggplot2"를 통해 이 치트시트에 접속할 수 있습니다. `r if(knitr::is_html_output()) "아래 그림에서 미리보기를 확인할 수 있습니다."` 또는 이 [링크](https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf)를 통해 ggplot2 Github 페이지에서 치트시트를 미리 볼 수 있습니다.
 
-```{r ggplot-cheatsheet, echo=FALSE, fig.cap="Data Visualization with ggplot2 cheatsheet.", purl=FALSE}
-if (is_html_output()) {
-  include_graphics("images/cheatsheets/ggplot_cheatsheet-1.png")
+```{r ggplot-cheatsheet, echo=FALSE, fig.cap="ggplot2를 이용한 데이터 시각화 치트시트.", purl=FALSE}
+if (knitr::is_html_output()) {
+  knitr::include_graphics("images/cheatsheets/ggplot_cheatsheet-1.png")
 }
 ```
 
 
-### What's to come {#whats-to-come-3}
+### 다음 장에서 다룰 내용 {#whats-to-come-3}
 
 ```{r purl=FALSE, echo=FALSE}
 # This redundant code is used for dynamic non-static in-line text output purposes
@@ -1225,9 +1121,9 @@ alaska_flights_rows <- flights %>%
   comma()
 ```
 
-Recall in Figure \@ref(fig:noalpha) in Section \@ref(scatterplots) we visualized the relationship between departure delay and arrival delay for Alaska Airlines flights only, rather than *all* flights. This data is saved in the `alaska_flights` data frame from the `moderndive` package.
+섹션 \@ref(scatterplots)의 그림 \@ref(fig:noalpha)에서 우리는 모든 항공편이 아니라 알래스카 항공(Alaska Airlines) 항공편에 대해서만 출발 지연과 도착 지연 사이의 관계를 시각화했던 것을 기억해 보세요. 이 데이터는 `moderndive` 패키지의 `alaska_flights` 데이터 프레임에 저장되어 있습니다.
 
-In reality, the `alaska_flights` data frame is merely a subset of the `flights` data frame from the `nycflights13` package consisting of *all* flights that left NYC in 2013. We created `alaska_flights` using the following code that uses the `dplyr` package for data wrangling:
+실제로 `alaska_flights` 데이터 프레임은 2013년에 NYC를 출발한 *모든* 항공편으로 구성된 `nycflights13` 패키지의 `flights` 데이터 프레임의 하위 집합일 뿐입니다. 우리는 데이터 전처리를 위한 `dplyr` 패키지를 사용하는 다음 코드를 통해 `alaska_flights`를 만들었습니다.
 
 ```{r, eval=FALSE}
 library(dplyr)
@@ -1239,11 +1135,11 @@ ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
   geom_point()
 ```
 
-This code takes the `flights` data frame and `filter()` it to only return the `r alaska_flights_rows` rows where `carrier` is equal to `"AS"`, Alaska Airlines' carrier code. (Recall from Section \@ref(code) that testing for equality is specified with \index{using == instead of =} `==` and not `=`.) The code then cycles back to save the output in a new data frame called `alaska_flights` using the `<-` *assignment* operator\index{operators!assignment (<-)}. 
+이 코드는 `flights` 데이터 프레임을 가져와 `carrier`가 알래스카 항공의 항공사 코드인 `"AS"`와 같은 `r alaska_flights_rows`행만 반환하도록 `filter()`합니다. (섹션 \@ref(code)에서 같음 여부를 테스트할 때는 \index{using == instead of =} `=`가 아니라 `==`를 사용한다는 점을 기억하세요.) 그런 다음 코드는 `<-` *할당(assignment)* 연산자\index{operators!assignment (<-)}를 사용하여 결과를 `alaska_flights`라는 새로운 데이터 프레임에 저장합니다. 
 
-Similarly, recall in Figure \@ref(fig:hourlytemp) in Section \@ref(linegraphs) we visualized hourly temperature recordings at Newark airport only for the first 15 days of January 2013. This data is saved in the `early_january_weather` data frame from the `moderndive` package.
+마찬가지로 섹션 \@ref(linegraphs)의 그림 \@ref(fig:hourlytemp)에서 우리는 2013년 1월의 처음 15일 동안에 대해서만 뉴어크(Newark) 공항의 매시간 기온 기록을 시각화했습니다. 이 데이터는 `moderndive` 패키지의 `early_january_weather` 데이터 프레임에 저장되어 있습니다.
 
-In reality, the `early_january_weather` data frame is merely a subset of the `weather` data frame from the `nycflights13` package consisting of *all* hourly weather observations in 2013 for *all* three NYC airports. We created `early_january_weather` using the following `dplyr` code:  
+실제로 `early_january_weather` 데이터 프레임은 NYC의 *세 개* 공항 모두에 대한 2013년의 *모든* 매시간 기상 관측 값으로 구성된 `nycflights13` 패키지의 `weather` 데이터 프레임의 하위 집합일 뿐입니다. 우리는 다음과 같은 `dplyr` 코드를 사용하여 `early_january_weather`를 만들었습니다. 
 
 ```{r, eval=FALSE}
 early_january_weather <- weather %>% 
@@ -1253,6 +1149,6 @@ ggplot(data = early_january_weather, mapping = aes(x = time_hour, y = temp)) +
   geom_line()
 ```
 
-This code pares down the `weather` data frame to a new data frame `early_january_weather` consisting of hourly temperature recordings only for `origin == "EWR"`, `month == 1`, and day less than or equal to `15`. 
+이 코드는 `weather` 데이터 프레임을 `origin == "EWR"`, `month == 1`, 그리고 `day`가 `15` 이하인 매시간 기온 기록만 포함하는 새로운 데이터 프레임 `early_january_weather`로 축소합니다. 
 
-These two code segments are a preview of Chapter \@ref(wrangling) on data wrangling using the `dplyr` package. Data wrangling is the process of transforming and modifying existing data with the intent of making it more appropriate for analysis purposes. For example, these two code segments used the `filter()` function to create new data frames (`alaska_flights` and `early_january_weather`) by choosing only a subset of rows of existing data frames (`flights` and `weather`). In the next chapter, we'll formally introduce the `filter()` and other data wrangling functions as well as the *pipe operator* `%>%` which allows you to combine multiple data wrangling actions into a single sequential *chain* of actions. On to Chapter \@ref(wrangling) on data wrangling!
+이 두 코드 세그먼트는 `dplyr` 패키지를 사용한 데이터 전처리에 관한 제 \@ref(wrangling)장의 예고편입니다. 데이터 전처리(data wrangling)는 분석 목적에 더 적합하도록 기존 데이터를 변형하고 수정하는 과정입니다. 예를 들어, 이 두 코드 세그먼트는 `filter()` 함수를 사용하여 기존 데이터 프레임(`flights`와 `weather`)의 행 중 일부만 선택하여 새로운 데이터 프레임(`alaska_flights`와 `early_january_weather`)을 생성했습니다. 다음 장에서는 `filter()` 및 다른 데이터 전처리 함수와 함께, 여러 데이터 전처리 작업을 하나의 순차적인 작업 *체인(chain)*으로 결합할 수 있게 해주는 *파이프 연산자(pipe operator)* `%>%`를 정식으로 소개하겠습니다. 이제 데이터 전처리에 관한 제 \@ref(wrangling)장으로 가봅시다!

@@ -1,4 +1,8 @@
-# Preface {-}
+```{r, include=FALSE}
+source("_common.R")
+```
+
+# 머리말 {-}
 
 \vspace{0.1in}
 
@@ -6,266 +10,262 @@
 `r include_image("images/logos/Rlogo.png", html_opts = "height=100px", latex_opts = "height=10%")` \hfill &emsp; &emsp; &emsp; `r include_image("images/logos/RStudio-Logo-Blue-Gradient.png", html_opts = "height=100px", latex_opts = "height=10%")`
 </center>
 
-**Help! I'm completely new to coding and I need to learn R and RStudio! What do I do?** 
+**도와주세요! 코딩은 처음인데 R과 RStudio를 배워야 해요! 어떻게 해야 하죠?** 
 
 \vspace{0.1in}
 
-If you're asking yourself this question, then you've come to the right place! Start with the "Introduction for students" section.  
+이 질문을 스스로에게 던지고 있다면, 제대로 찾아오셨습니다! "학생들을 위한 안내" 섹션부터 시작하세요. 
 
-* *Are you an instructor hoping to use this book in your courses? We recommend reading the "Introduction for students" section first. Then, read the "Introduction for instructors" section for more information on how to teach with this book.*
-* *Are you looking to connect with and contribute to* ModernDive*? Then, read the "Connect and contribute" section for information on how.*
-* *Are you curious about the publishing of this book? Then, read the "About this book" section for more information on the open-source technology, in particular R Markdown and the bookdown package.*
+* *강의에서 이 책을 사용하고자 하는 강사이신가요? 먼저 "학생들을 위한 안내" 섹션을 읽어보시기를 권장합니다. 그런 다음, 이 책으로 가르치는 방법에 대한 자세한 정보는 "강사들을 위한 안내" 섹션을 읽어보세요.*
+* *ModernDive에 연결하고 기여하고 싶으신가요? "연결 및 기여" 섹션에서 그 방법을 확인하세요.*
+* *이 책의 출판 과정이 궁금하신가요? 오픈 소스 기술, 특히 R Markdown과 bookdown 패키지에 대한 자세한 정보는 "이 책에 대하여" 섹션을 읽어보세요.*
 
 ```{r results="asis", echo=FALSE, purl=FALSE}
-if (is_html_output()) {
-  cat(glue::glue('This is version {version} of *ModernDive* published on {date}. For previous versions of *ModernDive*, see the "About this book" section below.'))
+if (knitr::is_html_output()) {
+  cat(glue::glue('이것은 {date}에 게시된 *ModernDive*의 {version} 버전입니다. 이전 버전의 *ModernDive*를 보려면 아래의 "이 책에 대하여" 섹션을 참조하세요.'))
 }
 ```
 
+## 학생들을 위한 안내 {-}
 
+이 책은 대수학, 미적분학, 이전의 프로그래밍/코딩 경험과 같은 선수 지식을 요구하지 않습니다. 데이터 과학자, 통계학자, 데이터 저널리스트 및 기타 연구자들이 하는 방식대로 데이터를 분석하고 데이터로 질문에 답하는 연습을 위한 친절한 입문서가 되고자 합니다.
 
+그림 \@ref(fig:moderndive-figure)에서 앞으로의 여정에 대한 지도를 제시합니다.
 
-
-## Introduction for students {-}
-
-This book assumes no prerequisites: no algebra, no calculus, and no prior programming/coding experience. This is intended to be a gentle introduction to the practice of analyzing data and answering questions using data the way data scientists, statisticians, data journalists, and other researchers would. 
-
-We present a map of your upcoming journey in Figure \@ref(fig:moderndive-figure). 
-
-(ref:flowchart) *ModernDive* flowchart.
+(ref:flowchart) *ModernDive* 순서도.
 
 ```{r moderndive-figure, fig.align="center", fig.cap="(ref:flowchart)", echo=FALSE, purl=FALSE}
-include_graphics("images/flowcharts/flowchart/flowchart.002.png")
+knitr::include_graphics("images/flowcharts/flowchart/flowchart.002.png")
 ```
 
-You'll first get started with data in Chapter \@ref(getting-started) where you'll learn about the difference between R and RStudio, start coding in R, install and load your first R packages, and explore your first dataset: all domestic departure `flights` from a New York City airport in 2013. Then you'll cover the following three portions of this book (Parts 2 and 4 are combined into a single portion):
+먼저 제\@ref(getting-started)장 데이터 시작하기에서는 R과 RStudio의 차이점을 배우고, R로 코딩을 시작하며, 첫 R 패키지를 설치하고 로드하고, 첫 데이터셋(2013년 뉴욕시 공항에서 출발하는 모든 국내선 `flights`)을 탐색하게 됩니다. 그런 다음 이 책의 다음 세 부분(Part 2와 4는 하나로 결합됨)을 다룹니다.
 
-1. Data science with `tidyverse`. You'll assemble your data science toolbox using `tidyverse` packages. In particular, you'll
-    + Ch.\@ref(viz): Visualize data using the `ggplot2` package.
-    + Ch.\@ref(wrangling): Wrangle data using the `dplyr` package.
-    + Ch.\@ref(tidy): Learn about the concept of "tidy" data as a standardized data input and output format for all packages in the `tidyverse`. Furthermore, you'll learn how to import spreadsheet files into R using the `readr` package.
-1. Data modeling with `moderndive`. Using these data science tools and helper functions from the `moderndive` package, you'll fit your first data models. In particular, you'll
-    + Ch.\@ref(regression): Discover basic regression models with only one explanatory variable.
-    + Ch.\@ref(multiple-regression): Examine multiple regression models with more than one explanatory variable. 
-1. Statistical inference with `infer`. Once again using your newly acquired data science tools, you'll unpack statistical inference using the `infer` package. In particular, you'll:
-    + Ch.\@ref(sampling): Learn about the role that sampling variability plays in statistical inference and the role that sample size plays in this sampling variability.
-    + Ch.\@ref(confidence-intervals): Construct confidence intervals using bootstrapping.
-    + Ch.\@ref(hypothesis-testing): Conduct hypothesis tests using permutation.
-1. Data modeling with `moderndive` (revisited): Armed with your understanding of statistical inference, you'll revisit and review the models you'll construct in Ch.\@ref(regression) and Ch.\@ref(multiple-regression). In particular, you'll:
-    + Ch.\@ref(inference-for-regression): Interpret confidence intervals and hypothesis tests in a regression setting.
+1. `tidyverse`를 활용한 데이터 과학. `tidyverse` 패키지들을 사용하여 데이터 과학 도구 상자를 조립합니다. 특히 다음 내용을 다룹니다:
+    + 제\@ref(viz)장: `ggplot2` 패키지를 사용한 데이터 시각화.
+    + 제\@ref(wrangling)장: `dplyr` 패키지를 사용한 데이터 가공.
+    + 제\@ref(tidy)장: `tidyverse`의 모든 패키지를 위한 표준화된 데이터 입출력 형식으로서의 "tidy" 데이터 개념에 대해 배웁니다. 또한 `readr` 패키지를 사용하여 스프레드시트 파일을 R로 불러오는 방법을 배웁니다.
+1. `moderndive`를 활용한 데이터 모델링. `moderndive` 패키지의 이러한 데이터 과학 도구와 도우미 함수들을 사용하여 첫 번째 데이터 모델을 적합시킵니다. 특히 다음 내용을 다룹니다:
+    + 제\@ref(regression)장: 설명 변수가 하나뿐인 기초 회귀 모델을 살펴봅니다.
+    + 제\@ref(multiple-regression): 설명 변수가 두 개 이상인 다중 회귀 모델을 조사합니다.
+1. `infer`를 활용한 통계적 추론. 새로 습득한 데이터 과학 도구를 다시 사용하여 `infer` 패키지로 통계적 추론을 풀어냅니다. 특히 다음 내용을 다룹니다:
+    + 제\@ref(sampling)장: 통계적 추론에서 표본 변동성(sampling variability)의 역할과 표본 크기가 이 표본 변동성에 미치는 영향에 대해 배웁니다.
+    + 제\@ref(confidence-intervals)장: 붓스트래핑(bootstrapping)을 사용하여 신뢰 구간을 구축합니다.
+    + 제\@ref(hypothesis-testing)장: 순열(permutation)을 사용하여 가설 검정을 수행합니다.
+1. `moderndive`를 활용한 데이터 모델링 (재방문): 통계적 추론에 대한 이해를 바탕으로 제\@ref(regression)장과 제\@ref(multiple-regression)장에서 구축한 모델들을 다시 살펴보고 검토합니다. 특히 다음 내용을 다룹니다:
+    + 제\@ref(inference-for-regression)장: 회귀 환경에서 신뢰 구간과 가설 검정을 해석합니다.
 
-We'll end with a discussion on what it means to "tell your story with data" in Chapter \@ref(thinking-with-data) by presenting example case studies.^[Note that you'll see different versions of the word "ModernDive" in this book:
-(1) `moderndive` refers to the R package.
-(2) *ModernDive* is an abbreviated version of *Statistical Inference via Data Science:  A ModernDive into R and the Tidyverse*. It's essentially a nickname we gave the book.
-(3) ModernDive (without italics) corresponds to both the book and the corresponding R package together as an entity.] 
-
-
-### What we hope you will learn from this book {-}
-
-We hope that by the end of this book, you'll have learned how to:
-
-1. Use R and the `tidyverse` suite of R *packages* for data science.
-1. Fit your first *models* to data, using a method known as *linear regression*.
-1. Perform *statistical inference* using *sampling*, *confidence intervals*, and *hypothesis tests*.
-1. *Tell your story with data* using these tools. 
-
-What do we mean by data stories? We mean any analysis involving data that engages the reader in answering questions with careful visuals and thoughtful discussion. Further discussions on data stories can be found in the blog post ["Tell a Meaningful Story With Data."](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/tell-meaningful-stories-with-data/) 
-
-Over the course of this book, you will develop your "data science toolbox," equipping yourself with tools such as data visualization, data formatting, data wrangling, and data modeling using regression. 
-
-In particular, this book will lean heavily on data visualization.  In today's world, we are bombarded with graphics that attempt to convey ideas.  We will explore what makes a good graphic and what the standard ways are used to convey relationships within data. In general, we'll use visualization as a way of building almost all of the ideas in this book.
-
-To impart the statistical lessons of this book, we have intentionally minimized the number of mathematical formulas used. Instead, you'll develop a conceptual understanding of statistics using data visualization and computer simulations. We hope this is a more intuitive experience than the way statistics has traditionally been taught in the past and how it is commonly perceived.
-
-Finally, you'll learn the importance of literate programming. \index{literate programming} By this we mean you'll learn how to write code that is useful not just for a computer to execute, but also for readers to understand exactly what your analysis is doing and how you did it.  This is part of a greater effort to encourage reproducible research (see the "Reproducible research" subsection in this Preface for more details). Hal Abelson \index{Abelson, Hal} coined the phrase that we will follow throughout this book:
-
-> Programs must be written for people to read, and only incidentally for machines to execute.
-
-We understand that there may be challenging moments as you learn to program. Both of us continue to struggle and find ourselves often using web searches to find answers and reach out to colleagues for help. In the long run though, we all can solve problems faster and more elegantly via programming. We wrote this book as our way to help you get started and you should know that there is a huge community of R users that are happy to help everyone along as well. This community exists in particular on the internet on various forums and websites such as [stackoverflow.com](https://stackoverflow.com/).
+제\@ref(thinking-with-data)장에서는 예시 사례 연구를 제시하며 "데이터로 자신의 이야기를 들려주는 것"이 무엇을 의미하는지에 대한 논의로 마무리하겠습니다.^[이 책에서 "ModernDive"라는 단어의 서로 다른 버전을 보게 될 것입니다:
+(1) `moderndive`는 R 패키지를 나타냅니다.
+(2) *ModernDive*는 *Statistical Inference via Data Science: A ModernDive into R and the Tidyverse*의 약칭입니다. 기본적으로 우리가 이 책에 붙인 별명입니다.
+(3) ModernDive(이탤릭체 없음)는 책과 그에 해당하는 R 패키지를 하나의 개체로 합친 것을 의미합니다.]
 
 
-### Data/science pipeline {-}
+### 이 책에서 배우기를 기대하는 것 {-}
 
-You may think of statistics as just being a bunch of numbers.  We commonly hear the phrase "statistician" when listening to broadcasts of sporting events.  Statistics (in particular, data analysis), in addition to describing numbers like with baseball batting averages, plays a vital role in all of the sciences.  \index{statistics} 
+이 책을 마칠 때쯤이면 여러분은 다음을 수행하는 방법을 배우게 되기를 바랍니다:
 
-You'll commonly hear the phrase "statistically significant" thrown around in the media.  You'll see articles that say, "Science now shows that chocolate is good for you."  Underpinning these claims is data analysis.  \index{data analysis} By the end of this book, you'll be able to better understand whether these claims should be trusted or whether we should be wary.  Inside data analysis are many sub-fields that we will discuss throughout this book (though not necessarily in this order):
+1. 데이터 과학을 위해 R과 R *패키지* 모음인 `tidyverse`를 사용합니다.
+2. *선형 회귀*라고 알려진 방법을 사용하여 데이터에 첫 번째 *모델*을 적합시킵니다.
+3. *표본 추출*, *신뢰 구간*, *가설 검정*을 사용하여 *통계적 추론*을 수행합니다.
+4. 이러한 도구들을 사용하여 *데이터로 여러분의 이야기를 들려줍니다*.
 
-- data collection
-- data wrangling
-- data visualization
-- data modeling
-- inference
-- correlation and regression
-- interpretation of results
-- data communication/storytelling
+데이터 이야기란 무엇을 의미할까요? 세심한 시각 자료와 사려 깊은 토론을 통해 독자가 질문에 답하는 데 참여하도록 이끄는 데이터를 포함한 모든 분석을 의미합니다. 데이터 이야기에 대한 추가 논의는 블로그 포스트 ["데이터로 의미 있는 이야기 들려주기(Tell a Meaningful Story With Data)"](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/tell-meaningful-stories-with-data/)에서 확인할 수 있습니다.
 
-These sub-fields are summarized in what Grolemund \index{Grolemund, Garrett} and Wickham \index{Wickham, Hadley} have previously termed the ["data/science pipeline"](http://r4ds.had.co.nz/explore-intro.html) in Figure \@ref(fig:pipeline-figure).
+이 책을 진행하는 동안 여러분은 데이터 시각화, 데이터 형식 지정, 데이터 가공 및 회귀를 사용한 데이터 모델링과 같은 도구들로 무장한 "데이터 과학 도구 상자"를 개발하게 될 것입니다.
+
+특히 이 책은 데이터 시각화에 크게 의존할 것입니다. 오늘날 우리는 아이디어를 전달하려는 수많은 그래픽의 홍수 속에 살고 있습니다. 우리는 무엇이 좋은 그래픽을 만드는지, 그리고 데이터 내의 관계를 전달하는 데 사용되는 표준 방식이 무엇인지 탐구할 것입니다. 일반적으로 시각화를 이 책의 거의 모든 아이디어를 구축하는 방법으로 사용할 것입니다.
+
+이 책의 통계적 교훈을 전달하기 위해 의도적으로 수학 공식의 사용을 최소화했습니다. 대신 데이터 시각화와 컴퓨터 시뮬레이션을 사용하여 통계에 대한 개념적 이해를 키우게 될 것입니다. 이것이 과거에 통계가 전통적으로 가르쳐졌던 방식이나 흔히 인식되는 방식보다 더 직관적인 경험이 되기를 바랍니다.
+
+마지막으로, 식자 프로그래밍(literate programming)의 중요성을 배울 것입니다. \index{literate programming} 이는 컴퓨터가 실행하기에 유용할 뿐만 아니라, 독자가 분석이 정확히 무엇을 하는지 그리고 여러분이 어떻게 했는지를 이해하는 데에도 유용한 코드를 작성하는 방법을 배운다는 것을 의미합니다. 이는 재현 가능한 연구(reproducible research)를 장려하기 위한 더 큰 노력의 일부입니다(자세한 내용은 이 머리말의 "재현 가능한 연구" 소섹션을 참조하세요). Hal Abelson \index{Abelson, Hal}은 우리가 이 책 전체에서 따를 문구를 만들었습니다:
+
+> 프로그램은 사람들이 읽기 위해 작성되어야 하며, 기계가 실행하는 것은 부수적인 일일 뿐이다.
+
+프로그래밍을 배우면서 어려운 순간들이 있을 수 있음을 이해합니다. 우리 둘 다 여전히 어려움을 겪으며, 종종 웹 검색을 통해 답을 찾고 동료들에게 도움을 요청하곤 합니다. 하지만 장기적으로 보면 프로그래밍을 통해 우리 모두는 문제를 더 빠르고 우아하게 해결할 수 있습니다. 우리는 여러분의 시작을 돕기 위해 이 책을 썼으며, 모든 사람을 도울 준비가 된 거대한 R 사용자 커뮤니티가 있다는 사실을 알아야 합니다. 이 커뮤니티는 특히 인터넷상의 다양한 포럼과 [stackoverflow.com](https://stackoverflow.com/)과 같은 웹사이트에 존재합니다.
+
+
+### 데이터/과학 파이프라인 {-}
+
+통계학을 단순히 숫자들의 뭉치로 생각할 수도 있습니다. 우리는 스포츠 경기 중계를 들을 때 "통계 전문가(statistician)"라는 말을 흔히 듣습니다. 통계학(특히 데이터 분석)은 야구 타율과 같은 숫자를 설명하는 것 외에도 모든 과학 분야에서 중추적인 역할을 합니다. \index{statistics} 
+
+매체에서 "통계적으로 유의미하다"라는 문구가 흔히 쓰이는 것을 들을 수 있을 것입니다. "과학적으로 초콜릿이 몸에 좋다는 것이 밝혀졌다"라는 기사들도 볼 수 있습니다. 이러한 주장의 근간이 되는 것이 데이터 분석입니다. \index{data analysis} 이 책을 마칠 때쯤이면 이러한 주장을 믿어야 할지, 아니면 경계해야 할지 더 잘 이해할 수 있게 될 것입니다. 데이터 분석 내부에는 이 책 전반에 걸쳐 논의할 많은 세부 분야가 있습니다(반드시 이 순서는 아닙니다):
+
+- 데이터 수집
+- 데이터 가공
+- 데이터 시각화
+- 데이터 모델링
+- 추론
+- 상관관계와 회귀
+- 결과 해석
+- 데이터 소통/스토리텔링
+
+이러한 세부 분야는 Grolemund \index{Grolemund, Garrett}와 Wickham \index{Wickham, Hadley}이 이전에 ["데이터/과학 파이프라인"](http://r4ds.had.co.nz/explore-intro.html)이라고 명명한 그림 \@ref(fig:pipeline-figure)에 요약되어 있습니다.
 
 ```{r pipeline-figure, fig.align="center", fig.cap="Data/science pipeline.", echo=FALSE, purl=FALSE, out.height="100%", out.width="100%"}
-include_graphics("images/r4ds/data_science_pipeline.png")
+knitr::include_graphics("images/r4ds/data_science_pipeline.png")
 ```
 
-We will begin by digging into the grey **Understand** portion of the cycle with data visualization, then with a discussion on what is meant by tidy data and data wrangling, and then conclude by talking about interpreting and discussing the results of our models via **Communication**. These steps are vital to any statistical analysis. But, why should you care about statistics?
+우리는 데이터 시각화를 통해 그림의 회색 부분인 **이해(Understand)** 단계부터 파헤치기 시작할 것입니다. 그다음 tidy 데이터와 데이터 가공이 무엇을 의미하는지에 대해 논의하고, 마지막으로 **소통(Communication)**을 통해 우리 모델의 결과를 해석하고 논의하는 것으로 마무리하겠습니다. 이러한 단계들은 모든 통계 분석에 필수적입니다. 그런데 왜 통계학에 관심을 가져야 할까요?
 
-There's a reason that many fields require a statistics course. Scientific knowledge grows through an understanding of statistical significance and data analysis. You needn't be intimidated by statistics.  It's not the beast that it used to be and, paired with computation, you'll see how reproducible research in the sciences particularly increases scientific knowledge.
+많은 분야에서 통계학 수업을 필수로 요구하는 이유가 있습니다. 과학적 지식은 통계적 유의성과 데이터 분석에 대한 이해를 통해 성장합니다. 통계학을 두려워할 필요는 없습니다. 통계학은 더 이상 예전처럼 지루한 학문이 아니며, 컴퓨터 계산과 결합되었을 때 과학 분야에서의 재현 가능한 연구가 어떻게 과학적 지식을 폭발적으로 증가시키는지 확인하게 될 것입니다.
 
 
-### Reproducible research {-}
+### 재현 가능한 연구 {-}
 
-> The most important tool is the _mindset_, when starting, that the end product will be reproducible. – Keith Baggerly
+> 가장 중요한 도구는 시작할 때 최종 결과물이 재현 가능할 것이라는 _마음가짐_이다. – Keith Baggerly
 
 \index{Baggerly, Keith}
 
-Another goal of this book is to help readers understand the importance of reproducible analyses. The hope is to get readers into the habit of making their analyses reproducible from the very beginning.  This means we'll be trying to help you build new habits.  This will take practice and be difficult at times. You'll see just why it is so important for you to keep track of your code and document it well to help yourself later and any potential collaborators as well.  
+이 책의 또 다른 목표는 독자들이 재현 가능한 분석의 중요성을 이해하도록 돕는 것입니다. 독자들이 처음부터 자신의 분석을 재현 가능하게 만드는 습관을 들이기를 바랍니다. 이는 우리가 여러분이 새로운 습관을 기르도록 돕는다는 것을 의미합니다. 여기에는 연습이 필요하며 때로는 어려울 수도 있습니다. 여러분의 코드를 기록하고 잘 문서화하는 것이 나중에 자신과 잠재적인 협업자들을 돕는 데 왜 그토록 중요한지 알게 될 것입니다.
 
-Copying and pasting results from one program into a word processor is not an ideal way to conduct efficient and effective scientific research.  It's much more important for time to be spent on data collection and data analysis and not on copying and pasting plots back and forth across a variety of programs.
+결과를 한 프로그램에서 워드 프로세서로 복사하여 붙여넣는 방식은 효율적이고 효과적인 과학 연구를 수행하기에 이상적인 방법이 아닙니다. 여러 프로그램을 오가며 그림을 복사해서 붙여넣는 데 시간을 쓰기보다, 데이터 수집과 데이터 분석에 더 많은 시간을 할애하는 것이 훨씬 중요합니다.
 
-In traditional analyses, if an error was made with the original data, we'd need to step through the entire process again:  recreate the plots and copy-and-paste all of the new plots and our statistical analysis into our document. This is error prone and a frustrating use of time. We want to help you to get away from this tedious activity so that we can spend more time doing science.
+전통적인 분석 방식에서는 원본 데이터에 오류가 발견되면 전체 과정을 다시 거쳐야 했습니다. 그림을 다시 만들고, 모든 새 그림과 통계 분석 결과를 문서에 일일이 복사하여 붙여넣어야 했습니다. 이는 오류가 발생하기 쉽고 실망스러운 시간 낭비입니다. 우리는 여러분이 이러한 지루한 활동에서 벗어나 과학을 하는 데 더 많은 시간을 쓸 수 있도록 돕고 싶습니다.
 
-> We are talking about _computational_ reproducibility. – Yihui Xie
+> 우리는 _계산적_ 재현성에 대해 이야기하고 있다. – Yihui Xie
 
 \index{Xie, Yihui}
 
-Reproducibility means a lot of things in terms of different scientific fields.  Are experiments conducted in a way that another researcher could follow the steps and get similar results?  In this book, we will focus on what is known as **computational reproducibility**. \index{computational reproducibility} This refers to being able to pass all of one's data analysis, datasets, and conclusions to someone else and have them get exactly the same results on their machine. This allows for time to be spent interpreting results and considering assumptions instead of the more error prone way of starting from scratch or following a list of steps that may be different from machine to machine.
+재현성은 다양한 과학 분야에서 여러 의미를 갖습니다. 다른 연구자가 같은 단계를 따라 해서 유사한 결과를 얻을 수 있도록 실험이 수행되었는가? 이 책에서 우리는 **계산적 재현성(computational reproducibility)**이라고 알려진 것에 집중할 것입니다. \index{computational reproducibility} 이는 자신의 모든 데이터 분석 과정, 데이터셋, 결론을 다른 사람에게 전달했을 때 그들의 컴퓨터에서도 정확히 같은 결과를 얻을 수 있음을 의미합니다. 이를 통해 처음부터 다시 시작하거나 컴퓨터마다 다를 수 있는 단계 목록을 따르는 대신, 결과를 해석하고 가정을 고려하는 데 시간을 쓸 수 있습니다.
 
 
-### Final note for students {-}
+### 학생들을 위한 마지막 메모 {-}
 
-At this point, if you are interested in instructor perspectives on this book, ways to contribute and collaborate, or the technical details of this book's construction and publishing, then continue with the rest of the chapter.  Otherwise, let's get started with R and RStudio in Chapter \@ref(getting-started)!
-
-
+이 시점에서 강사들의 관점, 기여 및 협업 방법, 또는 이 책의 제작 및 출판에 대한 기술적 세부 사항에 관심이 있다면 장의 나머지 부분을 계속 읽으세요. 그렇지 않다면 제\@ref(getting-started)장에서 R과 RStudio를 시작해 봅시다!
 
 
 
-## Introduction for instructors {-}
-
-### Resources {-}
-
-Here are some resources to help you use *ModernDive*:
-
-1. We've included review questions posed as *Learning checks*. You can find all the solutions to all *Learning checks* in Appendix D of the online version of the book at <https://moderndive.com/D-appendixD.html>.
-1. Dr.\ Jenny Smetzer and Albert Y. Kim have written a series of labs and problem sets. You can find them at <https://moderndive.com/labs>.
-1. You can see the webpages for two courses that use *ModernDive*:
-    + Smith College "SDS192 Introduction to Data Science": <https://rudeboybert.github.io/SDS192/>.
-    + Smith College "SDS220 Introduction to Probability and Statistics": <https://rudeboybert.github.io/SDS220/>.
 
 
-### Why did we write this book? {-}
+## 강사들을 위한 안내 {-}
 
-This book is inspired by
+### 자료 {-}
+
+*ModernDive*를 사용하는 데 도움이 되는 몇 가지 자료는 다음과 같습니다:
+
+1. *학습 확인(Learning checks)*이라는 이름의 복습 질문들을 포함시켰습니다. 모든 *학습 확인*에 대한 해설은 온라인 버전의 부록 D(<https://moderndive.com/D-appendixD.html>)에서 확인할 수 있습니다.
+1. Jenny Smetzer 박사와 Albert Y. Kim은 일련의 실습 및 문제 세트를 작성했습니다. <https://moderndive.com/labs>에서 확인하실 수 있습니다.
+1. *ModernDive*를 사용하는 두 과정의 웹페이지를 볼 수 있습니다:
+    + Smith College "SDS192 데이터 과학 입문": <https://rudeboybert.github.io/SDS192/>.
+    + Smith College "SDS220 확률 및 통계 입문": <https://rudeboybert.github.io/SDS220/>.
+
+
+### 왜 이 책을 썼는가? {-}
+
+이 책은 다음 도서들에서 영감을 받았습니다:
 
 - *Mathematical Statistics with Resampling and R* [@hester2011]
 - *OpenIntro: Intro Stat with Randomization and Simulation* [@isrs2014]
 - *R for Data Science* [@rds2016]
 
-The first book, designed for upper-level undergraduates and graduate students, provides an excellent resource on how to use resampling to impart statistical concepts like sampling distributions using computation instead of large-sample approximations and other mathematical formulas. The last two books are free options for learning about introductory statistics and data science, providing an alternative to the many traditionally expensive introductory statistics textbooks. 
+상급 학부생과 대학원생을 위해 설계된 첫 번째 책은, 대표본 근사치나 다른 수학 공식 대신 컴퓨터 계산을 사용하여 표집 분포와 같은 통계적 개념을 전달하기 위해 재표본 추출(resampling)을 사용하는 방법에 대한 훌륭한 자료를 제공합니다. 마지막 두 권의 책은 기초 통계 및 데이터 과학을 배우기 위한 무료 옵션으로, 비싼 전통적인 기초 통계학 교재들에 대한 대안을 제시합니다.
 
-When looking over the introductory statistics textbooks that currently exist, we found there wasn't one that incorporated many newly developed R packages directly into the text, in particular the many packages included in the [`tidyverse`](http://tidyverse.org/) set of packages, such as `ggplot2`, `dplyr`, `tidyr`, and `readr` that will be the focus of this book's first part on "Data Science with `tidyverse`." 
+현재 존재하는 기초 통계학 교재들을 살펴보았을 때, 새로 개발된 많은 R 패키지들, 특히 이 책의 첫 번째 파트인 "`tidyverse`를 활용한 데이터 과학"의 중심이 되는 `ggplot2`, `dplyr`, `tidyr`, `readr`과 같은 [`tidyverse`](http://tidyverse.org/) 패키지들을 텍스트에 직접 통합한 책이 없다는 것을 알게 되었습니다.
 
-Additionally, there wasn't an open-source and easily reproducible textbook available that exposed new learners to all four of the learning goals we listed in the "Introduction for students" subsection. We wanted to write a book that could develop theory via computational techniques and help novices master the R language in doing so.
-
-
-### Who is this book for? {-}
-
-This book is intended for instructors of traditional introductory statistics classes using RStudio, who would like to inject more data science topics into their syllabus. RStudio can be used in either the server version or the desktop version. (This is discussed further in Subsection \@ref(installing).) We assume that students taking the class will have no prior algebra, no calculus, nor programming/coding experience.
-
-Here are some principles and beliefs we kept in mind while writing this text. If you agree with them, this is the book for you.
-
-1. **Blur the lines between lecture and lab**
-    + With increased availability and accessibility of laptops and open-source non-proprietary statistical software, the strict dichotomy between lab and lecture can be loosened.
-    + It's much harder for students to understand the importance of using software if they only use it once a week or less.  They forget the syntax in much the same way someone learning a foreign language forgets the grammar rules. Frequent reinforcement is key.
-1. **Focus on the entire data/science research pipeline**
-    + We believe that the entirety of Grolemund and Wickham's [data/science pipeline](http://r4ds.had.co.nz/introduction.html) \index{data science pipeline} as seen in Figure \@ref(fig:pipeline-figure) should be taught.
-    + We heed George Cobb's call to ["minimize prerequisites to research"](https://arxiv.org/abs/1507.05346): \index{Cobb, George} students should be answering questions with data as soon as possible.
-1. **It's all about the data**
-    + We leverage R packages for rich, real, and realistic datasets that at the same time are easy-to-load into R, such as the `nycflights13` and `fivethirtyeight` packages.
-    + We believe that [data visualization is a "gateway drug" for statistics](http://escholarship.org/uc/item/84v3774z) and that the grammar of graphics as implemented in the `ggplot2` package is the best way to impart such lessons. However, we often hear: "You can't teach `ggplot2` for data visualization in intro stats!" We, like \index{Robinson, David} [David Robinson](http://varianceexplained.org/r/teach_ggplot2_to_beginners/), are much more optimistic and have found our students have been largely successful in learning it.
-    + `dplyr` has made data wrangling much more [accessible](http://chance.amstat.org/2015/04/setting-the-stage/) to novices, and hence much more interesting datasets can be explored. 
-1. **Use simulation/resampling to introduce statistical inference, not probability/mathematical formulas**
-    + Instead of using formulas, large-sample approximations, and probability tables, we teach statistical concepts using simulation-based inference.
-    + This allows for a de-emphasis of traditional probability topics, freeing up room in the syllabus for other topics. Bridges to these mathematical concepts are given as well to help with relation of these traditional topics with more modern approaches.
-1. **Don't fence off students from the computation pool, throw them in!**
-    + Computing skills are essential to working with data in the 21st century. Given this fact, we feel that to shield students from computing is to ultimately do them a disservice.
-    + We are not teaching a course on coding/programming per se, but rather just enough of the computational and algorithmic thinking necessary for data analysis.
-1. **Complete reproducibility and customizability**
-    + We are frustrated when textbooks give examples, but not the source code and the data itself. We give you the source code for all examples as well as the whole book! While we have made choices to occasionally hide the code that produces more complicated figures, reviewing the book's GitHub repository will provide you with all the code (see below).
-    + Ultimately the best textbook is one you've written yourself. You know best your audience, their background, and their priorities. You know best your own style and the types of examples and problems you like best. Customization is the ultimate end. We encourage you to take what we've provided and make it work for your own needs. For more about how to make this book your own, see "About this book" later in this Preface.
+또한 "학생들을 위한 안내" 소섹션에서 나열한 네 가지 학습 목표를 모두 새로운 학습자에게 노출시키는 오픈 소스이며 쉽게 재현 가능한 교재가 없었습니다. 우리는 계산 기법을 통해 이론을 발전시키고 입문자들이 그 과정에서 R 언어를 마스터하도록 돕는 책을 쓰고 싶었습니다.
 
 
+### 이 책은 누구를 위한 것인가? {-}
 
+이 책은 커리큘럼에 더 많은 데이터 과학 주제를 주입하고 싶은, RStudio를 사용하는 전통적인 기초 통계학 강의의 강사들을 대상으로 합니다. RStudio는 서버 버전이나 데스크톱 버전 중 하나를 사용할 수 있습니다. (이에 대해서는 소섹션 \@ref(installing)에서 자세히 설명합니다.) 우리는 이 수업을 듣는 학생들이 이전에 대수학이나 미적분학, 프로그래밍/코딩 경험이 없다고 가정합니다.
 
+우리는 이 글을 쓰면서 다음과 같은 원칙과 믿음을 염두에 두었습니다. 만약 여러분이 이들에 동의한다면, 이 책은 여러분을 위한 것입니다.
 
-## Connect and contribute {-}
-
-If you would like to connect with ModernDive, check out the following links:
-
-* If you would like to receive periodic updates about ModernDive (roughly every 6 months), please sign up for our [mailing list](http://eepurl.com/cBkItf).
-* Contact Albert at `albert.ys.kim@gmail.com` and Chester at `chester.ismay@gmail.com`.
-* We're on Twitter at <https://twitter.com/ModernDive>.
-
-If you would like to contribute to *ModernDive*, there are many ways! We would love your help and feedback to make this book as great as possible! For example, if you find any errors, typos, or areas for improvement, then please email us or post an issue on our [GitHub issues](https://github.com/moderndive/moderndive_book/issues) \index{GitHub issues} page. If you are familiar with GitHub and would like to contribute, see the "About this book" section.
-
-
-## Acknowledgements {-}
-
-The authors would like to thank [Nina Sonneborn](https://github.com/nsonneborn), [Dr.\ Alison Hill](https://alison.rbind.io/), [Kristin Bott](https://twitter.com/rhobott?lang=en), Dr.\ Jenny Smetzer, [Prof. Katherine Kinnaird](https://www.smith.edu/academics/faculty/katherine-kinnaird), and the participants of our [2017](https://www.causeweb.org/cause/uscots/uscots17/workshop/3) and [2019](https://www.causeweb.org/cause/uscots/uscots19/workshop/4) USCOTS workshops for their feedback and suggestions. We'd also like to thank [Dr.\ Andrew Heiss](https://twitter.com/andrewheiss) for contributing nearly all of Subsection \@ref(tips-code) on "Errors, warnings, and messages," [Evgeni Chasnovski](https://github.com/echasnovski) for creating the new `geom_parallel_slopes()` extension to the `ggplot2` package for plotting parallel slopes models, and Smith College Statistical & Data Sciences students [Starry Zhou](https://github.com/Starryz) and [Marium Tapal](https://github.com/mariumtapal) for their many edits to the book. A special thanks goes to Dr.\ Jude Weinstein-Jones, co-founder of [The Learning Scientists](https://www.learningscientists.org), for their extensive feedback. 
-
-We were both honored to have [Dr.\ Kelly S. McConville](https://mcconville.rbind.io/) write the [Foreword](#foreword) of the book. Dr.\ McConville is a pioneer in statistics education and was a source of great inspiration to both of us as we continued to update the book to get it to its current form. Thanks additionally to the [continued contributions by members of the community](https://github.com/moderndive/ModernDive_book/graphs/contributors) to the book on GitHub and to the many individuals that have recommended this book to others. We are so very appreciative of all of you!
-
-Lastly, a very special shout out to any student who has ever taken a class with us at either Pacific University, Reed College, Middlebury College, Amherst College, or Smith College. We couldn't have made this book without you!
+1. **강의와 실습 사이의 경계를 허물 것**
+    + 노트북과 오픈 소스 기반의 비독점적 통계 소프트웨어의 가용성과 접근성이 높아짐에 따라 실습과 강의 사이의 엄격한 이분법을 완화할 수 있습니다.
+    + 학생들이 소프트웨어를 일주일에 한 번 이하로만 사용한다면 그것을 사용하는 것의 중요성을 이해하기가 훨씬 어렵습니다. 외국어를 배우는 사람이 문법 규칙을 잊어버리는 것과 마찬가지로 학생들도 구문을 잊어버립니다. 빈번한 강화가 핵심입니다.
+1. **전체 데이터/과학 연구 파이프라인에 집중할 것**
+    + 우리는 그림 \@ref(fig:pipeline-figure)에서 볼 수 있는 Grolemund와 Wickham의 [데이터/과학 파이프라인](http://r4ds.had.co.nz/introduction.html) \index{data science pipeline} 전체를 가르쳐야 한다고 믿습니다.
+    + 우리는 ["연구를 위한 선수 지식을 최소화하라"](https://arxiv.org/abs/1507.05346)라는 George Cobb의 신념을 따릅니다: \index{Cobb, George} 학생들은 가능한 한 빨리 데이터를 사용하여 질문에 답해야 합니다.
+1. **모든 것은 데이터에 관한 것이다**
+    + `nycflights13` 및 `fivethirtyeight` 패키지와 같이 풍부하고 실제적이며 현실적이면서도 동시에 R로 불러오기 쉬운 데이터셋을 위해 R 패키지들을 활용합니다.
+    + 우리는 [데이터 시각화가 통계학의 "입문용 약물"과 같다](http://escholarship.org/uc/item/84v3774z)고 믿으며, `ggplot2` 패키지에 구현된 그래픽 문법이 그러한 교훈을 전달하는 가장 좋은 방법이라고 생각합니다. 하지만 "기초 통계 강의에서 시각화를 위해 `ggplot2`를 가르칠 수는 없다!"라는 말을 종종 듣습니다. 우리는 \index{Robinson, David} [David Robinson](http://varianceexplained.org/r/teach_ggplot2_to_beginners/)과 마찬가지로 훨씬 더 낙관적이며, 우리 학생들이 그것을 배우는 데 대체로 성공했다는 것을 발견했습니다.
+    + `dplyr`은 초보자들이 데이터 가공에 훨씬 더 쉽게 [접근](http://chance.amstat.org/2015/04/setting-the-stage/)할 수 있게 해주었으며, 따라서 훨씬 더 흥미로운 데이터셋들을 탐색할 수 있게 되었습니다. 
+1. **확률/수학 공식이 아닌 시뮬레이션/재표본 추출을 사용하여 통계적 추론을 소개할 것**
+    + 공식, 대표본 근사치, 확률 분포표를 사용하는 대신 시뮬레이션 기반의 추론을 사용하여 통계적 개념을 가르칩니다.
+    + 이를 통해 전통적인 확률 주제에 대한 강조를 줄여 다른 주제들을 위한 강의 시간을 확보할 수 있습니다. 이러한 전통적인 주제와 현대적인 접근 방식 간의 관계를 돕기 위해 수학적 개념으로 넘어가는 징검다리도 제공됩니다.
+1. **학생들을 계산이라는 연못에서 격리하지 말고 그 안으로 밀어 넣을 것!**
+    + 컴퓨팅 기술은 21세기 데이터를 다루는 데 필수적입니다. 이러한 사실을 고려할 때, 학생들을 컴퓨팅으로부터 보호하는 것은 결국 그들에게 불이익을 주는 것이라고 생각합니다.
+    + 우리는 프로그래밍/코딩 그 자체를 가르치는 것이 아니라, 데이터 분석에 필요한 컴퓨팅 사고와 알고리즘 사고를 충분히 가르치고 있는 것입니다.
+1. **완벽한 재현성과 맞춤 설정 가능성**
+    + 교재에서 예제는 주지만 소스 코드와 데이터 자체를 주지 않을 때 우리는 답답함을 느낍니다. 우리는 모든 예제뿐만 아니라 책 전체의 소스 코드를 제공합니다! 더 복잡한 그림을 생성하는 코드는 가끔 숨기기도 했지만, 책의 GitHub 저장소(아래 참조)를 검토하면 모든 코드를 얻을 수 있습니다.
+    + 궁극적으로 최고의 교재는 자신이 직접 쓴 책입니다. 여러분은 청중과 그들의 배경, 우선순위를 가장 잘 알고 있습니다. 자신의 스타일과 가장 좋아하는 예제 및 문제 유형도 가장 잘 알고 있습니다. 맞춤화가 최종 목표입니다. 우리가 제공한 것을 가져가서 여러분의 필요에 맞게 만들기를 권장합니다. 이 책을 자신의 것으로 만드는 방법에 대한 자세한 내용은 이 머리말 뒤의 "이 책에 대하여"를 참조하세요.
 
 
 
 
 
-## About this book {-}
+## 연결 및 기여 {-}
 
-This book was written using RStudio's [bookdown](https://bookdown.org/) \index{bookdown} package by Yihui Xie \index{Xie, Yihui} [@R-bookdown]. This package simplifies the publishing of books by having all content written in \index{R Markdown} [R Markdown](http://rmarkdown.rstudio.com/html_document_format.html). The bookdown/R Markdown source code for all versions of ModernDive is available on GitHub:
+ModernDive와 소통하고 싶다면 다음 링크들을 확인해 보세요:
 
-* **Latest online version** The most up-to-date release:
-    + Version `r latest_release_version` released on `r latest_release_date` ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v`r latest_release_version`))
-    + Available at <https://moderndive.com/>
-* **Print edition** The CRC Press [print edition](https://www.routledge.com/Statistical-Inference-via-Data-Science-A-ModernDive-into-R-and-the-Tidyverse/Ismay-Kim/p/book/9780367409821) of *ModernDive* corresponds to Version 1.1.0 (with some typos fixed).
-* **Previous online versions** Older versions that may be out of date:
-    + [Version 1.0.0](previous_versions/v1.0.0/index.html) released on November 25, 2019 ([source code](https://github.com/moderndive/ModernDive_book/releases/tag/v1.0.0))
-    + [Version 0.6.1](previous_versions/v0.6.1/index.html) released on August 28, 2019 ([source code](https://github.com/moderndive/ModernDive_book/releases/tag/v0.6.1))
-    + [Version 0.6.0](previous_versions/v0.6.0/index.html) released on August 7, 2019 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.6.0))
-    + [Version 0.5.0](previous_versions/v0.5.0/index.html) released on February 24, 2019 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.5.0))
-    + [Version 0.4.0](previous_versions/v0.4.0/index.html) released on July 21, 2018 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.4.0))
-    + [Version 0.3.0](previous_versions/v0.3.0/index.html) released on February 3, 2018 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.3.0))
-    + [Version 0.2.0](previous_versions/v0.2.0/index.html) released on August 2, 2017 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.2.0))
-    + [Version 0.1.3](previous_versions/v0.1.3/index.html) released on February 9, 2017 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.1.3))
-    + [Version 0.1.2](previous_versions/v0.1.2/index.html) released on January 22, 2017 ([source code](https://github.com/moderndive/moderndive_book/releases/tag/v0.1.2))
+* ModernDive에 대한 정기적인 업데이트(약 6개월마다)를 받고 싶다면 [메일링 리스트](http://eepurl.com/cBkItf)에 가입하세요.
+* Albert(`albert.ys.kim@gmail.com`) 또는 Chester(`chester.ismay@gmail.com`)에게 연락하세요.
+* 트위터 계정은 <https://twitter.com/ModernDive>입니다.
 
-Could this be a new paradigm for textbooks? Instead of the traditional model of textbook companies publishing updated *editions* of the textbook every few years, we apply a software design influenced model of publishing more easily updated *versions*. We can then leverage open-source communities of instructors and developers for ideas, tools, resources, and feedback. As such, we welcome your GitHub pull requests.
+*ModernDive*에 기여할 수 있는 방법은 많습니다! 이 책을 최대한 훌륭하게 만들기 위해 여러분의 도움과 피드백을 기다리고 있습니다! 예를 들어 오류, 오타 또는 개선할 점을 발견하면 이메일을 보내주시거나 [GitHub 이슈](https://github.com/moderndive/moderndive_book/issues) \index{GitHub issues} 페이지에 게시해 주세요. GitHub에 익숙하고 직접 기여하고 싶다면 "이 책에 대하여" 섹션을 참조하세요.
 
-Finally, since this book is under a [Creative Commons Attribution - NonCommercial - ShareAlike 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/), feel free to modify the book as you wish for your own non-commercial needs, but please list the authors at the top of `index.Rmd` as: "Chester Ismay, Albert Y. Kim, and YOU!"
+
+## 감사의 말 {-}
+
+저자들은 피드백과 제안을 주신 [Nina Sonneborn](https://github.com/nsonneborn), [Alison Hill 박사](https://alison.rbind.io/), [Kristin Bott](https://twitter.com/rhobott?lang=en), Jenny Smetzer 박사, [Katherine Kinnaird 교수](https://www.smith.edu/academics/faculty/katherine-kinnaird), 그리고 [2017년](https://www.causeweb.org/cause/uscots/uscots17/workshop/3) 및 [2019년](https://www.causeweb.org/cause/uscots/uscots19/workshop/4) USCOTS 워크숍 참가자들께 감사드립니다. 또한 "오류, 경고 및 메시지"에 관한 소섹션 \@ref(tips-code)의 거의 모든 내용을 기여해주신 [Andrew Heiss 박사](https://twitter.com/andrewheiss), 평행 요인 모델(parallel slopes models) 작도를 위해 `ggplot2` 패키지의 새로운 확장 기능인 `geom_parallel_slopes()`를 만들어주신 [Evgeni Chasnovski](https://github.com/echasnovski), 그리고 이 책의 많은 부분을 편집해 준 Smith College의 통계 및 데이터 과학 전공 학생들인 [Starry Zhou](https://github.com/Starryz)와 [Marium Tapal](https://github.com/mariumtapal)에게도 감사의 마음을 전합니다. 특히 광범위한 피드백을 주신 [The Learning Scientists](https://www.learningscientists.org)의 공동 설립자 Jude Weinstein-Jones 박사님께 특별한 감사를 드립니다.
+
+우리는 [Kelly S. McConville 박사님](https://mcconville.rbind.io/)이 책의 [서문](#foreword)을 써주신 것을 영광으로 생각합니다. McConville 박사님은 통계 교육의 선구자이시며, 우리가 책을 현재의 형태로 업데이트하는 과정에서 큰 영감이 되었습니다. 또한 GitHub를 통해 책에 [지속적으로 기여해주신 커뮤니티 멤버들](https://github.com/moderndive/ModernDive_book/graphs/contributors)과 이 책을 다른 사람들에게 추천해주신 많은 분께도 감사드립니다. 여러분 모두에게 진심으로 감사드립니다!
+
+마지막으로, Pacific University, Reed College, Middlebury College, Amherst College 또는 Smith College에서 우리와 함께 수업을 들었던 모든 학생에게 특별한 감사를 전합니다. 여러분이 없었다면 이 책을 만들 수 없었을 것입니다!
 
 
 
 
 
-# About the authors {-}
+## 이 책에 대하여 {-}
+
+이 책은 Yihui Xie \index{Xie, Yihui} [@R-bookdown]의 RStudio [bookdown](https://bookdown.org/) \index{bookdown} 패키지를 사용하여 작성되었습니다. 이 패키지는 모든 내용을 \index{R Markdown} [R Markdown](http://rmarkdown.rstudio.com/html_document_format.html)으로 작성하여 책 출판을 단순화합니다. ModernDive의 모든 버전에 대한 bookdown/R Markdown 소스 코드는 GitHub에서 확인할 수 있습니다:
+
+* **최신 온라인 버전** 가장 최신 릴리스:
+    + {latest_release_date}에 출시된 버전 {latest_release_version} ([소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v`r latest_release_version`))
+    + <https://moderndive.com/>에서 이용 가능
+* **인쇄판** CRC Press에서 발간된 *ModernDive* [인쇄판](https://www.routledge.com/Statistical-Inference-via-Data-Science-A-ModernDive-into-R-and-the-Tidyverse/Ismay-Kim/p/book/9780367409821)은 버전 1.1.0에 해당합니다(일부 오타 수정됨).
+* **이전 온라인 버전** 오래되어 최신이 아닐 수 있는 이전 버전들:
+    + [버전 1.0.0](previous_versions/v1.0.0/index.html) (2019년 11월 25일 릴리스, [소스 코드](https://github.com/moderndive/ModernDive_book/releases/tag/v1.0.0))
+    + [버전 0.6.1](previous_versions/v0.6.1/index.html) (2019년 8월 28일 릴리스, [소스 코드](https://github.com/moderndive/ModernDive_book/releases/tag/v0.6.1))
+    + [버전 0.6.0](previous_versions/v0.6.0/index.html) (2019년 8월 7일 릴리스, [소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v0.6.0))
+    + [버전 0.5.0](previous_versions/v0.5.0/index.html) (2019년 2월 24일 릴리스, [소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v0.5.0))
+    + [버전 0.4.0](previous_versions/v0.4.0/index.html) (2018년 7월 21일 릴리스, [소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v0.4.0))
+    + [버전 0.3.0](previous_versions/v0.3.0/index.html) (2018년 2월 3일 릴리스, [소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v0.3.0))
+    + [버전 0.2.0](previous_versions/v0.2.0/index.html) (2017년 8월 2일 릴리스, [소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v0.2.0))
+    + [버전 0.1.3](previous_versions/v0.1.3/index.html) (2017년 2월 9일 릴리스, [소스 코드](https://github.com/moderndive/moderndive_book/releases/tag/v0.1.3))
+    + [버전 0.1.2](previous_versions/v0.1.2/index.html) (2017년 1월 22일 릴리스, [소스 코드](https://github.com/moderndive/ModernDive_book/releases/tag/v0.1.2))
+
+이것이 교재의 새로운 패러다임이 될 수 있을까요? 교재 회사가 몇 년마다 업데이트된 *판(editions)*을 출판하는 전통적인 모델 대신, 우리는 소프트웨어 공학의 영향을 받아 더 쉽게 업데이트되는 *버전(versions)*을 게시하는 모델을 적용합니다. 이를 통해 강사와 개발자로 구성된 오픈 소스 커뮤니티의 아이디어, 도구, 자료 및 피드백을 활용할 수 있습니다. 따라서 여러분의 GitHub 풀 리퀘스트를 환영합니다.
+
+마지막으로, 이 책은 [크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 라이선스](https://creativecommons.org/licenses/by-nc-sa/4.0/)를 따르므로, 상업적이지 않은 용도라면 원하는 대로 수정하셔도 좋습니다. 다만 `index.Rmd` 상단의 저자 목록에 "Chester Ismay, Albert Y. Kim, and YOU!"라고 기재해 주세요.
+
+
+
+
+
+# 저자 소개 {-}
   
 Chester Ismay           |  Albert Y. Kim
 :-------------------------:|:-------------------------:
 `r include_image(path = "images/ismay.png", html_opts = "height=220px", latex_opts = "width=46%")` | `r include_image(path = "images/kim.png", html_opts = "height=220px", latex_opts = "width=46%")`
 
-**Chester Ismay** is Vice President of Data and Automation at MATE Seminars and is a freelance data science consultant and instructor. He also teaches in the Center for Executive and Professional Education at Portland State University. He completed his PhD in statistics from Arizona State University in 2013. He has previously worked in a variety of roles including as an actuary at Scottsdale Insurance Company (now Nationwide E&S/Specialty) and at Ripon College, Reed College, and Pacific University. He has experience working in online education and was previously a Data Science Evangelist at DataRobot, where he led data science, machine learning, and data engineering in-person and virtual workshops for DataRobot University. In addition to his work for *ModernDive*, he also contributed as initial developer of the [`infer`](https://cran.r-project.org/package=infer) R package and is author and maintainer of the [`thesisdown`](https://github.com/ismayc/thesisdown) R package. 
+**Chester Ismay**는 MATE Seminars의 데이터 및 자동화 부문 부사장이며, 프리랜서 데이터 과학 컨설턴트 및 강사로 활동하고 있습니다. 또한 포틀랜드 주립 대학교의 경영 및 전문 교육 센터에서 강의하고 있습니다. 2013년 애리조나 주립 대학교에서 통계학 박사 학위를 취득했습니다. 이전에는 Scottsdale Insurance Company(현 Nationwide E&S/Specialty), Ripon College, Reed College, Pacific University 등에서 계리사를 포함한 다양한 역할을 수행했습니다. 온라인 교육 분야의 경험도 풍부하며, 이전에는 DataRobot에서 데이터 과학 에반젤리스트로 근무하며 DataRobot University를 위한 데이터 과학, 머신러닝, 데이터 엔지니어링 온/오프라인 워크숍을 이끌었습니다. *ModernDive* 작업 외에도 [`infer`](https://cran.r-project.org/package=infer) R 패키지의 초기 개발자로 참여했으며, [`thesisdown`](https://github.com/ismayc/thesisdown) R 패키지의 저자이자 유지 관리자입니다.
 
-* Email: `chester.ismay@gmail.com`
-* Webpage: <https://chester.rbind.io/>
-* Twitter: [old_man_chester](https://twitter.com/old_man_chester)
+* 이메일: `chester.ismay@gmail.com`
+* 웹페이지: <https://chester.rbind.io/>
+* 트위터: [old_man_chester](https://twitter.com/old_man_chester)
 * GitHub: <https://github.com/ismayc>
 
-**Albert Y.\ Kim** is an Assistant Professor of Statistical & Data Sciences at Smith College in Northampton, MA, USA. He completed his PhD in statistics at the University of Washington in 2011. Previously he worked in the Search Ads Metrics Team at Google Inc.\ as well as at Reed, Middlebury, and Amherst Colleges. In addition to his work for *ModernDive*, he is a co-author of the [`resampledata`](https://cran.r-project.org/package=resampledata) and [`SpatialEpi`](https://cran.r-project.org/package=SpatialEpi) R packages.
+**Albert Y.\ Kim**은 미국 매사추세츠주 노샘프턴에 위치한 Smith College의 통계 및 데이터 과학 조교수입니다. 2011년 워싱턴 대학교에서 통계학 박사 학위를 취득했습니다. 이전에는 Google Inc.의 검색 광고 지표 팀(Search Ads Metrics Team)에서 근무했으며 Reed, Middlebury, Amherst College에서도 근무했습니다. *ModernDive* 작업 외에도 [`resampledata`](https://cran.r-project.org/package=resampledata) 및 [`SpatialEpi`](https://cran.r-project.org/package=SpatialEpi) R 패키지의 공동 저자입니다.
 
-* Email: `albert.ys.kim@gmail.com`
-* Webpage: <https://rudeboybert.rbind.io/>
-* Twitter: [rudeboybert](https://twitter.com/rudeboybert)
+* 이메일: `albert.ys.kim@gmail.com`
+* 웹페이지: <https://rudeboybert.rbind.io/>
+* 트위터: [rudeboybert](https://twitter.com/rudeboybert)
 * GitHub: <https://github.com/rudeboybert>
 
-Both Drs. Ismay and Kim, along with [Jennifer Chunn](https://github.com/jchunn), are co-authors of the [`fivethirtyeight`](https://fivethirtyeight-r.netlify.app/) package of code and datasets published by the data journalism website [FiveThirtyEight.com](https://fivethirtyeight.com/).
+Ismay 박사와 Kim 박사는 [Jennifer Chunn](https://github.com/jchunn)과 함께 데이터 저널리스트 웹사이트인 [FiveThirtyEight.com](https://fivethirtyeight.com/)에서 게시한 코드 및 데이터셋 패키지인 [`fivethirtyeight`](https://fivethirtyeight-r.netlify.app/)의 공동 저자이기도 합니다.
 
 <!-- For use only in PDF, is skipped in HTML -->
 \mainmatter

@@ -1,3 +1,7 @@
+```{r, include=FALSE}
+source("_common.R")
+```
+
 \backmatter
 
-`r if(is_html_output()) '# References {-}'`
+# 참고 문헌 {-}

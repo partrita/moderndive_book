@@ -1,22 +1,27 @@
-(ref:inferpart) Statistical Inference with `infer`
+```{r, include=FALSE}
+source("_common.R")
+```
+
+
+(ref:inferpart) `infer`를 활용한 통계적 추론
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   cat("# (PART) (ref:inferpart) {-}")
 } else {
-  cat("# (PART) Statistical Inference with infer {-} ")
+  cat("# (PART) infer를 활용한 통계적 추론 {-} ")
 }
 ```
 
-# Sampling {#sampling}
+# 표본 추출 {#sampling}
 
 ```{r setup_infer, include=FALSE, purl=FALSE}
-# Used to define Learning Check numbers:
+# 학습 확인 번호 정의에 사용:
 chap <- 7
 lc <- 0
 
-# Set R code chunk defaults:
-opts_chunk$set(
+# R 코드 청크 기본 설정:
+knitr::opts_chunk$set(
   echo = TRUE,
   eval = TRUE,
   warning = FALSE,
@@ -28,41 +33,41 @@ opts_chunk$set(
   fig.align = "center"
 )
 
-# Set output digit precision
+# 출력 자릿수 정밀도 설정
 options(scipen = 99, digits = 3)
 
-# Set random number generator see value for replicable pseudorandomness
+# 재현 가능한 의사 난수 생성을 위한 시드값 설정
 set.seed(76)
 ```
 
-In this chapter, we kick off the third portion of this book on statistical inference by learning about *sampling*. The concepts behind sampling form the basis of confidence intervals and hypothesis testing, which we'll cover in Chapters \@ref(confidence-intervals) and \@ref(hypothesis-testing). We will see that the tools that you learned in the data science portion of this book, in particular data visualization and data wrangling, will also play an important role in the development of your understanding.  As mentioned before, the concepts throughout this text all build into a culmination allowing you to "tell your story with data." 
+이 장에서는 *표본 추출(sampling)*에 대해 배우며 통계적 추론에 관한 이 책의 세 번째 부분을 시작합니다. 표본 추출의 이면에 깔린 개념은 8장과 9장에서 다룰 신뢰 구간과 가설 검정의 기초를 형성합니다. 이 책의 데이터 과학 부분에서 배운 도구들, 특히 데이터 시각화와 데이터 전처리가 여러분의 이해를 돕는 데 중요한 역할을 하는 것을 보게 될 것입니다. 앞서 언급했듯이, 이 텍스트 전체의 개념들은 모두 쌓여 "데이터로 여러분의 이야기를 들려줄 수 있게" 해주는 절정에 이르게 됩니다.
 
 
-### Needed packages {-#sampling-packages}
+### 필요한 패키지 {-#sampling-packages}
 
-Let's load all the packages needed for this chapter (this assumes you've already installed them). Recall from our discussion in Section \@ref(tidyverse-package) that loading the `tidyverse` package by running `library(tidyverse)` loads the following commonly used data science packages all at once:
+이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). 소섹션 \@ref(tidyverse-package)의 논의를 떠올려 보면, `library(tidyverse)`를 실행하여 `tidyverse` 패키지를 불러오면 다음과 같이 자주 사용되는 데이터 과학 패키지들이 한꺼번에 로드됩니다.
 
-* `ggplot2` for data visualization
-* `dplyr` for data wrangling
-* `tidyr` for converting data to "tidy" format
-* `readr` for importing spreadsheet data into R
-* As well as the more advanced `purrr`, `tibble`, `stringr`, and `forcats` packages
+* 데이터 시각화를 위한 `ggplot2`
+* 데이터 전처리를 위한 `dplyr`
+* 데이터를 "깔끔한(tidy)" 형식으로 변환하기 위한 `tidyr`
+* 스프레드시트 데이터를 R로 가져오기 위한 `readr`
+* 그리고 더 고급 패키지인 `purrr`, `tibble`, `stringr`, `forcats` 패키지들
 
-If needed, read Section \@ref(packages) for information on how to install and load R packages. 
+필요하다면 R 패키지를 설치하고 불러오는 방법에 대한 정보는 섹션 \@ref(packages)를 읽어보세요.
 
 ```{r message=FALSE}
 library(tidyverse)
 library(moderndive)
 ```
 
+
 ```{r message=FALSE, echo=FALSE, purl=FALSE}
-# Packages needed internally, but not in text.
+# 내부적으로 필요한 패키지들이지만 텍스트에는 나타나지 않습니다.
 library(kableExtra)
 library(patchwork)
 library(scales)
 
-# Dynamic coding of summary statistics for bowl i.e. avoid hard-coding any values
-# wherever possible
+# bowl에 대한 요약 통계량의 동적 코딩: 즉, 가능한 모든 하드코딩된 값을 피합니다.
 num_balls <- nrow(bowl)
 num_red <- bowl %>%
   summarize(red = sum(color == "red")) %>%
@@ -71,130 +76,131 @@ prop_red <- num_red / num_balls
 percent_red_chr <- prop_red %>% percent(accuracy = 0.1)
 ```
 
-## Sampling bowl activity {#sampling-activity}
+## 표본 추출 도구 활동 {#sampling-activity}
 
-Let's start with a hands-on activity.
+직접 해보는 활동부터 시작해 보겠습니다.
 
 
-### What proportion of this bowl's balls are red?
+### 이 그릇에 들어 있는 빨간색 공의 비율은 얼마일까요?
 
-Take a look at the bowl in Figure \@ref(fig:sampling-exercise-1). It has a certain number of red and a certain number of white balls all of equal size. `r if_else(is_latex_output(), '(Note that in this printed version of the book "red" corresponds to the darker-colored balls, and "white" corresponds to the lighter-colored balls. We kept the reference to "red" and "white" throughout this book since those are the actual colors of the balls as seen in the background of the image on our book\'s [cover](https://moderndive.com/images/logos/book_cover.png).)', '')` Furthermore, it appears the bowl has been mixed beforehand, as there does not seem to be any coherent pattern to the spatial distribution of the red and white balls.
+그림 \@ref(fig:sampling-exercise-1)의 그릇을 보세요. 여기에는 특정 개수의 빨간색 공과 하얀색 공이 들어 있으며, 모든 공의 크기는 동일합니다. `r if_else(knitr::is_latex_output(), '(이 책의 인쇄 버전에서 "빨간색"은 어두운 색의 공에 해당하고, "하얀색"은 밝은 색의 공에 해당한다는 점에 유의하세요. 이 책의 [표지](https://moderndive.com/images/logos/book_cover.png) 배경에 보이는 공의 실제 색상이 빨간색과 하얀색이므로 이 책 전체에서 이를 유지했습니다.)', '')` 또한 빨간색 공과 하얀색 공의 공간적 분포에 일관된 패턴이 보이지 않는 것으로 보아, 그릇의 내용물은 사전에 잘 섞인 것으로 보입니다.
 
-Let's now ask ourselves, what proportion of this bowl's balls are red?
+이제 자문해 봅시다. 이 그릇에 있는 공 중 빨간색 공의 비율은 얼마일까요?
 
-```{r sampling-exercise-1, echo=FALSE, fig.cap="A bowl with red and white balls.", purl=FALSE, out.width = "95%", purl=FALSE}
-include_graphics("images/sampling/balls/sampling_bowl_1.jpg")
+```{r sampling-exercise-1, echo=FALSE, fig.cap="빨간색과 하얀색 공이 들어 있는 그릇.", purl=FALSE, out.width = "95%", purl=FALSE}
+knitr::include_graphics("images/sampling/balls/sampling_bowl_1.jpg")
 ```
 
-One way to answer this question would be to perform an exhaustive count: remove each ball individually, count the number of red balls and the number of white balls, and divide the number of red balls by the total number of balls. However, this would be a long and tedious process. 
+이 질문에 답하는 한 가지 방법은 전수 조사를 수행하는 것입니다. 공을 하나씩 꺼내어 빨간색 공의 개수와 하얀색 공의 개수를 세고, 빨간색 공의 개수를 전체 공의 개수로 나누는 것이죠. 하지만 이 과정은 매우 길고 지루할 것입니다.
 
 
-### Using the shovel once 
+### 삽을 한 번 사용하기
 
-Instead of performing an exhaustive count, let's insert a shovel into the bowl as seen in Figure \@ref(fig:sampling-exercise-2). Using the shovel, let's remove $5 \cdot 10 = 50$ balls, as seen in Figure \@ref(fig:sampling-exercise-3).
+전수 조사를 수행하는 대신, 그림 \@ref(fig:sampling-exercise-2)와 같이 그릇에 삽을 넣어 봅시다. 삽을 사용하여 그림 \@ref(fig:sampling-exercise-3)과 같이 $5 \cdot 10 = 50$개의 공을 꺼내 보겠습니다.
 
-```{r sampling-exercise-2, echo=FALSE, fig.cap="Inserting a shovel into the bowl.", purl=FALSE, out.width = "100%", purl=FALSE}
-include_graphics("images/sampling/balls/sampling_bowl_2.jpg")
+```{r sampling-exercise-2, echo=FALSE, fig.cap="그릇에 삽을 넣는 모습.", purl=FALSE, out.width = "100%", purl=FALSE}
+knitr::include_graphics("images/sampling/balls/sampling_bowl_2.jpg")
 ```
 
 
-```{r sampling-exercise-3, echo=FALSE, fig.cap="Removing 50 balls from the bowl.", purl=FALSE, out.width = "100%", purl=FALSE}
-include_graphics("images/sampling/balls/sampling_bowl_3_cropped.jpg")
+```{r sampling-exercise-3, echo=FALSE, fig.cap="그릇에서 50개의 공을 꺼낸 모습.", purl=FALSE, out.width = "100%", purl=FALSE}
+knitr::include_graphics("images/sampling/balls/sampling_bowl_3_cropped.jpg")
 ```
 
-Observe that 17 of the balls are red and thus 0.34 = 34% of the shovel's balls are red. We can view the proportion of balls that are red in this shovel as a guess of the proportion of balls that are red in the entire bowl. While not as exact as doing an exhaustive count of all the balls in the bowl, our guess of 34% took much less time and energy to make. 
+꺼낸 공 중 17개가 빨간색이므로, 삽에 담긴 공의 0.34 = 34%가 빨간색임을 확인하세요. 우리는 이 삽에 담긴 빨간색 공의 비율을 전체 그릇에 담긴 빨간색 공 비율에 대한 추측치로 볼 수 있습니다. 그릇의 모든 공을 전수 조사하는 것만큼 정확하지는 않겠지만, 34%라는 우리의 추측은 훨씬 적은 시간과 에너지를 들여 얻은 것입니다.
 
-However, say, we started this activity over from the beginning. In other words, we replace the 50 balls back into the bowl and start over. Would we remove exactly 17 red balls again? In other words, would our guess at the proportion of the bowl's balls that are red be exactly 34% again? Maybe? 
+하지만 이 활동을 처음부터 다시 시작한다고 가정해 봅시다. 즉, 50개의 공을 그릇에 다시 넣고 다시 시작하는 것입니다. 이번에도 정확히 17개의 빨간색 공이 나올까요? 다시 말해, 그릇의 빨간색 공 비율에 대한 우리의 추측이 다시 정확히 34%가 될까요? 아마도요?
 
-What if we repeated this activity several times following the process shown in Figure \@ref(fig:sampling-exercise-3b)? Would we obtain exactly 17 red balls each time? In other words, would our guess at the proportion of the bowl's balls that are red be exactly 34% every time? Surely not. Let's repeat this exercise several times with the help of 33 groups of friends to understand how the value differs with repetition.
+그림 \@ref(fig:sampling-exercise-3b)에 표시된 과정을 따라 이 활동을 여러 번 반복한다면 어떨까요? 매번 정확히 17개의 빨간색 공을 얻게 될까요? 즉, 매번 그릇의 빨간색 공 비율에 대한 추측이 정확히 34%가 될까요? 분명히 그렇지 않을 것입니다. 반복에 따라 값이 어떻게 달라지는지 이해하기 위해 33개 조의 친구들의 도움을 받아 이 연습을 여러 번 반복해 보겠습니다.
 
 
-### Using the shovel 33 times {#student-shovels}
+### 삽을 33번 사용하기 {#student-shovels}
 
-Each of our 33 groups of friends will do the following: 
+33개 조의 각 친구는 다음과 같이 활동할 것입니다.
 
-- Use the shovel to remove 50 balls each. 
-- Count the number of red balls and thus compute the proportion of the 50 balls that are red.
-- Return the balls into the bowl.
-- Mix the contents of the bowl a little to not let a previous group's results influence the next group's. 
+- 삽을 사용하여 각자 50개의 공을 꺼냅니다.
+- 빨간색 공의 개수를 세고 50개 중 빨간색 공의 비율을 계산합니다.
+- 공을 그릇에 다시 넣습니다.
+- 이전 조의 결과가 다음 조에 영향을 주지 않도록 그릇의 내용물을 약간 섞습니다.
 
-```{r sampling-exercise-3b, echo=FALSE, fig.show='hold', fig.cap="Repeating sampling activity 33 times.", purl=FALSE, out.width = "30%"}
-# Need new picture
-include_graphics(c("images/sampling/balls/tactile_2_a.jpg", "images/sampling/balls/tactile_2_b.jpg", "images/sampling/balls/tactile_2_c.jpg"))
+```{r sampling-exercise-3b, echo=FALSE, fig.show='hold', fig.cap="표본 추출 활동을 33번 반복하는 모습.", purl=FALSE, out.width = "30%"}
+# 새로운 그림이 필요함
+knitr::include_graphics(c("images/sampling/balls/tactile_2_a.jpg", "images/sampling/balls/tactile_2_b.jpg", "images/sampling/balls/tactile_2_c.jpg"))
 ```
 
-Each of our 33 groups of friends make note of their proportion of red balls from their sample collected. Each group then marks their proportion of their 50 balls that were red in the appropriate bin in a hand-drawn histogram as seen in Figure \@ref(fig:sampling-exercise-4).
+33개 조의 각 친구는 수집한 표본에서 얻은 빨간색 공의 비율을 기록합니다. 그런 다음 각 조는 그림 \@ref(fig:sampling-exercise-4)와 같이 손으로 그린 히스토그램의 적절한 구간에 50개 중 빨간색 공의 비율을 표시합니다.
 
-```{r sampling-exercise-4, echo=FALSE, fig.cap="Constructing a histogram of proportions.", purl=FALSE, out.width = "80%"}
-include_graphics("images/sampling/balls/tactile_3_a.jpg")
+```{r sampling-exercise-4, echo=FALSE, fig.cap="비율 히스토그램 작성하기.", purl=FALSE, out.width = "80%"}
+knitr::include_graphics("images/sampling/balls/tactile_3_a.jpg")
 ```
 
-Recall from Section \@ref(histograms) that histograms allow us to visualize the *distribution* \index{distribution} of a numerical variable. In particular, where the center of the values falls and how the values vary. A partially completed histogram of the first 10 out of 33 groups of friends' results can be seen in Figure \@ref(fig:sampling-exercise-5).
+섹션 \@ref(histograms)에서 히스토그램을 통해 수치형 변수의 *분포(distribution)* \index{distribution}를 시각화할 수 있다는 점을 떠올려 보세요. 특히 값의 중심이 어디에 있는지, 값이 어떻게 변하는지 알 수 있습니다. 33개 조 중 처음 10개 조의 결과를 담은 부분적으로 완성된 히스토그램은 그림 \@ref(fig:sampling-exercise-5)에서 볼 수 있습니다.
 
-```{r sampling-exercise-5, echo=FALSE, fig.cap="Hand-drawn histogram of first 10 out of 33 proportions.", purl=FALSE, out.width = "70%"}
-include_graphics("images/sampling/balls/tactile_3_c.jpg")
+```{r sampling-exercise-5, echo=FALSE, fig.cap="33개 중 처음 10개의 비율을 손으로 그린 히스토그램.", purl=FALSE, out.width = "70%"}
+knitr::include_graphics("images/sampling/balls/tactile_3_c.jpg")
 ```
 
-Observe the following in the histogram in Figure \@ref(fig:sampling-exercise-5):
+그림 \@ref(fig:sampling-exercise-5)의 히스토그램에서 다음을 확인하세요.
 
-* At the low end, one group removed 50 balls from the bowl with proportion red between 0.20 and 0.25.
-* At the high end, another group removed 50 balls from the bowl with proportion between 0.45 and 0.5 red.
-* However, the most frequently occurring proportions were between 0.30 and 0.35 red, right in the middle of the distribution.
-* The shape of this distribution is somewhat bell-shaped. 
+* 낮은 쪽에서는 한 조가 빨간색 비율이 0.20에서 0.25 사이인 50개의 공을 꺼냈습니다.
+* 높은 쪽에서는 다른 한 조가 빨간색 비율이 0.45에서 0.5 사이인 50개의 공을 꺼냈습니다.
+* 그러나 가장 자주 나타나는 비율은 분포의 정중앙인 0.30에서 0.35 사이였습니다.
+* 이 분포의 모양은 어느 정도 종 모양(bell-shaped)입니다.
 
-Let's construct this same hand-drawn histogram in R using your data visualization skills that you honed in Chapter \@ref(viz). We saved our 33 groups of friends' results in the `tactile_prop_red` data frame included in the `moderndive` package. Run the following to display the first 10 of 33 rows:
+여러분이 2장에서 다듬은 데이터 시각화 기술을 사용하여 R에서 이와 동일한 히스토그램을 만들어 보겠습니다. 우리는 33개 조 친구들의 결과를 `moderndive` 패키지에 포함된 `tactile_prop_red` 데이터 프레임에 저장했습니다. 다음 명령을 실행하여 33개 행 중 처음 10개를 표시해 보세요.
 
 ```{r}
 tactile_prop_red
 ```
 
-Observe for each `group` that we have their names, the number of `red_balls` they obtained, and the corresponding proportion out of 50 balls that were red named `prop_red`. We also have a `replicate` variable enumerating each of the 33 groups. We chose this name because each row can be viewed as one instance of a replicated (in other words repeated) activity: using the shovel to remove 50 balls and computing the proportion of those balls that are red. 
 
-Let's visualize the distribution of these 33 proportions using `geom_histogram()` with `binwidth = 0.05` in Figure \@ref(fig:samplingdistribution-tactile). This is a computerized and complete version of the partially completed hand-drawn histogram you saw in Figure \@ref(fig:sampling-exercise-5). Note that setting `boundary = 0.4` indicates that we want a binning scheme such that one of the bins' boundary is at 0.4. This helps us to more closely align this histogram with the hand-drawn histogram in Figure \@ref(fig:sampling-exercise-5).
+각 `group`에 대해 조원들의 이름, 얻은 `red_balls`의 수, 그리고 이에 해당하는 50개 중 빨간색 공의 비율인 `prop_red`가 있음을 확인하세요. 또한 33개 조 각각을 나열하는 `replicate` 변수도 있습니다. 각 행을 복제된(즉, 반복된) 활동의 한 사례로 볼 수 있기 때문에 이 이름을 선택했습니다. 여기서 활동이란 삽을 사용하여 50개의 공을 꺼내고 그 공 중 빨간색 공의 비율을 계산하는 것입니다.
+
+그림 \@ref(fig:samplingdistribution-tactile)에서 `binwidth = 0.05`를 사용한 `geom_histogram()`으로 이 33개 비율의 분포를 시각화해 보겠습니다. 이것은 그림 \@ref(fig:sampling-exercise-5)에서 보았던 부분적으로 완성된 손으로 그린 히스토그램을 컴퓨터로 구현한 완성된 버전입니다. `boundary = 0.4`를 설정한 것은 구간(bin) 중 하나의 경계가 0.4가 되도록 하는 구간 설정 방식을 원한다는 것을 의미합니다. 이를 통해 이 히스토그램을 그림 \@ref(fig:sampling-exercise-5)의 손으로 그린 히스토그램과 더 가깝게 맞출 수 있습니다.
 
 ```{r eval=FALSE}
 ggplot(tactile_prop_red, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
-  labs(x = "Proportion of 50 balls that were red", 
-       title = "Distribution of 33 proportions red") 
+  labs(x = "50개 공 중 빨간색 공의 비율", 
+       title = "33개 빨간색 비율의 분포") 
 ```
-```{r samplingdistribution-tactile, echo=FALSE, fig.cap="Distribution of 33 proportions based on 33 samples of size 50.", fig.height=3.1, purl=FALSE}
+```{r samplingdistribution-tactile, echo=FALSE, fig.cap="크기가 50인 33개 표본에 기초한 33개 비율의 분포.", fig.height=3.1, purl=FALSE}
 tactile_histogram <- ggplot(tactile_prop_red, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white")
 tactile_histogram +
   labs(
-    x = "Proportion of 50 balls that were red",
-    title = "Distribution of 33 proportions red"
+    x = "50개 공 중 빨간색 공의 비율",
+    title = "33개 빨간색 비율의 분포"
   )
 ```
 
 
-### What did we just do? {#sampling-what-did-we-just-do}
+### 방금 우리가 무엇을 했나요? {#sampling-what-did-we-just-do}
 
-What we just demonstrated in this activity is the statistical concept of \index{sampling} *sampling*. We would like to know the proportion of the bowl's balls that are red. Because the bowl has a large number of balls, performing an exhaustive count of the red and white balls would be time-consuming. We thus extracted a *sample* of 50 balls using the shovel to make an *estimate*. Using this sample of 50 balls, we estimated the proportion of the *bowl's* balls that are red to be 34%.
+이 활동에서 방금 시연한 것은 *표본 추출(sampling)* \index{sampling}이라는 통계적 개념입니다. 우리는 그릇에 담긴 공 중 빨간색 공의 비율을 알고 싶었습니다. 그릇에 공의 개수가 많기 때문에 빨간색과 하얀색 공을 전수 조사하는 것은 시간이 많이 걸릴 것입니다. 그래서 우리는 *추정치(estimate)*를 만들기 위해 삽을 사용하여 50개의 공으로 구성된 *표본(sample)*을 추출했습니다. 이 50개 공의 표본을 사용하여, 우리는 *그릇*의 공 중 빨간색 공의 비율이 34%라고 추정했습니다.
 
-Moreover, because we mixed the balls before each use of the shovel, the samples were randomly drawn. Because each sample was drawn at random, the samples were different from each other. Because the samples were different from each other, we obtained the different proportions red observed in Figure \@ref(fig:samplingdistribution-tactile). This is known as the concept of *sampling variation*. \index{sampling!variation}
+또한 삽을 사용할 때마다 공을 섞었으므로 표본은 무작위로 추출되었습니다. 각 표본이 무작위로 추출되었기 때문에 표본들은 서로 달랐습니다. 표본들이 서로 달랐기 때문에 그림 \@ref(fig:samplingdistribution-tactile)에서 관찰된 것과 같이 서로 다른 빨간색 비율을 얻게 되었습니다. 이것이 바로 *표본 오차(sampling variation)* \index{sampling!variation}라고 알려진 개념입니다.
 
-The purpose of this sampling activity was to develop an understanding of two key concepts relating to sampling: 
+이 표본 추출 활동의 목적은 표본 추출과 관련된 두 가지 핵심 개념에 대한 이해를 돕는 것이었습니다.
 
-1. Understanding the effect of sampling variation.
-1. Understanding the effect of sample size on sampling variation. 
+1. 표본 오차의 효과 이해하기.
+2. 표본 크기가 표본 오차에 미치는 효과 이해하기.
 
-In Section \@ref(sampling-simulation), we'll mimic the hands-on sampling activity we just performed on a computer. This will allow us not only to repeat the sampling exercise much more than 33 times, but it will also allow us to use shovels with different numbers of slots than just 50. 
+섹션 \@ref(sampling-simulation)에서는 방금 컴퓨터상에서 수행한 직접 해보는 표본 추출 활동을 모방해 보겠습니다. 이를 통해 표본 추출 연습을 33번보다 훨씬 더 많이 반복할 수 있을 뿐만 아니라, 구멍의 개수가 50개가 아닌 다른 삽도 사용할 수 있게 될 것입니다.
 
-Afterwards, we'll present you with definitions, terminology, and notation related to sampling in Section \@ref(sampling-framework). As in many disciplines, such necessary background knowledge may seem inaccessible and even confusing at first. However, as with many difficult topics, if you truly understand the underlying concepts and practice, practice, practice, you'll be able to master them.
+그 후, 섹션 \@ref(sampling-framework)에서 표본 추출과 관련된 정의, 용어 및 기호를 제시하겠습니다. 많은 학문 분야에서 그렇듯이, 이러한 필수 배경 지식은 처음에는 접근하기 어렵고 심지어 혼란스럽게 느껴질 수 있습니다. 그러나 많은 어려운 주제와 마찬가지로, 근본적인 개념을 진정으로 이해하고 연습하고 또 연습한다면 마스터할 수 있을 것입니다.
 
-To tie the contents of this chapter to the real world, we'll present an example of one of the most recognizable uses of sampling: polls. In Section \@ref(sampling-case-study) we'll look at a particular case study: a 2013 poll on then U.S. President Barack Obama's popularity among young Americans, conducted by Kennedy School's Institute of Politics at Harvard University. To close this chapter, we'll generalize the "sampling from a bowl" exercise to other sampling scenarios and present a theoretical result known as the *Central Limit Theorem*.
+이 장의 내용을 실제 세계와 연결하기 위해, 표본 추출의 가장 잘 알려진 사례 중 하나인 여론 조사를 소개하겠습니다. 섹션 \@ref(sampling-case-study)에서는 하버드 대학교 케네디 스쿨의 정치 연구소(Institute of Politics)에서 실시한, 당시 미국 대통령이었던 버락 오바마의 젊은 미국인들 사이에서의 인기에 관한 2013년 여론 조사라는 구체적인 사례 연구를 살펴보겠습니다. 이 장을 마무리하면서 "그릇에서 표본 추출하기" 연습을 다른 표본 추출 시나리오로 일반화하고 *중심 극한 정리(Central Limit Theorem)*라고 알려진 이론적 결과를 제시하겠습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why was it important to mix the bowl before we sampled the balls?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 공을 추출하기 전에 그릇을 섞는 것이 왜 중요했을까요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why is it that our 33 groups of friends did not all have the same numbers of balls that were red out of 50, and hence different proportions red?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 왜 33개 조의 친구들이 50개 중 빨간색 공의 개수가 모두 같지 않았고, 따라서 빨간색 비율이 서로 달랐을까요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -205,27 +211,27 @@ To tie the contents of this chapter to the real world, we'll present an example 
 
 
 
-## Virtual sampling {#sampling-simulation}
+## 가상 표본 추출 {#sampling-simulation}
 
-In the previous Section \@ref(sampling-activity), we performed a *tactile* sampling activity by hand. In other words, we used a physical bowl of balls and a physical shovel. We performed this sampling activity by hand first so that we could develop a firm understanding of the root ideas behind sampling. In this section, we'll mimic this tactile sampling activity with a *virtual* sampling activity using a computer. In other words, we'll use a virtual analog to the bowl of balls and a virtual analog to the shovel. 
+이전 섹션 \@ref(sampling-activity)에서 우리는 손을 사용하여 *촉각적(tactile)* 표본 추출 활동을 수행했습니다. 즉, 물리적인 공 그릇과 물리적인 삽을 사용했습니다. 우리가 표본 추출의 근본적인 아이디어에 대한 확고한 이해를 발전시키기 위해 먼저 손으로 이 활동을 수행해 본 것입니다. 이 섹션에서는 컴퓨터를 사용하여 이 촉각적 표본 추출 활동을 모방한 *가상(virtual)* 표본 추출 활동을 수행할 것입니다. 다시 말해, 공 그릇의 가상 아날로그와 삽의 가상 아날로그를 사용할 것입니다.
 
 
-### Using the virtual shovel once
+### 가상 삽 한 번 사용하기
 
-Let's start by performing the virtual analog of the tactile sampling exercise we performed in Section \@ref(sampling-activity). We first need a virtual analog of the bowl seen in Figure \@ref(fig:sampling-exercise-1). To this end, we included a data frame named `bowl` in the `moderndive` package. The rows of `bowl` correspond exactly with the contents of the actual bowl. 
+먼저 섹션 \@ref(sampling-activity)에서 수행한 촉각적 표본 추출 연습의 가상 버전을 수행해 봅시다. 먼저 그림 \@ref(fig:sampling-exercise-1)에서 본 그릇의 가상 아날로그가 필요합니다. 이를 위해 `moderndive` 패키지에 `bowl`이라는 데이터 프레임을 포함했습니다. `bowl`의 행은 실제 그릇의 내용물과 정확히 일치합니다.
 
 ```{r}
 bowl
 ```
 
-Observe that `bowl` has `r num_balls` rows, telling us that the bowl contains `r num_balls` equally sized balls. The first variable `ball_ID` is used as an *identification variable* as discussed in Subsection \@ref(identification-vs-measurement-variables); none of the balls in the actual bowl are marked with numbers. The second variable `color` indicates whether a particular virtual ball is red or white. View the contents of the bowl in RStudio's data viewer and scroll through the contents to convince yourself that `bowl` is indeed a virtual analog of the actual bowl in Figure \@ref(fig:sampling-exercise-1).
+`bowl`에는 `r num_balls`개의 행이 있어, 이 그릇에 `r num_balls`개의 동일한 크기의 공이 들어 있음을 알려줍니다. 첫 번째 변수인 `ball_ID`는 소섹션 \@ref(identification-vs-measurement-variables)에서 논의한 것처럼 *식별 변수(identification variable)*로 사용됩니다. 실제 그릇의 공들에는 숫자가 적혀 있지 않습니다. 두 번째 변수인 `color`는 특정 가상 공이 빨간색인지 하얀색인지 나타냅니다. RStudio의 데이터 전용 창(data viewer)에서 `bowl`의 내용을 살펴보고, `bowl`이 정말로 그림 \@ref(fig:sampling-exercise-1)의 실제 그릇의 가상 버전인지 확인해 보세요.
 
-Now that we have a virtual analog of our bowl, we next need a virtual analog to the shovel seen in Figure \@ref(fig:sampling-exercise-2) to generate virtual samples of 50 balls. We're going to use the `rep_sample_n()` function included in the `moderndive` package. This function allows us to take `rep`eated, or `rep`licated, `samples` of size `n`. 
+이제 그릇의 가상 버전이 준비되었으니, 다음으로는 가상 표본 50개를 생성하기 위해 그림 \@ref(fig:sampling-exercise-2)에서 본 삽의 가상 버전이 필요합니다. `moderndive` 패키지에 포함된 `rep_sample_n()` 함수를 사용할 것입니다. 이 함수를 사용하면 크기가 `n`인 표본을 `rep`eated(반복) 또는 `rep`licated(복제)하여 추출할 수 있습니다.
 
 <!--
-Note: Put this back in if people have trouble understanding rep_sample_n() at first:
+참고: 사람들이 처음에 rep_sample_n()을 이해하는 데 어려움을 겪는다면 이 내용을 다시 넣으세요.
 
-Let's show an example of this function in action. Let's first use the `tibble()` function to manually create a data frame of five fruit called `fruit_basket`. 
+이 함수가 작동하는 예를 보여드리겠습니다. 먼저 `tibble()` 함수를 사용하여 `fruit_basket`이라는 다섯 가지 과일 데이터 프레임을 수동으로 만들어 보겠습니다.
 
 ```{r}
 fruit_basket <- tibble(
@@ -242,18 +248,18 @@ virtual_shovel <- bowl %>%
 virtual_shovel
 ```
 
-Observe that `virtual_shovel` has 50 rows corresponding to our virtual sample of size 50. The `ball_ID` variable identifies which of the `r num_balls` balls from `bowl` are included in our sample of 50 balls while `color` denotes its color. However, what does the `replicate` variable indicate? In `virtual_shovel`'s case, `replicate` is equal to 1 for all 50 rows. This is telling us that these 50 rows correspond to the first repeated/replicated use of the shovel, in our case our first sample. We'll see shortly that when we "virtually" take 33 samples, `replicate` will take values between 1 and 33. 
+`virtual_shovel`에는 크기 50의 가상 표본에 해당하는 50개의 행이 있습니다. `ball_ID` 변수는 `bowl`에 있는 `r num_balls`개의 공 중 어떤 공이 우리 표본에 포함되었는지 식별하며, `color`는 그 공의 색상을 나타냅니다. 그런데 `replicate` 변수는 무엇을 나타낼까요? `virtual_shovel`의 경우, 모든 50개 행에서 `replicate`가 1입니다. 이는 이 50개 행이 첫 번째 반복/복제된 삽 사용, 즉 우리의 첫 번째 표본임을 알려줍니다. 곧 보게 되겠지만, 우리가 "가상으로" 33개의 표본을 추출할 때 `replicate`는 1에서 33 사이의 값을 갖게 될 것입니다.
 
-Let's compute the proportion of balls in our virtual sample that are red using the `dplyr` data wrangling verbs you learned in Chapter \@ref(wrangling). First, for each of our 50 sampled balls, let's identify if it is red or not using a test for equality with `==`. Let's create a new Boolean variable `is_red` using the `mutate()` function from Section \@ref(mutate):
+이제 3장에서 배운 `dplyr` 데이터 전처리 동사를 사용하여 가상 표본 속 공 중 빨간색 공의 비율을 계산해 봅시다. 먼저, 섹션 \@ref(mutate)에서 배운 `mutate()` 함수를 사용하여 50개의 표본 공 각각에 대해 `==`를 사용해 빨간색인지 확인하는 새로운 불리언(Boolean) 변수 `is_red`를 만들어 보겠습니다.
 
 ```{r}
 virtual_shovel %>% 
   mutate(is_red = (color == "red"))
 ```
 
-Observe that for every row where `color == "red"`, the Boolean (logical)  value `TRUE` is returned and for every row where `color` is not equal to `"red"`, the Boolean `FALSE` is returned.
+`color == "red"`인 모든 행에 대해서는 불리언(논리) 값 `TRUE`가 반환되고, `color`가 `"red"`와 같지 않은 모든 행에 대해서는 불리언 `FALSE`가 반환되는 것을 확인하세요.
 
-Second, let's compute the number of balls out of 50 that are red using the `summarize()` function. Recall from Section \@ref(summarize) that `summarize()` takes a data frame with many rows and returns a data frame with a single row containing summary statistics, like the `mean()` or `median()`. In this case, we use the `sum()`:
+두 번째로, `summarize()` 함수를 사용하여 50개 중 빨간색 공의 개수를 계산해 봅시다. 섹션 \@ref(summarize)에서 보았듯이 `summarize()`는 행이 많은 데이터 프레임을 받아 `mean()`이나 `median()`과 같은 요약 통계량이 포함된 단일 행의 데이터 프레임을 반환합니다. 이 경우에는 `sum()`을 사용합니다.
 
 ```{r}
 virtual_shovel %>% 
@@ -268,9 +274,9 @@ n_red_virtual_shovel <- virtual_shovel %>%
 
 ```
 
-Why does this work? Because R treats `TRUE` like the number `1` and `FALSE` like the number `0`. So summing the number of `TRUE`s and `FALSE`s is equivalent to summing `1`'s and `0`'s. In the end, this operation counts the number of balls where `color` is `red`. In our case, `r n_red_virtual_shovel` of the 50 balls were red. However, you might have gotten a different number red because of the randomness of the virtual sampling.
+이것이 왜 작동할까요? R은 `TRUE`를 숫자 `1`로, `FALSE`를 숫자 `0`으로 취급하기 때문입니다. 따라서 `TRUE`와 `FALSE`의 합을 구하는 것은 `1`과 `0`의 합을 구하는 것과 같습니다. 결국 이 연산은 `color`가 `red`인 공의 개수를 세게 됩니다. 우리의 경우 50개 공 중 `r n_red_virtual_shovel`개가 빨간색이었습니다. 하지만 가상 표본 추출의 무작위성 때문에 여러분은 다른 결과를 얻었을 수도 있습니다.
 
-Third and lastly, let's compute the proportion of the 50 sampled balls that are red by dividing `num_red` by 50:
+세 번째로 마지막 단계로, `num_red`를 50으로 나누어 추출된 50개 공 중 빨간색 공의 비율을 계산해 봅시다.
 
 ```{r}
 virtual_shovel %>% 
@@ -288,7 +294,7 @@ virtual_shovel_perc_red <- virtual_shovel_prop_red * 100
 
 ```
 
-In other words, `r virtual_shovel_perc_red`% of this virtual sample's balls were red. Let's make this code a little more compact and succinct by combining the first `mutate()` and the `summarize()` as follows:
+다시 말해, 이 가상 표본 중 `r virtual_shovel_perc_red`%가 빨간색 공이었습니다. 첫 번째 `mutate()`와 `summarize()`를 다음과 같이 결합하여 코드를 조금 더 간결하게 만들어 보겠습니다.
 
 ```{r}
 virtual_shovel %>% 
@@ -299,11 +305,12 @@ virtual_shovel %>%
 Great! `r virtual_shovel_perc_red`% of `virtual_shovel`'s 50 balls were red! So based on this particular sample of 50 balls, our guess at the proportion of the `bowl`'s balls that are red is `r virtual_shovel_perc_red`%. But remember from our earlier tactile sampling activity that if we repeat this sampling, we will not necessarily obtain the same value of `r virtual_shovel_perc_red`% again. There will likely be some variation. In fact, our 33 groups of friends computed 33 such proportions whose distribution we visualized in Figure \@ref(fig:sampling-exercise-5). We saw that these estimates *varied*. Let's now perform the virtual analog of having 33 groups of students use the sampling shovel!
 
 
-### Using the virtual shovel 33 times
 
-Recall that in our tactile sampling exercise in Section \@ref(sampling-activity), we had 33 groups of students each use the shovel, yielding 33 samples of size 50 balls. We then used these 33 samples to compute 33 proportions. In other words, we repeated/replicated using the shovel 33 times. We can perform this repeated/replicated sampling virtually by once again using our virtual shovel function `rep_sample_n()`, but by adding the `reps = 33` argument. This is telling R that we want to repeat the sampling 33 times. 
+### 가상 삽 33번 사용하기
 
-We'll save these results in a data frame called `virtual_samples`. While we provide a preview of the first 10 rows of `virtual_samples` in what follows, we highly suggest you scroll through its contents using RStudio's spreadsheet viewer by running `View(virtual_samples)`. 
+섹션 \@ref(sampling-activity)의 촉각적 표본 추출 연습에서 33개 조의 학생들이 각각 삽을 사용하여 크기 50인 표본 33개를 얻었음을 떠올려 보세요. 그런 다음 이 33개 표본을 사용하여 33개의 비율을 계산했습니다. 즉, 삽 사용을 33번 반복/복제했습니다. 가상 삽 함수인 `rep_sample_n()`에 `reps = 33` 인수를 추가하여 이 반복/복제된 표본 추출을 가상으로 수행할 수 있습니다. 이는 R에게 표본 추출을 33번 반복하도록 명령하는 것입니다.
+
+이 결과를 `virtual_samples`라는 데이터 프레임에 저장하겠습니다. 아래에서 `virtual_samples`의 처음 10개 행을 미리 보여드리지만, `View(virtual_samples)`를 실행하여 RStudio의 스프레드시트 뷰어에서 내용을 끝까지 훑어보는 것을 적극 추천합니다.
 
 ```{r}
 virtual_samples <- bowl %>% 
@@ -311,9 +318,9 @@ virtual_samples <- bowl %>%
 virtual_samples
 ```
 
-Observe in the spreadsheet viewer that the first 50 rows of `replicate` are equal to `1` while the next 50 rows of `replicate` are equal to `2`. This is telling us that the first 50 rows correspond to the first sample of 50 balls while the next 50 rows correspond to the second sample of 50 balls. This pattern continues for all `reps = 33` replicates and thus `virtual_samples` has 33 $\cdot$ 50 = 1650 rows. 
+스프레드시트 뷰어에서 처음 50개 행의 `replicate`는 1이고 다음 50개 행의 `replicate`는 2임을 확인하세요. 이는 처음 50개 행이 첫 번째 50개 공 표본에 해당하고, 그 다음 50개 행이 두 번째 50개 공 표본에 해당함을 알려줍니다. 이 패턴은 `reps = 33`번의 모든 복제에 대해 계속되므로, `virtual_samples`는 33 $\cdot$ 50 = 1,650개의 행을 가집니다.
 
-Let's now take `virtual_samples` and compute the resulting 33 proportions red. We'll use the same `dplyr` verbs as before, but this time with an additional `group_by()` of the `replicate` variable. Recall from Section \@ref(groupby) that by assigning the grouping variable "meta-data" before we `summarize()`, we'll obtain 33 different proportions red. We display a preview of the first 10 out of 33 rows:
+이제 `virtual_samples`를 가져와서 33개의 빨간색 비율을 계산해 봅시다. 이전과 동일한 `dplyr` 동사를 사용하되, 이번에는 `replicate` 변수를 기준으로 `group_by()`를 추가합니다. 섹션 \@ref(groupby)에서 보았듯이, `summarize()`를 하기 전에 그룹화 변수 "메타 데이터"를 지정함으로써 33개의 서로 다른 빨간색 비율을 얻을 수 있습니다. 33개 행 중 처음 10개를 미리 보여드립니다.
 
 ```{r}
 virtual_prop_red <- virtual_samples %>% 
@@ -323,46 +330,46 @@ virtual_prop_red <- virtual_samples %>%
 virtual_prop_red
 ```
 
-As with our 33 groups of friends' tactile samples, there is variation in the resulting 33 virtual proportions red. Let's visualize this variation in a histogram in Figure \@ref(fig:samplingdistribution-virtual). Note that we add `binwidth = 0.05` and `boundary = 0.4` arguments as well. Recall that setting `boundary = 0.4` ensures a binning scheme with one of the bins' boundaries at 0.4. Since the `binwidth = 0.05` is also set, this will create bins with boundaries at 0.30, 0.35, 0.45, 0.5, etc. as well.
+우리 친구들의 33개 촉각적 표본과 마찬가지로, 결과로 나온 33개의 가상 빨간색 비율에도 변동이 있습니다. 이 변동을 그림 \@ref(fig:samplingdistribution-virtual)의 히스토그램으로 시각화해 보겠습니다. `binwidth = 0.05`와 `boundary = 0.4` 인수를 추가합니다. `boundary = 0.4`를 설정하면 구간 경계 중 하나가 0.4에 오도록 구간 설정 방식이 정해집니다. `binwidth = 0.05`도 설정했으므로, 0.30, 0.35, 0.45, 0.5 등의 경계를 가진 구간들이 생성될 것입니다.
 
 ```{r eval=FALSE}
 ggplot(virtual_prop_red, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
-  labs(x = "Proportion of 50 balls that were red", 
-       title = "Distribution of 33 proportions red") 
+  labs(x = "50개 공 중 빨간색 공의 비율", 
+       title = "33개 빨간색 비율의 분포") 
 ```
-```{r samplingdistribution-virtual, echo=FALSE, fig.cap="Distribution of 33 proportions based on 33 samples of size 50.", fig.height=3.2, purl=FALSE}
+```{r samplingdistribution-virtual, echo=FALSE, fig.cap="크기가 50인 33개 표본에 기초한 33개 비율의 분포.", fig.height=3.2, purl=FALSE}
 virtual_histogram <- ggplot(virtual_prop_red, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white")
 virtual_histogram +
   labs(
-    x = "Proportion of 50 balls that were red",
-    title = "Distribution of 33 proportions red"
+    x = "50개 공 중 빨간색 공의 비율",
+    title = "33개 빨간색 비율의 분포"
   )
 ``` 
 
-Observe that we occasionally obtained proportions red that are less than 30%. On the other hand, we occasionally  obtained proportions that are greater than 45%. However, the most frequently occurring proportions were between 35% and 40% (for 11 out of 33 samples). Why do we have these differences in proportions red? Because of *sampling variation*. 
+가끔 빨간색 비율이 30%보다 작게 나오는 경우도 있고, 반대로 45%보다 크게 나오는 경우도 있음을 확인하세요. 하지만 가장 빈번하게 나타나는 비율은 35%에서 40% 사이였습니다(33개 표본 중 11개). 왜 빨간색 비율에 이러한 차이가 나타날까요? 바로 *표본 오차* 때문입니다.
 
-Let's now compare our virtual results with our tactile results from the previous section in Figure \@ref(fig:tactile-vs-virtual). Observe that both histograms are somewhat similar in their center and variation, although not identical. These slight differences are again due to random sampling variation. Furthermore, observe that both distributions are somewhat bell-shaped.
+이제 그림 \@ref(fig:tactile-vs-virtual)에서 가상 결과와 이전 섹션의 촉각적 결과를 비교해 보겠습니다. 두 히스토그램이 중심과 변동 면에서 비슷하지만 똑같지는 않음을 확인하세요. 이러한 미세한 차이 역시 무작위 표본 오차 때문입니다. 또한 두 분포 모두 어느 정도 종 모양을 띠고 있음을 확인하세요.
 
-```{r tactile-vs-virtual, echo=FALSE, fig.cap="Comparing 33 virtual and 33 tactile proportions red.", fig.height=2.9, purl=FALSE}
+```{r tactile-vs-virtual, echo=FALSE, fig.cap="33개의 가상 및 33개의 촉각적 빨간색 비율 비교.", fig.height=2.9, purl=FALSE}
 facet_compare <- bind_rows(
   virtual_prop_red %>%
-    mutate(type = "Virtual sampling"),
+    mutate(type = "가상 표본 추출"),
   tactile_prop_red %>%
     select(replicate, red = red_balls, prop_red) %>%
-    mutate(type = "Tactile sampling")
+    mutate(type = "촉각적 표본 추출")
 ) %>%
-  mutate(type = factor(type, levels = c("Virtual sampling", "Tactile sampling"))) %>%
+  mutate(type = factor(type, levels = c("가상 표본 추출", "촉각적 표본 추출"))) %>%
   ggplot(aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
   facet_wrap(~type) +
   labs(
-    x = "Proportion of 50 balls that were red",
-    title = "Comparing distributions"
+    x = "50개 공 중 빨간색 공의 비율",
+    title = "분포 비교"
   )
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   facet_compare +
     theme(
       strip.text = element_text(colour = "black"),
@@ -375,11 +382,11 @@ if (is_latex_output()) {
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why couldn't we study the effects of sampling variation when we used the virtual shovel only once? Why did we need to take more than one virtual sample (in our case 33 virtual samples)?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 가상 삽을 단 한 번만 사용했을 때는 왜 표본 오차의 효과를 연구할 수 없었을까요? 왜 하나 이상의 가상 표본(우리의 경우 33개의 가상 표본)을 추출해야 했을까요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -387,9 +394,10 @@ if (is_latex_output()) {
 ```
 
 
-### Using the virtual shovel 1000 times {#shovel-1000-times}
 
-Now say we want to study the effects of sampling variation not for 33 samples, but rather for a larger number of samples, say 1000. We have two choices at this point. We could have our groups of friends manually take 1000 samples of 50 balls and compute the corresponding 1000 proportions. However, this would be a tedious and time-consuming task. This is where computers excel: automating long and repetitive tasks while performing them quite quickly. Thus, at this point we will abandon tactile sampling in favor of only virtual sampling. Let's once again use the `rep_sample_n()` function with sample `size` set to be 50 once again, but this time with the number of replicates `reps` set to `1000`. Be sure to scroll through the contents of `virtual_samples` in RStudio's viewer. 
+### 가상 삽 1,000번 사용하기 {#shovel-1000-times}
+
+이제 33개의 표본이 아니라 더 많은 표본, 예를 들어 1,000개에 대해 표본 오차의 효과를 연구하고 싶다고 가정해 봅시다. 이 시점에서 우리에게는 두 가지 선택지가 있습니다. 우리 친구들이 50개 공이 담긴 표본 1,000개를 수동으로 추출하고 이에 대응하는 1,000개의 비율을 계산하게 할 수 있습니다. 하지만 이는 지루하고 시간이 많이 걸리는 작업일 것입니다. 이것이 바로 컴퓨터가 강점을 발휘하는 분야입니다. 길고 반복적인 작업을 아주 빠르게 자동화하는 것이죠. 따라서 이 시점부터 우리는 촉각적 표본 추출을 그만두고 가상 표본 추출만 사용하겠습니다. 표본 크(`size`)를 다시 한번 50으로 설정하되, 이번에는 반복 횟수(`reps`)를 1,000으로 설정하여 `rep_sample_n()` 함수를 사용해 봅시다. RStudio 뷰어에서 `virtual_samples`의 내용을 꼭 확인해 보세요.
 
 ```{r}
 virtual_samples <- bowl %>% 
@@ -397,7 +405,7 @@ virtual_samples <- bowl %>%
 virtual_samples
 ```
 
-Observe that now `virtual_samples` has 1000 $\cdot$ 50 = 50,000 rows, instead of the 33 $\cdot$ 50 = 1650 rows from earlier. Using the same data wrangling code as earlier, let's take the data frame `virtual_samples` with 1000 $\cdot$ 50 = 50,000 rows and compute the resulting 1000 proportions of red balls. 
+이제 `virtual_samples`는 이전의 33 $\cdot$ 50 = 1,650개 행 대신 1,000 $\cdot$ 50 = 50,000개의 행을 가집니다. 이전과 동일한 데이터 전처리 코드를 사용하여, 1,000 $\cdot$ 50 = 50,000개 행의 `virtual_samples` 데이터 프레임에서 1,000개의 빨간색 공 비율을 계산해 봅시다.
 
 ```{r}
 virtual_prop_red <- virtual_samples %>% 
@@ -407,15 +415,15 @@ virtual_prop_red <- virtual_samples %>%
 virtual_prop_red
 ```
 
-Observe that we now have 1000 replicates of `prop_red`, the proportion of 50 balls that are red. Using the same code as earlier, let's now visualize the distribution of these 1000 replicates of `prop_red` in a histogram in Figure \@ref(fig:samplingdistribution-virtual-1000).
+이제 50개 공 중 빨간색 공의 비율인 `prop_red`가 1,000개 복제된 것을 확인할 수 있습니다. 이전과 동일한 코드를 사용하여 그림 \@ref(fig:samplingdistribution-virtual-1000)에서 이 1,000개 `prop_red` 복제본의 분포를 히스토그램으로 시각화해 보겠습니다.
 
 ```{r eval=FALSE}
 ggplot(virtual_prop_red, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
-  labs(x = "Proportion of 50 balls that were red", 
-       title = "Distribution of 1000 proportions red") 
+  labs(x = "50개 공 중 빨간색 공의 비율", 
+       title = "1,000개 빨간색 비율의 분포") 
 ```
-```{r samplingdistribution-virtual-1000, echo=FALSE, fig.cap="Distribution of 1000 proportions based on 1000 samples of size 50.", purl=FALSE}
+```{r samplingdistribution-virtual-1000, echo=FALSE, fig.cap="크기가 50인 1,000개 표본에 기초한 1,000개 비율의 분포.", purl=FALSE}
 virtual_prop_red <- virtual_samples %>%
   group_by(replicate) %>%
   summarize(red = sum(color == "red")) %>%
@@ -424,23 +432,23 @@ virtual_histogram <- ggplot(virtual_prop_red, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white")
 virtual_histogram +
   labs(
-    x = "Proportion of 50 balls that were red",
-    title = "Distribution of 1000 proportions red"
+    x = "50개 공 중 빨간색 공의 비율",
+    title = "1,000개 빨간색 비율의 분포"
   )
 ``` 
 
-Once again, the most frequently occurring proportions of red balls occur between 35% and 40%. Every now and then, we obtain proportions as low as between 20% and 25%, and others as high as between 55% and 60%. These are rare, however. Furthermore, observe that we now have a much more symmetric and smoother bell-shaped distribution. This distribution is, in fact, approximated well by a normal distribution. At this point we recommend you read the "Normal distribution" section (Appendix \@ref(appendix-normal-curve)) for a brief discussion on the properties of the normal distribution.
+다시 한번, 빨간색 공 비율이 가장 자주 나타나는 구간은 35%에서 40% 사이입니다. 가끔 20%에서 25% 사이만큼 낮은 비율을 얻기도 하고, 55%에서 60% 사이만큼 높은 비율을 얻기도 합니다. 하지만 이런 경우는 드뭅니다. 또한 이제 훨씬 더 대칭적이고 부드러운 종 모양의 분포를 가지게 되었음을 확인하세요. 사실 이 분포는 정규 분포(normal distribution)로 잘 근사화됩니다. 이 시점에서 정규 분포의 속성에 대한 간략한 논의를 담은 "정규 분포" 섹션(부록 \@ref(appendix-normal-curve))을 읽어보실 것을 권장합니다.
 
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why did we not take 1000 "tactile" samples of 50 balls by hand?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 왜 우리는 50개 공이 담긴 "촉각적" 표본 1,000개를 수동으로 추출하지 않았을까요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Looking at Figure \@ref(fig:samplingdistribution-virtual-1000), would you say that sampling 50 balls where 30% of them were red is likely or not? What about sampling 50 balls where 10% of them were red?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 그림 \@ref(fig:samplingdistribution-virtual-1000)을 보았을 때, 50개의 공을 추출했을 때 그중 30%가 빨간색일 가능성이 높다고 보시나요, 아니면 낮다고 보시나요? 10%가 빨간색일 경우는 어떤가요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -448,85 +456,80 @@ Once again, the most frequently occurring proportions of red balls occur between
 ```
 
 
-### Using different shovels {#different-shovels}
 
-Now say instead of just one shovel, you have three choices of shovels to extract a sample of balls with: shovels of size 25, 50, and 100.
+### 서로 다른 삽 사용하기 {#different-shovels}
 
-<!--
-A shovel with 25 slots          |  A shovel with 50 slots  | A shovel with 100 slots
-:-------------------------:|:-------------------------:|:-------------------------:
-![](images/sampling/balls/shovel_025.jpg){ width=1.6in }  |  ![](images/sampling/balls/shovel_050.jpg){ width=1.6in } | ![](images/sampling/balls/shovel_100.jpg){ width=1.6in } 
--->
+이제 삽이 하나가 아니라 25개, 50개, 100개의 공을 추출할 수 있는 세 가지 삽 중에서 선택할 수 있다고 가정해 봅시다.
 
-```{r three-shovels, echo=FALSE, fig.cap="Three shovels to extract three different sample sizes.", out.width='100%', purl=FALSE}
-include_graphics("images/sampling/balls/three_shovels.png")
+```{r three-shovels, echo=FALSE, fig.cap="세 가지 서로 다른 표본 크기를 추출하기 위한 세 개의 삽.", out.width='100%', purl=FALSE}
+knitr::include_graphics("images/sampling/balls/three_shovels.png")
 ```
 
-If your goal is still to estimate the proportion of the bowl's balls that are red, which shovel would you choose? In our experience, most people would choose the largest shovel with 100 slots because it would yield the "best" guess of the proportion of the bowl's balls that are red. Let's define some criteria for "best" in this subsection.
+여전히 여러분의 목표가 그릇의 공 중 빨간색 공의 비율을 추정하는 것이라면, 어떤 삽을 선택하시겠습니까? 우리의 경험상, 대부분의 사람은 100개의 구멍이 있는 가장 큰 삽을 선택할 것입니다. 왜냐하면 그것이 그릇의 빨간색 공 비율에 대해 "가장 좋은" 추측을 제공할 것이라고 생각하기 때문입니다. 이번 소섹션에서 "가장 좋은" 것에 대한 몇 가지 기준을 정의해 봅시다.
 
-Using our newly developed tools for virtual sampling, let's unpack the effect of having different sample sizes! In other words, let's use `rep_sample_n()` with `size` set to `25`, `50`, and `100`, respectively, while keeping the number of repeated/replicated samples at 1000:
+새롭게 개발된 가상 표본 추출 도구를 사용하여 표본 크기가 다른 것의 효과를 파헤쳐 봅시다! 다시 말해, 반복 횟수는 1,000으로 유지하면서 `rep_sample_n()`의 `size`를 각각 25, 50, 100으로 설정해 보는 것입니다.
 
-1. Virtually use the appropriate shovel to generate 1000 samples with `size` balls.
-1. Compute the resulting 1000 replicates of the proportion of the shovel's balls that are red.
-1. Visualize the distribution of these 1000 proportions red using a histogram.
+1. 적절한 삽을 가상으로 사용하여 `size`만큼의 공을 가진 표본 1,000개를 생성합니다.
+2. 각 삽에 담긴 빨간색 공 비율을 계산하여 1,000개의 복제본을 얻습니다.
+3. 히스토그램을 사용하여 이 1,000개 빨간색 비율의 분포를 시각화합니다.
 
-Run each of the following code segments individually and then compare the three resulting histograms.
+다음 코드 세그먼트를 각각 실행한 다음 결과로 나온 세 개의 히스토그램을 비교해 보세요.
 
 ```{r, eval=FALSE}
-# Segment 1: sample size = 25 ------------------------------
-# 1.a) Virtually use shovel 1000 times
+# 세그먼트 1: 표본 크기 = 25 ------------------------------
+# 1.a) 가상 삽 1,000번 사용
 virtual_samples_25 <- bowl %>% 
   rep_sample_n(size = 25, reps = 1000)
 
-# 1.b) Compute resulting 1000 replicates of proportion red
+# 1.b) 결과로 나온 1,000개 빨간색 비율 복제본 계산
 virtual_prop_red_25 <- virtual_samples_25 %>% 
   group_by(replicate) %>% 
   summarize(red = sum(color == "red")) %>% 
   mutate(prop_red = red / 25)
 
-# 1.c) Plot distribution via a histogram
+# 1.c) 히스토그램으로 분포 그리기
 ggplot(virtual_prop_red_25, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
-  labs(x = "Proportion of 25 balls that were red", title = "25") 
+  labs(x = "25개 공 중 빨간색 공의 비율", title = "25") 
 
 
-# Segment 2: sample size = 50 ------------------------------
-# 2.a) Virtually use shovel 1000 times
+# 세그먼트 2: 표본 크기 = 50 ------------------------------
+# 2.a) 가상 삽 1,000번 사용
 virtual_samples_50 <- bowl %>% 
   rep_sample_n(size = 50, reps = 1000)
 
-# 2.b) Compute resulting 1000 replicates of proportion red
+# 2.b) 결과로 나온 1,000개 빨간색 비율 복제본 계산
 virtual_prop_red_50 <- virtual_samples_50 %>% 
   group_by(replicate) %>% 
   summarize(red = sum(color == "red")) %>% 
   mutate(prop_red = red / 50)
 
-# 2.c) Plot distribution via a histogram
+# 2.c) 히스토그램으로 분포 그리기
 ggplot(virtual_prop_red_50, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
-  labs(x = "Proportion of 50 balls that were red", title = "50")  
+  labs(x = "50개 공 중 빨간색 공의 비율", title = "50")  
 
 
-# Segment 3: sample size = 100 ------------------------------
-# 3.a) Virtually using shovel with 100 slots 1000 times
+# 세그먼트 3: 표본 크기 = 100 ------------------------------
+# 3.a) 가상 삽 1,000번 사용
 virtual_samples_100 <- bowl %>% 
   rep_sample_n(size = 100, reps = 1000)
 
-# 3.b) Compute resulting 1000 replicates of proportion red
+# 3.b) 결과로 나온 1,000개 빨간색 비율 복제본 계산
 virtual_prop_red_100 <- virtual_samples_100 %>% 
   group_by(replicate) %>% 
   summarize(red = sum(color == "red")) %>% 
   mutate(prop_red = red / 100)
 
-# 3.c) Plot distribution via a histogram
+# 3.c) 히스토그램으로 분포 그리기
 ggplot(virtual_prop_red_100, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
-  labs(x = "Proportion of 100 balls that were red", title = "100") 
+  labs(x = "100개 공 중 빨간색 공의 비율", title = "100") 
 ```
 
-For easy comparison, we present the three resulting histograms in a single row with matching x and y axes in Figure \@ref(fig:comparing-sampling-distributions).
+쉬운 비교를 위해, 그림 \@ref(fig:comparing-sampling-distributions)에서 x축과 y축을 일치시킨 세 개의 히스토그램을 한 행에 제시합니다.
 
-```{r comparing-sampling-distributions, echo=FALSE, fig.height=3, fig.cap="Comparing the distributions of proportion red for different sample sizes.", purl=FALSE}
+```{r comparing-sampling-distributions, echo=FALSE, fig.height=3, fig.cap="서로 다른 표본 크기에 따른 빨간색 비율 분포 비교.", purl=FALSE}
 # n = 25
 if (!file.exists("rds/virtual_samples_25.rds")) {
   virtual_samples_25 <- bowl %>%
@@ -578,12 +581,12 @@ virtual_prop <- bind_rows(
 comparing_sampling_distributions <- ggplot(virtual_prop, aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
   labs(
-    x = "Proportion of shovel's balls that are red",
-    title = "Comparing distributions of proportions red for three different shovel sizes."
+    x = "삽에 담긴 공 중 빨간색 공의 비율",
+    title = "세 가지 서로 다른 삽 크기에 따른 빨간색 비율 분포 비교"
   ) +
   facet_wrap(~n)
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   comparing_sampling_distributions +
     theme(
       strip.text = element_text(colour = "black"),
@@ -594,9 +597,9 @@ if (is_latex_output()) {
 }
 ```
 
-Observe that as the sample size increases, the variation of the 1000 replicates of the proportion of red decreases. In other words, as the sample size increases, there are fewer differences due to sampling variation and the distribution centers more tightly around the same value. Eyeballing Figure \@ref(fig:comparing-sampling-distributions), all three histograms appear to center around roughly 40%.
+표본 크기가 커질수록 1,000개 빨간색 비율 복제본의 변동이 줄어드는 것을 확인하세요. 다시 말해, 표본 크기가 커질수록 표본 오차로 인한 차이가 적어지고 분포가 동일한 값 주위에 더 조밀하게 모입니다. 그림 \@ref(fig:comparing-sampling-distributions)를 눈대중으로 보면, 세 히스토그램 모두 대략 40% 주변에 중심이 있는 것처럼 보입니다.
 
-We can be numerically explicit about the amount of variation in our three sets of 1000 values of `prop_red` using the \index{standard deviation} *standard deviation*. A standard deviation is a summary statistic that measures the amount of variation within a numerical variable (see Appendix \@ref(appendix-stat-terms) for a brief discussion on the properties of the standard deviation). For all three sample sizes, let's compute the standard deviation of the 1000 proportions red by running the following data wrangling code that uses the `sd()` summary function.
+우리는 *표준 편차(standard deviation)* \index{standard deviation}를 사용하여 세 가지 1,000개의 `prop_red` 값 세트의 변동량을 수치적으로 명확하게 나타낼 수 있습니다. 표준 편차는 수치형 변수 내의 변동량을 측정하는 요약 통계량입니다(표준 편차의 속성에 대한 간략한 논의는 부록 \@ref(appendix-stat-terms)를 참조하세요). 세 가지 표본 크기 모두에 대해, `sd()` 요약 함수를 사용하는 다음 데이터 전처리 코드를 실행하여 1,000개 빨간색 비율의 표준 편차를 계산해 봅시다.
 
 ```{r, eval=FALSE}
 # n = 25
@@ -612,46 +615,46 @@ virtual_prop_red_100 %>%
   summarize(sd = sd(prop_red))
 ```
 
-Let's compare these three measures of distributional variation in Table \@ref(tab:comparing-n).
+이 세 가지 분포 변동 측정치를 표 \@ref(tab:comparing-n)에서 비교해 봅시다.
 
 ```{r comparing-n, echo=FALSE, purl=FALSE}
 comparing_n_table <- virtual_prop %>%
   group_by(n) %>%
   summarize(sd = sd(prop_red)) %>%
-  rename(`Number of slots in shovel` = n, `Standard deviation of proportions red` = sd)
+  rename(`삽의 구멍 개수` = n, `빨간색 비율의 표준 편차` = sd)
 
 comparing_n_table %>%
   kbl(
     digits = 3,
-    caption = "Comparing standard deviations of proportions red for three different shovels",
+    caption = "세 가지 서로 다른 삽에 대한 빨간색 비율의 표준 편차 비교",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-As we observed in Figure \@ref(fig:comparing-sampling-distributions), as the sample size increases, the variation decreases. In other words, there is less variation in the 1000 values of the proportion red. So as the sample size increases, our guesses at the true proportion of the bowl's balls that are red get more precise. 
+그림 \@ref(fig:comparing-sampling-distributions)에서 관찰한 바와 같이, 표본 크기가 커질수록 변동은 줄어듭니다. 즉, 1,000개의 빨간색 비율 값들의 변동이 적어집니다. 따라서 표본 크기가 커질수록 그릇의 실제 빨간색 비율에 대한 우리의 추측이 더 정밀해집니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** In Figure \@ref(fig:comparing-sampling-distributions), we used shovels to take 1000 samples each, computed the resulting 1000 proportions of the shovel's balls that were red, and then visualized the distribution of these 1000 proportions in a histogram. We did this for shovels with 25, 50, and 100 slots in them. As the size of the shovels increased, the histograms got narrower. In other words, as the size of the shovels increased from 25 to 50 to 100, did the 1000 proportions
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 그림 \@ref(fig:comparing-sampling-distributions)에서 우리는 각각 1,000개의 표본을 추출하기 위해 삽을 사용했고, 결과로 나온 1,000개의 빨간색 비율을 계산했으며, 히스토그램으로 이 분포를 시각화했습니다. 구멍이 25개, 50개, 100개인 삽에 대해 이 작업을 수행했습니다. 삽의 크기가 커질수록 히스토그램은 더 좁아졌습니다. 다시 말해, 삽의 크기가 25에서 50, 100으로 커짐에 따라 1,000개의 비율은
 
-- A. vary less,
-- B. vary by the same amount, or
-- C. vary more?
+- A. 덜 변했나요?
+- B. 동일한 양만큼 변했나요?
+- C. 더 많이 변했나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What summary statistic did we use to quantify how much the 1000 proportions red varied?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 1,000개의 빨간색 비율이 얼마나 변했는지 수량화하기 위해 어떤 요약 통계량을 사용했나요?
 
-- A. The interquartile range
-- B. The standard deviation
-- C. The range: the largest value minus the smallest.
+- A. 사분위수 범위 (Interquartile range)
+- B. 표준 편차 (Standard deviation)
+- C. 범위 (Range): 최댓값에서 최솟값을 뺀 값
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -661,60 +664,61 @@ As we observed in Figure \@ref(fig:comparing-sampling-distributions), as the sam
 
 
 
-## Sampling framework {#sampling-framework}
 
-In both our tactile and our virtual sampling activities, we used sampling for the purpose of estimation. We extracted samples in order to *estimate* the proportion of the bowl's balls that are red. We used sampling as a less time-consuming approach than performing an exhaustive count of all the balls. Our virtual sampling activity built up to the results shown in Figure \@ref(fig:comparing-sampling-distributions) and Table \@ref(tab:comparing-n): comparing 1000 proportions red based on samples of size 25, 50, and 100. This was our first attempt at understanding two key concepts relating to sampling for estimation:
+## 표본 추출 프레임워크 {#sampling-framework}
 
-1. The effect of *sampling variation* on our estimates.
-1. The effect of sample size on *sampling variation*.
+촉각적 및 가상 표본 추출 활동 모두에서 우리는 추정을 목적으로 표본 추출을 사용했습니다. 그릇의 공 중 빨간색 공의 비율을 *추정*하기 위해 표본을 추출했습니다. 우리는 모든 공을 전수 조사하는 것보다 시간이 덜 걸리는 방법으로 표본 추출을 사용했습니다. 우리의 가상 표본 추출 활동은 그림 \@ref(fig:comparing-sampling-distributions)와 표 \@ref(tab:comparing-n)에 나타난 결과로 이어졌습니다. 즉, 크기가 25, 50, 100인 표본에 기초한 1,000개의 빨간색 비율을 비교한 것입니다. 이는 추정을 위한 표본 추출과 관련된 두 가지 핵심 개념을 이해하려는 우리의 첫 번째 시도였습니다.
 
-Now that you have built some intuition relating to sampling, let's now attach words and labels to the various concepts we've explored so far. Specifically in the next section, we'll introduce terminology and notation as well as statistical definitions related to sampling. This will allow us to succinctly summarize and refer to the ideas behind sampling for the rest of this book. 
+1. 추정치에 대한 *표본 오차*의 효과.
+2. *표본 오차*에 대한 표본 크기의 효과.
+
+이제 표본 추출에 대한 어느 정도 직관이 생겼으므로, 지금까지 탐구한 다양한 개념에 단어와 라벨을 붙여 봅시다. 구체적으로 다음 섹션에서는 표본 추출과 관련된 용어와 표기법 및 통계적 정의를 소개하겠습니다. 이를 통해 이 책의 나머지 부분에서 표본 추출의 이면에 깔린 아이디어를 간결하게 요약하고 언급할 수 있게 될 것입니다.
 
 
-### Terminology and notation {#terminology-and-notation}
+### 용어와 표기법 {#terminology-and-notation}
 
-Let's now attach words and labels to the various sampling concepts we've seen so far by introducing some terminology and mathematical notation. While they may seem daunting at first, we'll make sure to tie each of them to sampling bowl activities you performed earlier. Furthermore, throughout this book we'll give you plenty of opportunity for practice, as the best method for mastering these terms is repetition. 
+이제 몇 가지 용어와 수학적 표기법을 도입하여 지금까지 살펴본 다양한 표본 추출 개념에 단어와 라벨을 붙여 봅시다. 처음에는 벅차게 느껴질 수 있겠지만, 각 용어를 앞서 수행한 그릇 표본 추출 활동과 연결 지어 설명하겠습니다. 또한 마스터하는 가장 좋은 방법은 반복이므로, 이 책 전반에 걸쳐 충분히 연습할 기회를 제공할 것입니다.
 
-The first set of terms and notation relate to **populations**:
+첫 번째 용어 및 표기법 세트는 **모집단(populations)**과 관련이 있습니다.
 
-1. A **population** is a collection of individuals or observations we are interested in. This is also commonly denoted as a **study population**. We mathematically denote the population's size using upper-case $N$.  
-1. A **population parameter** is some numerical summary about the population that is unknown but you wish you knew. For example, when this quantity is a mean like the average height of all Canadians, the population parameter of interest is the *population mean*.
-1. A **census** is an exhaustive enumeration or counting of all $N$ individuals in the population. We do this in order to compute the population parameter's value *exactly*. Of note is that as the number $N$ of individuals in our population increases, conducting a census gets more expensive (in terms of time, energy, and money). 
+1. **모집단(population)**은 우리가 관심을 갖는 개인 또는 관측치의 집합입니다. 이는 흔히 **연구 대상 모집단(study population)**이라고도 합니다. 수학적으로 모집단의 크기는 대문자 $N$으로 나타냅니다.
+2. **모수(population parameter)**는 모집단에 관한 수치적 요약으로, 현재 알지 못하지만 알고자 하는 값입니다. 예를 들어, 이 양이 모든 캐나다인의 평균 키와 같은 평균일 때, 관심 있는 모수는 *모평균(population mean)*입니다.
+3. **전수 조사(census)**는 모집단에 속한 $N$개의 모든 개체를 빠짐없이 조사하거나 세는 것입니다. 모수 값을 *정확하게* 계산하기 위해 이 작업을 수행합니다. 모집단의 개체 수 $N$이 증가함에 따라 전수 조사를 수행하는 데 드는 비용(시간, 에너지, 돈)이 늘어난다는 점에 유의해야 합니다.
 
-So in our sampling activities, the **population** is the collection of $N$ = `r num_balls` identically sized red and white balls in the bowl shown in Figure \@ref(fig:sampling-exercise-1). Recall that we also represented the bowl "virtually" in the data frame `bowl`:
+따라서 우리의 표본 추출 활동에서 **모집단**은 그림 \@ref(fig:sampling-exercise-1)에 보이는 그릇에 담긴 $N$ = `r num_balls`개의 동일한 크기의 빨간색 및 하얀색 공의 집합입니다. 우리는 또한 가상 그릇인 데이터 프레임 `bowl`로 모집단을 표현했음을 떠올려 보세요.
 
 ```{r}
 bowl
 ```
 
-The **population parameter** here is the proportion of the bowl's balls that are red. Whenever we're interested in a proportion of some value in a population, the population parameter has a specific name: the *population proportion*. We denote population proportions with the letter $p$. We'll see later on in Table \@ref(tab:table-ch8) that we can also consider other types of population parameters, like population means and population regression slopes.
+여기서 **모수**는 그릇의 공 중 빨간색 공의 비율입니다. 모집단의 어떤 값의 비율에 관심이 있을 때, 그 모수를 부르는 구체적인 이름이 있는데 바로 *모비율(population proportion)*입니다. 모비율은 글자 $p$로 나타냅니다. 나중에 표 \@ref(tab:table-ch8)에서 보겠지만 모평균이나 모집단 회귀 기울기와 같은 다른 유형의 모수도 고려할 수 있습니다.
 
-In order to compute this population proportion $p$ exactly, we need to first conduct a **census** by going through all $N$ = `r num_balls` and counting the number that are red. We then divide this count by `r num_balls` to obtain the proportion red.
+이 모비율 $p$를 정확하게 계산하려면, 먼저 $N$ = `r num_balls`개의 모든 공을 하나씩 살펴보고 빨간색 공의 수를 세는 **전수 조사**를 수행해야 합니다. 그런 다음 이 개수를 `r num_balls`로 나누어 빨간색 비율을 얻습니다.
 
-You might be now asking yourself: "Wait. I understand that performing a census on the actual bowl would take a long time. But can't we conduct a 'virtual' census using the virtual bowl?" You are absolutely correct! In fact when the authors of this book created the `bowl` data frame, they made its contents match the contents of actual bowl not by doing a census, but by reading the contents written on the box the bowl came in! 
+여러분은 아마 지금쯤 "잠깐만요. 실제 그릇을 전수 조사하는 데 시간이 오래 걸린다는 것은 이해하지만, 가상 그릇을 사용하여 '가상' 전수 조사를 할 수는 없나요?"라고 묻고 싶을 것입니다. 여러분이 백번 옳습니다! 사실 이 책의 저자들이 `bowl` 데이터 프레임을 만들었을 때, 전수 조사를 해서가 아니라 그릇이 들어 있던 상자에 적힌 내용을 보고 실제 그릇의 내용물과 일치하게 만들었습니다!
 
-Let's conduct this "virtual" census by using the same `dplyr` verbs you used earlier to count the number of balls that are red:
+앞서 빨간색 공의 수를 세기 위해 사용했던 것과 동일한 `dplyr` 동사를 사용하여 이 "가상" 전수 조사를 수행해 봅시다.
 
 ```{r}
 bowl %>% 
   summarize(red = sum(color == "red")) 
 ```
 
-Since `r num_red` of the `r num_balls` are red, the proportion is `r num_red`/`r num_balls` = `r prop_red` = `r percent_red_chr`. So we know the value of the population parameter: in our case, the population proportion $p$ is equal to `r prop_red`.
+`r num_balls`개 중 `r num_red`개가 빨간색이므로, 비율은 `r num_red`/`r num_balls` = `r prop_red` = `r percent_red_chr`입니다. 따라서 우리는 모수 값을 알고 있습니다. 우리의 경우 모비율 $p$는 `r prop_red`와 같습니다.
 
-At this point, you might be further asking yourself: "If we had a way of knowing that the proportion of the balls that are red is `r percent_red_chr`, then why did we do any sampling?" Great question! Normally, you wouldn't do any sampling! However, the sampling activities we did this chapter are merely simulations of how sampling is done in real-life! We perform these simulations in order to study:
+이 시점에서 여러분은 또 이런 질문을 할 수도 있습니다. "빨간색 공의 비율이 `r percent_red_chr`라는 것을 이미 알고 있다면, 왜 표본 추출을 한 건가요?" 좋은 질문입니다! 보통은 표본 추출을 하지 않겠죠! 하지만 이번 장에서 수행한 표본 추출 활동은 현실 세계에서 표본 추출이 어떻게 이루어지는지를 보여주는 시뮬레이션일 뿐입니다! 우리는 다음을 공부하기 위해 이 시뮬레이션을 수행합니다.
 
-1. The effect of *sampling variation* on our estimates.
-1. The effect of sample size on *sampling variation*.
+1. 추정치에 대한 *표본 오차*의 효과.
+2. *표본 오차*에 대한 표본 크기의 효과.
 
-As we'll see in Section \@ref(sampling-case-study) on polls, in real-life sampling not only will the population size $N$ be very large making a census expensive, but sometimes we won't even know how big the population is! For now however, we press on with our next set of terms and notation.
+여론 조사에 관한 섹션 \@ref(sampling-case-study)에서 보겠지만, 실제 표본 추출에서는 모집단 크기 $N$이 매우 커서 전수 조사 비용이 많이 들 뿐만 아니라 가끔은 모집단의 크기가 얼마나 큰지조차 모르는 경우도 있습니다! 이제 다음 용어 및 표기법 세트로 넘어가 봅시다.
 
-The second set of terms and notation relate to **samples**:
+두 번째 용어 및 표기법 세트는 **표본(samples)**과 관련이 있습니다.
 
-1. **Sampling** is the act of collecting a sample from the population, which we generally only do when we can't perform a census. We mathematically denote the sample size using lower case $n$, as opposed to upper case $N$ which denotes the population's size. Typically the sample size $n$ is much smaller than the population size $N$.  Thus sampling is a much cheaper alternative than performing a census. 
-1. A **point estimate**, also known as a **sample statistic**, is a summary statistic computed from a sample that *estimates* the unknown population parameter.
+1. **표본 추출(sampling)**은 모집단에서 표본을 수집하는 행위로, 일반적으로 전수 조사를 수행할 수 없을 때 수행합니다. 모집단의 크기를 나타내는 대문자 $N$과 달리 표본의 크기는 소문자 $n$으로 나타냅니다. 일반적으로 표본 크기 $n$은 모집단 크자 $N$보다 훨씬 작습니다. 따라서 표본 추출은 전수 조사를 수행하는 것보다 훨씬 저렴한 대안입니다.
+2. **점 추정치(point estimate)**는 **표본 통계량(sample statistic)**이라고도 하며, 알지 못하는 모수를 *추정*하기 위해 표본으로부터 계산된 요약 통계량입니다.
 
-So previously we conducted **sampling** using a shovel with 50 slots to extract samples of size $n$ = 50. To perform the virtual analog of this sampling, recall that we used the `rep_sample_n()` function as follows:
+이전에 우리는 $n$ = 50 크기의 표본을 추출하기 위해 구멍이 50개인 삽을 사용하여 **표본 추출**을 수행했습니다. 이 표본 추출의 가상 버전을 수행하기 위해 `rep_sample_n()` 함수를 다음과 같이 사용했음을 떠올려 보세요.
 
 ```{r, eval = FALSE}
 virtual_shovel <- bowl %>% 
@@ -725,8 +729,7 @@ virtual_shovel
 virtual_shovel
 ```
 
-Using the sample of 50 balls contained in `virtual_shovel`, we generated an estimate of the proportion of the bowl's balls that are red `prop_red`.
-
+`virtual_shovel`에 담긴 50개 공의 표본을 사용하여, 그릇의 빨간색 공 비율에 대한 추정치인 `prop_red`를 생성했습니다.
 
 ```{r}
 virtual_shovel %>% 
@@ -734,58 +737,58 @@ virtual_shovel %>%
   mutate(prop_red = num_red / 50)
 ```
 
-So in our case, the value of `prop_red` is the **point estimate** of the population proportion $p$ since it estimates the latter's value. Furthermore, this point estimate has a specific name when considering proportions: the *sample proportion*. It is denoted using $\widehat{p}$ because it is a common convention in statistics to use a "hat" symbol to denote point estimates.
+따라서 우리의 경우 `prop_red` 값은 모비율 $p$를 추정하므로 모비율의 **점 추정치**가 됩니다. 또한 이 점 추정치는 비율을 고려할 때 구체적인 이름이 있는데, 바로 *표본 비율(sample proportion)*입니다. 통계학에서 점 추정치를 나타낼 때 "모자(hat)" 기호를 사용하는 것이 일반적인 관습이므로 $\widehat{p}$로 나타냅니다.
 
-The third set of terms relate to **sampling methodology**: the method used to collect samples.\index{sampling methodology} You'll see here and throughout the rest of your book that the *way* you collect samples directly influences their quality.
+세 번째 세트는 **표본 추출 방법론(sampling methodology)**과 관련이 있습니다. 즉, 표본을 수집하는 데 사용되는 방법입니다.\index{sampling methodology} 여기서 그리고 이 책의 나머지 부분에서 여러분은 표본을 수집하는 *방식*이 표본의 품질에 직접적인 영향을 미친다는 것을 알게 될 것입니다.
 
-1. A sample is said to be **representative** if it roughly "looks like" the population. In other words, if the sample's characteristics are a "good" representation of the population's characteristics.
-1. We say a sample is **generalizable** if any results based on the sample can generalize to the population. In other words, if we can make "good" guesses about the population using the sample.
-1. We say a sampling procedure is **biased** if certain individuals in a population have a higher chance of being included in a sample than others. We say a sampling procedure is **unbiased** if every individual in a population has an equal chance of being sampled. 
+1. 표본이 모집단과 대략 "비슷해 보인다면" 그 표본은 **대표성(representative)**이 있다고 말합니다. 다시 말해, 표본의 특성이 모집단의 특성을 "좋게" 나타내는 경우입니다.
+2. 표본에 근거한 어떤 결과가 모집단으로 일반화될 수 있다면 그 표본을 **일반화 가능(generalizable)**하다고 말합니다. 즉, 표본을 사용하여 모집단에 대해 "좋은" 추측을 할 수 있는 경우입니다.
+3. 모집단의 일부 개체가 다른 개체보다 표본에 포함될 가능성이 더 높다면 그 표본 추출 과정은 **편향(biased)**되었다고 말합니다. 모집단의 모든 개체가 추출될 기회가 같다면 그 표본 추출 과정은 **편향되지 않았다(unbiased)**고 말합니다.
 
-We say a sample of $n$ balls extracted using our shovel is **representative** of the population if it's contents "roughly resemble" the contents of the bowl. If so, then the proportion of the shovel's balls that are red can **generalize** to the proportion of the bowl's $N$ = `r num_balls` balls that are red. Or expressed differently, $\widehat{p}$ is a "good guess" of $p$. Now say we cheated when using the shovel and removed a number of white balls in favor of red balls. Then this sample would be **biased** towards red balls, and thus the sample would no longer be representative of the bowl.
+우리 삽을 사용하여 추출한 $n$개의 공 표본의 내용이 "그릇의 내용물과 대략 비슷하다면" 그 표본은 모집단을 **대표한다**고 말합니다. 그렇다면 삽에 담긴 공 중 빨간색 공의 비율은 그릇의 $N$ = `r num_balls`개 공 중 빨간색 공의 비율로 **일반화**될 수 있습니다. 또는 다르게 표현하면 $\widehat{p}$는 $p$의 "좋은 추측치"입니다. 만약 우리가 삽을 사용할 때 속임수를 써서 하얀색 공 대신 빨간색 공을 더 많이 넣었다면, 이 표본은 빨간색 공 쪽으로 **편향**된 것이며 따라서 표본은 더 이상 그릇을 대표하지 않게 됩니다.
 
-The fourth and final set of terms and notation relate to the goal of sampling:
+네 번째이자 마지막 용어 및 표기법 세트는 표본 추출의 목표와 관련이 있습니다.
 
-1. One way to ensure that a sample is unbiased and representative of the population is by using **random sampling**.
-1. **Inference** is the act of "making a guess" about some unknown. **Statistical inference** is the act of making a guess about a population using a sample.
+1. 표본이 편향되지 않고 모집단을 대표하도록 보장하는 한 가지 방법은 **무작위 표본 추출(random sampling)**을 사용하는 것입니다.
+2. **추론(inference)**은 알지 못하는 어떤 것에 대해 "추측을 하는" 행위입니다. **통계적 추론(statistical inference)**은 표본을 사용하여 모집단에 대해 추측을 하는 행위입니다.
 
-In our case, since the `rep_sample_n()` function uses your computer's [random number generator](https://en.wikipedia.org/wiki/Random_number_generation), we were in fact performing **random sampling**.
+우리의 경우 `rep_sample_n()` 함수가 컴퓨터의 [난수 생성기](https://en.wikipedia.org/wiki/Random_number_generation)를 사용하므로, 우리는 사실 **무작위 표본 추출**을 수행하고 있었던 것입니다.
 
-Let's now put all four sets of terms and notation together, keeping our sampling activities in mind:
+이제 우리의 표본 추출 활동을 염두에 두면서 네 가지 용어 및 표기법 세트를 모두 하나로 묶어 봅시다.
 
-* Since we extracted a sample of $n$ = 50 balls at *random*, we mixed all of the equally sized balls before using the shovel, then
-* the contents of the shovel are *unbiased* and *representative* of the contents of the bowl, thus
-* any result based on the shovel can *generalize* to the bowl, thus
-* the sample proportion $\widehat{p}$ of the $n$ = 50 balls in the shovel that are red is a "good guess" of the population proportion $p$ of the bowl's $N$ = `r num_balls` balls that are red, thus
-* instead of conducting a *census* of the `r num_balls` balls in the bowl, we can **infer** about the bowl using the sample from the shovel.
+* 우리는 무작위로 $n$ = 50개의 공 표본을 추출했고, 삽을 사용하기 전에 동일한 크기의 모든 공을 섞었으므로,
+* 삽의 내용물은 *편향되지 않았고* 그릇의 내용물을 *대표*하며, 따라서
+* 삽에 근거한 어떠한 결과도 그릇으로 *일반화*될 수 있고, 따라서
+* 삽에 담긴 $n$ = 50개 공 중 빨간색 공의 표본 비율 $\widehat{p}$는 그릇의 $N$ = `r num_balls`개 공 중 빨간색 공의 모비율 $p$에 대한 "좋은 추측치"이며, 따라서
+* 그릇에 담긴 `r num_balls`개의 공에 대해 전수 조사를 하는 대신, 삽에서 얻은 표본을 사용하여 그릇에 대해 **추론**할 수 있습니다.
 
-What you have been performing is **statistical inference**. This is one of the most important concepts in all of statistics. So much so, we included this term in the title of our book: "Statistical Inference via Data Science". More generally speaking, 
+여러분이 수행해 온 것이 바로 **통계적 추론**입니다. 이것은 통계학 전체에서 가장 중요한 개념 중 하나입니다. 워낙 중요해서 우리 책의 제목에도 이 용어를 포함했습니다. "데이터 과학을 통한 통계적 추론(Statistical Inference via Data Science)". 더 일반적으로 말하자면 다음과 같습니다.
 
-* If the sampling of a sample of size $n$ is done at *random*, then
-* the sample is *unbiased* and *representative* of the population of size $N$, thus
-* any result based on the sample can *generalize* to the population, thus
-* the point estimate is a "good guess" of the unknown population parameter, thus
-* instead of performing a census, we can *infer* about the population using sampling.
+* 만약 크기 $n$인 표본을 *무작위*로 추출한다면,
+* 표본은 편향되지 않았고 크기 $N$인 모집단을 *대표*하며, 따라서
+* 표본에 근거한 어떠한 결과도 모집단으로 *일반화*될 수 있고, 따라서
+* 점 추정치는 알지 못하는 모수에 대한 "좋은 추측치"이며, 따라서
+* 전수 조사를 하는 대신, 표본 추출을 사용하여 모집단에 대해 *추론*할 수 있습니다.
 
-In the upcoming Chapter \@ref(confidence-intervals) on confidence intervals, we'll introduce the `infer` package, which makes statistical inference "tidy" and transparent. It is why this third portion of the book is called "Statistical inference via infer."
+다가올 8장 신뢰 구간에서는 통계적 추론을 "깔끔하고(tidy)" 투명하게 만들어 주는 `infer` 패키지를 소개하겠습니다. 이것이 책의 세 번째 부분의 제목이 "`infer`를 통한 통계적 추론"인 이유입니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** In the case of our bowl activity, what is the *population parameter*? Do we know its value?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 우리 그릇 활동의 경우, *모수*는 무엇인가요? 우리는 그 값을 알고 있나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What would performing a census in our bowl activity correspond to? Why did we not perform a census?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 우리 그릇 활동에서 전수 조사를 수행한다는 것은 무엇에 해당할까요? 왜 전수 조사를 수행하지 않았나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What purpose do *point estimates* serve in general? What is the name of the point estimate specific to our bowl activity? What is its mathematical notation?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 일반적으로 *점 추정치*는 어떤 역할을 하나요? 우리 그릇 활동에 특정한 점 추정치의 이름은 무엇인가요? 수학적 표기법은 무엇인가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** How did we ensure that our tactile samples using the shovel were random?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 삽을 이용한 촉각적 표본이 무작위임을 어떻게 보장했나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why is it important that sampling be done *at random*?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 표본 추출이 *무작위*로 수행되는 것이 왜 중요한가요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What are we *inferring* about the bowl based on the samples using the shovel?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 삽을 이용한 표본에 기초하여 그릇에 대해 무엇을 *추론*하고 있나요?
 
 
 ```{block, type="learncheck", purl=FALSE}
@@ -796,46 +799,46 @@ In the upcoming Chapter \@ref(confidence-intervals) on confidence intervals, we'
 
 ### Statistical definitions {#sampling-definitions}
 
-To further attach words and labels to the various sampling concepts we've seen so far, we also introduce some important statistical definitions related to sampling. As a refresher of our 1000 repeated/replicated virtual samples of size $n$ = 25, $n$ = 50, and $n$ = 100 in Section \@ref(sampling-simulation), let's display Figure \@ref(fig:comparing-sampling-distributions) again as Figure \@ref(fig:comparing-sampling-distributions-1b).  
+지금까지 살펴본 다양한 표본 추출 개념에 단어와 라벨을 더 붙이기 위해, 표본 추출과 관련된 몇 가지 중요한 통계적 정의를 소개하겠습니다. 섹션 \@ref(sampling-simulation)에서 수행한 표본 크기가 $n$ = 25, $n$ = 50, $n$ = 100인 1,000번의 반복/복제된 가상 표본 추출을 상기해 보면서, 그림 \@ref(fig:comparing-sampling-distributions)를 그림 \@ref(fig:comparing-sampling-distributions-1b)로 다시 제시해 보겠습니다.
 
-```{r comparing-sampling-distributions-1b, fig.cap="Previously seen three distributions of the sample proportion $\\widehat{p}$.", fig.height=3.1, echo=FALSE, purl=FALSE}
+```{r comparing-sampling-distributions-1b, fig.cap="앞서 보았던 표본 비율 $\\widehat{p}$의 세 가지 분포.", fig.height=3.1, echo=FALSE, purl=FALSE}
 comparing_sampling_distributions
 ```
 
-These types of distributions have a special name: **sampling distributions of point estimates**. \index{sampling distributions} Their visualization displays the effect of sampling variation on the distribution of any point estimate, in this case, the sample proportion $\widehat{p}$. Using these sampling distributions, for a given sample size $n$, we can make statements about what values we can typically expect. Unfortunately, the term *sampling distribution* is often confused with a *sample's distribution* which is merely the distribution of the values in a single sample. 
+이러한 유형의 분포에는 특별한 이름이 있는데, 바로 **점 추정치의 표본 분포(sampling distributions of point estimates)** \index{sampling distributions}입니다. 이 시각화는 모든 점 추정치의 분포에 미치는 표본 오차의 효과를 보여줍니다. 이 경우에는 표본 비율 $\widehat{p}$가 해당됩니다. 이러한 표본 분포를 사용하면, 주어진 표본 크기 $n$에 대해 어떤 값을 일반적으로 기대할 수 있는지에 대해 진술할 수 있습니다. 불행히도 *표본 분포(sampling distribution)*라는 용어는 단순히 단일 표본에 있는 값들의 분포인 *표본의 분포(sample's distribution)*와 혼동되는 경우가 많습니다.
 
 <!--
-TODO: Insert table distinguishing "sampling distribution of point estimates" vs "a sample's distribution"
+TODO: "점 추정치의 표본 분포"와 "표본의 분포"를 구분하는 테이블 삽입
 -->
 
-For example, observe the centers of all three sampling distributions: they are all roughly centered around 0.4 = 40%. Furthermore, observe that while we are somewhat likely to observe sample proportions of red balls of 0.2 = 20% when using the shovel with 25 slots, we will almost never observe a proportion of 20% when using the shovel with 100 slots. Observe also the effect of sample size on the sampling variation. As the sample size $n$ increases from 25 to 50 to 100, \index{sampling distributions!relationship to sample size} the variation of the sampling distribution decreases and thus the values cluster more and more tightly around the same center of around 40%. We quantified this variation using the standard deviation of our sample proportions in Table \@ref(tab:comparing-n), which we display again as Table \@ref(tab:comparing-n-repeat):
+예를 들어, 세 가지 표본 분포의 중심을 보세요. 모두 대략 0.4 = 40% 주변에 모여 있습니다. 또한 25개의 구멍이 있는 삽을 사용할 때는 빨간색 공의 표본 비율이 0.2 = 20%로 관찰될 가능성이 어느 정도 있지만, 100개의 구멍이 있는 삽을 사용할 때는 20%라는 비율이 거의 관찰되지 않을 것임을 확인하세요. 또한 표본 크기가 표본 분포에 미치는 효과를 확인하세요. 표본 크기 $n$이 25에서 50, 100으로 커짐에 따라, \index{sampling distributions!relationship to sample size} 표본 분포의 변동은 줄어들고 따라서 값들이 40% 주변의 동일한 중심에 점점 더 빽빽하게 모이게 됩니다. 우리는 이 변동을 표 \@ref(tab:comparing-n)에서 표본 비율의 표준 편차를 사용하여 정량화했으며, 이를 표 \@ref(tab:comparing-n-repeat)로 다시 제시합니다.
 
 ```{r comparing-n-repeat, echo=FALSE, purl=FALSE}
 comparing_n_table <- virtual_prop %>%
   group_by(n) %>%
   summarize(sd = sd(prop_red)) %>%
-  rename(`Number of slots in shovel` = n, `Standard deviation of proportions red` = sd)
+  rename(`삽의 구멍 개수` = n, `빨간색 비율의 표준 편차` = sd)
 
 comparing_n_table %>%
   kbl(
     digits = 3,
-    caption = "Previously seen comparing standard deviations of proportions red for three different shovels",
+    caption = "앞서 보았던 세 가지 서로 다른 삽에 대한 빨간색 비율의 표준 편차 비교",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-So as the sample size increases, the standard deviation of the proportion of red balls decreases. This type of standard deviation has another special name: \index{standard error} **standard error of a point estimate**. Standard errors quantify the effect of sampling variation induced on our estimates. In other words, they quantify how much we can expect different proportions of a shovel's balls that are red *to vary* from one sample to another sample to another sample, and so on. As a general rule, as sample size increases, the standard error decreases.
+따라서 표본 크기가 커질수록 빨간색 공 비율의 표준 편차는 작아집니다. 이러한 유형의 표준 편차에는 또 다른 특별한 이름이 있는데, 바로 **점 추정치의 표준 오차(standard error of a point estimate)** \index{standard error}입니다. 표준 오차는 우리의 추정치에 유도된 표본 오차의 효과를 정량화합니다. 다시 말해, 삽에 담긴 공 중 빨간색 공의 서로 다른 비율이 한 표본에서 다른 표본으로, 또 다른 표본으로 넘어갈 때 얼마나 *변할* 것으로 예상되는지를 정량화합니다. 일반적인 규칙으로, 표본 크기가 커지면 표준 오차는 작아집니다.
 
-Similarly to confusion between *sampling distributions* with *a sample's distribution*, people often confuse the *standard error* with the *standard deviation*. This is especially the case since a standard error is itself a kind of standard deviation. The best advice we can give is that a standard error is merely a *kind* of standard deviation: the standard deviation of any point estimate from sampling. In other words, all standard errors are standard deviations, but not every standard deviation is necessarily a standard error. 
+*표본 분포*와 *표본의 분포* 사이의 혼동과 마찬가지로, 사람들은 종종 *표준 오차*를 *표준 편차*와 혼동합니다. 특히 표준 오차 자체가 일종의 표준 편차이기 때문에 더욱 그렇습니다. 우리가 드릴 수 있는 최선의 조언은 표준 오차가 단지 표준 편차의 한 *종류*일 뿐이라는 것입니다. 즉, 표본 추출에서 얻은 점 추정치의 표준 편차입니다. 다시 말해, 모든 표준 오차는 표준 편차이지만, 모든 표준 편차가 반드시 표준 오차인 것은 아닙니다.
 
-To help reinforce these concepts, let's re-display Figure \@ref(fig:comparing-sampling-distributions) but using our new terminology, notation, and definitions relating to sampling in Figure \@ref(fig:comparing-sampling-distributions-2). 
+이러한 개념을 강화하기 위해, 그림 \@ref(fig:comparing-sampling-distributions)를 표본 추출과 관련된 새로운 용어, 표기법 및 정의를 사용하여 그림 \@ref(fig:comparing-sampling-distributions-2)에 다시 그려 보겠습니다.
 
-```{r comparing-sampling-distributions-2, echo=FALSE, fig.cap="Three sampling distributions of the sample proportion $\\widehat{p}$.", purl=FALSE}
+```{r comparing-sampling-distributions-2, echo=FALSE, fig.cap="표본 비율 $\\widehat{p}$의 세 가지 표본 분포.", purl=FALSE}
 p_hat_compare <- virtual_prop %>%
   mutate(
     n = str_c("n = ", n),
@@ -844,12 +847,12 @@ p_hat_compare <- virtual_prop %>%
   ggplot(aes(x = prop_red)) +
   geom_histogram(binwidth = 0.05, boundary = 0.4, color = "white") +
   labs(
-    x = expression(paste("Sample proportion ", hat(p))),
-    title = expression(paste("Sampling distributions of ", hat(p), " based on n = 25, 50, 100."))
+    x = expression(paste("표본 비율 ", hat(p))),
+    title = expression(paste("n = 25, 50, 100에 기초한 ", hat(p), "의 표본 분포."))
   ) +
   facet_wrap(~n)
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   p_hat_compare +
     theme(
       strip.text = element_text(colour = "black"),
@@ -860,7 +863,7 @@ if (is_latex_output()) {
 }
 ```
 
-Furthermore, let's re-display Table \@ref(tab:comparing-n) but using our new terminology, notation, and definitions relating to sampling in Table \@ref(tab:comparing-n-2).
+또한 표 \@ref(tab:comparing-n)을 표본 추출과 관련된 새로운 용어, 표기법 및 정의를 사용하여 표 \@ref(tab:comparing-n-2)에 다시 제시해 보겠습니다.
 
 ```{r comparing-n-2, echo=FALSE, purl=FALSE}
 comparing_n_table <- virtual_prop %>%
@@ -870,33 +873,33 @@ comparing_n_table <- virtual_prop %>%
     n = str_c("n = ", n),
     n = factor(n, levels = c("n = 25", "n = 50", "n = 100"))
   ) %>%
-  rename(`Sample size (n)` = n, `Standard error of $\\widehat{p}$` = sd)
+  rename(`표본 크기 (n)` = n, `$\\widehat{p}$의 표준 오차` = sd)
 
 comparing_n_table %>%
   kbl(
     digits = 3,
-    caption = "Standard errors of the sample proportion based on sample sizes of 25, 50, and 100",
+    caption = "표본 크기 25, 50, 100에 기초한 표본 비율의 표준 오차",
     booktabs = TRUE,
     escape = FALSE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Remember the key message of this last table: that as the sample size $n$ goes up, the "typical" error of your point estimate will go down, as quantified by the *standard error*. In fact, in Subsection \@ref(theory-se) we'll see that the standard error for the sample proportion $\widehat{p}$ can also be approximated via a mathematical theory-based formula, a formula that has $n$ in the denominator. 
+이 마지막 표의 핵심 메시지를 기억하세요. 표본 크기 $n$이 커질수록, **표준 오차**에 의해 정량화되는 점 추정치의 "전형적인" 오차는 작아진다는 것입니다. 사실 소섹션 \@ref(theory-se)에서는 표본 비율 $\widehat{p}$에 대한 표준 오차가 분모에 $n$이 있는 수학적 이론 기반 공식으로도 근사화될 수 있음을 보게 될 것입니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What purpose did the *sampling distributions* serve?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** *표본 분포*는 어떤 역할을 하나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does the *standard error* of the sample proportion $\widehat{p}$ quantify? 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 표본 비율 $\widehat{p}$의 *표준 오차*는 무엇을 정량화하나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -904,18 +907,18 @@ Remember the key message of this last table: that as the sample size $n$ goes up
 ```
 
 
-### The moral of the story {#moral-of-the-story}
 
-Let's recap this section so far. We've seen that if a sample is generated at random, then the resulting point estimate is a "good guess" of the true unknown population parameter. In our sampling activities, since we made sure to mix the balls first before extracting a sample with the shovel, the resulting sample proportion $\widehat{p}$ of the shovel's balls that were red was a "good guess" of the population proportion $p$ of the bowl's balls that were red. 
+### 요약: 정확도와 정밀도 {#moral-of-the-story}
 
-However, what do we mean by our point estimate being a "good guess"? Sometimes, we'll get an estimate that is less than the true value of the population parameter, while at other times we'll get an estimate that is greater. This is due to sampling variation. However, despite this sampling variation, our estimates will "on average" be correct and thus will be centered at the true value. This is because our sampling was done at random and thus in an unbiased fashion. 
+지금까지 이 섹션의 내용을 정리해 봅시다. 우리는 만약 표본이 무작위로 생성된다면, 결과로 나온 점 추정치는 알고자 하는 실제 모수에 대한 "좋은 추측치"가 된다는 것을 보았습니다. 우리의 표본 추출 활동에서는 삽으로 표본을 추출하기 전에 공을 잘 섞었기 때문에, 삽에 담긴 공 중 빨간색 공의 표본 비율 $\widehat{p}$가 그릇의 공 중 빨간색 공의 모비율 $p$에 대한 "좋은 추측치"가 되었습니다.
 
-In our sampling activities, sometimes our sample proportion $\widehat{p}$ was less than the true population proportion $p$, while at other times it was greater. This was due to the sampling variability. However, despite this sampling variation, our sample proportions $\widehat{p}$ were "on average" correct and thus were centered at the true value of the population proportion $p$. This is because we mixed our bowl before taking samples and thus the sampling was done at random and thus in an unbiased fashion. This is also known as having an *accurate* estimate\index{accuracy}.
+그런데 점 추정치가 "좋은 추측치"라는 것이 정확히 무슨 뜻일까요? 때로는 모집단 모수의 실제 값보다 작은 추정치를 얻을 수도 있고, 다른 때는 더 큰 추정치를 얻을 수도 있습니다. 이는 표본 오차 때문입니다. 하지만 이러한 표본 오차에도 불구하고, 우리의 추정치는 "평균적으로" 정확할 것이며 실제 값을 중심으로 분포할 것입니다. 이는 우리의 표본 추출이 무작위로, 즉 편향되지 않은 방식으로 수행되었기 때문입니다.
 
+그릇 활동에서 때때로 표본 비율 $\widehat{p}$는 실제 모비율 $p$보다 작았고, 다른 때는 더 컸습니다. 이는 표본 오차 때문이었습니다. 하지만 이러한 변동성에도 불구하고, 우리의 표본 비율 $\widehat{p}$는 "평균적으로" 맞았으며 실제 모비율 $p$를 중심으로 모였습니다. 이는 표본을 추출하기 전에 그릇을 섞었으므로 표본 추출이 무작위로, 즉 편향되지 않게 수행되었기 때문입니다. 이것을 **정확한(accurate)** 추정치 \index{accuracy}를 가졌다고 말합니다.
 
-Recall from earlier that the value of the population proportion $p$ of the $N$ = `r num_balls` balls in the bowl was `r num_red`/`r num_balls` = `r prop_red` = `r percent_red_chr`. We computed this value by performing a virtual census of `bowl`. Let's re-display our sampling distributions from Figures \@ref(fig:comparing-sampling-distributions) and \@ref(fig:comparing-sampling-distributions-2), but now with a vertical red line marking the true population proportion $p$ of balls that are red = `r percent_red_chr` in Figure \@ref(fig:comparing-sampling-distributions-3). We see that while there is a certain amount of error in the sample proportions $\widehat{p}$ for all three sampling distributions, on average the $\widehat{p}$ are centered at the true population proportion red $p$.
+앞서 $N$ = `r num_balls`개의 공이 담긴 그릇의 모비율 $p$가 `r num_red`/`r num_balls` = `r prop_red` = `r percent_red_chr`라는 것을 기억해 보세요. 우리는 `bowl`에 대한 가상 전수 조사를 통해 이 값을 계산했습니다. 그림 \@ref(fig:comparing-sampling-distributions)와 \@ref(fig:comparing-sampling-distributions-2)의 표본 분포를 다시 제시하되, 이번에는 그림 \@ref(fig:comparing-sampling-distributions-3)에서 실제 모비율 $p$ = `r percent_red_chr`를 나타내는 빨간색 수직선을 추가해 보겠습니다. 세 표본 분포 모두에서 표본 비율 $\widehat{p}$에 어느 정도의 오차가 있지만, 평균적으로 $\widehat{p}$들은 실제 모비율 $p$를 중심으로 모여 있음을 확인할 수 있습니다.
 
-```{r comparing-sampling-distributions-3, echo=FALSE, fig.cap="Three sampling distributions with population proportion $p$ marked by vertical line.", purl=FALSE}
+```{r comparing-sampling-distributions-3, echo=FALSE, fig.cap="모비율 p가 수직선으로 표시된 세 가지 표본 분포.", purl=FALSE}
 p <- bowl %>%
   summarize(mean(color == "red")) %>%
   pull()
@@ -930,16 +933,16 @@ samp_distn_compare <- virtual_prop %>%
     color = "black", fill = "white"
   ) +
   labs(
-    x = expression(paste("Sample proportion ", hat(p))),
+    x = expression(paste("표본 비율 ", hat(p))),
     title = expression(paste(
-      "Sampling distributions of ", hat(p),
-      " based on n = 25, 50, 100."
+      "n = 25, 50, 100에 기초한 ", hat(p),
+      "의 표본 분포."
     ))
   ) +
   facet_wrap(~n) +
   geom_vline(xintercept = p, col = "red", size = 1)
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   samp_distn_compare +
     theme(
       strip.text = element_text(colour = "black"),
@@ -950,28 +953,28 @@ if (is_latex_output()) {
 }
 ```
 
-We also saw in this section that as your sample size $n$ increases, your point estimates will vary less and less and be more and more concentrated around the true population parameter. This variation is quantified by the decreasing *standard error*. In other words, the typical error of your point estimates will decrease. In our sampling exercise, as the sample size increased, the variation of our sample proportions $\widehat{p}$ decreased. You can observe this behavior in Figure \@ref(fig:comparing-sampling-distributions-3).  This is also known as having a *precise* estimate\index{precision}. 
+우리는 또한 이 섹션에서 표본 크기 $n$이 커짐에 따라 점 추정치의 변동이 줄어들고 실제 모수 주변에 더 밀집된다는 것을 보았습니다. 이 변동은 줄어드는 **표준 오차**에 의해 정량화됩니다. 다시 말해, 점 추정치의 전형적인 오차가 줄어드는 것입니다. 우리의 표본 추출 연습에서 표본 크기가 커짐에 따라 표본 비율 $\widehat{p}$의 변동이 줄어들었습니다. 이러한 행태를 그림 \@ref(fig:comparing-sampling-distributions-3)에서 관찰할 수 있습니다. 이것은 또한 **정밀한(precise)** 추정치 \index{precision}를 가졌다고 말합니다.
 
-So random sampling ensures our point estimates are *accurate*, while on the other hand having a large sample size ensures our point estimates are *precise*. While the terms "accuracy" and "precision" may sound like they mean the same thing, there is a subtle difference. Accuracy describes how "on target" our estimates are, whereas precision describes how "consistent" our estimates are. Figure \@ref(fig:accuracy-vs-precision) illustrates the difference.
+따라서 무작위 표본 추출은 우리의 점 추정치가 *정확(accurate)*하도록 보장하는 반면, 큰 표본 크기는 우리의 점 추정치가 *정밀(precise)*하도록 보장합니다. "정확도(accuracy)"와 "정밀도(precision)"라는 용어가 비슷한 의미처럼 들릴 수 있지만, 미묘한 차이가 있습니다. 정확도는 우리의 추정치가 얼마나 "표적을 잘 맞추는지(on target)"를 나타내고, 정밀도는 우리의 추정치가 얼마나 "일관성(consistent)" 있는지를 나타냅니다. 그림 \@ref(fig:accuracy-vs-precision)은 그 차이를 보여줍니다.
 
-```{r accuracy-vs-precision, echo=FALSE, fig.cap="Comparing accuracy and precision.", purl=FALSE, out.width="75%", out.height="75%", purl=FALSE}
-include_graphics("images/accuracy_vs_precision.jpg")
+```{r accuracy-vs-precision, echo=FALSE, fig.cap="정확도와 정밀도 비교.", purl=FALSE, out.width="75%", out.height="75%", purl=FALSE}
+knitr::include_graphics("images/accuracy_vs_precision.jpg")
 ```
 
-At this point, you might be asking yourself: "Why did we take 1000 repeated samples of size n = 25, 50, and 100? Shouldn't we be taking only *one* sample that's as large as possible?". If you did ask yourself these questions, your suspicion is correct! Recall from earlier when we asked ourselves "If we had a way of knowing that the proportion of the balls that are red is `r percent_red_chr`, then why did we do any sampling?" Similarly, we took 1000 repeated samples as a simulation of how sampling is done in real-life! We used these simulations to study:
+이 시점에서 여러분은 스스로 이런 질문을 할 수도 있습니다. "왜 굳이 표본 크기 n = 25, 50, 100인 표본을 1,000번씩이나 반복해서 추출한 건가요? 그저 가능한 한 큰 표본을 *딱 하나*만 추출하면 되는 것 아닌가요?" 만약 그런 의문이 들었다면, 여러분의 생각이 맞습니다! 앞서 우리가 "빨간색 공의 비율이 `r percent_red_chr`라는 것을 이미 알고 있다면 왜 표본 추출을 한 건가요?"라고 물었던 것을 떠올려 보세요. 마찬가지로, 우리는 현실 세계에서 표본 추출이 어떻게 이루어지는지를 시뮬레이션하기 위해 1,000번 반복해서 표본을 추출해 본 것입니다! 우리는 이 시뮬레이션을 사용하여 다음을 공부했습니다.
 
-1. The effect of *sampling variation* on our estimates.
-1. The effect of sample size on *sampling variation*.
+1. 추정치에 대한 *표본 오차*의 효과.
+2. *표본 오차*에 대한 표본 크기의 효과.
 
-This is not how sampling is done in real life! In a real-life scenario, we wouldn't take 1000 repeated/replicated samples, but rather a single sample that's as large as we can afford. In Section \@ref(sampling-case-study), we're going to study a real-life example of sampling: polls.
+이것은 현실 세계에서 표본 추출이 수행되는 방식이 아닙니다! 실제 시나리오에서는 1,000번 반복/복제된 표본을 추출하는 것이 아니라, 우리가 감당할 수 있는 한 가장 큰 단일 표본을 추출합니다. 섹션 \@ref(sampling-case-study)에서는 실제 표본 추출 사례인 여론 조사를 살펴보겠습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** The table that follows is a version of Table \@ref(tab:comparing-n-2) matching sample sizes $n$ to different *standard errors* of the sample proportion $\widehat{p}$, but with the rows randomly re-ordered and the sample sizes removed. Fill in the table by matching the correct sample sizes to the correct standard errors.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 다음 표는 표본 크기 $n$과 표본 비율 $\widehat{p}$의 각기 다른 *표준 오차*를 연결한 표 \@ref(tab:comparing-n-2)의 버전입니다. 하지만 행의 순서가 무작위로 섞였고 표본 크기가 삭제되었습니다. 올바른 표본 크기를 올바른 표준 오차와 연결하여 표를 완성해 보세요.
 
 ```{r comparing-n-3, echo=FALSE, purl=FALSE}
 set.seed(76)
@@ -981,32 +984,32 @@ comparing_n_table <- virtual_prop %>%
   mutate(
     n = str_c("n = ")
   ) %>%
-  rename(`Sample size` = n, `Standard error of $\\widehat{p}$` = sd) %>%
+  rename(`표본 크기` = n, `$\\widehat{p}$의 표준 오차` = sd) %>%
   sample_frac(1)
 
 comparing_n_table %>%
   kbl(
     digits = 3,
-    caption = "Standard errors of $\\widehat{p}$ based on n = 25, 50, 100",
+    caption = "n = 25, 50, 100에 기초한 $\\widehat{p}$의 표준 오차",
     booktabs = TRUE,
     escape = FALSE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-For the following four *Learning checks*, let the *estimate* be the sample proportion $\widehat{p}$: the proportion of a shovel's balls that were red. It estimates the population proportion $p$: the proportion of the bowl's balls that were red.
+다음 네 가지 *학습 확인* 문항에 대해, *추정치*는 삽에 담긴 공 중 빨간색 공의 비율인 표본 비율 $\widehat{p}$라고 가정합니다. 이는 그릇의 공 중 빨간색 공의 비율인 모비율 $p$를 추정합니다.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What is the difference between an *accurate* and a *precise* estimate? 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** *정확한(accurate)* 추정치와 *정밀한(precise)* 추정치의 차이는 무엇인가요? 
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** How do we ensure that an estimate is *accurate*? How do we ensure that an estimate is *precise*?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 추정치가 *정확*하도록 어떻게 보장하나요? 추정치가 *정밀*하도록 어떻게 보장하나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** In a real-life situation, we would not take 1000 different samples to infer about a population, but rather only one. Then, what was the purpose of our exercises where we took 1000 different samples?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 현실 세계의 상황에서는 모집단에 대해 추론하기 위해 1,000개의 서로 다른 표본을 추출하지 않고 단 하나만 추출합니다. 그렇다면 1,000개의 서로 다른 표본을 추출했던 우리의 연습의 목적은 무엇이었나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Figure \@ref(fig:accuracy-vs-precision) with the targets shows four combinations of "accurate versus precise" estimates. Draw four corresponding *sampling distributions* of the sample proportion $\widehat{p}$, like the one in the leftmost plot in Figure \@ref(fig:comparing-sampling-distributions-3).
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 네 개의 과녁이 그려진 그림 \@ref(fig:accuracy-vs-precision)은 "정확도 대 정밀도" 추정치의 네 가지 조합을 보여줍니다. 그림 \@ref(fig:comparing-sampling-distributions-3)의 가장 왼쪽 그래프와 같은 대응하는 표본 비율 $\widehat{p}$의 *표본 분포* 네 개를 그려 보세요.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -1015,106 +1018,108 @@ For the following four *Learning checks*, let the *estimate* be the sample propo
 
 ## Case study: Polls {#sampling-case-study}
 
-Let's now switch gears to a more realistic sampling scenario than our bowl activity: a poll. In practice, pollsters do not take 1000 repeated samples as we did in our previous sampling activities, but rather take only a *single sample* that's as large as possible.
 
-On December 4, 2013, National Public Radio in the US reported on a poll of President Obama's approval rating among young Americans aged 18-29 in an article, ["Poll: Support For Obama Among Young Americans Eroding."](https://www.npr.org/sections/itsallpolitics/2013/12/04/248793753/poll-support-for-obama-among-young-americans-eroding) The poll was conducted by the Kennedy School's Institute of Politics at Harvard University. A quote from the article:
+이제 우리 그릇 활동보다 더 현실적인 표본 추출 시나리오인 여론 조사로 화제를 전환해 봅시다. 실제로 여론 조사를 할 때, 앞서 표본 추출 활동에서 했던 것처럼 1,000번 반복해서 표본을 추출하지 않습니다. 대신 가능한 한 큰 *단 한 번의 표본*만을 추출합니다.
 
-> After voting for him in large numbers in 2008 and 2012, young Americans are souring on President Obama.
+2013년 12월 4일, 미국의 National Public Radio(NPR)는 ["여론 조사: 젊은 미국인들 사이에서 오바마 지지율 하락(Poll: Support For Obama Among Young Americans Eroding)"](https://www.npr.org/sections/itsallpolitics/2013/12/04/248793753/poll-support-for-obama-among-young-americans-eroding)이라는 기사에서 18-29세 젊은 미국인들 사이에서의 오바마 대통령 지지율에 관한 여론 조사를 보도했습니다. 이 여론 조사는 하버드 대학교 케네디 스쿨의 정치 연구소에서 수행되었습니다. 기사의 인용구는 다음과 같습니다.
+
+> 2008년과 2012년에 압도적인 지지를 보냈던 젊은 미국인들이 오바마 대통령에게 등을 돌리고 있습니다.
 > 
-> According to a new Harvard University Institute of Politics poll, just 41 percent of millennials — adults aged 18-29 — approve of Obama's job performance, his lowest-ever standing among the group and an 11-point drop from April.
+> 하버드 대학교 정치 연구소의 새로운 여론 조사에 따르면, 밀레니얼 세대(18-29세 성인) 중 41%만이 오바마의 직무 수행을 지지하고 있습니다. 이는 이 그룹에서 역대 최저 수치이며 4월보다 11포인트 하락한 것입니다.
 
-Let's tie elements of the real-life poll in this news article with our "tactile" and "virtual" bowl activity from Sections \@ref(sampling-activity) and \@ref(sampling-simulation) using the terminology, notations, and definitions we learned in Section \@ref(sampling-framework). You'll see that our sampling activity with the bowl is an idealized version of what pollsters are trying to do in real life. 
+이 뉴스 기사에 실린 실제 여론 조사의 요소들을 섹션 \@ref(sampling-framework)에서 배운 용어, 표기법 및 정의를 사용하여 섹션 \@ref(sampling-activity)와 \@ref(sampling-simulation)의 "촉각적" 및 "가상" 그릇 활동과 연결해 봅시다. 그릇을 이용한 우리의 표본 추출 활동이 여론 조사원들이 실제 세계에서 하려는 일을 이상적으로 모델링한 것임을 알 수 있을 것입니다.
 
-First, who is the **(study) population** of $N$ individuals or observations of interest? \index{sampling!population}
+첫째, 관심 있는 $N$개의 개체 또는 관측치로 구성된 **(연구 대상) 모집단**은 누구인가요? \index{sampling!population}
 
-* Bowl: $N$ = `r num_balls` identically sized red and white balls
-* Obama poll: $N$ = ? young Americans aged 18-29
+* 그릇: $N$ = `r num_balls`개의 동일한 크기의 빨간색 및 하얀색 공
+* 오바마 여론 조사: $N$ = ?명의 18-29세 젊은 미국인
 
-Second, what is the **population parameter**? \index{sampling!population parameter}
+둘째, **모수**는 무엇인가요? \index{sampling!population parameter}
 
-* Bowl: The population proportion $p$ of *all* the balls in the bowl that are red.
-* Obama poll: The population proportion $p$ of *all* young Americans who approve of Obama's job performance.
+* 그릇: 그릇에 담긴 *모든* 공 중 빨간색 공의 모비율 $p$.
+* 오바마 여론 조사: 오바마의 직무 수행을 지지하는 *모든* 젊은 미국인의 모비율 $p$.
 
-Third, what would a **census** look like? \index{sampling!census}
+셋째, **전수 조사**는 어떤 모습일까요? \index{sampling!census}
 
-* Bowl: Manually going over all $N$ = `r num_balls` balls and exactly computing the population proportion $p$ of the balls that are red.
-* Obama poll: Locating all $N$ young Americans and asking them all if they approve of Obama's job performance. In this case, we don't even know what the population size $N$ is!
+* 그릇: $N$ = `r num_balls`개의 모든 공을 수동으로 하나씩 살펴보고 빨간색 공의 모비율 $p$를 정확하게 계산하는 것.
+* 오바마 여론 조사: $N$명의 모든 젊은 미국인을 찾아내어 오바마의 직무 수행을 지지하는지 모두에게 묻는 것. 이 경우, 우리는 모집단 크기 $N$이 얼마인지조차 모릅니다!
 
-Fourth, how do you perform **sampling** to obtain a sample of size $n$? \index{sampling}
+넷째, 크기 $n$의 표본을 얻기 위해 **표본 추출**을 어떻게 수행하나요? \index{sampling}
 
-* Bowl: Using a shovel with $n$ slots. 
-* Obama poll: One method is to get a list of phone numbers of all young Americans and pick out $n$ phone numbers. In this poll's case, the sample size of this poll was $n = 2089$ young Americans.
+* 그릇: $n$개의 구멍이 있는 삽을 사용함.
+* 오바마 여론 조사: 한 가지 방법은 모든 젊은 미국인의 전화번호 목록을 확보하고 $n$개의 전화번호를 뽑는 것입니다. 이 여론 조사의 경우, 표본 크기는 $n = 2089$명의 젊은 미국인이었습니다.
 
-Fifth, what is your **point estimate** also known as the **sample statistic** of the unknown population parameter?
+다섯째, 알지 못하는 모수의 **표본 통계량**으로도 알려진 **점 추정치**는 무엇인가요?
 
-* Bowl: The sample proportion $\widehat{p}$ of the balls in the shovel that were red. 
-* Obama poll: The sample proportion $\widehat{p}$ of young Americans in the sample that approve of Obama's job performance. In this poll's case, $\widehat{p} = 0.41 = 41\%$, the quoted percentage in the second paragraph of the article. \index{point estimate} \index{sample statistic}
+* 그릇: 삽에 담긴 공 중 빨간색 공의 표본 비율 $\widehat{p}$.
+* 오바마 여론 조사: 표본에 포함된 젊은 미국인 중 오바마의 직무 수행을 지지하는 사람의 표본 비율 $\widehat{p}$. 이번 여론 조사의 경우, 기사의 두 번째 단락에서 언급된 수치인 $\widehat{p} = 0.41 = 41\%$입니다. \index{point estimate} \index{sample statistic}
 
-Sixth, is the sampling procedure **representative**? \index{sampling!representative}
+여섯째, 표본 추출 과정은 **대표성**이 있나요? \index{sampling!representative}
 
-* Bowl: Are the contents of the shovel representative of the contents of the bowl? Because we mixed the bowl before sampling, we can feel confident that they are. 
-* Obama poll: Is the sample of $n = 2089$ young Americans representative of *all* young Americans aged 18-29? This depends on whether the sampling was random.
+* 그릇: 삽의 내용물이 그릇의 내용물을 대표하나요? 표본을 추출하기 전에 그릇을 섞었으므로, 우리는 그렇다고 확신할 수 있습니다.
+* 오바마 여론 조사: $n = 2089$명의 젊은 미국인 표본이 *모든* 18-29세 젊은 미국인을 대표하나요? 이는 표본 추출이 무작위로 이루어졌는지에 달려 있습니다.
 
-Seventh, are the samples **generalizable** to the greater population? \index{generalizability}
+일곱째, 표본은 더 큰 모집단으로 **일반화**될 수 있나요? \index{generalizability}
 
-* Bowl: Is the sample proportion $\widehat{p}$ of the shovel's balls that are red a "good guess" of the population proportion $p$ of the bowl's balls that are red? Given that the sample was representative, the answer is yes.
-* Obama poll: Is the sample proportion $\widehat{p}$ = 0.41 of the sample of young Americans who supported Obama a "good guess" of the population proportion $p$ of all young Americans who supported Obama at this time in 2013? In other words, can we confidently say that roughly 41% of *all* young Americans approved of Obama at the time of the poll? Again, this depends on whether the sampling was random.
+* 그릇: 삽에 담긴 빨간색 공의 표본 비율 $\widehat{p}$가 그릇에 담긴 빨간색 공의 모비율 $p$에 대한 "좋은 추측치"인가요? 표본이 대표성을 띠었다면 정답은 예입니다.
+* 오바마 여론 조사: 오바마를 지지한 젊은 미국인 표본의 표본 비율 $\widehat{p}$ = 0.41이 2013년 당시 오바마를 지지했던 모든 젊은 미국인의 모비율 $p$에 대한 "좋은 추측치"인가요? 다시 말해, 여론 조사 당시 *모든* 젊은 미국인의 약 41%가 오바마를 지지했다고 자신 있게 말할 수 있을까요? 이 또한 표본 추출이 무작위로 이루어졌는지에 달려 있습니다.
 
-Eighth, is the sampling procedure **unbiased**? In other words, do all observations have an equal chance of being included in the sample? \index{bias}
+여덟째, 표본 추출 과정은 **편향되지(unbiased)** 않았나요? 다시 말해, 모든 관측치가 표본에 포함될 기회가 같았나요? \index{bias}
 
-* Bowl: Since each ball was equally sized and we mixed the bowl before using the shovel, each ball had an equal chance of being included in a sample and hence the sampling was unbiased. 
-* Obama poll: Did all young Americans have an equal chance at being represented in this poll? Again, this depends on whether the sampling was random.
+* 그릇: 각 공의 크기가 같았고 삽을 사용하기 전에 그릇을 섞었으므로, 각 공이 표본에 포함될 기회는 같았고 따라서 표본 추출은 편향되지 않았습니다.
+* 오바마 여론 조사: 모든 젊은 미국인이 이번 여론 조사에서 대표될 기회가 같았나요? 이 역시 표본 추출이 무작위로 이루어졌는지에 달려 있습니다.
 
-Ninth and lastly, was the sampling done at **random**? \index{sampling!random}
+아홉째이자 마지막으로, 표본 추출은 **무작위(random)**로 수행되었나요? \index{sampling!random}
 
-* Bowl: As long as you mixed the bowl sufficiently before sampling, your samples would be random.
-* Obama poll: Was the sample conducted at random? We can't answer this question without knowing about the *sampling methodology*\index{sampling methodology} used by Kennedy School's Institute of Politics at Harvard University. We'll discuss this more at the end of this section.
+* 그릇: 표본을 추출하기 전에 그릇을 충분히 섞었다면, 여러분의 표본은 무작위일 것입니다.
+* 오바마 여론 조사: 표본 추출이 무작위로 수행되었나요? 하버드 대학교 케네디 스쿨 정치 연구소에서 사용한 *표본 추출 방법론* \index{sampling methodology}을 알지 못하면 이 질문에 답할 수 없습니다. 이 섹션의 마지막 부분에서 이에 대해 더 논의하겠습니다.
 
-In other words, the poll by Kennedy School's Institute of Politics at Harvard University  can be thought of as *an instance* of using the shovel to sample balls from the bowl. Furthermore, if another polling company conducted a similar poll of young Americans at roughly the same time, they would likely get a different estimate than 41%. This is due to *sampling variation*.
+다시 말해, 하버드 대학교 케네디 스쿨 정치 연구소의 여론 조사는 그릇에서 공을 뽑기 위해 삽을 사용한 *하나의 사례*로 생각할 수 있습니다. 또한, 다른 여론 조사 회사가 비슷한 시기에 젊은 미국인을 대상으로 유사한 여론 조사를 실시했다면 41%와는 다른 추정치를 얻었을 가능성이 큽니다. 이는 **표본 오차** 때문입니다.
 
-Let's now revisit the sampling paradigm from Subsection \@ref(terminology-and-notation):
+이제 하위 섹션 \@ref(terminology-and-notation)에서 살펴본 표본 추출 패러다임을 다시 살펴보겠습니다.
 
-**In general**: 
+**일반적인 경우**:
 
-* If the sampling of a sample of size $n$ is done at *random*, then
-* the sample is *unbiased* and *representative* of the population of size $N$, thus
-* any result based on the sample can *generalize* to the population, thus
-* the point estimate is a "good guess" of the unknown population parameter, thus
-* instead of performing a census, we can *infer* about the population using sampling.
+* 만약 크기 $n$의 표본 추출이 *무작위*로 수행된다면,
+* 표본은 모집단 크기 $N$에 대해 *편향되지 않았고 대표성*을 띠며, 따라서
+* 표본에 근거한 어떠한 결과도 모집단으로 *일반화*될 수 있고, 따라서
+* 점 추정치는 알지 못하는 모수에 대한 "좋은 추측치"가 되며, 따라서
+* 전수 조사를 수행하는 대신, 표본 추출을 사용하여 모집단에 대해 **추론**할 수 있습니다.
 
-**Specific to the bowl:**
+**그릇의 경우:**
 
-* Since we extracted a sample of $n$ = 50 balls at *random*, in other words we mixed all of the equally sized balls before using the shovel, then
-* the contents of the shovel are *unbiased* and *representative* of the contents of the bowl, thus
-* any result based on the shovel can *generalize* to the bowl, thus
-* the sample proportion $\widehat{p}$ of the $n$ = 50 balls in the shovel that are red is a "good guess" of the population proportion $p$ of the bowl's $N$ = `r num_balls` balls that are red, thus
-* instead of conducting a *census* of the `r num_balls` balls in the bowl, we can **infer** about the bowl using the sample from the shovel.
+* 우리는 $n$ = 50개의 공 표본을 *무작위*로 추출했으므로(즉, 삽을 사용하기 전에 동일한 크기의 모든 공을 섞었음),
+* 삽의 내용물은 그릇의 내용물에 대해 *편향되지 않았고 대표성*을 띠며, 따라서
+* 삽에 근거한 어떠한 결과도 그릇으로 *일반화*될 수 있고, 따라서
+* 삽에 담긴 $n$ = 50개 공 중 빨간색 공의 표본 비율 $\widehat{p}$는 그릇의 $N$ = `r num_balls`개 공 중 빨간색 공의 모비율 $p$에 대한 "좋은 추측치"이며, 따라서
+* `r num_balls`개의 모든 공에 대해 수동으로 *전수 조사*를 하는 대신, 삽에서 얻은 표본을 사용하여 그릇에 대해 **추론**할 수 있습니다.
 
-**Specific to the Obama poll:**
+**오바마 여론 조사의 경우:**
 
-* If we had a way of contacting a *randomly* chosen sample of 2089 young Americans and polling their approval of President Obama in 2013, then
-* these 2089 young Americans would be an *unbiased* and *representative* sample of all young Americans in 2013, thus 
-* any results based on this sample of 2089 young Americans can *generalize* to the entire population of all young Americans in 2013, thus
-* the reported sample approval rating of 41% of these 2089 young Americans is a *good guess* of the true approval rating among all young Americans in 2013, thus
-* instead of performing an expensive census of all young Americans in 2013, we can *infer* about all young Americans in 2013 using polling.
+* 만약 우리가 *무작위*로 선택된 2089명의 젊은 미국인 표본에 연락하여 2013년 오바마 대통령에 대한 지지 여부를 조사할 방법이 있었다면,
+* 이 2089명의 젊은 미국인은 2013년 당시 모든 젊은 미국인에 대해 *편향되지 않고 대표성*이 있는 표본이 되었을 것이며, 따라서
+* 이 2089명의 젊은 미국인 표본에 근거한 어떠한 결과도 2013년 당시 모든 젊은 미국인 모집단으로 *일반화*될 수 있고, 따라서
+* 이 2089명의 젊은 미국인에게서 보고된 41%라는 표본 지지율은 2013년 당시 모든 젊은 미국인 사이의 실제 지지율에 대한 *좋은 추측치*가 되며, 따라서
+* 2013년 당시 모든 젊은 미국인에 대해 비용이 많이 드는 전수 조사를 수행하는 대신, 여론 조사를 사용하여 2013년 당시 모든 젊은 미국인에 대해 **추론**할 수 있습니다.
 
-So as you can see, it was critical for the sample obtained by Kennedy School's Institute of Politics at Harvard University to be truly random in order to infer about *all* young Americans' opinions about Obama. Was their sample truly random? It's hard to answer such questions without knowing about the *sampling methodology* they used\index{sampling methodology}. For example, if this poll was conducted using only mobile phone numbers, people without mobile phones would be left out and therefore not represented in the sample. What about if Kennedy School's Institute of Politics at Harvard University conducted this poll on an internet news site? Then people who don't read this particular internet news site would be left out. Ensuring that our samples were random was easy to do in our sampling bowl exercises; however, in a real-life situation like the Obama poll, this is much harder to do.
+보시다시피, 하버드 대학교 케네디 스쿨 정치 연구소에서 얻은 표본이 오바마에 대한 *모든* 젊은 미국인의 의견을 추론하기 위해 진정으로 무작위적이었는지가 매우 중요했습니다. 그들의 표본은 진정으로 무작위였을까요? 그들이 사용한 *표본 추출 방법론* \index{sampling methodology}을 알지 못한다면 그런 질문에 답하기 어렵습니다. 예를 들어, 이 여론 조사가 오직 휴대전화 번호만을 사용하여 수행되었다면 휴대전화가 없는 사람들은 제외되어 표본에서 누락되었을 것입니다. 만약 연구소가 인터넷 뉴스 사이트에서 이 설문 조사를 수행했다면 어떨까요? 그렇다면 특정 인터넷 뉴스 사이트를 읽지 않는 사람들은 제외되었을 것입니다. 그릇 표본 추출 연습에서는 표본이 무작위임을 보장하기 쉬웠지만, 오바마 여론 조사와 같은 실제 상황에서는 이를 수행하기가 훨씬 더 어렵습니다.
+
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-Comment on the representativeness of the following *sampling methodologies*:
+다음 **표본 추출 방법론**의 대표성에 관해 의견을 제시해 보세요.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** The Royal Air Force wants to study how resistant all their airplanes are to bullets. They study the bullet holes on all the airplanes on the tarmac after an air battle against the Luftwaffe (German Air Force).
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 왕립 공군(RAF)이 모든 비행기가 총탄에 얼마나 잘 견디는지 연구하려고 합니다. 그들은 루프트바페(독일 공군)와의 공중전 후 활주로에 돌아온 모든 비행기의 총탄 구멍을 조사합니다.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Imagine it is 1993, a time when almost all households had landlines. You want to know the average number of people in each household in your city. You randomly pick out 500 phone numbers from the phone book and conduct a phone survey.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 거의 모든 가구에 유선 전화가 있던 1993년이라고 상상해 봅시다. 여러분은 여러분이 사는 도시의 가구당 평균 인원수를 알고 싶어 합니다. 전화번호부에서 500개의 전화번호를 무작위로 골라 전화 설문 조사를 실시합니다.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** You want to know the prevalence of illegal downloading of TV shows among students at a local college.  You get the emails of 100 randomly chosen students and ask them, "How many times did you download a pirated TV show last week?".
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 여러분은 지역 대학생들 사이에서 TV 프로그램의 불법 다운로드 유행 정도를 알고 싶어 합니다. 무작위로 선택된 100명의 학생에게 이메일을 보내 "지난주에 불법 복제된 TV 프로그램을 몇 번이나 다운로드했습니까?"라고 묻습니다.
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** A local college administrator wants to know the average income of all graduates in the last 10 years. So they get the records of five randomly chosen graduates, contact them, and obtain their answers. 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 한 지역 대학 행정관이 지난 10년간 졸업한 모든 졸업생의 평균 소득을 알고 싶어 합니다. 그래서 무작위로 선택된 5명의 졸업생 기록을 확보하여 연락한 뒤 답변을 얻었습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -1122,28 +1127,29 @@ Comment on the representativeness of the following *sampling methodologies*:
 ```
 
 
-## Central Limit Theorem {#sampling-conclusion-central-limit-theorem}
 
-This chapter began with (virtual) access to a large bowl of balls (our population) and a desire to figure out the proportion of red balls. Despite having access to this population, in reality, you almost **never** will have **access to the population,** either because the population is too large, ever changing, or too expensive to take a census of. Accepting this reality means accepting that we need to use _statistical inference._ 
+## 중심 극한 정리 {#sampling-conclusion-central-limit-theorem}
 
-In Section \@ref(terminology-and-notation), we stated that "statistical inference is the act of making a guess about a population using a sample." But how do we _do_ this inference? In the previous section, we defined the _sampling framework_ only to state that in reality we take one large sample, instead of many samples as done in the sampling framework (which we modeled physically by taking many samples from the bowl). 
+이 장은 커다란 공 그릇(모집단)에 (가상으로) 접근하여 빨간색 공의 비율을 알아내고자 하는 욕구에서 시작되었습니다. 모집단에 접근할 수 있었음에도 불구하고, 실제로는 모집단이 너무 크거나, 끊임없이 변하거나, 전수 조사를 수행하기에 비용이 너무 많이 들기 때문에 여러분은 **모집단에 접근할 수 있는 경우가 거의 없습니다.** 이러한 현실을 받아들인다는 것은 우리가 *통계적 추론*을 사용해야 한다는 것을 의미합니다.
 
-In reality, we take *only one* sample and use that *one* sample to make statements about the population parameter. This ability of making statements about the population is allowable by a famous theorem, or mathematically proven truth, called the \index{Central Limit Theorem} *Central Limit Theorem*. What you visualized in Figures \@ref(fig:comparing-sampling-distributions) and \@ref(fig:comparing-sampling-distributions-2) and summarized in Tables \@ref(tab:comparing-n) and \@ref(tab:comparing-n-2) was a demonstration of this theorem. It loosely states that when sample means are based on larger and larger sample sizes, the sampling distribution of these sample means becomes both more and more normally shaped and more and more narrow.
+섹션 \@ref(terminology-and-notation)에서 우리는 "통계적 추론은 표본을 사용하여 모집단에 대해 추측을 하는 행위"라고 정의했습니다. 그런데 이 추론을 어떻게 *수행*할까요? 이전 섹션에서 우리는 *표본 추출 프레임워크*를 정의하면서, 실제로는 표본 추출 프레임워크에서 했던 것처럼 여러 번 표본을 추출하는 대신(그릇에서 여러 번 표본을 추출하여 물리적으로 모델링했음) 하나의 커다란 표본만 추출한다고 말했습니다.
 
-In other words, as our sample size gets larger (1) the sampling distribution of a point estimate (like a sample proportion) increasingly follows a *normal distribution* and (2) the variation of these sampling distributions gets smaller, as quantified by their standard errors. We discuss the properties of the normal distribution in Appendix \@ref(appendix-normal-curve).
+현실에서는 *오직 하나의* 표본만을 추출하고, 그 *하나의* 표본을 사용하여 모집단 모수에 대해 진술합니다. 모집단에 대해 진술할 수 있는 이러한 능력은 **중심 극한 정리(Central Limit Theorem)** \index{Central Limit Theorem}라고 불리는 유명한 정리, 즉 수학적으로 증명된 진리에 의해 가능해집니다. 그림 \@ref(fig:comparing-sampling-distributions)와 \@ref(fig:comparing-sampling-distributions-2)에서 시각화하고 표 \@ref(tab:comparing-n)과 \@ref(tab:comparing-n-2)에서 요약한 내용은 이 정리를 시연한 것입니다. 이 정리는 표본 평균이 점점 더 큰 표본 크기에 기초할 때, 이러한 표본 평균의 표본 분포는 점점 더 정규 분포 모양이 되고 점점 더 좁아진다는 것을 대략적으로 명시합니다.
 
-Shuyi Chiou, Casey Dunn, and Pathikrit Bhattacharyya created a 3-minute and 38-second video at <https://youtu.be/jvoxEYmQHNM> explaining this crucial statistical theorem using the average weight of wild bunny rabbits and the average wingspan of dragons as examples. Figure \@ref(fig:CLT-video-preview) shows a preview of this video.
+다시 말해, 표본 크기가 커짐에 따라 (1) 점 추정치(예: 표본 비율)의 표본 분포는 점점 더 **정규 분포(normal distribution)**를 따르게 되고 (2) 이러한 표본 분포의 변동은 표준 오차로 정량화되듯이 점점 작아집니다. 정규 분포의 속성은 부록 \@ref(appendix-normal-curve)에서 다룹니다.
 
-```{r CLT-video-preview, echo=FALSE, fig.cap="Preview of Central Limit Theorem video.", purl=FALSE, out.width = "75%"}
+Shuyi Chiou, Casey Dunn, Pathikrit Bhattacharyya는 <https://youtu.be/jvoxEYmQHNM>에서 야생 토끼의 평균 몸무게와 드래곤의 평균 날개 길이를 예로 들어 이 중요한 통계적 정리를 설명하는 3분 38초 분량의 영상을 제작했습니다. 그림 \@ref(fig:CLT-video-preview)는 이 영상의 미리보기를 보여줍니다.
+
+```{r CLT-video-preview, echo=FALSE, fig.cap="중심 극한 정리 영상 미리보기.", purl=FALSE, out.width = "75%"}
 knitr::include_graphics("images/copyright/CLT_video_preview.png")
 ```
 
-Here's what is so surprising about the Central Limit Theorem: regardless of the shape of the underlying population distribution, the sampling distribution of means (such as the sample mean of bunny weights or the sample mean of the length of dragon wings) and proportions (such as the sample proportion red in our shovels) will be **normal.** Normal distributions are defined by where they are centered and how wide they are, and the Central Limit Theorem gives us both:
+중심 극한 정리에서 정말 놀라운 점은 다음과 같습니다. 기저의 모집단 분포 모양에 관계없이, 평균(예: 토끼 몸무게의 표본 평균 또는 드래곤 날개 길이의 표본 평균)과 비율(예: 우리 삽에 담긴 빨간색 공의 표본 비율)의 표본 분포는 **정규 분포**를 따르게 된다는 것입니다. 정규 분포는 어디에 중심이 있고 얼마나 넓은지에 의해 정의되며, 중심 극한 정리는 이 두 가지를 모두 제공합니다.
 
-1. The sampling distribution of the point estimate is centered at the true population parameter. 
-2. We have an estimate for how wide the sampling distribution of the point estimate is, given by the standard error (which we will discuss further in Chapter \@ref(confidence-intervals)).
+1. 점 추정치의 표본 분포는 실제 모집단 모수를 중심으로 합니다.
+2. 우리는 표준 오차를 통해 점 추정치의 표본 분포가 얼마나 넓은지에 대한 추정치를 가집니다(이에 대해서는 8장 "신뢰 구간"에서 더 자세히 다룰 것입니다).
 
-What the Central Limit Theorem creates for us is a ladder between a *single* sample and the population. By the Central Limit Theorem, we can say that (1) our sample's point estimate is drawn from a normal distribution centered at the true population parameter and (2) that the width of that normal distribution is governed by the standard error of our point estimate. Relating this to our bowl, if we pull one sample and get the sample proportion of red balls $\widehat{p}$, this value of $\widehat{p}$ is drawn from the normal curve centered at the true population proportion of red balls $p$ with the computed standard error. 
+중심 극한 정리가 우리에게 만들어 주는 것은 *단일* 표본과 모집단 사이의 사다리입니다. 중심 극한 정리에 의해, 우리는 (1) 우리 표본의 점 추정치가 실제 모집단 모수를 중심으로 하는 정규 분포에서 추출된 것이며 (2) 그 정규 분포의 너비는 우리 점 추정치의 표준 오차에 의해 결정된다고 말할 수 있습니다. 이를 우리 그릇 활동과 연결 지어 보면, 만약 우리가 하나의 표본을 추출하여 빨간색 공의 표본 비율 $\widehat{p}$를 얻었다면, 이 $\widehat{p}$ 값은 계산된 표준 오차를 가지며 실제 빨간색 공의 모비율 $p$를 중심으로 하는 정규 곡선에서 추출된 것입니다.
 
 <!--
 TODO: Maybe add synthetic datasets to the moderndive package so that students
@@ -1184,7 +1190,7 @@ sampling_scenarios %>%
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   ) %>%
   column_spec(1, width = "0.5in") %>%
@@ -1194,44 +1200,46 @@ sampling_scenarios %>%
   column_spec(5, width = "0.6in")
 ```
 
-In the rest of this book, we'll cover all the remaining scenarios as follows:
 
-* In Chapter \@ref(confidence-intervals), we'll cover examples of statistical inference for
-    + Scenario 2: The mean age $\mu$ of all pennies in circulation in the US.
-    + Scenario 3: The difference $p_1 - p_2$ in the proportion of people who yawn *when seeing someone else yawn first* minus the proportion of people who yawn *without seeing someone else yawn first*. This is an example of *two-sample* inference\index{two-sample inference}.
-* In Chapter \@ref(hypothesis-testing), we'll cover an example of statistical inference for
-    + Scenario 4: The difference $\mu_1 - \mu_2$ in mean IMDb ratings for action and romance movies. This is another example of *two-sample* inference.
-* In Chapter \@ref(inference-for-regression), we'll cover an example of statistical inference for regression by revisiting the regression models for teaching score as a function of various instructor demographic variables you saw in Chapters \@ref(regression) and \@ref(multiple-regression).
-    + Scenario 5: The slope $\beta_1$ of the population regression line.
+이 책의 나머지 부분에서는 다음과 같은 시나리오들을 다룰 것입니다.
+
+* 8장 "신뢰 구간"에서는 다음 예시들에 대한 통계적 추론을 다룹니다.
+    + 시나리오 2: 미국에서 유통되는 모든 페니 동전의 평균 발행 연도 $\mu$.
+    + 시나리오 3: *다른 사람이 하품하는 것을 먼저 보았을 때* 하품하는 사람의 비율과 *다른 사람이 하품하는 것을 보지 않았을 때* 하품하는 사람의 비율의 차이($p_1 - p_2$). 이는 **이표본(two-sample) 추론** \index{two-sample inference}의 예입니다.
+* 9장 "가설 검정"에서는 다음 예시에 대한 통계적 추론을 다룹니다.
+    + 시나리오 4: 액션 영화와 로맨스 영화의 평균 IMDb 평점 차이($mu_1 - mu_2$). 이는 이표본 추론의 또 다른 예입니다.
+* 10장 "회귀 분석을 위한 통계적 추론"에서는 5장과 6장에서 보았던 다양한 강사 인구통계학적 변수에 따른 강의 점수 회귀 모델을 다시 살펴보며 회귀 분석을 위한 통계적 추론의 예시를 다룹니다.
+    + 시나리오 5: 모집단 회귀선의 기울기 $\beta_1$.
 
 
-### Theory-based standard-errors {#theory-se}
+### 이론 기반 표준 오차 {#theory-se}
 
-There exists in many cases a formula that approximates the standard error! In the case of our `bowl` where we used the sample proportion red $\widehat{p}$ to estimate the proportion of the bowl's balls that are red, the formula that approximates the standard error for the sample proportion $\widehat{p}$ is:
+많은 경우 표준 오차를 근사화하는 공식이 존재합니다! 표본 비율 $\widehat{p}$를 사용하여 그릇의 빨간색 공 모비율을 추정한 우리 `bowl`의 경우, 표본 비율 $\widehat{p}$의 표준 오차를 근사하는 공식은 다음과 같습니다.
 
 $$\text{SE}_{\widehat{p}} \approx \sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}}$$
 
-For example, say you sampled $n = 50$ balls and observed 21 red balls. This equals a sample proportion $\widehat{p}$ of 21/50 = 0.42. So, using the formula, an approximation of the standard error of $\widehat{p}$ is
+예를 들어, 여러분이 $n = 50$개의 공을 샘플링하여 21개의 빨간색 공을 관찰했다고 해봅시다. 이는 표본 비율 $\widehat{p}$가 21/50 = 0.42임을 의미합니다. 따라서 공식을 사용하면 $\widehat{p}$의 표준 오차 근사값은 다음과 같습니다.
 
 $$\text{SE}_{\widehat{p}} \approx \sqrt{\frac{0.42(1-0.42)}{50}} = \sqrt{0.004872} = 0.0698 \approx 0.070$$
 
-Say instead you sampled $n = 100$ balls and observed 42 red balls. This once again equals a sample proportion $\widehat{p}$ of 42/100 = 0.42. However using the formula, an approximation of the standard error of $\widehat{p}$ is now
+대신 $n = 100$개의 공을 샘플링하여 42개의 빨간색 공을 관찰했다고 해봅시다. 이 역시 표본 비율 $\widehat{p}$는 42/100 = 0.42입니다. 하지만 공식을 사용하면 $\widehat{p}$의 표준 오차 근사값은 이제 다음과 같습니다.
 
 $$\text{SE}_{\widehat{p}} \approx \sqrt{\frac{0.42(1-0.42)}{100}} = \sqrt{0.002436} = 0.0494$$
-Observe that the standard error has gone down from 0.0698 to 0.0494. In other words, the "typical" error of our estimates using $n$ = 100 will go down relative to $n$ = 50 and hence be more *precise*. Recall that we illustrated the difference between accuracy and precision of estimates in Figure \@ref(fig:accuracy-vs-precision).
 
-The key observation to make in the formula is that there is an $n$ in the denominator. As the sample size $n$ increases, the standard error decreases. We've demonstrated this fact using our virtual shovels in Subsection \@ref(moral-of-the-story). 
+표준 오차가 0.0698에서 0.0494로 줄어든 것을 확인하세요. 다시 말해, $n = 100$을 사용한 우리 추정치의 "전형적인" 오차는 $n = 50$에 비해 줄어들 것이며 따라서 더 **정밀(precise)**해집니다. 추정치의 정확도와 정밀도 사이의 차이를 그림 \@ref(fig:accuracy-vs-precision)에서 설명했음을 기억하세요.
 
-Furthermore, this is one of the key messages of the Central Limit Theorem we saw in Subsection \@ref(sampling-conclusion-central-limit-theorem): as the sample size $n$ increases, the distribution of averages gets narrower as quantified by the standard deviation of the sampling distribution of the sample mean. This standard deviation of the sampling distribution of the sample means in turn has a special name: the standard error of the sample mean. 
+이 공식에서 주목해야 할 핵심은 분모에 $n$이 있다는 것입니다. 표본 크기 $n$이 커질수록 표준 오차는 작아집니다. 우리는 하위 섹션 \@ref(moral-of-the-story)에서 가상 삽을 사용하여 이 사실을 시연했습니다.
 
-Why is this formula true? Unfortunately, we don't have the tools at this point to prove this; you'll need to take a more advanced course in probability and statistics. (It is related to the concepts of Bernoulli and Binomial Distributions. You can read more about its derivation [here](http://onlinestatbook.com/2/sampling_distributions/samp_dist_p.html) if you like.)
+또한, 이는 하위 섹션 \@ref(sampling-conclusion-central-limit-theorem)에서 보았던 중심 극한 정리의 핵심 메시지 중 하나입니다. 즉, 표본 크기 $n$이 커짐에 따라 평균의 분포는 표본 분포의 표준 편차(즉, 표준 오차)에 의해 정량화되듯이 점점 더 좁아집니다. 표본 평균의 표본 분포에 대한 이 표준 편차에는 특별한 이름이 있는데, 바로 표본 평균의 표준 오차입니다.
+
+왜 이 공식이 성립할까요? 불행히도 현재 단계에서는 이를 증명할 도구가 부족하므로, 더 고급 확률 및 통계 과정을 수강해야 합니다. (이는 베르누이 및 이항 분포 개념과 관련이 있습니다. 원하신다면 [여기](http://onlinestatbook.com/2/sampling_distributions/samp_dist_p.html)에서 그 유도 과정에 대해 더 읽어보실 수 있습니다.)
 
 
-### Additional resources
+### 추가 자료 {#sampling-additional-resources}
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
-  cat("Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).")
+if (knitr::is_latex_output()) {
+  cat("모든 *학습 확인* 문항에 대한 해답은 온라인 [부록 D](https://moderndive.com/D-appendixD.html)에서 찾을 수 있습니다.")
 }
 ```
 
@@ -1240,10 +1248,10 @@ generate_r_file_link("07-sampling.R")
 ```
 
 
-### What's to come?
+### 다음 내용은? {#sampling-whats-to-come}
 
-Recall in our Obama poll case study in Section \@ref(sampling-case-study) that based on this particular sample, the best guess by Kennedy School's Institute of Politics at Harvard University of the U.S. President Obama's approval rating among all young Americans was 41%. However, this isn't the end of the story. If you read the article further, it states:
+섹션 \@ref(sampling-case-study)의 오바마 여론 조사 사례 연구에서, 하버드 대학교 케네디 스쿨 정치 연구소가 이 특정 표본을 바탕으로 내놓은 모든 젊은 미국인 사이의 오바마 대통령 지지율에 대한 최선의 추측치는 41%였습니다. 하지만 이것이 이야기의 끝은 아닙니다. 기사를 더 읽어보면 다음과 같은 내용이 나옵니다.
 
-> The online survey of 2,089 adults was conducted from Oct. 30 to Nov. 11, just weeks after the federal government shutdown ended and the problems surrounding the implementation of the Affordable Care Act began to take center stage. The poll's margin of error was plus or minus 2.1 percentage points.
+> 2,089명의 성인을 대상으로 한 이 온라인 설문 조사는 연방 정부 셧다운이 끝나고 어포더블 케어 액트(Affordable Care Act) 시행을 둘러싼 문제들이 중심 무대에 서기 시작한 지 불과 몇 주 후인 10월 30일부터 11월 11일까지 실시되었습니다. 이 여론 조사의 오차 범위는 플러스 마이너스 2.1%포인트였습니다.
 
-Note the term *margin of error*, which here is "plus or minus 2.1 percentage points." Most polls won't produce an estimate that's perfectly right; there will always be a certain amount of error caused by *sampling variation*. The margin of error of plus or minus 2.1 percentage points is saying that a typical range of errors for polls of this type is about $\pm$ 2.1%, in words from about 2.1% too small to about 2.1% too big. We can restate this as the interval of $[41\% - 2.1\%, 41\% + 2.1\%] = [38.9\%, 43.1\%]$ (this notation indicates the interval contains all values between 38.9% and 43.1%, including the end points of 38.9% and 43.1%). We'll see in the next chapter that such intervals are known as *confidence intervals*.
+여기서 "플러스 마이너스 2.1%포인트"인 **오차 범위(margin of error)**라는 용어에 주목하세요. 대부분의 여론 조사는 완벽하게 정확한 추정치를 내놓지 못합니다. **표본 오차**로 인해 항상 일정 수준의 오차가 발생하기 마련입니다. 플러스 마이너스 2.1%포인트의 오차 범위는 이런 종류의 여론 조사에서 나타나는 전형적인 오차의 범위가 약 $\pm$ 2.1%임을 말해줍니다. 즉, 약 2.1% 너무 작거나 약 2.1% 너무 큰 범위 내에 있다는 것입니다. 이를 구간으로 표현하면 $[41\% - 2.1\%, 41\% + 2.1\%] = [38.9\%, 43.1\%]$가 됩니다(이 표기법은 38.9%와 43.1%를 포함하여 그 사이의 모든 값을 포함하는 구간을 나타냅니다). 다음 장에서 우리는 이러한 구간을 **신뢰 구간(confidence intervals)**이라고 부른다는 것을 배우게 될 것입니다.

@@ -1,12 +1,16 @@
-# Inference for Regression {#inference-for-regression}
+```{r, include=FALSE}
+source("_common.R")
+```
+
+# 회귀 분석을 위한 추론 {#inference-for-regression}
 
 ```{r setup_inference_regression, include=FALSE, purl=FALSE}
-# Used to define Learning Check numbers:
+# 학습 확인(Learning Check) 번호 정의에 사용:
 chap <- 10
 lc <- 0
 
-# Set R code chunk defaults:
-opts_chunk$set(
+# R 코드 청크 기본값 설정:
+knitr::opts_chunk$set(
   echo = TRUE,
   eval = TRUE,
   warning = FALSE,
@@ -18,27 +22,27 @@ opts_chunk$set(
   fig.align = "center"
 )
 
-# Set output digit precision
+# 출력 자릿수 정밀도 설정
 options(scipen = 99, digits = 3)
 
-# Set random number generator see value for replicable pseudorandomness.
+# 재현 가능한 의사 난수 생성을 위한 시드 값 설정.
 set.seed(76)
 ```
 
-In our penultimate chapter, we'll revisit the regression models we first studied in Chapters \@ref(regression) and \@ref(multiple-regression). Armed with our knowledge of confidence intervals and hypothesis tests from Chapters \@ref(confidence-intervals) and \@ref(hypothesis-testing), we'll be able to apply statistical inference to further our understanding of relationships between outcome and explanatory variables.
+이 책의 끝에서 두 번째 장에서는 챕터 \@ref(regression)와 \@ref(multiple-regression)에서 처음 공부했던 회귀 모델을 다시 살펴보겠습니다. 챕터 \@ref(confidence-intervals)와 \@ref(hypothesis-testing)에서 배운 신뢰 구간과 가설 검정에 대한 지식을 바탕으로, 결과 변수와 설명 변수 사이의 관계를 더 깊이 이해하기 위해 통계적 추론을 적용할 수 있게 될 것입니다.
 
 
-### Needed packages {-#inf-packages}
+### 필요한 패키지 {-#inf-packages}
 
-Let's load all the packages needed for this chapter (this assumes you've already installed them). Recall from our discussion in Section \@ref(tidyverse-package) that loading the `tidyverse` package by running `library(tidyverse)` loads the following commonly used data science packages all at once:
+이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). 섹션 \@ref(tidyverse-package)에서 논의했듯이, `library(tidyverse)`를 실행하여 `tidyverse` 패키지를 불러오면 다음과 같이 일반적으로 사용되는 데이터 과학 패키지들을 한 번에 불러올 수 있습니다.
 
-* `ggplot2` for data visualization
-* `dplyr` for data wrangling
-* `tidyr` for converting data to "tidy" format
-* `readr` for importing spreadsheet data into R
-* As well as the more advanced `purrr`, `tibble`, `stringr`, and `forcats` packages
+* 데이터 시각화를 위한 `ggplot2`
+* 데이터 전처리를 위한 `dplyr`
+* 데이터를 "깔끔한(tidy)" 형식으로 변환하기 위한 `tidyr`
+* 스프레드시트 데이터를 R로 가져오기 위한 `readr`
+* 그뿐만 아니라 더 고급 패키지인 `purrr`, `tibble`, `stringr`, `forcats` 패키지들까지
 
-If needed, read Section \@ref(packages) for information on how to install and load R packages. 
+필요한 경우, R 패키지 설치 및 로드 방법에 대한 정보는 섹션 \@ref(packages)를 참조하십시오.
 
 ```{r message=FALSE}
 library(tidyverse)
@@ -47,7 +51,7 @@ library(infer)
 ```
 
 ```{r message=FALSE, echo=FALSE, purl=FALSE}
-# Packages needed internally, but not in text.
+# 내부적으로 필요하지만 텍스트에는 나타나지 않는 패키지들.
 library(tidyr)
 library(kableExtra)
 library(patchwork)
@@ -57,19 +61,19 @@ library(patchwork)
 
 
 
-## Regression refresher
+## 회귀 분석 복습
 
-Before jumping into inference for regression, let's remind ourselves of the University of Texas Austin teaching evaluations analysis in Section \@ref(model1). 
+회귀 분석을 위한 추론으로 넘어가기 전에, 섹션 \@ref(model1)에서 다루었던 텍사스 대학교 오스틴(University of Texas Austin)의 강의 평가 분석을 다시 떠올려 봅시다.
 
 
-### Teaching evaluations analysis
+### 강의 평가 분석
 
-Recall using simple linear regression \index{regression!simple linear} we modeled the relationship between
+단순 선형 회귀 \index{regression!simple linear}를 사용하여 우리는 다음 두 변수 사이의 관계를 모델링했습니다.
 
-1. A numerical outcome variable $y$ (the instructor's teaching score) and
-1. A single numerical explanatory variable $x$ (the instructor's "beauty" score).
+1. 수치형 결과 변수 $y$ (강사의 강의 점수)
+2. 단일 수치형 설명 변수 $x$ (강사의 "외모" 점수)
 
-We first created an `evals_ch5` data frame that selected a subset of variables from the `evals` data frame included in the `moderndive` package. This `evals_ch5` data frame contains only the variables of interest for our analysis, in particular the instructor's teaching `score` and the "beauty" rating `bty_avg`:
+우리는 먼저 `moderndive` 패키지에 포함된 `evals` 데이터 프레임에서 변수들의 하위 집합을 선택하여 `evals_ch5` 데이터 프레임을 만들었습니다. 이 `evals_ch5` 데이터 프레임에는 분석에 필요한 변수들, 특히 강사의 강의 점수(`score`)와 외모 평점(`bty_avg`)만 포함되어 있습니다.
 
 ```{r}
 evals_ch5 <- evals %>%
@@ -83,47 +87,47 @@ cor_ch6 <- evals_ch5 %>%
   round(3)
 ```
 
-In Subsection \@ref(model1EDA), we performed an exploratory data analysis of the relationship between these two variables of `score` and `bty_avg`. We saw there that a weakly positive correlation of `r cor_ch6` existed between the two variables. 
+하위 섹션 \@ref(model1EDA)에서 우리는 `score`와 `bty_avg` 사이의 관계에 대한 탐색적 데이터 분석을 수행했습니다. 그곳에서 우리는 두 변수 사이에 `r cor_ch6`의 약한 양의 상관관계가 존재함을 확인했습니다.
 
-This was evidenced in Figure \@ref(fig:regline) of the scatterplot along with the "best-fitting" regression line that summarizes the linear relationship between the two variables of `score` and `bty_avg`. Recall in Subsection \@ref(leastsquares) that we defined a "best-fitting" line as the line that minimizes the *sum of squared residuals*.
+이는 `score`와 `bty_avg` 사이의 선형 관계를 요약하는 "최적적합(best-fitting)" 회귀선이 포함된 그림 \@ref(fig:regline)의 산점도에서 입증되었습니다. 하위 섹션 \@ref(leastsquares)에서 우리가 "최적적합" 선을 *잔차 제곱합(sum of squared residuals)*을 최소화하는 선으로 정의했음을 상기하십시오.
 
-```{r regline, fig.cap="Relationship with regression line.", fig.height=3.2, message=FALSE}
+```{r regline, fig.cap="회귀선이 포함된 관계.", fig.height=3.2, message=FALSE}
 ggplot(evals_ch5, 
        aes(x = bty_avg, y = score)) +
   geom_point() +
-  labs(x = "Beauty Score", 
-       y = "Teaching Score",
-       title = "Relationship between teaching and beauty scores") +  
+  labs(x = "외모 점수", 
+       y = "강의 점수",
+       title = "강의 점수와 외모 점수 사이의 관계") +  
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-Looking at this plot again, you might be asking, "Does that line really have all that positive of a slope?". It does increase from left to right as the `bty_avg` variable increases, but by how much? To get to this information, recall that we followed a two-step procedure: 
+이 그래프를 다시 보면서 여러분은 "그 선의 기울기가 정말 그렇게 양수인가?"라고 물을 수도 있습니다. `bty_avg` 변수가 증가함에 따라 왼쪽에서 오른쪽으로 증가하기는 하지만, 얼마나 많이 증가할까요? 이 정보를 얻기 위해 우리가 다음의 2단계 절차를 따랐음을 상기하십시오.
 
-1. We first "fit" the linear regression model using the `lm()` function with the formula `score ~ bty_avg`. We saved this model in `score_model`.
-1. We get the regression table by applying the `get_regression_table()`\index{moderndive!get\_regression\_table()} function from the `moderndive` package to `score_model`.
+1. 먼저 `lm()` 함수와 공식 `score ~ bty_avg`를 사용하여 선형 회귀 모델을 "적합"시켰습니다. 이 모델을 `score_model`에 저장했습니다.
+2. `moderndive` 패키지의 `get_regression_table()`\index{moderndive!get\_regression\_table()} 함수를 `score_model`에 적용하여 회귀 표를 얻었습니다.
 
 ```{r, eval=FALSE}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
-# Get regression table:
+# 회귀 표 가져오기:
 get_regression_table(score_model)
 ```
 ```{r regtable-11, echo=FALSE, purl=FALSE}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
 get_regression_table(score_model) %>%
   kbl(
     digits = 3,
-    caption = "Previously seen linear regression table",
+    caption = "이전에 보았던 선형 회귀 표",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 
-# slope:
+# 기울기(slope):
 slope_row <- get_regression_table(score_model) %>%
   filter(term == "bty_avg")
 b1 <- slope_row %>% pull(estimate)
@@ -132,7 +136,7 @@ t1 <- slope_row %>% pull(statistic)
 lower1 <- slope_row %>% pull(lower_ci)
 upper1 <- slope_row %>% pull(upper_ci)
 
-# intercept:
+# 절편(intercept):
 intercept_row <- get_regression_table(score_model) %>%
   filter(term == "intercept")
 b0 <- intercept_row %>% pull(estimate)
@@ -141,14 +145,14 @@ t0 <- intercept_row %>% pull(statistic)
 lower0 <- intercept_row %>% pull(lower_ci)
 upper0 <- intercept_row %>% pull(upper_ci)
 
-# keep trailing zero for b0 for consistency with print edition
+# 지면 버전과의 일관성을 위해 b0에 대한 뒤따르는 0 유지
 b0_trailing <- intercept_row %>% 
   pull(estimate) %>% 
   round(3) %>% 
   format(nsmall = 3)
 ```
 
-Using the values in the `estimate` column of the resulting regression table in Table \@ref(tab:regtable-11), we could then obtain the equation of the "best-fitting" regression line in Figure \@ref(fig:regline): 
+표 \@ref(tab:regtable-11)의 결과인 회귀 표의 `estimate` 열에 있는 값들을 사용하여, 우리는 그림 \@ref(fig:regline)에 있는 "최적적합" 회귀선의 방정식을 얻을 수 있습니다.
 
 $$
 \begin{aligned}
@@ -158,30 +162,30 @@ $$
 \end{aligned}
 $$
 
-where $b_0$ is the fitted intercept and $b_1$ is the fitted slope for `bty_avg`. Recall the interpretation of the $b_1$ = `r b1` value of the fitted slope:
+여기서 $b_0$는 적합된 절편이고 $b_1$은 `bty_avg`에 대한 적합된 기울기입니다. 적합된 기울기 값 $b_1$ = `r b1`에 대한 해석을 상기해 보십시오.
 
-> For every increase of one unit in "beauty" rating, there is an associated increase, on average, of `r b1` units of evaluation score.
+> "외모" 평점이 1단위 증가할 때마다, 강의 평가 점수는 평균적으로 `r b1`단위씩 증가하는 경향이 있습니다.
 
-Thus, the slope value quantifies the relationship between the $y$ variable `score` and the $x$ variable `bty_avg`. We also discussed the intercept value of $b_0$ = `r b0` and its lack of practical interpretation, since the range of possible "beauty" scores does not include 0. 
+따라서 기울기 값은 $y$ 변수인 `score`와 $x$ 변수인 `bty_avg` 사이의 관계를 정량화합니다. 우리는 또한 $b_0$ = `r b0`인 절편 값에 대해서도 논의했는데, 가능한 "외모" 점수의 범위가 0을 포함하지 않기 때문에 실질적인 해석의 여지는 없었습니다.
 
 
-### Sampling scenario
+### 표집 시나리오
 
-Let's now revisit this study in terms of the terminology and notation related to sampling we studied in Subsection \@ref(terminology-and-notation). 
+이제 하위 섹션 \@ref(terminology-and-notation)에서 공부했던 표집과 관련된 용어 및 표기법의 관점에서 이 연구를 다시 살펴보겠습니다.
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 인라인 텍스트 출력을 위해 사용됩니다.
 n_evals_ch5 <- evals_ch5 %>% nrow()
 ```
 
-First, let's view the instructors for these `r n_evals_ch5` courses as a *representative sample* from a greater *study population*. In our case, let's assume that the study population is *all* instructors at UT Austin and that the sample of instructors who taught these `r n_evals_ch5` courses is a representative sample. Unfortunately, we can only *assume* these two facts without more knowledge of the *sampling methodology*\index{sampling methodology} used by the researchers. 
+먼저, 이 `r n_evals_ch5`개 강의의 강사들을 더 큰 **연구 모집단(study population)**에서 추출한 **대표 표본(representative sample)**으로 간주해 봅시다. 우리의 경우, 연구 모집단은 UT 오스틴의 **모든** 강사이며, 이 `r n_evals_ch5`개 강의를 가르친 강사들의 표본이 대표 표본이라고 가정하겠습니다. 안타깝게도 연구자들이 사용한 **표집 방법론(sampling methodology)**\index{sampling methodology}에 대해 더 자세히 알지 못한다면, 우리는 단지 이 두 가지 사실을 *가정*할 수 있을 뿐입니다.
 
-Since we are viewing these $n$ = `r n_evals_ch5` courses as a sample, we can view our fitted slope $b_1$ = `r b1` as a *point estimate* of the *population slope* $\beta_1$. In other words, $\beta_1$ quantifies the relationship between teaching `score` and "beauty" average `bty_avg` for *all* instructors at UT Austin. Similarly, we can view our fitted intercept $b_0$ = `r b0` as a *point estimate* of the *population intercept* $\beta_0$ for *all* instructors at UT Austin. 
+우리는 이 $n$ = `r n_evals_ch5`개의 강의를 하나의 표본으로 보고 있으므로, 우리가 구한 적합된 기울기 $b_1$ = `r b1`을 **모집단 기울기(population slope)** $\beta_1$의 **점 추정치(point estimate)**로 볼 수 있습니다. 즉, $\beta_1$은 UT 오스틴의 **모든** 강사에 대해 강의 점수(`score`)와 외모 평점(`bty_avg`) 사이의 관계를 정량화합니다. 마찬가지로 적합된 절편 $b_0$ = `r b0`을 UT 오스틴의 모든 강사에 대한 **모집단 절편(population intercept)** $\beta_0$의 점 추정치로 볼 수 있습니다.
 
-Putting these two ideas together, we can view the equation of the fitted line $\widehat{y}$ = $b_0 + b_1 \cdot x$ = $`r b0_trailing` + `r b1` \cdot \text{bty}\_\text{avg}$ as an estimate of some true and unknown *population line* $y = \beta_0 + \beta_1 \cdot x$. Thus we can draw parallels between our teaching evaluations analysis and all the sampling scenarios we've seen previously. In this chapter, we'll focus on the final scenario of regression slopes as shown in Table \@ref(tab:summarytable-ch11). 
+이 두 아이디어를 종합하면, 적합된 선의 방정식 $\widehat{y}$ = $b_0 + b_1 \cdot x$ = $`r b0_trailing` + `r b1` \cdot \text{bty}\_\text{avg}$를 실재하지만 알 수 없는 어떤 **모집단 선(population line)** $y = \beta_0 + \beta_1 \cdot x$의 추정치로 볼 수 있습니다. 따라서 우리는 강의 평가 분석과 그동안 보았던 모든 표집 시나리오 사이의 공통점을 찾을 수 있습니다. 이 장에서는 표 \@ref(tab:summarytable-ch11)에 표시된 회귀 기울기의 마지막 시나리오에 초점을 맞출 것입니다.
 
 ```{r summarytable-ch11, echo=FALSE, message=FALSE, purl=FALSE}
-# The following Google Doc is published to CSV and loaded using read_csv():
+# 다음 Google Doc은 CSV로 게시되었으며 read_csv()를 사용하여 로드됩니다:
 # https://docs.google.com/spreadsheets/d/1QkOpnBGqOXGyJjwqx1T2O5G5D72wWGfWlPyufOgtkk4/edit#gid=0
 
 if (!file.exists("rds/sampling_scenarios.rds")) {
@@ -196,13 +200,13 @@ if (!file.exists("rds/sampling_scenarios.rds")) {
 sampling_scenarios %>%
   #  filter(Scenario %in% 1:5) %>%
   kbl(
-    caption = "Scenarios of sampling for inference",
+    caption = "추론을 위한 표집 시나리오들",
     booktabs = TRUE,
     escape = FALSE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   ) %>%
   column_spec(1, width = "0.5in") %>%
@@ -212,128 +216,128 @@ sampling_scenarios %>%
   column_spec(5, width = "1in")
 ```
 
-Since we are now viewing our fitted slope $b_1$ and fitted intercept $b_0$ as *point estimates* based on a *sample*, these estimates will again be subject to *sampling variability*. In other words, if we collected a new sample of data on a different set of $n$ = `r n_evals_ch5` courses and their instructors, the new fitted slope $b_1$ will likely differ from `r b1`. The same goes for the new fitted intercept $b_0$. But by how much will these estimates *vary*? This information is in the remaining columns of the regression table in Table \@ref(tab:regtable-11). Our knowledge of sampling from Chapter \@ref(sampling), confidence intervals from Chapter \@ref(confidence-intervals), and hypothesis tests from Chapter \@ref(hypothesis-testing) will help us interpret these remaining columns.
+이제 적합된 기울기 $b_1$과 적합된 절편 $b_0$를 **표본**에 기반한 **점 추정치**로 보고 있으므로, 이러한 추정치들 역시 **표집 가변성(sampling variability)**의 영향을 받게 됩니다. 다시 말해, 다른 $n$ = `r n_evals_ch5`개 강의와 강사들에 대한 새로운 데이터를 수집한다면, 새로운 적합된 기울기 $b_1$은 `r b1`과 다를 가능성이 높습니다. 새로운 적합된 절편 $b_0$도 마찬가지일 것입니다. 그런데 이 추정치들이 얼마나 많이 **변할까요(vary)**? 이 정보는 표 \@ref(tab:regtable-11)의 회귀 표에 있는 나머지 열들에 들어 있습니다. 챕터 \@ref(sampling)의 표집, 챕터 \@ref(confidence-intervals)의 신뢰 구간, 챕터 \@ref(hypothesis-testing)의 가설 검정에 대한 지식이 이 나머지 열들을 해석하는 데 도움이 될 것입니다.
 
 
 
 
 
-## Interpreting regression tables {#regression-interp}
+## 회귀 표 해석하기 {#regression-interp}
 
-We've so far focused only on the two leftmost columns of the regression table in Table \@ref(tab:regtable-11): `term` and `estimate`. Let's now shift our attention to the remaining columns: `std_error`, `statistic`, `p_value`, `lower_ci` and `upper_ci` in Table \@ref(tab:score-model-part-deux).
+우리는 지금까지 표 \@ref(tab:regtable-11)의 회귀 표에서 왼쪽의 두 열인 `term`과 `estimate`에만 집중했습니다. 이제 표 \@ref(tab:score-model-part-deux)에서 나머지 열들인 `std_error`, `statistic`, `p_value`, `lower_ci`, `upper_ci`로 관심을 돌려보겠습니다.
 
 ```{r score-model-part-deux, echo=FALSE, purl=FALSE}
 get_regression_table(score_model) %>%
   kbl(
-    caption = "Previously seen regression table",
+    caption = "이전에 보았던 회귀 표",
     digits = 3,
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Given the lack of practical interpretation for the fitted intercept $b_0$, in this section we'll focus only on the second row of the table corresponding to the fitted slope $b_1$. We'll first interpret the `std_error`, `statistic`, `p_value`, `lower_ci` and `upper_ci` columns. Afterwards in the upcoming Subsection \@ref(regression-table-computation), we'll discuss how R computes these values. 
+적합된 절편 $b_0$에 대한 실질적인 해석이 부족하다는 점을 고려하여, 이 섹션에서는 적합된 기울기 $b_1$에 해당하는 표의 두 번째 행에만 집중하겠습니다. 먼저 `std_error`, `statistic`, `p_value`, `lower_ci`, `upper_ci` 열들을 해석해 보겠습니다. 그 후 다가올 하위 섹션 \@ref(regression-table-computation)에서 R이 이러한 값들을 어떻게 계산하는지 논의할 것입니다.
 
 
-### Standard error {#regression-se}
+### 표준 오차 {#regression-se}
 
-The third column of the regression table in Table \@ref(tab:regtable-11) `std_error` corresponds to the *standard error* of our estimates. Recall the definition of **standard error** \index{standard error} we saw in Subsection \@ref(sampling-definitions):
+표 \@ref(tab:regtable-11)에 있는 회귀 표의 세 번째 열인 `std_error`는 우리 추정치의 **표준 오차(standard error)**에 해당합니다. 하위 섹션 \@ref(sampling-definitions)에서 보았던 **표준 오차** \index{standard error}의 정의를 상기해 봅시다.
 
-> The *standard error* is the standard deviation of any point estimate computed from a sample.
+> **표준 오차**는 표본으로부터 계산된 모든 점 추정치의 표준 편차입니다.
 
-So what does this mean in terms of the fitted slope $b_1$ = `r b1`? This value is just one possible value of the fitted slope resulting from *this particular sample* of $n$ = `r n_evals_ch5` pairs of teaching and "beauty" scores. However, if we collected a different sample of $n$ = `r n_evals_ch5` pairs of teaching and "beauty" scores, we will almost certainly obtain a different fitted slope $b_1$. This is due to *sampling variability*.
+그렇다면 이것이 적합된 기울기 $b_1$ = `r b1`의 관점에서는 무엇을 의미할까요? 이 값은 강의 점수와 외모 점수가 쌍으로 이루어진 $n$ = `r n_evals_ch5`개의 **특정한 표본**으로부터 얻은 적합된 기울기의 단 하나의 가능한 값일 뿐입니다. 그러나 만약 우리가 강의 점수와 외모 점수가 쌍으로 이루어진 다른 $n$ = `r n_evals_ch5`개의 표본을 수집한다면, 우리는 거의 확실히 다른 적합된 기울기 $b_1$을 얻게 될 것입니다. 이는 **표집 가변성** 때문입니다.
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 인라인 텍스트 출력을 위해 사용됩니다.
 n_reps <- 1000L
 ```
 
-Say we hypothetically collected `r n_reps` such samples of pairs of teaching and "beauty" scores, computed the `r n_reps` resulting values of the fitted slope $b_1$, and visualized them in a histogram. This would be a visualization of the *sampling distribution* of $b_1$, which we defined in Subsection \@ref(sampling-definitions). Further recall that the standard deviation of the *sampling distribution* of $b_1$ has a special name: the *standard error*. 
+우리가 가상으로 강의 점수와 외모 점수 쌍으로 이루어진 그러한 표본을 `r n_reps`개 수집하여, 거기서 얻은 `r n_reps`개의 적합된 기울기 $b_1$ 값을 계산하고 이를 히스토그램으로 시각화했다고 가정해 봅시다. 이것은 하위 섹션 \@ref(sampling-definitions)에서 정의한 $b_1$의 **표집 분포(sampling distribution)**를 시각화한 것이 될 것입니다. 또한 $b_1$의 **표집 분포**의 표준 편차에 **표준 오차**라는 특별한 이름이 붙는다는 점을 다시 떠올려 보십시오.
 
-Recall that we constructed three sampling distributions for the sample proportion $\widehat{p}$ using shovels of size 25, 50, and 100 in Figure \@ref(fig:comparing-sampling-distributions). We observed that as the sample size increased, the standard error decreased as evidenced by the narrowing sampling distribution.
+그림 \@ref(fig:comparing-sampling-distributions)에서 삽의 크기가 25, 50, 100일 때 표본 비율 $\widehat{p}$에 대해 세 개의 표집 분포를 구축했던 것을 상기해 보십시오. 우리는 표본 크기가 커짐에 따라 표집 분포가 좁아지는 것으로부터 알 수 있듯이 표준 오차가 감소하는 것을 관찰했습니다.
 
-The *standard error* of $b_1$ similarly quantifies how much variation in the fitted slope $b_1$ one would expect between different samples. So in our case, we can expect about `r se1` units of variation in the `bty_avg` slope variable. Recall that the `estimate` and `std_error` values play a key role in *inferring* the value of the unknown population slope $\beta_1$ relating to *all* instructors.
+$b_1$의 **표준 오차**도 마찬가지로 서로 다른 표본들 사이에서 적합된 기울기 $b_1$의 변동이 얼마나 될 것으로 예상되는지를 정량화합니다. 따라서 우리의 경우, `bty_avg` 기울기 변수에서 약 `r se1` 단위의 변동을 예상할 수 있습니다. `estimate`와 `std_error` 값은 모든 강사와 관련된 알 수 없는 모집단 기울기 $\beta_1$의 값을 **추론(inferring)**하는 데 핵심적인 역할을 한다는 점을 기억하십시오.
 
-In Section \@ref(infer-regression), we'll perform a simulation using the `infer` package to construct the bootstrap distribution for $b_1$ in this case. Recall from Subsection \@ref(bootstrap-vs-sampling) that the bootstrap distribution is an *approximation* to the sampling distribution in that they have a similar shape. Since they have a similar shape, they have similar *standard errors*. However, unlike the sampling distribution, the bootstrap distribution is constructed from a *single* sample, which is a practice more aligned with what's done in real life. 
+섹션 \@ref(infer-regression)에서는 `infer` 패키지를 사용하여 시뮬레이션을 수행하고, 이 사례에서 $b_1$에 대한 부트스트랩 분포를 구축할 것입니다. 하위 섹션 \@ref(bootstrap-vs-sampling)에서 보았듯이, 부트스트랩 분포는 모양이 비슷하다는 점에서 표집 분포에 대한 **근사치**입니다. 모양이 비슷하기 때문에 **표준 오차**도 비슷합니다. 하지만 표집 분포와 달리 부트스트랩 분포는 **단 하나의** 표본으로부터 구축되며, 이는 실제 생활에서 이루어지는 방식과 더 일치합니다.
 
 
-### Test statistic {#regression-test-statistic}
+### 검정 통계량 {#regression-test-statistic}
 
-The fourth column of the regression table in Table \@ref(tab:regtable-11) `statistic` corresponds to a *test statistic* relating to the following *hypothesis test*:
+표 \@ref(tab:regtable-11)의 회귀 표에서 네 번째 열인 `statistic`은 다음 **가설 검정**과 관련된 **검정 통계량**에 해당합니다.
 
 $$
 \begin{aligned}
 H_0 &: \beta_1 = 0\\
-\text{vs } H_A&: \beta_1 \neq 0.
+\text{대 } H_A&: \beta_1 \neq 0
 \end{aligned}
 $$
 
-Recall our terminology, notation, and definitions related to hypothesis tests we introduced in Section \@ref(understanding-ht).
+섹션 \@ref(understanding-ht)에서 소개한 가설 검정과 관련된 용어, 표기법, 정의를 상기해 봅시다.
 
-> A *hypothesis test* consists of a test between two competing hypotheses: (1) a *null hypothesis* $H_0$ versus (2) an *alternative hypothesis* $H_A$.
+> **가설 검정**은 서로 경쟁하는 두 가설 사이의 검정으로 구성됩니다. (1) **귀무 가설** $H_0$ 대 (2) **대립 가설** $H_A$입니다.
 > 
-> A *test statistic* is a point estimate/sample statistic formula used for hypothesis testing.
+> **검정 통계량**은 가설 검정에 사용되는 점 추정치/표본 통계량 공식입니다.
 
-Here, our *null hypothesis* $H_0$ assumes that the population slope $\beta_1$ is 0. If the population slope $\beta_1$ is truly 0, then this is saying that there is *no true relationship* between teaching and "beauty" scores for *all* the instructors in our population. In other words, $x$ = "beauty" score would have no associated effect on $y$ = teaching score. 
-The *alternative hypothesis* $H_A$, on the other hand, assumes that the population slope $\beta_1$ is not 0, meaning it could be either positive or negative. This suggests either a positive or negative relationship between teaching and "beauty" scores. Recall we called such alternative hypotheses *two-sided*. By convention, all hypothesis testing for regression assumes two-sided alternatives. 
+여기서 우리의 **귀무 가설** $H_0$는 모집단 기울기 $\beta_1$이 0이라고 가정합니다. 만약 모집단 기울기 $\beta_1$이 정말로 0이라면, 이는 우리 모집단의 **모든** 강사에 대해 강의 점수와 외모 점수 사이에 **어떠한 실제적인 관계도 없음**을 말하는 것입니다. 즉, $x$ = "외모" 점수가 $y$ = "강의 점수"에 아무런 영향을 미치지 않는다는 뜻입니다.
+반면에 **대립 가설** $H_A$는 모집단 기울기 $\beta_1$이 0이 아니라고 가정하며, 이는 양수일 수도 있고 음수일 수도 있음을 의미합니다. 이는 강의 점수와 외모 점수 사이에 양(+)의 관계나 음(-)의 관계가 있음을 시사합니다. 우리는 이러한 대립 가설을 **양측(two-sided)** 가설이라고 불렀던 것을 기억하십시오. 관례적으로 회귀 분석을 위한 모든 가설 검정은 양측 대립 가설을 가정합니다.
 
-Recall our "hypothesized universe" of no gender discrimination we *assumed* in our `promotions` activity in Section \@ref(ht-activity). Similarly here when conducting this hypothesis test, we'll assume a "hypothesized universe" where there is no relationship between teaching and "beauty" scores. In other words, we'll assume the null hypothesis $H_0: \beta_1 = 0$ is true. 
+섹션 \@ref(ht-activity)의 `promotions` 활동에서 우리가 **가정**했던 성차별이 없는 "가상 세계(hypothesized universe)"를 떠올려 보십시오. 마찬가지로 여기서 이 가설 검정을 수행할 때, 우리는 강의 점수와 외모 점수 사이에 아무런 관계가 없는 "가상 세계"를 가정할 것입니다. 즉, 귀무 가설 $H_0: \beta_1 = 0$이 참이라고 가정할 것입니다.
 
-The `statistic` column in the regression table is a tricky one, however. It corresponds to a standardized *t-test statistic*, much like the *two-sample $t$ statistic* we saw in Subsection \@ref(theory-hypo) where we used a theory-based method for conducting hypothesis tests. In both these cases, the *null distribution* can be mathematically proven to be a *$t$-distribution*. Since such test statistics are tricky for individuals new to statistical inference to study, we'll skip this and jump into interpreting the $p$-value. If you're curious, we have included a discussion of this standardized *t-test statistic* in Subsection \@ref(theory-regression).
-
-
-### p-value
-
-The fifth column of the regression table in Table \@ref(tab:regtable-11) `p_value` corresponds to the *p-value* of the hypothesis test $H_0: \beta_1 = 0$ versus  $H_A: \beta_1 \neq 0$. 
-
-Again recalling our terminology, notation, and definitions related to hypothesis tests we introduced in Section \@ref(understanding-ht), let's focus on the definition of the $p$-value:
-
-> A *p-value* is the probability of obtaining a test statistic just as extreme or more extreme than the observed test statistic *assuming the null hypothesis $H_0$ is true*.
-
-Recall that you can intuitively think of the $p$-value as quantifying how "extreme" the observed fitted slope of $b_1$ = `r b1` is in a "hypothesized universe" where there is no relationship between teaching and "beauty" scores. 
-
-Following the hypothesis testing procedure we outlined in Section \@ref(ht-interpretation), since the $p$-value in this case is 0, for any choice of significance level $\alpha$ we would reject $H_0$ in favor of $H_A$. Using non-statistical language, this is saying: we reject the hypothesis that there is no relationship between teaching and "beauty" scores in favor of the hypothesis that there is. That is to say, the evidence suggests there is a significant relationship, one that is positive. 
-
-More precisely, however, the $p$-value corresponds to how extreme the observed test statistic of `r t1` is when compared to the appropriate *null distribution*.  In Section \@ref(infer-regression), we'll perform a simulation using the `infer` package to construct the null distribution in this case. 
-
-An extra caveat here is that the results of this hypothesis test are only valid if certain "conditions for inference for regression" are met, which we'll introduce shortly in Section \@ref(regression-conditions).
+하지만 회귀 표의 `statistic` 열은 조금 까다롭습니다. 그것은 우리가 가설 검정을 위해 이론 기반 방법을 사용했던 하위 섹션 \@ref(theory-hypo)에서 보았던 **이표본 t-통계량**과 매우 유사한 **표준화된 t-검정 통계량**에 해당합니다. 이 두 경우 모두 **귀무 분포**는 수학적으로 **t-분포**임이 증명될 수 있습니다. 이러한 검정 통계량은 통계적 추론을 처음 접하는 분들이 공부하기에 까다로울 수 있으므로, 일단 건너뛰고 p-값의 해석으로 넘어가겠습니다. 궁금하신 분들을 위해 하위 섹션 \@ref(theory-regression)에 이 표준화된 t-검정 통계량에 대한 논의를 포함해 두었습니다.
 
 
-### Confidence interval
+### p-값
 
-The two rightmost columns of the regression table in Table \@ref(tab:regtable-11) (`lower_ci` and `upper_ci`) correspond to the endpoints of the 95% *confidence interval* for the population slope $\beta_1$. Recall our analogy of "nets are to fish" what "confidence intervals are to population parameters" from Section \@ref(ci-build-up). The resulting 95% confidence interval for $\beta_1$ of (`r lower1`, `r upper1`) can be thought of as a range of plausible values for the population slope $\beta_1$ of the linear relationship between teaching and "beauty" scores. 
+표 \@ref(tab:regtable-11)의 회귀 표에서 다섯 번째 열인 `p_value`는 가설 검정 $H_0: \beta_1 = 0$ 대 $H_A: \beta_1 \neq 0$에 대한 **p-값**에 해당합니다.
 
-As we introduced in Subsection \@ref(shorthand) on the precise and shorthand interpretation of confidence intervals, the statistically precise interpretation of this confidence interval is: "if we repeated this sampling procedure a large number of times, we expect about 95% of the resulting confidence intervals to capture the value of the population slope $\beta_1$." However, we'll summarize this using our shorthand interpretation that "we're 95% 'confident' that the true population slope $\beta_1$ lies between `r lower1` and `r upper1`."
+다시 한번 섹션 \@ref(understanding-ht)에서 소개한 가설 검정 관련 용어, 표기법, 정의를 상기하며 p-값의 정의에 집중해 봅시다.
 
-Notice in this case that the resulting 95% confidence interval for $\beta_1$ of $(`r lower1`, \, `r upper1`)$ does not contain a very particular value: $\beta_1$ equals 0. Recall we mentioned that if the population regression slope $\beta_1$ is 0, this is equivalent to saying there is *no* relationship between teaching and "beauty" scores. Since $\beta_1$ = 0 is not in our plausible range of values for $\beta_1$, we are inclined to believe that there, in fact, *is* a relationship between teaching and "beauty" scores and a positive one at that. So in this case, the conclusion about the population slope $\beta_1$ from the 95% confidence interval matches the conclusion from the hypothesis test: evidence suggests that there is a meaningful relationship between teaching and "beauty" scores.
+> **p-값**은 **귀무 가설 $H_0$가 참이라고 가정할 때**, 관찰된 검정 통계량만큼 극단적이거나 그보다 더 극단적인 검정 통계량을 얻을 확률입니다.
 
-Recall from Subsection \@ref(ci-width), however, that the *confidence level* is one of many factors that determine confidence interval widths. So for example, say we used a higher confidence level of 99% instead of 95%. The resulting confidence interval for $\beta_1$ would be wider and thus might now include 0. The lesson to remember here is that any confidence-interval-based conclusion depends highly on the confidence level used. 
+직관적으로 p-값이란, 강의 점수와 외모 점수 사이에 아무런 관계가 없는 "가상 세계"에서 관찰된 적합된 기울기 $b_1$ = `r b1`이 얼마나 "극단적인지"를 정량화하는 것으로 생각할 수 있습니다.
 
-What are the calculations that went into computing the two endpoints of the 95% confidence interval for $\beta_1$? 
+섹션 \@ref(ht-interpretation)에서 설명한 가설 검정 절차를 따르면, 이 사례에서 p-값이 0이므로 유의 수준 $\alpha$를 어떻게 선택하든 $H_0$를 기각하고 $H_A$를 채택하게 됩니다. 비통계적인 용어로는 다음과 같습니다. "우리는 강의 점수와 외모 점수 사이에 관계가 없다는 가설을 기각하고, 관계가 있다는 가설을 채택한다." 즉, 증거는 양(+)의 유의미한 관계가 있음을 시사합니다.
 
-Recall our sampling bowl example from Subsection \@ref(theory-ci) discussing `lower_ci` and `upper_ci`. Since the sampling and bootstrap distributions of the sample proportion $\widehat{p}$ were roughly normal, we could use the rule of thumb for bell-shaped distributions from Appendix \@ref(appendix-normal-curve) to create a 95% confidence interval for $p$ with the following equation:
+하지만 더 정확하게 말하자면, p-값은 관찰된 검정 통계량 `r t1`이 적절한 **귀무 분포**와 비교했을 때 얼마나 극단적인지에 해당합니다. 섹션 \@ref(infer-regression)에서는 `infer` 패키지를 사용하여 이 사례에 대한 귀무 분포를 구축하는 시뮬레이션을 수행할 것입니다.
+
+한 가지 추가로 주의할 점은, 이 가설 검정의 결과는 하위 섹션 \@ref(regression-conditions)에서 곧 소개할 "회귀 추론을 위한 몇 가지 조건"이 충족될 때만 유효하다는 것입니다.
+
+
+### 신뢰 구간
+
+표 \@ref(tab:regtable-11)의 회귀 표에서 가장 오른쪽에 있는 두 열(`lower_ci`와 `upper_ci`)은 모집단 기울기 $\beta_1$에 대한 95% **신뢰 구간**의 끝점에 해당합니다. 섹션 \@ref(ci-build-up)에서 보았던 "그물이 물고기라면 신뢰 구간은 모집단 매개변수"라는 비유를 상기해 보십시오. $\beta_1$에 대해 도출된 (`r lower1`, `r upper1`)이라는 95% 신뢰 구간은 강의 점수와 외모 점수 사이의 선형 관계에 대한 모집단 기울기 $\beta_1$의 타당한 범위로 생각할 수 있습니다.
+
+하위 섹션 \@ref(shorthand)에서 소개한 신뢰 구간의 정밀한 해석과 요약된 해석 중, 이 신뢰 구간에 대한 통계적으로 정밀한 해석은 다음과 같습니다. "만약 우리가 이 표집 절차를 아주 많이 반복한다면, 우리는 결과로 얻은 신뢰 구간의 약 95%가 모집단 기울기 $\beta_1$의 값을 포함할 것으로 예상한다." 하지만 우리는 이를 요약된 해석을 사용하여 "우리는 실제 모집단 기울기 $\beta_1$이 `r lower1`과 `r upper1` 사이에 있다고 95% '확신'한다"라고 정리하겠습니다.
+
+이 경우 $\beta_1$에 대한 95% 신뢰 구간 $(`r lower1`, \, `r upper1`)$이 아주 특별한 값인 $\beta_1 = 0$을 포함하지 않는다는 점에 주목하십시오. 모집단 회귀 기울기 $\beta_1$이 0이라는 것은 강의 점수와 외모 점수 사이에 아무런 관계가 **없다**는 것과 같다고 언급했음을 기억하십시오. $\beta_1 = 0$이 우리의 타당한 $\beta_1$ 범위 내에 있지 않으므로, 우리는 실제로 강의 점수와 외모 점수 사이에 관계가 있으며 그 관계가 양(+)의 관계라고 믿게 됩니다. 따라서 이 경우 95% 신뢰 구간을 통한 모집단 기울기 $\beta_1$에 대한 결론은 가설 검정의 결론과 일치합니다. 즉, 증거는 강의 점수와 외모 점수 사이에 의미 있는 관계가 있음을 시사합니다.
+
+하지만 하위 섹션 \@ref(ci-width)에서 보았듯이, **신뢰 수준**은 신뢰 구간의 너비를 결정하는 여러 요인 중 하나입니다. 예를 들어, 95% 대신 더 높은 99% 신뢰 수준을 사용했다고 가정해 봅시다. 그러면 $\beta_1$에 대한 신뢰 구간이 더 넓어지며 이제 0을 포함하게 될 수도 있습니다. 여기서 기억해야 할 교훈은 신뢰 구간에 기반한 어떤 결론이든 사용된 신뢰 수준에 크게 좌우된다는 것입니다.
+
+$\beta_1$에 대한 95% 신뢰 구간의 두 끝점을 계산하는 데 어떤 계산이 들어갔을까요?
+
+하위 섹션 \@ref(theory-ci)에서 `lower_ci`와 `upper_ci`에 대해 논의했던 표집 그릇 예시를 상기해 보십시오. 표본 비율 $\widehat{p}$의 표집 분포와 부트스트랩 분포가 대략 정규 분포를 따랐기 때문에, 우리는 부록 \@ref(appendix-normal-curve)에 있는 종 모양 분포에 대한 경험 법칙을 사용하여 다음 방정식을 통해 $p$에 대한 95% 신뢰 구간을 만들 수 있었습니다.
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 인라인 텍스트 출력을 위해 사용됩니다.
 z_star <- qnorm(0.975) %>% round(2)
 ```
 
 
 $$\widehat{p} \pm \text{MoE}_{\widehat{p}} = \widehat{p} \pm `r z_star` \cdot \text{SE}_{\widehat{p}} = \widehat{p} \pm `r z_star` \cdot \sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}}$$
 
-We can generalize this to other point estimates that have roughly normally shaped sampling and/or bootstrap distributions:
+우리는 이를 표집 분포 및/또는 부트스트랩 분포가 대략적으로 종 모양을 띠는 다른 점 추정치들로 일반화할 수 있습니다.
 
-$$\text{point estimate} \pm \text{MoE} = \text{point estimate} \pm `r z_star` \cdot \text{SE}.$$
+$$\text{점 추정치} \pm \text{오차 한계(MoE)} = \text{점 추정치} \pm `r z_star` \cdot \text{표준 오차(SE)}$$
 
-We'll show in Section \@ref(infer-regression) that the sampling/bootstrap distribution for the fitted slope $b_1$ is in fact bell-shaped as well. Thus we can construct a 95% confidence interval for $\beta_1$ with the following equation:
+섹션 \@ref(infer-regression)에서 적합된 기울기 $b_1$의 표집/부트스트랩 분포 역시 실제로 종 모양임을 보여줄 것입니다. 따라서 우리는 다음 방정식을 사용하여 $\beta_1$에 대한 95% 신뢰 구간을 구축할 수 있습니다.
 
-$$b_1 \pm \text{MoE}_{b_1} = b_1 \pm `r z_star` \cdot \text{SE}_{b_1}.$$
+$$b_1 \pm \text{MoE}_{b_1} = b_1 \pm `r z_star` \cdot \text{SE}_{b_1}$$
 
-What is the value of the standard error $\text{SE}_{b_1}$? It is in fact in the third column of the regression table in Table \@ref(tab:regtable-11): `r se1`. Thus
+표준 오차 $\text{SE}_{b_1}$의 값은 얼마일까요? 그것은 표 \@ref(tab:regtable-11)의 회귀 표 세 번째 열에 있는 `r se1`입니다. 따라서 다음과 같습니다.
 
 $$
 \begin{aligned}
@@ -342,45 +346,45 @@ b_1 \pm `r z_star` \cdot \text{SE}_{b_1} &= `r b1` \pm `r z_star` \cdot `r se1` 
 \end{aligned}
 $$
 
-This closely matches the $(`r lower1`, `r upper1`)$ confidence interval in the last two columns of Table \@ref(tab:regtable-11). 
+이는 표 \@ref(tab:regtable-11)의 마지막 두 열에 있는 $(`r lower1`, `r upper1`)$ 신뢰 구간과 매우 흡사합니다.
 
-Much like hypothesis tests, however, the results of this confidence interval also are only valid if the "conditions for inference for regression" to be discussed in Section \@ref(regression-conditions) are met.
-
-
-### How does R compute the table? {#regression-table-computation}
-
-Since we didn't perform the simulation to get the values of the standard error, test statistic, $p$-value, and endpoints of the 95% confidence interval in Table \@ref(tab:regtable-11), you might be wondering how were these values computed. What did R do behind the scenes? Does R run simulations like we did using the `infer` package in Chapters \@ref(confidence-intervals) and \@ref(hypothesis-testing) on confidence intervals and hypothesis testing?
-
-The answer is no! Much like the theory-based method for constructing confidence intervals you saw in Subsection \@ref(theory-ci) and the theory-based hypothesis test you saw in Subsection \@ref(theory-hypo), there exist mathematical formulas that allow you to construct confidence intervals and conduct hypothesis tests for inference for regression. These formulas were derived in a time when computers didn't exist, so it would've been impossible to run the extensive computer simulations we have in this book. We present these formulas in Subsection \@ref(theory-regression) on "theory-based inference for regression."
-
-In Section \@ref(infer-regression), we'll go over a simulation-based approach to constructing confidence intervals and conducting hypothesis tests using the `infer` package. In particular, we'll convince you that the bootstrap distribution of the fitted slope $b_1$ is indeed bell-shaped.
+하지만 가설 검정과 마찬가지로, 이 신뢰 구간의 결과 역시 섹션 \@ref(regression-conditions)에서 논의할 "회귀 추론을 위한 조건"이 충족될 때만 유효합니다.
 
 
+### R은 이 표를 어떻게 계산할까요? {#regression-table-computation}
+
+우리는 표 \@ref(tab:regtable-11)에서 표준 오차, 검정 통계량, p-값, 그리고 95% 신뢰 구간의 끝점 값을 얻기 위해 시뮬레이션을 수행하지 않았으므로, 이러한 값들이 어떻게 계산되었는지 궁금할 것입니다. R은 보이지 않는 곳에서 무엇을 했을까요? R은 우리가 신뢰 구간과 가설 검정을 다룬 챕터 \@ref(confidence-intervals)와 \@ref(hypothesis-testing)에서 `infer` 패키지를 사용해 했던 것처럼 시뮬레이션을 실행했을까요?
+
+정답은 "아니오"입니다! 하위 섹션 \@ref(theory-ci)에서 보았던 신뢰 구간 구축을 위한 이론 기반 방법과 하위 섹션 \@ref(theory-hypo)에서 보았던 이론 기반 가설 검정과 마찬가지로, 회귀 추론을 위한 신뢰 구간을 구축하고 가설 검정을 수행할 수 있게 해주는 수학적 공식들이 존재합니다. 이러한 공식들은 컴퓨터가 존재하지 않던 시절에 도출되었으므로, 이 책에서 우리가 했던 광범위한 컴퓨터 시뮬레이션을 실행하는 것은 불가능했을 것입니다. 우리는 이러한 공식들을 하위 섹션 \@ref(theory-regression)의 "회귀 분석을 위한 이론 기반 추론"에서 제시합니다.
+
+섹션 \@ref(infer-regression)에서는 `infer` 패키지를 사용하여 신뢰 구간을 구축하고 가설 검정을 수행하는 시뮬레이션 기반 접근 방식을 살펴볼 것입니다. 특히 적합된 기울기 $b_1$의 부트스트랩 분포가 보기에 정말 종 모양임을 확인시켜 드릴 것입니다.
 
 
 
-## Conditions for inference for regression {#regression-conditions}
-
-Recall in Subsection \@ref(se-method) we stated that we could only use the standard-error-based method for constructing confidence intervals if the bootstrap distribution was bell shaped. Similarly, there are certain conditions that need to be met in order for the results of our hypothesis tests and confidence intervals we described in Section \@ref(regression-interp) to have valid meaning. These conditions must be met for the assumed underlying mathematical and probability theory to hold true. 
-
-For inference for regression, there are four conditions that need to be met. Note the first four letters of these conditions are highlighted in bold in what follows: **LINE**. This can serve as a nice reminder of what to check for whenever you perform linear regression. \index{regression!conditions for inference (LINE)}
-
-1. **L**inearity of relationship between variables
-1. **I**ndependence of the residuals
-1. **N**ormality of the residuals
-1. **E**quality of variance of the residuals
-
-Conditions **L**, **N**, and **E** can be verified through what is known as a *residual analysis*.\index{residual analysis} Condition **I** can only be verified through an understanding of how the data was collected. 
-
-In this section, we'll go over a refresher on residuals, verify whether each of the four **LINE** conditions hold true, and then discuss the implications. 
 
 
-### Residuals refresher
+## 회귀 추론을 위한 조건 {#regression-conditions}
 
-Recall our definition of a residual from Subsection \@ref(model1points): it is the *observed value* minus the *fitted value* denoted by $y - \widehat{y}$. Recall that residuals can be thought of as the error or the "lack-of-fit" between the observed value $y$ and the fitted value $\widehat{y}$ on the regression line in Figure \@ref(fig:regline). In Figure \@ref(fig:residual-example), we illustrate one particular residual out of `r n_evals_ch5` using an arrow, as well as its corresponding observed and fitted values using a circle and a square, respectively.
+하위 섹션 \@ref(se-method)에서 우리는 부트스트랩 분포가 종 모양인 경우에만 신뢰 구간 구축을 위해 표준 오차 기반 방법을 사용할 수 있다고 언급했습니다. 마찬가지로, 섹션 \@ref(regression-interp)에서 설명한 가설 검정과 신뢰 구간 결과가 유효한 의미를 갖기 위해 충족되어야 하는 몇 가지 조건이 있습니다. 이러한 조건들은 가정된 근간의 수학 및 확률 이론이 성립하기 위해 반드시 충족되어야 합니다.
 
-```{r residual-example, echo=FALSE, fig.cap="Example of observed value, fitted value, and residual.", purl=FALSE, message=FALSE}
-# Pick out one particular point to drill down on
+회귀 추론을 위해서는 네 가지 조건을 충족해야 합니다. 다음 조건들의 첫 글자를 따서 **LINE**이라고 부릅니다. 이는 선형 회귀를 수행할 때마다 확인해야 할 사항들을 기억하는 데 도움이 됩니다. \index{regression!conditions for inference (LINE)}
+
+1. 변수 사이 관계의 **선형성(Linearity)**
+2. 잔차의 **독립성(Independence)**
+3. 잔차의 **정규성(Normality)**
+4. 잔차 분산의 **등분산성(Equality of variance)**
+
+조건 **L**, **N**, **E**는 **잔차 분석(residual analysis)**\index{residual analysis}이라 불리는 과정을 통해 검증할 수 있습니다. 조건 **I**는 데이터가 어떻게 수집되었는지에 대한 이해를 통해서만 검증할 수 있습니다.
+
+이 섹션에서는 잔차에 대해 복습하고, 네 가지 **LINE** 조건이 각각 성립하는지 확인한 다음, 그 시사점에 대해 논의할 것입니다.
+
+
+### 잔차 복습
+
+하위 섹션 \@ref(model1points)에서 정의한 잔차를 상기해 봅시다. 잔차는 **관찰값(observed value)**에서 **적합값(fitted value)**을 뺀 것으로, $y - \widehat{y}$로 표시합니다. 잔차는 그림 \@ref(fig:regline)의 회귀선 위에 있는 관찰값 $y$와 적합값 $\widehat{y}$ 사이의 오차 또는 "적합도 부족(lack-of-fit)"으로 생각할 수 있습니다. 그림 \@ref(fig:residual-example)에서는 `r n_evals_ch5`개의 잔차 중 하나를 화살표로 예시하고, 그에 해당하는 관찰값과 적합값을 각각 원과 사각형으로 표시했습니다.
+
+```{r residual-example, echo=FALSE, fig.cap="관찰값, 적합값, 잔차의 예시.", purl=FALSE, message=FALSE}
+# 드릴다운할 특정 지점을 하나 선택합니다.
 index <- which(evals_ch5$bty_avg == 7.333 & evals_ch5$score == 4.9)
 target_point <- score_model %>%
   get_regression_points() %>%
@@ -390,12 +394,12 @@ y <- target_point$score
 y_hat <- target_point$score_hat
 resid <- target_point$residual
 
-# Plot residual
+# 잔차를 플롯합니다.
 best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_point() +
   labs(
-    x = "Beauty Score", y = "Teaching Score",
-    title = "Relationship of teaching and beauty scores"
+    x = "외모 점수", y = "강의 점수",
+    title = "강의 점수와 외모 점수의 관계"
   ) +
   geom_smooth(method = "lm", se = FALSE) +
   annotate("point", x = x, y = y, col = "red", size = 4) +
@@ -407,26 +411,26 @@ best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
 best_fit_plot
 ```
 
-Furthermore, we can automate the calculation of all $n$ = `r n_evals_ch5` residuals by applying the `get_regression_points()` function to our saved regression model in `score_model`. Observe how the resulting values of `residual` are roughly equal to `score - score_hat` (there is potentially a slight difference due to rounding error).
+또한, 저장된 회귀 모델 `score_model`에 `get_regression_points()` 함수를 적용하여 $n$ = `r n_evals_ch5`개의 모든 잔차 계산을 자동화할 수 있습니다. `residual` 열의 결과값들이 대략 `score - score_hat`과 일치하는지 확인해 보십시오(반올림 오차로 인해 약간의 차이가 있을 수 있습니다).
 
 ```{r}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
-# Get regression points:
+# 회귀 지점 가져오기:
 regression_points <- get_regression_points(score_model)
 regression_points
 ```
 
-A *residual analysis* is used to verify conditions **L**, **N**, and **E** and can be performed using appropriate data visualizations. While there are more sophisticated statistical approaches that can also be done, we'll focus on the much simpler approach of looking at plots.
+**잔차 분석**은 조건 **L**, **N**, **E**를 검증하기 위해 사용되며, 적절한 데이터 시각화를 통해 수행할 수 있습니다. 더 정교한 통계적 접근 방식들도 존재하지만, 여기서는 플롯을 살펴보는 훨씬 간단한 방식에 집중하겠습니다.
 
 
-### Linearity of relationship
+### 관계의 선형성
 
-The first condition is that the relationship between the outcome variable $y$ and the explanatory variable $x$ must be **L**inear. Recall the scatterplot in Figure \@ref(fig:regline) where we had the explanatory variable $x$ as "beauty" score and the outcome variable $y$ as teaching score. Would you say that the relationship between $x$ and $y$ is linear? It's hard to say because of the scatter of the points about the line. In the authors' opinions, we feel this relationship is "linear enough."
+첫 번째 조건은 결과 변수 $y$와 설명 변수 $x$ 사이의 관계가 **선형(Linear)**이어야 한다는 것입니다. 설명 변수 $x$를 "외모" 점수로, 결과 변수 $y$를 강의 점수로 설정했던 그림 \@ref(fig:regline)의 산점도를 상기해 봅시다. 여러분은 $x$와 $y$ 사이의 관계가 선형이라고 하시겠습니까? 선 주위에 점들이 흩어져 있기 때문에 말하기가 조금 어렵습니다. 저자들의 의견으로는, 이 관계는 "충분히 선형적"이라고 느껴집니다.
 
-Let's present an example where the relationship between $x$ and $y$ is clearly not linear in Figure \@ref(fig:non-linear). In this case, the points clearly do not form a line, but rather a U-shaped polynomial curve. In this case, any results from an inference for regression would not be valid. 
+그림 \@ref(fig:non-linear)에서는 $x$와 $y$ 사이의 관계가 명확하게 선형이 아닌 예를 제시합니다. 이 경우 점들은 명확하게 직선을 형성하지 않고 오히려 U자형 다항식 곡선을 형성합니다. 이런 경우 회귀 분석을 통한 추론의 어떤 결과도 유효하지 않을 것입니다.
 
-```{r non-linear, echo=FALSE, fig.cap="Example of a clearly non-linear relationship.", fig.height=3.3, message=FALSE, purl=FALSE}
+```{r non-linear, echo=FALSE, fig.cap="명확하게 비선형인 관계의 예시.", fig.height=3.3, message=FALSE, purl=FALSE}
 set.seed(76)
 evals_ch5 %>%
   mutate(
@@ -435,69 +439,69 @@ evals_ch5 %>%
   ) %>%
   ggplot(aes(x = x, y = y)) +
   geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score") +
+  labs(x = "외모 점수", y = "강의 점수") +
   geom_smooth(method = "lm", se = FALSE) +
   expand_limits(y = 10)
 ```
 
 
-### Independence of residuals
+### 잔차의 독립성
 
-The second condition is that the residuals must be **I**ndependent. In other words, the different observations in our data must be independent of one another.
+두 번째 조건은 잔차들이 서로 **독립(Independent)**이어야 한다는 것입니다. 다시 말해, 우리 데이터의 서로 다른 관찰값들은 서로 독립적이어야 합니다.
 
-For our UT Austin data, while there is data on `r n_evals_ch5` courses, these `r n_evals_ch5` courses were actually taught by `r evals %>% select(prof_ID) %>% n_distinct()` unique instructors. In other words, the same professor is often included more than once in our data. The original `evals` data frame that we used to construct the `evals_ch5` data frame has a variable `prof_ID`, which is an anonymized identification variable for the professor:
+우리 UT 오스틴 데이터의 경우, `r n_evals_ch5`개 강의에 대한 데이터가 있지만, 이 `r n_evals_ch5`개 강의는 실제로는 `r evals %>% select(prof_ID) %>% n_distinct()`명의 서로 다른 강사들에 의해 진행되었습니다. 즉, 동일한 교수가 우리 데이터에 여러 번 포함되어 있는 경우가 많습니다. `evals_ch5` 데이터 프레임을 만드는 데 사용했던 원래의 `evals` 데이터 프레임에는 교수를 식별하기 위한 익명 아이디 변수인 `prof_ID`가 있습니다.
 
 ```{r}
 evals %>% 
   select(ID, prof_ID, score, bty_avg)
 ```
 
-For example, the professor with `prof_ID` equal to 1 taught the first 4 courses in the data, the professor with `prof_ID` equal to 2 taught the next 3, and so on. Given that the same professor taught these first four courses, it is reasonable to expect that these four teaching scores are related to each other. If a professor gets a high `score` in one class, chances are fairly good they'll get a high `score` in another. This dataset thus provides different information than if we had `r n_evals_ch5` unique instructors teaching the `r n_evals_ch5` courses.
+예를 들어, `prof_ID`가 1인 교수는 데이터의 처음 4개 강의를 가르쳤고, `prof_ID`가 2인 교수는 그다음 3개 강의를 가르치는 식입니다. 동일한 교수가 이 처음 4개 강의를 가르쳤다는 점을 고려하면, 이 4개의 강의 점수가 서로 관련이 있다고 생각하는 것이 타당합니다. 만약 어떤 교수가 한 수업에서 높은 `score`를 받는다면, 다른 수업에서도 높은 `score`를 받을 가능성이 꽤 큽니다. 따라서 이 데이터 세트는 `r n_evals_ch5`개 강의를 `r n_evals_ch5`명의 고유한 교수들이 가르쳤을 때와는 다른 정보를 제공합니다.
 
-In this case, we say there exists *dependence* between observations. The first four courses taught by professor 1 are dependent, the next 3 courses taught by professor 2 are related, and so on. Any proper analysis of this data needs to take into account that we have *repeated measures* for the same profs.
+이런 경우, 관찰값 사이에 *의존성(dependence)*이 존재한다고 말합니다. 교수 1이 가르친 처음 4개 강의는 서로 의존적이고, 교수 2가 가르친 그다음 3개 강의도 서로 관련이 있는 식입니다. 이 데이터를 적절하게 분석하려면 우리가 동일한 교수들에 대해 *반복 측정(repeated measures)*을 했다는 사실을 반드시 고려해야 합니다.
 
-So in this case, the independence condition is not met. What does this mean for our analysis? We'll address this in Subsection \@ref(what-is-the-conclusion) coming up, after we check the remaining two conditions.
+따라서 이 사례에서는 독립성 조건이 충족되지 않습니다. 이것이 우리의 분석에 무엇을 의미할까요? 나머지 두 조건을 확인한 후, 다가올 하위 섹션 \@ref(what-is-the-conclusion)에서 이 문제를 다루겠습니다.
 
 
-### Normality of residuals
+### 잔차의 정규성
 
-The third condition is that the residuals should follow a **N**ormal distribution. Furthermore, the center of this distribution should be 0. In other words, sometimes the regression model will make positive errors: $y - \widehat{y} > 0$. Other times, the regression model will make equally negative errors: $y - \widehat{y} < 0$. However, *on average* the errors should equal 0 and their shape should be similar to that of a bell.
+세 번째 조건은 잔차들이 **정규(Normal)** 분포를 따라야 한다는 것입니다. 또한, 이 분포의 중심은 0이어야 합니다. 즉, 때때로 회귀 모델은 양(+)의 오차($y - \widehat{y} > 0$)를 낼 수 있고, 또 어떤 때는 그에 상응하는 음(-)의 오차($y - \widehat{y} < 0$)를 낼 수 있습니다. 그러나 *평균적으로* 오차는 0이어야 하며, 그 모양은 종 모양과 비슷해야 합니다.
 
-The simplest way to check the normality of the residuals is to look at a histogram, which we visualize in Figure \@ref(fig:model1residualshist).
+잔차의 정규성을 확인하는 가장 간단한 방법은 그림 \@ref(fig:model1residualshist)에 시각화된 히스토그램을 살펴보는 것입니다.
 
 ```{r, eval=FALSE}
 ggplot(regression_points, aes(x = residual)) +
   geom_histogram(binwidth = 0.25, color = "white") +
-  labs(x = "Residual")
+  labs(x = "잔차")
 ```
-```{r model1residualshist, echo=FALSE, fig.cap="Histogram of residuals.", purl=FALSE}
+```{r model1residualshist, echo=FALSE, fig.cap="잔차의 히스토그램.", purl=FALSE}
 ggplot(regression_points, aes(x = residual)) +
   geom_histogram(binwidth = 0.25, color = "white") +
-  labs(x = "Residual")
+  labs(x = "잔차")
 ```
 
-This histogram shows that we have more positive residuals than negative. Since the residual $y-\widehat{y}$ is positive when $y > \widehat{y}$, it seems our regression model's fitted teaching scores $\widehat{y}$ tend to *underestimate* the true teaching scores $y$. Furthermore, this histogram has a slight *left-skew*\index{skew} in that there is a tail on the left. This is another way to say the residuals exhibit a *negative skew*. 
+이 히스토그램은 음수 잔차보다 양수 잔차가 더 많음을 보여줍니다. $y > \widehat{y}$일 때 잔차 $y-\widehat{y}$가 양수이므로, 우리 회귀 모델의 적합된 강의 점수 $\widehat{y}$가 실제 강의 점수 $y$를 **과소평가(underestimate)**하는 경향이 있는 것 같습니다. 또한, 이 히스토그램은 왼쪽에 꼬리가 있다는 점에서 약간의 **왼쪽으로 치우침(left-skew)**\index{skew}을 보입니다. 이는 잔차들이 **음의 왜도(negative skew)**를 나타낸다고 말하는 또 다른 방법입니다.
 
-Is this a problem? Again, there is a certain amount of subjectivity in the response. In the authors' opinion, while there is a slight skew to the residuals, we feel it isn't drastic. On the other hand, others might disagree with our assessment. 
+이것이 문제일까요? 다시 말씀드리자면, 대답에는 어느 정도의 주관성이 개입됩니다. 저자들의 생각으로는, 잔차의 왜도가 약간 있기는 하지만 급격하지는 않다고 느껴집니다. 반면에 다른 사람들은 우리의 판단에 동의하지 않을 수도 있습니다.
 
-Let's present examples where the residuals clearly do and don't follow a normal distribution in Figure \@ref(fig:normal-residuals). In this case of the model yielding the clearly non-normal residuals on the right, any results from an inference for regression would not be valid. 
+그림 \@ref(fig:normal-residuals)에서는 잔차가 정규 분포를 명확하게 따르는 예와 그렇지 않은 예를 제시합니다. 오른쪽에 있는 명확하게 비정규적인 잔차를 낳는 모델의 경우, 회귀 분석을 통한 추론의 어떤 결과도 유효하지 않을 것입니다.
 
-```{r normal-residuals, echo=FALSE, fig.cap="Example of clearly normal and clearly not normal residuals.", purl=FALSE}
+```{r normal-residuals, echo=FALSE, fig.cap="명확하게 정규적인 잔차와 명확하게 비정규적인 잔차의 예시.", purl=FALSE}
 sigma <- sd(regression_points$residual)
 normal_and_not_examples <- evals_ch5 %>%
   mutate(
-    `Clearly normal` = rnorm(n = n(), 0, sd = sigma),
-    `Clearly not normal` = rnorm(n = n(), mean = 0, sd = sigma)^2,
-    `Clearly not normal` = `Clearly not normal` - mean(`Clearly not normal`)
+    `명확하게 정규적` = rnorm(n = n(), 0, sd = sigma),
+    `명확하게 비정규적` = rnorm(n = n(), mean = 0, sd = sigma)^2,
+    `명확하게 비정규적` = `명확하게 비정규적` - mean(`명확하게 비정규적`)
   ) %>%
-  select(bty_avg, `Clearly normal`, `Clearly not normal`) %>%
+  select(bty_avg, `명확하게 정규적`, `명확하게 비정규적`) %>%
   gather(type, eps, -bty_avg) %>%
   ggplot(aes(x = eps)) +
   geom_histogram(binwidth = 0.25, color = "white") +
-  labs(x = "Residual") +
+  labs(x = "잔차") +
   facet_wrap(~type, scales = "free")
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   normal_and_not_examples +
     theme(
       strip.text = element_text(colour = "black"),
@@ -509,70 +513,70 @@ if (is_latex_output()) {
 ```
 
 
-### Equality of variance
+### 등분산성
 
-The fourth and final condition is that the residuals should exhibit **E**qual variance across all values of the explanatory variable $x$. In other words, the value and spread of the residuals should not depend on the value of the explanatory variable $x$.  
+네 번째이자 마지막 조건은 잔차들이 설명 변수 $x$의 모든 값에 대해 **동일(Equal)**한 분산을 가져야 한다는 것입니다. 다시 말해, 잔차의 값과 퍼짐 정도(spread)가 설명 변수 $x$의 값에 의존해서는 안 됩니다.
 
-Recall the scatterplot in Figure \@ref(fig:regline): we had the explanatory variable $x$ of "beauty" score on the x-axis and the outcome variable $y$ of teaching score on the y-axis. Instead, let's create a scatterplot that has the same values on the x-axis, but now with the residual $y-\widehat{y}$ on the y-axis as seen in Figure \@ref(fig:numxplot6).
+그림 \@ref(fig:regline)의 산점도를 상기해 보십시오. x축에는 설명 변수 $x$인 "외모" 점수가, y축에는 결과 변수 $y$인 강의 점수가 있었습니다. 대신, 그림 \@ref(fig:numxplot6)에서 보는 것처럼 x축은 동일한 값을 유지하되 y축에 잔차 $y-\widehat{y}$를 놓은 산점도를 만들어 보겠습니다.
 
 ```{r, eval=FALSE}
 ggplot(regression_points, aes(x = bty_avg, y = residual)) +
   geom_point() +
-  labs(x = "Beauty Score", y = "Residual") +
+  labs(x = "외모 점수", y = "잔차") +
   geom_hline(yintercept = 0, col = "blue", size = 1)
 ```
-```{r numxplot6, echo=FALSE, fig.cap="Plot of residuals over beauty score.", purl=FALSE}
+```{r numxplot6, echo=FALSE, fig.cap="외모 점수에 따른 잔차 플롯.", purl=FALSE}
 ggplot(regression_points, aes(x = bty_avg, y = residual)) +
   geom_point() +
-  labs(x = "Beauty Score", y = "Residual") +
+  labs(x = "외모 점수", y = "잔차") +
   geom_hline(yintercept = 0, col = "blue", size = 1)
 ```
 
-You can think of Figure \@ref(fig:numxplot6) as a modified version of the plot with the regression line in Figure \@ref(fig:regline), but with the regression line flattened out to $y=0$. Looking at this plot, would you say that the spread of the residuals around the line at $y=0$ is constant across all values of the explanatory variable $x$ of "beauty" score? This question is rather qualitative and subjective in nature, thus different people may respond with different answers. For example, some people might say that there is slightly more variation in the residuals for smaller values of $x$ than for higher ones. However, it can be argued that there isn't a *drastic* non-constancy.
+그림 \@ref(fig:numxplot6)은 그림 \@ref(fig:regline)의 회귀선이 포함된 플롯에서 회귀선을 $y=0$으로 평평하게 펴놓은 수정된 버전이라고 생각할 수 있습니다. 이 플롯을 볼 때, $y=0$ 선 주위의 잔차들의 퍼짐 정도가 설명 변수 $x$인 "외모" 점수의 모든 값에 대해 일정하다고 하시겠습니까? 이 질문은 다분히 정성적이고 주관적인 성격을 띠기 때문에 사람마다 다른 대답을 내놓을 수 있습니다. 예를 들어, 어떤 사람들은 $x$ 값이 작을 때가 클 때보다 잔차의 변동이 약간 더 크다고 말할 수 있습니다. 하지만 분산이 *급격하게* 일정하지 않은 것은 아니라고 주장할 수도 있습니다.
 
-In Figure \@ref(fig:equal-variance-residuals) let's present an example where the residuals clearly do not have equal variance across all values of the explanatory variable $x$. 
+그림 \@ref(fig:equal-variance-residuals)에서는 잔차의 분산이 설명 변수 $x$의 모든 값에 대해 명확하게 동일하지 않은 예를 제시합니다.
 
-```{r equal-variance-residuals, echo=FALSE, fig.cap="Example of clearly non-equal variance.", purl=FALSE}
+```{r equal-variance-residuals, echo=FALSE, fig.cap="명확하게 동일하지 않은 분산의 예시.", purl=FALSE}
 evals_ch5 %>%
   mutate(eps = (rnorm(n(), 0, 0.075 * bty_avg^2)) * 0.4) %>%
   ggplot(aes(x = bty_avg, y = eps)) +
   geom_point() +
-  labs(x = "Beauty Score", y = "Residual") +
+  labs(x = "외모 점수", y = "잔차") +
   geom_hline(yintercept = 0, col = "blue", size = 1)
 ```
 
-Observe how the spread of the residuals increases as the value of $x$ increases. This is a situation known as \index{heteroskedasticity} *heteroskedasticity*. Any inference for regression based on a model yielding such a pattern in the residuals would not be valid. 
+$x$ 값이 커짐에 따라 잔차의 퍼짐 정도가 어떻게 증가하는지 관찰해 보십시오. 이러한 상황을 **이분산성(heteroskedasticity)**\index{heteroskedasticity}이라고 합니다. 잔차에서 이러한 패턴을 보이는 모델에 기반한 회귀 분석 추론의 결과는 유효하지 않을 것입니다.
 
 
-### What's the conclusion? {#what-is-the-conclusion}
+### 결론이 무엇인가요? {#what-is-the-conclusion}
 
-Let's list our four conditions for inference for regression again and indicate whether or not they were satisfied in our analysis:
+회귀 분석을 위한 네 가지 조건을 다시 나열하고, 우리 분석에서 이 조건들이 충족되었는지 표시해 보겠습니다.
 
-1. **L**inearity of relationship between variables: Yes
-1. **I**ndependence of residuals: No
-1. **N**ormality of residuals: Somewhat
-1. **E**quality of variance: Yes
+1. 변수 사이 관계의 **선형성(Linearity)**: 예
+2. 잔차의 **독립성(Independence)**: 아니요
+3. 잔차의 **정규성(Normality)**: 어느 정도
+4. 잔차 분산의 **등분산성(Equality of variance)**: 예
 
-So what does this mean for the results of our confidence intervals and hypothesis tests in Section \@ref(regression-interp)?
+그렇다면 이것이 섹션 \@ref(regression-interp)에서 얻은 신뢰 구간과 가설 검정 결과에 어떤 의미가 있을까요?
 
-First, the **I**ndependence condition. The fact that there exist dependencies between different rows in `evals_ch5` must be addressed. In more advanced statistics courses, you'll learn how to incorporate such dependencies into your regression models. One such technique is called *hierarchical/multilevel modeling*.
+첫째, **독립성(Independence)** 조건입니다. `evals_ch5` 데이터의 서로 다른 행들 사이에 의존성이 존재한다는 사실은 반드시 해결되어야 합니다. 더 발전된 통계학 과정에서는 이러한 의존성을 회귀 모델에 어떻게 통합하는지 배우게 될 것입니다. 그러한 기술 중 하나가 **계층형/다층 모델링(hierarchical/multilevel modeling)**입니다.
 
-Second, when conditions **L**, **N**, **E** are not met, it often means there is a shortcoming in our model. For example, it may be the case that using only a single explanatory variable is insufficient, as we did with "beauty" score. We may need to incorporate more explanatory variables in a multiple regression model as we did in Chapter \@ref(multiple-regression), or perhaps use a transformation of one or more of your variables, or use an entirely different modeling technique. To learn more about addressing such shortcomings, you'll have to take a class on or read up on more advanced regression modeling methods. 
+둘째, 조건 **L**, **N**, **E**가 충족되지 않을 때는 종종 우리 모델에 결함이 있음을 의미합니다. 예를 들어, 우리가 "외모" 점수에서 했던 것처럼 단일 설명 변수만 사용하는 것이 불충분할 수 있습니다. 챕터 \@ref(multiple-regression)에서 했던 것처럼 다중 회귀 모델에 더 많은 설명 변수를 포함하거나, 하나 이상의 변수를 변환하거나, 아예 다른 모델링 기술을 사용해야 할 수도 있습니다. 이러한 결함을 해결하는 방법에 대해 더 알고 싶다면, 더 발전된 회귀 모델링 방법에 대한 수업을 듣거나 관련 서적을 찾아보아야 합니다.
 
-In our case, the best we can do is view the results suggested by our confidence intervals and hypothesis tests as preliminary. While a preliminary analysis suggests that there is a significant relationship between teaching and "beauty" scores, further investigation is warranted; in particular, by improving the preliminary `score ~ bty_avg` model so that the four conditions are met.  When the four conditions are roughly met, then we can put more faith into our confidence intervals and $p$-values. 
+우리 사례에서 우리가 할 수 있는 최선은 신뢰 구간과 가설 검정이 제시하는 결과를 "예비적인(preliminary)" 것으로 보는 것입니다. 예비 분석은 강의 점수와 외모 점수 사이에 유의미한 관계가 있음을 시사하지만, 특히 네 가지 조건이 충족되도록 예비 모델 `score ~ bty_avg`를 개선하는 등의 추가 조사가 필요합니다. 네 가지 조건이 대략적으로 충족될 때, 우리는 신뢰 구간과 p-값에 더 큰 확신을 가질 수 있습니다.
 
-The conditions for inference in regression problems are a key part of regression analysis that are of vital importance to the processes of constructing confidence intervals and conducting hypothesis tests. However, it is often the case with regression analysis in the real world that not all the conditions are completely met. Furthermore, as you saw, there is a level of subjectivity in the residual analyses to verify the **L**, **N**, and **E** conditions. So what can you do? We as authors advocate for transparency in communicating all results. This lets the stakeholders of any analysis know about a model's shortcomings or whether the model is "good enough." So while this checking of assumptions has lead to some fuzzy "it depends" results, we decided as authors to show you these scenarios to help prepare you for difficult statistical decisions you may need to make down the road.
+회귀 문제에서 추론을 위한 조건은 신뢰 구간 구축과 가설 검정 수행 과정에서 매우 중요한 회귀 분석의 핵심 부분입니다. 하지만 실제 세상의 회귀 분석에서는 모든 조건이 완벽하게 충족되지 않는 경우가 많습니다. 또한 보셨다시피, **L**, **N**, **E** 조건을 확인하기 위한 잔차 분석에는 어느 정도 주관성이 개입됩니다. 그렇다면 무엇을 할 수 있을까요? 저자로서 우리는 모든 결과를 전달할 때 투명성을 가질 것을 권장합니다. 이를 통해 분석의 이해관계자들은 모델의 결함이나 모델이 "충분히 좋은지" 여부를 알 수 있습니다. 가정을 확인하는 과정이 다소 모호한 "상황에 따라 다르다"는 결과로 이어지기도 했지만, 저자들은 여러분이 앞으로 마주하게 될 어려운 통계적 결정을 내리는 데 도움을 주기 위해 이러한 시나리오들을 보여주기로 결정했습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Continuing with our regression using `age` as the explanatory variable and teaching `score` as the outcome variable.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `age`(나이)를 설명 변수로, 강의 `score`(점수)를 결과 변수로 사용하는 회귀 분석을 계속 진행해 봅시다.
 
-- Use the `get_regression_points()` function to get the observed values, fitted values, and residuals for all `r n_evals_ch5` instructors. 
-- Perform a residual analysis and look for any systematic patterns in the residuals. Ideally, there should be little to no pattern but comment on what you find here.
+- `get_regression_points()` 함수를 사용하여 `r n_evals_ch5`명의 모든 강사에 대한 관찰값, 적합값, 잔차를 구하십시오.
+- 잔차 분석을 수행하고 잔차에서 어떠한 체계적인 패턴이 있는지 찾아보십시오. 이상적으로는 패턴이 거의 없거나 아예 없어야 하지만, 여기서 발견한 내용에 대해 의견을 제시해 보십시오.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -583,27 +587,27 @@ The conditions for inference in regression problems are a key part of regression
 
 
 
-## Simulation-based inference for regression {#infer-regression}
+## 시뮬레이션 기반 회귀 분석 추론 {#infer-regression}
 
-Recall in Subsection \@ref(regression-table-computation) when we interpreted the third through seventh columns of a regression table, we stated that R doesn't do simulations to compute these values. Rather R uses theory-based methods that involve mathematical formulas. 
+하위 섹션 \@ref(regression-table-computation)에서 회귀 표의 세 번째부터 일곱 번째 열을 해석할 때, R은 이러한 값을 계산하기 위해 시뮬레이션을 수행하지 않는다고 언급했습니다. 대신 R은 수학 공식을 포함하는 이론 기반 방법을 사용합니다.
 
-In this section, we'll use the simulation-based methods you previously learned in Chapters \@ref(confidence-intervals) and \@ref(hypothesis-testing) to recreate the values in the regression table in Table \@ref(tab:regtable-11). In particular, we'll use the `infer` package workflow to
+이 섹션에서는 이전에 챕터 \@ref(confidence-intervals)와 \@ref(hypothesis-testing)에서 배운 시뮬레이션 기반 방법을 사용하여 표 \@ref(tab:regtable-11)의 회귀 표에 있는 값들을 재현해 보겠습니다. 구체적으로 다음과 같이 `infer` 패키지 워크플로를 사용할 것입니다.
 
-* Construct a 95% confidence interval for the population slope $\beta_1$ using bootstrap resampling with replacement. We did this previously in Sections \@ref(bootstrap-process) with the `pennies` data and \@ref(case-study-two-prop-ci) with the `mythbusters_yawn` data.
-* Conduct a hypothesis test of $H_0: \beta_1 = 0$ versus $H_A: \beta_1 \neq 0$ using a permutation test. We did this previously in Sections \@ref(ht-infer) with the `promotions` data and \@ref(ht-case-study) with the `movies_sample` IMDb data.
+* 복원 추출 부트스트랩을 사용하여 모집단 기울기 $\beta_1$에 대한 95% 신뢰 구간을 구축합니다. 우리는 이전에 `pennies` 데이터를 사용한 섹션 \@ref(bootstrap-process)와 `mythbusters_yawn` 데이터를 사용한 섹션 \@ref(case-study-two-prop-ci)에서 이 작업을 수행했습니다.
+* 순열 검정(permutation test)을 사용하여 $H_0: \beta_1 = 0$ 대 $H_A: \beta_1 \neq 0$의 가설 검정을 수행합니다. 우리는 이전에 `promotions` 데이터를 사용한 섹션 \@ref(ht-infer)와 `movies_sample` IMDb 데이터를 사용한 섹션 \@ref(ht-case-study)에서 이 작업을 수행했습니다.
 
 
-### Confidence interval for slope
+### 기울기에 대한 신뢰 구간
 
-We'll construct a 95% confidence interval for $\beta_1$ using the `infer` workflow outlined in Subsection \@ref(infer-workflow). Specifically, we'll first construct the bootstrap distribution for the fitted slope $b_1$ using our single sample of `r n_evals_ch5` courses: 
+하위 섹션 \@ref(infer-workflow)에서 설명한 `infer` 워크플로를 사용하여 $\beta_1$에 대한 95% 신뢰 구간을 구축해 보겠습니다. 구체적으로, 먼저 `r n_evals_ch5`개 강의로 구성된 우리의 단일 표본을 사용하여 적합된 기울기 $b_1$에 대한 부트스트랩 분포를 구축할 것입니다.
 
-1. `specify()` the variables of interest in `evals_ch5` with the formula: `score ~ bty_avg`.
-1. `generate()` replicates by using `bootstrap` resampling with replacement from the original sample of `r n_evals_ch5` courses. We generate ``reps = `r n_reps` `` replicates using `type = "bootstrap"`.
-1. `calculate()` the summary statistic of interest: the fitted `slope` $b_1$.
+1. `score ~ bty_avg` 공식을 사용하여 `evals_ch5`에서 관심 있는 변수들을 `specify()` 합니다.
+1. 원래 `r n_evals_ch5`개 강의 표본에서 복원 추출을 통한 `bootstrap` 리샘플링을 사용하여 복제본을 `generate()` 합니다. `type = "bootstrap"`을 사용하여 ``reps = `r n_reps` ``개의 복제본을 생성합니다.
+1. 관심 있는 요약 통계량인 적합된 `slope` $b_1$을 `calculate()` 합니다.
 
-Using this bootstrap distribution, we'll construct the 95% confidence interval using the percentile method and (if appropriate) the standard error method as well. It is important to note in this case that the bootstrapping with replacement is done *row-by-row*. Thus, the original pairs of `score` and `bty_avg` values are always kept together, but different pairs of `score` and `bty_avg` values may be resampled multiple times. The resulting confidence interval will denote a range of plausible values for the unknown population slope $\beta_1$ quantifying the relationship between teaching and "beauty" scores for *all* professors at UT Austin.
+이 부트스트랩 분포를 사용하여 백분위수 방법과 (적절한 경우) 표준 오차 방법으로 95% 신뢰 구간을 구축할 것입니다. 이 사례에서 복원 추출 부트스트랩은 **행 단위(row-by-row)**로 수행된다는 점에 유의하는 것이 중요합니다. 따라서 `score`와 `bty_avg` 값의 원래 쌍은 항상 함께 유지되지만, 서로 다른 쌍들이 여러 번 리샘플링될 수 있습니다. 결과로 얻은 신뢰 구간은 UT 오스틴의 **모든** 교수에 대해 강의 점수와 "외모" 점수 사이의 관계를 정량화하는 알 수 없는 모집단 기울기 $\beta_1$의 타당한 값의 범위를 나타낼 것입니다.
 
-Let's first construct the bootstrap distribution for the fitted slope $b_1$:
+먼저 적합된 기울기 $b_1$에 대한 부트스트랩 분포를 구축해 보겠습니다.
 
 ```{r eval=FALSE}
 bootstrap_distn_slope <- evals_ch5 %>% 
@@ -629,17 +633,18 @@ if (!file.exists("rds/bootstrap_distn_slope.rds")) {
 bootstrap_distn_slope
 ```
 
-Observe how we have `r n_reps` values of the bootstrapped slope $b_1$ in the `stat` column. Let's visualize the `r n_reps` bootstrapped values in Figure \@ref(fig:bootstrap-distribution-slope).
+`stat` 열에 `r n_reps`개의 부트스트랩된 기울기 $b_1$ 값이 있는 것을 확인해 보십시오. 그림 \@ref(fig:bootstrap-distribution-slope)에서 `r n_reps`개의 부트스트랩된 값들을 시각화해 보겠습니다.
 
-```{r bootstrap-distribution-slope, fig.show="hold", fig.cap="Bootstrap distribution of slope.", fig.height=2.2}
+```{r bootstrap-distribution-slope, fig.show="hold", fig.cap="기울기의 부트스트랩 분포.", fig.height=2.2}
 visualize(bootstrap_distn_slope)
 ```
 
-Observe how the bootstrap distribution is roughly bell-shaped. Recall from Subsection \@ref(bootstrap-vs-sampling) that the shape of the bootstrap distribution of $b_1$ closely approximates the shape of the sampling distribution of $b_1$. 
+부트스트랩 분포가 대략 종 모양인 것을 확인해 보십시오. 하위 섹션 \@ref(bootstrap-vs-sampling)에서 보았듯이, $b_1$의 부트스트랩 분포의 모양은 $b_1$의 표집 분포 모양과 매우 비슷합니다.
 
-#### Percentile-method {-}
 
-First, let's compute the 95% confidence interval for $\beta_1$ using the percentile method. We'll do so by identifying the 2.5th and 97.5th percentiles which include the middle 95% of values. Recall that this method does not require the bootstrap distribution to be normally shaped. 
+#### 백분위수 방법 {-}
+
+먼저, 백분위수 방법을 사용하여 $\beta_1$에 대한 95% 신뢰 구간을 계산해 보겠습니다. 중앙의 95% 값을 포함하는 2.5% 백분위수와 97.5% 백분위수를 찾아낼 것입니다. 이 방법은 부트스트랩 분포가 반드시 정규 분포를 따를 필요는 없다는 점을 상기하십시오.
 
 ```{r}
 percentile_ci <- bootstrap_distn_slope %>% 
@@ -647,13 +652,14 @@ percentile_ci <- bootstrap_distn_slope %>%
 percentile_ci
 ```
 
-The resulting percentile-based 95% confidence interval for $\beta_1$ of (`r percentile_ci[[1]]`, `r percentile_ci[[2]]`) is similar to the confidence interval in the regression Table \@ref(tab:regtable-11) of (`r lower1`, `r upper1`).
+이에 따라 도출된 $\beta_1$에 대한 백분위수 기반 95% 신뢰 구간 (`r percentile_ci[[1]]`, `r percentile_ci[[2]]`)은 회귀 표 \@ref(tab:regtable-11)에 있는 신뢰 구간 (`r lower1`, `r upper1`)과 유사합니다.
 
-#### Standard error method {-}
 
-Since the bootstrap distribution in Figure \@ref(fig:bootstrap-distribution-slope) appears to be roughly bell-shaped, we can also construct a 95% confidence interval for $\beta_1$ using the standard error method. 
+#### 표준 오차 방법 {-}
 
-In order to do this, we need to first compute the fitted slope $b_1$, which will act as the center of our standard error-based confidence interval. While we saw in the regression table in Table \@ref(tab:regtable-11) that this was $b_1$ = `r b1`, we can also use the `infer` pipeline with the `generate()` step removed to calculate it:
+그림 \@ref(fig:bootstrap-distribution-slope)의 부트스트랩 분포가 대략 종 모양으로 보이므로, 표준 오차 방법을 사용하여 $\beta_1$에 대한 95% 신뢰 구간을 구축할 수도 있습니다.
+
+이를 위해 먼저 표준 오차 기반 신뢰 구간의 중심 역할을 할 적합된 기울기 $b_1$을 계산해야 합니다. 회귀 표 \@ref(tab:regtable-11)에서 이것이 $b_1$ = `r b1`임을 확인했지만, `generate()` 단계를 제외한 `infer` 파이프라인을 사용하여 계산할 수도 있습니다.
 
 ```{r}
 observed_slope <- evals %>% 
@@ -662,7 +668,7 @@ observed_slope <- evals %>%
 observed_slope
 ```
 
-We then use the `get_ci()` function with `level = 0.95` to compute the 95% confidence interval for $\beta_1$. Note that setting the `point_estimate` argument to the `observed_slope` of `r b1` sets the center of the confidence interval. 
+그런 다음 `level = 0.95`인 `get_ci()` 함수를 사용하여 $\beta_1$에 대한 95% 신뢰 구간을 계산합니다. `point_estimate` 인자를 `observed_slope`인 `r b1`로 설정하여 신뢰 구간의 중심을 정한다는 점에 유의하십시오.
 
 ```{r}
 se_ci <- bootstrap_distn_slope %>% 
@@ -670,11 +676,12 @@ se_ci <- bootstrap_distn_slope %>%
 se_ci
 ```
 
-The resulting standard error-based 95% confidence interval for $\beta_1$ of $(`r se_ci[["lower_ci"]]`, `r se_ci[["upper_ci"]]`)$ is slightly different than the confidence interval in the regression Table \@ref(tab:regtable-11) of $(`r lower1`, `r upper1`)$.
+이에 따라 도출된 $\beta_1$에 대한 표준 오차 기반 95% 신뢰 구간 $(`r se_ci[["lower_ci"]]`, `r se_ci[["upper_ci"]]`)$은 회귀 표 \@ref(tab:regtable-11)의 신뢰 구간 $(`r lower1`, `r upper1`)$과 약간 다릅니다.
 
-#### Comparing all three {-}
 
-Let's compare all three confidence intervals in Figure \@ref(fig:bootstrap-distribution-slope-CI), where the percentile-based confidence interval is marked with solid lines, the standard error based confidence interval is marked with dashed lines, and the theory-based confidence interval (`r lower1`, `r upper1`) from the regression table in Table \@ref(tab:regtable-11) is marked with dotted lines. 
+#### 세 가지 방법 비교 {-}
+
+그림 \@ref(fig:bootstrap-distribution-slope-CI)에서 세 가지 신뢰 구간을 비교해 보겠습니다. 백분위수 기반 신뢰 구간은 실선으로, 표준 오차 기반 신뢰 구간은 파란색 점선으로, 그리고 표 \@ref(tab:regtable-11)의 회귀 표에서 얻은 이론 기반 신뢰 구간 (`r lower1`, `r upper1`)은 검은색 점선(dotted)으로 표시되어 있습니다.
 
 ```{r, eval=FALSE}
 visualize(bootstrap_distn_slope) + 
@@ -686,9 +693,9 @@ visualize(bootstrap_distn_slope) +
                             linetype = "dotted", color = "black")
 ```
 
-```{r bootstrap-distribution-slope-CI, echo=FALSE, fig.show="hold", fig.cap="Comparing three confidence intervals for the slope.", purl=FALSE, fig.height=2.5}
-# Will need to make a tweak to the {infer} package so that it doesn't always display "Null" here
-# (added to `develop` branch on 2019-10-26)
+```{r bootstrap-distribution-slope-CI, echo=FALSE, fig.show="hold", fig.cap="기울기에 대한 세 가지 신뢰 구간 비교.", purl=FALSE, fig.height=2.5}
+# {infer} 패키지에서 항상 "Null"이 표시되지 않도록 약간 조정이 필요할 수 있습니다.
+# (2019-10-26에 `develop` 브랜치에 추가됨)
 visualize(bootstrap_distn_slope) +
   #  ggtitle("") +
   shade_confidence_interval(endpoints = percentile_ci, fill = NULL, linetype = "solid", color = "grey90") +
@@ -696,23 +703,23 @@ visualize(bootstrap_distn_slope) +
   shade_confidence_interval(endpoints = c(0.035, 0.099), fill = NULL, linetype = "dotted", color = "black")
 ```
 
-Observe that all three are quite similar! Furthermore, none of the three confidence intervals for $\beta_1$ contain 0 and are entirely located above 0. This is suggesting that there is in fact a meaningful positive relationship between teaching and "beauty" scores.
+세 구간 모두 매우 유사하다는 것을 알 수 있습니다! 또한, $\beta_1$에 대한 세 신뢰 구간 중 어느 것도 0을 포함하지 않으며 모두 0보다 큰 곳에 위치합니다. 이는 실제 강의 점수와 "외모" 점수 사이에 유의미한 양(+)의 관계가 있음을 시사합니다.
 
 
-### Hypothesis test for slope
+### 기울기에 대한 가설 검정
 
-Let's now conduct a hypothesis test of $H_0: \beta_1 = 0$ vs. $H_A: \beta_1 \neq 0$. We will use the `infer` package, which follows the hypothesis testing paradigm in the "There is only one test" diagram in Figure \@ref(fig:htdowney).  
+이제 $H_0: \beta_1 = 0$ 대 $H_A: \beta_1 \neq 0$의 가설 검정을 수행해 보겠습니다. 그림 \@ref(fig:htdowney)의 "오직 하나의 검정만 존재한다" 다이어그램에 있는 가설 검정 패러다임을 따르는 `infer` 패키지를 사용할 것입니다.
 
-Let's first think about what it means for $\beta_1$ to be zero as assumed in the null hypothesis $H_0$. Recall we said if $\beta_1 = 0$, then this is saying there is no relationship between the teaching and "beauty" scores. Thus assuming this particular null hypothesis $H_0$ means that in our "hypothesized universe" there is no relationship between `score` and `bty_avg`. We can therefore shuffle/permute the `bty_avg` variable to no consequence.
+먼저 귀무 가설 $H_0$에서 가정한 것처럼 $\beta_1$이 0이라는 것이 무엇을 의미하는지 생각해 봅시다. $\beta_1 = 0$이면 강의 점수와 "외모" 점수 사이에 아무런 관계가 없음을 의미한다고 언급했습니다. 따라서 이 특정한 귀무 가설 $H_0$를 가정한다는 것은 우리의 "가설된 우주"에서는 `score`와 `bty_avg` 사이에 아무런 관계가 없음을 의미합니다. 따라서 우리는 아무런 문제 없이 `bty_avg` 변수를 무작위로 섞거나(shuffle) 순열(permute)을 수행할 수 있습니다.
 
-We construct the null distribution of the fitted slope $b_1$ by performing the steps that follow. Recall from Section \@ref(understanding-ht) on terminology, notation, and definitions related to hypothesis testing where we defined the *null distribution*: the sampling distribution of our test statistic $b_1$ assuming the null hypothesis $H_0$ is true.
+우리는 다음과 같은 단계들을 수행하여 적합된 기울기 $b_1$의 귀무 분포를 구축합니다. 용어, 표기법 및 정의와 관련된 섹션 \@ref(understanding-ht)에서 **귀무 분포(null distribution)**를 귀무 가설 $H_0$가 참이라고 가정했을 때 우리 검정 통계량 $b_1$의 표집 분포로 정의했음을 상기하십시오.
 
-1. `specify()` the variables of interest in `evals_ch5` with the formula: `score ~ bty_avg`.
-1. `hypothesize()` the null hypothesis of `independence`. Recall from Section \@ref(ht-infer) that this is an additional step that needs to be added for hypothesis testing. 
-1. `generate()` replicates by permuting/shuffling values from the original sample of `r n_evals_ch5` courses. We generate ``reps = `r n_reps` `` replicates using `type = "permute"` here.
-1. `calculate()` the test statistic of interest: the fitted `slope` $b_1$.
+1. `score ~ bty_avg` 공식을 사용하여 `evals_ch5`에서 관심 있는 변수들을 `specify()` 합니다.
+1. `independence`라는 귀무 가설을 `hypothesize()` 합니다. 섹션 \@ref(ht-infer)에서 보았듯이, 이는 가설 검정을 위해 추가되어야 하는 단계입니다.
+1. 원래 `r n_evals_ch5`개 강의 표본에서 값들을 순열/섞기를 수행하여 복제본을 `generate()` 합니다. 여기서 `type = "permute"`를 사용하여 ``reps = `r n_reps` ``개의 복제본을 생성합니다.
+1. 관심 있는 검정 통계량인 적합된 `slope` $b_1$을 `calculate()` 합니다.
 
-In this case, we `permute` the values of `bty_avg` across the values of `score` `r n_reps` times. We can do this shuffling/permuting since we assumed a "hypothesized universe" of no relationship between these two variables. Then we `calculate` the `"slope"` coefficient for each of these `r n_reps` `generate`d samples.
+이 경우, 우리는 `r n_reps`번 동안 `score` 값들에 대해 `bty_avg` 값들의 순열을 수행합니다. 두 변수 사이에 아무런 관계가 없다는 "가설된 우주"를 가정했으므로 이러한 섞기/순열을 수행할 수 있습니다. 그런 다음 `generate`된 `r n_reps`개의 표본 각각에 대해 `"slope"` 계수를 `calculate` 합니다.
 
 ```{r eval=FALSE}
 null_distn_slope <- evals %>% 
@@ -738,40 +745,40 @@ if (!file.exists("rds/null_distn_slope.rds")) {
 }
 ```
 
-Observe the resulting null distribution for the fitted slope $b_1$ in Figure \@ref(fig:null-distribution-slope). 
+그림 \@ref(fig:null-distribution-slope)에서 적합된 기울기 $b_1$에 대한 귀무 분포 결과를 확인해 보십시오.
 
-```{r null-distribution-slope, echo=FALSE, fig.show="hold", fig.cap="Null distribution of slopes.", fig.height=2.5, purl=FALSE}
+```{r null-distribution-slope, echo=FALSE, fig.show="hold", fig.cap="기울기의 귀무 분포.", fig.height=2.5, purl=FALSE}
 visualize(null_distn_slope)
 ```
 
-Notice how it is centered at $b_1$ = 0. This is because in our hypothesized universe, there is no relationship between `score` and `bty_avg` and so $\beta_1 = 0$. Thus, the most typical fitted slope $b_1$ we observe across our simulations is 0. Observe, furthermore, how there is variation around this central value of 0. 
+이 분포가 $b_1 = 0$을 중심으로 하고 있음에 주목하십시오. 이는 우리의 가설된 우주에서 `score`와 `bty_avg` 사이에 아무런 관계가 없으므로 $\beta_1 = 0$이라고 가정했기 때문입니다. 따라서 시뮬레이션을 통해 관찰되는 가장 전형적인 적합된 기울기 $b_1$은 0입니다. 또한 이 중심값 0을 중심으로 변동이 있음을 확인해 보십시오.
 
-Let's visualize the $p$-value in the null distribution by comparing it to the observed test statistic of $b_1$ = `r b1` in Figure \@ref(fig:p-value-slope). We'll do this by adding a `shade_p_value()` layer to the previous `visualize()` code.  
+그림 \@ref(fig:p-value-slope)에서 관찰된 검정 통계량 $b_1$ = `r b1`과 비교하여 귀무 분포의 p-값을 시각화해 보겠습니다. 이전의 `visualize()` 코드에 `shade_p_value()` 레이어를 추가하여 이를 수행할 것입니다.
 
-```{r p-value-slope, echo=FALSE, fig.show="hold", fig.cap="Null distribution and $p$-value.", fig.height=3, purl=FALSE}
+```{r p-value-slope, echo=FALSE, fig.show="hold", fig.cap="귀무 분포와 p-값.", fig.height=3, purl=FALSE}
 visualize(null_distn_slope) +
   shade_p_value(obs_stat = observed_slope, direction = "both")
 ```
 
-Since the observed fitted slope `r b1` falls far to the right of this null distribution and thus the shaded region doesn't overlap it, we'll have a $p$-value of 0. For completeness, however, let's compute the numerical value of the $p$-value anyways using the `get_p_value()` function. Recall that it takes the same inputs as the `shade_p_value()` function:
+관찰된 적합 기울기 `r b1`이 이 귀무 분포의 오른쪽 끝에서 훨씬 멀리 떨어져 있고 색칠된 영역이 겹치지 않으므로, p-값은 0이 될 것입니다. 하지만 완결성을 위해 `get_p_value()` 함수를 사용하여 p-값의 수치를 계산해 보겠습니다. 이 함수는 `shade_p_value()` 함수와 동일한 입력을 받는다는 점을 상기하십시오.
 
 ```{r}
 null_distn_slope %>% 
   get_p_value(obs_stat = observed_slope, direction = "both")
 ```
 
-This matches the $p$-value of 0 in the regression table in Table \@ref(tab:regtable-11). We therefore reject the null hypothesis $H_0: \beta_1 = 0$ in favor of the alternative hypothesis $H_A: \beta_1 \neq 0$.  We thus have evidence that suggests there is a significant relationship between teaching and "beauty" scores for *all* instructors at UT Austin. 
+이는 표 \@ref(tab:regtable-11)의 회귀 표에 있는 p-값 0과 일치합니다. 따라서 우리는 대립 가설 $H_A: \beta_1 \neq 0$을 지지하며 귀무 가설 $H_0: \beta_1 = 0$을 기각합니다. 즉, UT 오스틴의 **모든** 강사에 대해 강의 점수와 "외모" 점수 사이에 유의미한 관계가 있음을 시사하는 증거가 있습니다.
 
-When the conditions for inference for regression are met and the null distribution has a bell shape, we are likely to see similar results between the simulation-based results we just demonstrated and the theory-based results shown in the regression table in Table \@ref(tab:regtable-11).
+회귀 분석의 추론 조건이 충족되고 귀무 분포가 종 모양인 경우, 방금 보여드린 시뮬레이션 기반 결과와 표 \@ref(tab:regtable-11)의 회귀 표에 표시된 이론 기반 결과 사이에 유사한 결과를 얻을 가능성이 높습니다.
 
 
 ```{block lc9-5, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Repeat the inference but this time for the correlation coefficient instead of the slope. Note the implementation of `stat = "correlation"` in the `calculate()` function of the `infer` package.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 이번에는 기울기 대신 상관 계수(correlation coefficient)에 대해 추론을 반복해 보십시오. `infer` 패키지의 `calculate()` 함수에서 `stat = "correlation"`을 구현하는 점에 유의하십시오.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -782,7 +789,7 @@ When the conditions for inference for regression are met and the null distributi
 
 
 
-## Conclusion {#inference-conclusion}
+## 결론 {#inference-conclusion}
 
 <!--
 v2 TODO: Consider adding
@@ -799,47 +806,45 @@ To conclude this chapter, we'll be investigating how regression relates to two d
 -->
 
 
-### Theory-based inference for regression {#theory-regression}
+### 회귀에 대한 이론 기반 추론 {#theory-regression}
 
-Recall in Subsection \@ref(regression-table-computation) when we interpreted the regression table in Table \@ref(tab:regtable-11), we mentioned that R does not compute its values using simulation-based methods for constructing confidence intervals and conducting hypothesis tests as we did in Chapters \@ref(confidence-intervals) and \@ref(hypothesis-testing) using the `infer` package. Rather, R uses a theory-based approach using mathematical formulas, much like the theory-based confidence intervals you saw in Subsection \@ref(theory-ci) and the theory-based hypothesis tests you saw in Subsection \@ref(theory-hypo). These formulas were derived in a time when computers didn't exist, so it would've been incredibly labor intensive to run extensive simulations.
+하위 섹션 \@ref(regression-table-computation)에서 표 \@ref(tab:regtable-11)의 회귀 표를 해석할 때, R은 우리가 `infer` 패키지를 사용하여 챕터 \@ref(confidence-intervals)와 \@ref(hypothesis-testing)에서 했던 것처럼 신뢰 구간을 구축하고 가설 검정을 수행하기 위해 시뮬레이션 기반 방법을 사용하지 않는다고 언급했습니다. 대신 R은 하위 섹션 \@ref(theory-ci)에서 본 이론 기반 신뢰 구간과 하위 섹션 \@ref(theory-hypo)에서 본 이론 기반 가설 검정과 매우 유사하게 수학 공식을 사용하는 이론 기반 접근 방식을 사용합니다. 이러한 공식들은 컴퓨터가 존재하지 않던 시절에 유도되었으므로 대규모 시뮬레이션을 실행하는 것은 매우 노동 집약적인 일이었을 것입니다.
 
-In particular, much like the formula for the standard error for the sample proportion $\widehat{p}$ we saw in Subsection \@ref(theory-se) and the formula for the standard error for the difference in sample means $\overline{x}_1 - \overline{x}_2$ we saw in Subsection \@ref(theory-hypo), there is a formula for the standard error of the fitted slope $b_1$:
+특히, 하위 섹션 \@ref(theory-se)에서 본 표본 비율 $\widehat{p}$의 표준 오차 공식과 하위 섹션 \@ref(theory-hypo)에서 본 표본 평균의 차이 $\overline{x}_1 - \overline{x}_2$의 표준 오차 공식과 마찬가지로, 적합된 기울기 $b_1$의 표준 오차를 구하는 공식이 있습니다.
 
 $$\text{SE}_{b_1} = \dfrac{\dfrac{s_y}{s_x} \cdot \sqrt{1-r^2}}{\sqrt{n-2}}$$
 
-<!-- Source: https://stats.stackexchange.com/questions/342632/how-to-understand-se-of-regression-slope-equation -->
+이 공식에는 많은 것이 담겨 있으므로, 먼저 각 기호가 무엇을 나타내는지 분석해 보겠습니다. 먼저 $s_x$와 $s_y$는 각각 설명 변수 `bty_avg`와 결과 변수 `score`의 **표본 표준 편차**입니다. 둘째, $r$은 `score`와 `bty_avg` 사이의 표본 **상관 계수**입니다. 이는 챕터 \@ref(regression)에서 `r cor(evals_ch5$score, evals_ch5$bty_avg) %>% round(3)`로 계산되었습니다. 마지막으로, $n$은 `evals_ch5` 데이터 프레임에 있는 점들의 쌍의 수로, 여기서는 `r n_evals_ch5`입니다.
 
-As with many formulas in statistics, there's a lot going on here, so let's first break down what each symbol represents. First $s_x$ and $s_y$ are the *sample standard deviations* of the explanatory variable `bty_avg` and the response variable `score`, respectively. Second, $r$ is the sample *correlation coefficient* between `score` and `bty_avg`. This was computed as `r cor(evals_ch5$score, evals_ch5$bty_avg) %>% round(3)` in Chapter \@ref(regression). Lastly, $n$ is the number of pairs of points in the `evals_ch5` data frame, here `r n_evals_ch5`.
+이 공식을 말로 풀어서 설명하면, $b_1$의 표준 오차는 $s_y / s_x$ 항에서 측정된 결과 변수의 변동성과 설명 변수의 변동성 사이의 관계에 달려 있습니다. 다음으로, $\sqrt{1-r^2}$ 항에서 두 변수가 서로 어떻게 관련되어 있는지를 살펴봅니다.
 
-To put this formula into words, the standard error of $b_1$ depends on the relationship between the variability of the response variable and the variability of the explanatory variable as measured in the $s_y / s_x$ term. Next, it looks into how the two variables relate to each other in the $\sqrt{1-r^2}$ term. 
+하지만 앞의 공식에서 주목해야 할 가장 중요한 사실은 분모에 $n - 2$가 있다는 것입니다. 즉, 표본 크기 $n$이 증가할수록 표준 오차 $\text{SE}_{b_1}$은 감소합니다. 하위 섹션 \@ref(moral-of-the-story)에서 $n$ = 25, 50, 100개의 구멍이 있는 삽을 사용하여 시연했듯이, 적합된 기울기 $b_1$의 표집 변동량은 표본 크기 $n$에 따라 달라질 것입니다. 특히 표본 크기가 증가함에 따라 표집 분포와 부트스트랩 분포가 좁아지고 표준 오차 $\text{SE}_{b_1}$이 감소합니다. 따라서 실제 모집단 기울기 $\beta_1$에 대한 $b_1$의 추정치는 점점 더 **정밀(precise)**해집니다.
 
-However, the most important observation to make in the previous formula is that there is an $n - 2$ in the denominator. In other words, as the sample size $n$ increases, the standard error $\text{SE}_{b_1}$ decreases. Just as we demonstrated in Subsection \@ref(moral-of-the-story) when we used shovels with $n$ = 25, 50, and 100 slots, the amount of sampling variation of the fitted slope $b_1$ will depend on the sample size $n$. In particular, as the sample size increases, both the sampling and bootstrap distributions narrow and the standard error $\text{SE}_{b_1}$ decreases. Hence, our estimates of $b_1$ for the true population slope $\beta_1$ get more and more *precise*. 
-
-R then uses this formula for the standard error of $b_1$ in the third column of the regression table and subsequently to construct 95% confidence intervals. But what about the hypothesis test? Much like with our theory-based hypothesis test in Subsection \@ref(theory-hypo), R uses the following *$t$-statistic* as the test statistic for hypothesis testing:
+R은 회귀 표의 세 번째 열에서 $b_1$의 표준 오차를 구하기 위해 이 공식을 사용하며, 이어서 95% 신뢰 구간을 구축하는 데에도 사용합니다. 그렇다면 가설 검정은 어떨까요? 하위 섹션 \@ref(theory-hypo)의 이론 기반 가설 검정에서와 마찬가지로 R은 가설 검정을 위한 검정 통계량으로 다음과 같은 **$t$-통계량**을 사용합니다.
 
 $$
 t = \dfrac{ b_1 - \beta_1}{ \text{SE}_{b_1}}
 $$
 
-And since the null hypothesis $H_0: \beta_1 = 0$ is assumed during the hypothesis test, the $t$-statistic becomes
+가설 검정 중에는 귀무 가설 $H_0: \beta_1 = 0$이 가정되므로 $t$-통계량은 다음과 같이 됩니다.
 
 $$
 t = \dfrac{ b_1 - 0}{ \text{SE}_{b_1}} = \dfrac{ b_1 }{ \text{SE}_{b_1}}
 $$
 
-What are the values of $b_1$ and $\text{SE}_{b_1}$? They are in the `estimate` and `std_error` column of the regression table in Table \@ref(tab:regtable-11). Thus the value of `r t1` in the table is computed as `r b1`/`r se1` = `r (b1/se1) %>% round(3)`. Note there is a difference due to some rounding error here. 
+$b_1$과 $\text{SE}_{b_1}$의 값은 무엇일까요? 이들은 표 \@ref(tab:regtable-11) 회귀 표의 `estimate`와 `std_error` 열에 있습니다. 따라서 표에 있는 `r t1` 값은 `r b1`/`r se1` = `r (b1/se1) %>% round(3)`로 계산됩니다. 여기에는 반올림 오차로 인해 약간의 차이가 있음에 유의하십시오.
 
-Lastly, to compute the $p$-value, we need to compare the observed test statistic of `r t1` to the appropriate null distribution. Recall from Section \@ref(understanding-ht), that a null distribution is the sampling distribution of the test statistic *assuming the null hypothesis $H_0$ is true*. Much like in our theory-based hypothesis test in Subsection \@ref(theory-hypo), it can be mathematically proven that this distribution is a $t$-distribution with degrees of freedom equal to $df = n - 2 = `r n_evals_ch5` - 2 = `r n_evals_ch5 - 2`$.
+마지막으로, p-값을 계산하려면 관찰된 검정 통계량 `r t1`을 적절한 귀무 분포와 비교해야 합니다. 섹션 \@ref(understanding-ht)에서 귀무 분포는 **귀무 가설 $H_0$가 참이라고 가정했을 때** 검정 통계량의 표집 분포임을 상기하십시오. 하위 섹션 \@ref(theory-hypo)의 이론 기반 가설 검정에서와 마찬가지로, 이 분포는 자유도가 $df = n - 2 = `r n_evals_ch5` - 2 = `r n_evals_ch5 - 2`$인 $t$-분포임을 수학적으로 증명할 수 있습니다.
 
-Don't worry if you're feeling a little overwhelmed at this point. There is a lot of background theory to understand before you can fully make sense of the equations for theory-based methods. That being said, theory-based methods and simulation-based methods for constructing confidence intervals and conducting hypothesis tests often yield consistent results. As mentioned before, in our opinion, two large benefits of simulation-based methods over theory-based are that (1) they are easier for people new to statistical inference to understand, and (2) they also work in situations where theory-based methods and mathematical formulas don't exist. 
+이 시점에서 약간 압도당하는 느낌이 들더라도 걱정하지 마십시오. 이론 기반 방법의 방정식을 완전히 이해하기 위해서는 이해해야 할 배경 이론이 많습니다. 하지만 신뢰 구간을 구축하고 가설 검정을 수행할 때 이론 기반 방법과 시뮬레이션 기반 방법은 종종 일관된 결과를 산출합니다. 앞서 언급했듯이, 저희의 의견으로는 이론 기반 방법보다 시뮬레이션 기반 방법이 갖는 두 가지 큰 장점은 (1) 통계적 추론을 처음 배우는 사람들이 이해하기 더 쉽고, (2) 이론 기반 방법과 수학 공식이 존재하지 않는 상황에서도 작동한다는 것입니다.
 
 
-### Summary of statistical inference
+### 통계적 추론 요약
 
-We've finished the last two scenarios from the "Scenarios of sampling for inference" table in Subsection \@ref(sampling-conclusion-table), which we re-display in Table \@ref(tab:table-ch11).
+하위 섹션 \@ref(sampling-conclusion-table)의 "추론을 위한 표집 시나리오" 표에서 마지막 두 시나리오를 마쳤으며, 이를 표 \@ref(tab:table-ch11)에 다시 표시했습니다.
 
 ```{r table-ch11, echo=FALSE, message=FALSE, purl=FALSE}
-# The following Google Doc is published to CSV and loaded using read_csv():
+# 다음 Google Doc은 CSV로 게시되어 read_csv()를 사용하여 로드됩니다:
 # https://docs.google.com/spreadsheets/d/1QkOpnBGqOXGyJjwqx1T2O5G5D72wWGfWlPyufOgtkk4/edit#gid=0
 
 if (!file.exists("rds/sampling_scenarios.rds")) {
@@ -854,13 +859,13 @@ if (!file.exists("rds/sampling_scenarios.rds")) {
 sampling_scenarios %>%
   filter(Scenario %in% 1:6) %>%
   kbl(
-    caption = "\\label{tab:summarytable-ch9}Scenarios of sampling for inference",
+    caption = "\\label{tab:summarytable-ch9}추론을 위한 표집 시나리오",
     booktabs = TRUE,
     escape = FALSE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   ) %>%
   column_spec(1, width = "0.5in") %>%
@@ -870,14 +875,14 @@ sampling_scenarios %>%
   column_spec(5, width = "0.65in")
 ```
 
-Armed with the regression modeling techniques you learned in Chapters \@ref(regression) and \@ref(multiple-regression), your understanding of sampling for inference in Chapter \@ref(sampling), and the tools for statistical inference like confidence intervals and hypothesis tests in Chapters \@ref(confidence-intervals) and \@ref(hypothesis-testing), you're now equipped to study the significance of relationships between variables in a wide array of data! Many of the ideas presented here can be extended into multiple regression and other more advanced modeling techniques.
+챕터 \@ref(regression)와 \@ref(multiple-regression)에서 배운 회귀 모델링 기술, 챕터 \@ref(sampling)에서의 추론을 위한 표집에 대한 이해, 그리고 챕터 \@ref(confidence-intervals)와 \@ref(hypothesis-testing)의 신뢰 구간 및 가설 검정과 같은 통계적 추론 도구들을 갖춘 여러분은 이제 광범위한 데이터에서 변수 사이의 관계의 유의성을 연구할 준비가 되었습니다! 여기서 제시된 많은 아이디어는 다중 회귀 및 기타 더 발전된 모델링 기술로 확장될 수 있습니다.
 
 
-### Additional resources
+### 추가 자료
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
-  cat("Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).")
+if (knitr::is_latex_output()) {
+  cat("모든 *학습 확인(Learning checks)*에 대한 해답은 온라인 [부록 D](https://moderndive.com/D-appendixD.html)에서 찾을 수 있습니다.")
 }
 ```
 
@@ -886,6 +891,6 @@ generate_r_file_link("10-inference-for-regression.R")
 ```
 
 
-### What's to come
+### 앞으로의 내용
 
-You've now concluded the last major part of the book on "Statistical Inference with `infer`." The closing Chapter \@ref(thinking-with-data) concludes this book with various short case studies involving real data, such as house prices in the city of Seattle, Washington in the US. You'll see how the principles in this book can help you become a great storyteller with data!
+이제 이 책의 마지막 주요 부분인 "`infer`를 이용한 통계적 추론"을 마쳤습니다. 마지막 챕터인 \@ref(thinking-with-data)는 미국 워싱턴주 시애틀의 주택 가격과 같은 실제 데이터를 포함한 다양한 짧은 사례 연구들로 이 책을 마무리합니다. 이 책의 원칙들이 여러분이 데이터를 통해 훌륭한 스토리텔러가 되는 데 어떻게 도움이 되는지 확인하게 될 것입니다!

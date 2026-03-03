@@ -1,7 +1,11 @@
+```{r, include=FALSE}
+source("_common.R")
+```
+
 # Learning Check Solutions {#appendixD}
 
 ```{r setup_lc_solutions, include=FALSE, purl=FALSE}
-opts_chunk$set(tidy = FALSE, out.width = "\\textwidth")
+knitr::opts_chunk$set(tidy = FALSE, out.width = "\\textwidth")
 # This bit of code is a bug fix on asis blocks, which we use to show/not show LC solutions, which are written like markdown text. In theory, it shouldn't be necessary for knitr versions <=1.11.6, but I've found I still need to for everything to knit properly in asis blocks. More info here:
 # https://stackoverflow.com/questions/32944715/conditionally-display-block-of-markdown-text-using-knitr
 knit_engines$set(asis = function(options) {
@@ -171,7 +175,7 @@ ggplot(data = early_january_weather, mapping = aes(x = time_hour, y = humid)) +
 **Solution**: This can only be answered relatively speaking! Let's pick things to be relative to Seattle, WA temperatures:
 
 ```{r SEATAC, out.width='40%', echo=FALSE, fig.cap="Annual temperatures at SEATAC Airport.", purl=FALSE}
-include_graphics("images/SEATAC_temperatures.png")
+knitr::include_graphics("images/SEATAC_temperatures.png")
 ```
 
 While, it appears that Seattle weather has a similar center of 55&deg;F, its
@@ -389,7 +393,7 @@ summary_temp_by_month <- weather %>%
 
 kable(summary_temp_by_month) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
@@ -443,7 +447,7 @@ by_monthly_origin
 ```{r, echo=FALSE, purl=FALSE}
 kable(by_monthly_origin) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
@@ -467,7 +471,7 @@ count_flights_by_airport
 ```{r, echo=FALSE, purl=FALSE}
 kable(count_flights_by_airport) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
@@ -677,6 +681,7 @@ library(readr)
 library(tidyr)
 library(nycflights13)
 library(fivethirtyeight)
+dem_score <- read_csv("data/dem_score.csv")
 ``` 
 
 **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What are common characteristics of "tidy" datasets?
@@ -799,6 +804,7 @@ library(tidyverse)
 library(moderndive)
 library(skimr)
 library(gapminder)
+evals_ch5 <- evals %>% select(ID, score, bty_avg, age)
 ``` 
 
 **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Conduct a new exploratory data analysis with the same outcome variable $y$ being `score` but with `age` as the new explanatory variable $x$. Remember, this involves three things:
@@ -960,9 +966,9 @@ These positive residuals indicate that the data points are above the regression 
 
 **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Note in the following plot there are 3 points marked with dots along with:
 
-* The "best" fitting solid regression line `r if_else(is_latex_output(), "", "in blue")`
-* An arbitrarily chosen dotted `r if_else(is_latex_output(), "", "red")` line 
-* Another arbitrarily chosen dashed `r if_else(is_latex_output(), "", "green")` line
+* The "best" fitting solid regression line `r if_else(knitr::is_latex_output(), "", "in blue")`
+* An arbitrarily chosen dotted `r if_else(knitr::is_latex_output(), "", "red")` line 
+* Another arbitrarily chosen dashed `r if_else(knitr::is_latex_output(), "", "green")` line
 
 ```{r, fig.cap="Regression line and two others.", out.width="80%", echo=FALSE}
 example <- tibble(
@@ -979,23 +985,23 @@ ggplot(example, aes(x = x, y = y)) +
   ) +
   geom_point(size = 4)
 ```
-Compute the sum of squared residuals by hand for each line and show that of these three lines, the regression line `r if_else(is_latex_output(), "", "in blue")` has the smallest value.
+Compute the sum of squared residuals by hand for each line and show that of these three lines, the regression line `r if_else(knitr::is_latex_output(), "", "in blue")` has the smallest value.
 
 **Solution**:  
 
-* The "best" fitting solid regression line `r if_else(is_latex_output(), "", "in blue")`: 
+* The "best" fitting solid regression line `r if_else(knitr::is_latex_output(), "", "in blue")`: 
 
 $$
 \sum_{i=1}^{n}(y_i - \widehat{y}_i)^2 = (2.0-1.5)^2+(1.0-2.0)^2+(3.0-2.5)^2 = 1.5
 $$
 
-* An arbitrarily chosen dotted `r if_else(is_latex_output(), "", "red")` line: 
+* An arbitrarily chosen dotted `r if_else(knitr::is_latex_output(), "", "red")` line: 
 
 $$
 \sum_{i=1}^{n}(y_i - \widehat{y}_i)^2 = (2.0-2.5)^2+(1.00-2.5)^2+(3.0-2.5)^2 = 2.75
 $$
 
-* Another arbitrarily chosen dashed `r if_else(is_latex_output(), "", "green")` line:
+* Another arbitrarily chosen dashed `r if_else(knitr::is_latex_output(), "", "green")` line:
 
 $$
 \sum_{i=1}^{n}(y_i - \widehat{y}_i)^2 = (2.0-2.0)^2+(1.0-1.5)^2+(3.0-1.0)^2 = 4.25
@@ -1017,10 +1023,13 @@ lc <- 0
 ```
 
 ```{r message=FALSE}
-library(tidyverse)
-library(moderndive)
-library(skimr)
 library(ISLR)
+evals_ch6 <- evals %>%
+  select(ID, score, age, gender)
+score_model_parallel_slopes <- lm(score ~ age + gender, data = evals_ch6)
+credit_ch6 <- Credit %>% as_tibble() %>% 
+  select(ID, debt = Balance, credit_limit = Limit, 
+         income = Income, credit_rating = Rating, age = Age)
 ``` 
 
 **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Compute the observed values, fitted values, and residuals not for the interaction model as we just did, but rather for the parallel slopes model we saved in `score_model_parallel_slopes`.
@@ -1107,6 +1116,36 @@ library(dplyr)
 library(moderndive)
 library(gapminder)
 library(skimr)
+
+# Load virtual samples if they exist, otherwise they will be missing
+if (file.exists("rds/virtual_samples_25.rds") & 
+    file.exists("rds/virtual_samples_50.rds") & 
+    file.exists("rds/virtual_samples_100.rds")) {
+  
+  virtual_samples_25 <- read_rds("rds/virtual_samples_25.rds")
+  virtual_prop_red_25 <- virtual_samples_25 %>%
+    group_by(replicate) %>%
+    summarize(red = sum(color == "red")) %>%
+    mutate(prop_red = red / 25, n = 25)
+
+  virtual_samples_50 <- read_rds("rds/virtual_samples_50.rds")
+  virtual_prop_red_50 <- virtual_samples_50 %>%
+    group_by(replicate) %>%
+    summarize(red = sum(color == "red")) %>%
+    mutate(prop_red = red / 50, n = 50)
+
+  virtual_samples_100 <- read_rds("rds/virtual_samples_100.rds")
+  virtual_prop_red_100 <- virtual_samples_100 %>%
+    group_by(replicate) %>%
+    summarize(red = sum(color == "red")) %>%
+    mutate(prop_red = red / 100, n = 100)
+
+  virtual_prop <- bind_rows(
+    virtual_prop_red_25,
+    virtual_prop_red_50,
+    virtual_prop_red_100
+  )
+}
 ``` 
 
 **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Why was it important to mix the bowl before we sampled the balls?
@@ -1229,7 +1268,7 @@ comparing_n_table %>%
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```

@@ -1,5 +1,16 @@
 project:
   type: book
+  output-dir: _book
+  resources:
+    - data/
+    - images/
+    - rds/
+    - previous_versions/
+    - labs.html
+    - regression-plane.html
+    - bib/
+    - style.css
+    - purl.R
 
 book:
   title: "ModernDive: Statistical Inference via Data Science"

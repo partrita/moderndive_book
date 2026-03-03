@@ -1,22 +1,27 @@
-(ref:moderndivepart) Data Modeling with `moderndive`
+```{r, include=FALSE}
+source("_common.R")
+```
+
+
+(ref:moderndivepart) `moderndive`를 활용한 데이터 모델링
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   cat("# (PART) (ref:moderndivepart) {-}")
 } else {
-  cat("# (PART) Data Modeling with moderndive {-} ")
+  cat("# (PART) moderndive를 활용한 데이터 모델링 {-} ")
 }
 ```
 
-# Basic Regression {#regression}
+# 기초 회귀 분석 {#regression}
 
 ```{r, include=FALSE, purl=FALSE}
-# Used to define Learning Check numbers:
+# 학습 확인(Learning Check) 번호를 정의하는 데 사용됨:
 chap <- 5
 lc <- 0
 
-# Set R code chunk defaults:
-opts_chunk$set(
+# R 코드 청크 기본값 설정:
+knitr::opts_chunk$set(
   echo = TRUE,
   eval = TRUE,
   warning = FALSE,
@@ -28,55 +33,57 @@ opts_chunk$set(
   fig.align = "center"
 )
 
-# Set output digit precision
+# 출력 자릿수 정밀도 설정
 options(scipen = 99, digits = 3)
 
-# In kable printing replace all NA's with blanks
+# kable 출력에서 모든 NA를 공백으로 대체
 options(knitr.kable.NA = "")
 
-# Set random number generator see value for replicable pseudorandomness.
+# 재현 가능한 의사 난수 생성을 위해 난수 생성기 시드 값 설정.
 set.seed(76)
 ```
 
-Now that we are equipped with data visualization skills from Chapter \@ref(viz), data wrangling skills from Chapter \@ref(wrangling), and an understanding of how to import data and the concept of a "tidy" data format from Chapter \@ref(tidy), let's now proceed with data modeling. The fundamental premise of data modeling is to make explicit the relationship between:
+이제 제\@ref(viz)장의 데이터 시각화 기술, 제\@ref(wrangling)장의 데이터 전처리 기술, 그리고 제\@ref(tidy)장의 데이터 불러오기 및 "깔끔한(tidy)" 데이터 형식에 대한 이해를 바탕으로 데이터 모델링을 진행해 보겠습니다. 데이터 모델링의 근본적인 전제는 다음 두 변수 사이의 관계를 명확히 하는 것입니다.
 
-* an *outcome variable* $y$, also called a *dependent variable* or response variable, \index{variables!response / outcome / dependent} and
-* an *explanatory/predictor variable* $x$, also called an *independent variable* or \index{variables!explanatory / predictor / independent} covariate.
+* *결과 변수(outcome variable)* $y$ : *종속 변수(dependent variable)* 또는 반응 변수(response variable)라고도 불립니다. \index{variables!response / outcome / dependent}
+* *설명/예측 변수(explanatory/predictor variable)* $x$ : *독립 변수(independent variable)* 또는 공변량(covariate)이라고도 불립니다. \index{variables!explanatory / predictor / independent}
 
-Another way to state this is using mathematical terminology: we will model the outcome variable $y$ "as a function" of the explanatory/predictor variable $x$. When we say "function" here, we aren't referring to functions in R like the `ggplot()` function, but rather as a mathematical function. But, why do we have two different labels, explanatory and predictor, for the variable $x$? That's because even though the two terms are often used interchangeably, roughly speaking data modeling serves one of two purposes:
+이를 수학적 용어로 표현하자면, 설명/예측 변수 $x$에 대한 "함수로서" 결과 변수 $y$를 모델링할 것입니다. 여기서 "함수"라고 할 때, 이는 `ggplot()` 함수와 같은 R의 함수를 가리키는 것이 아니라 수학적 함수를 의미합니다. 그런데 왜 변수 $x$에 대해 설명 변수와 예측 변수라는 두 가지 다른 명칭을 사용할까요? 그 이유는 두 용어가 종종 혼용되기도 하지만, 대략적으로 말해서 데이터 모델링이 다음 두 가지 목적 중 하나를 수행하기 때문입니다.
 
-1. **Modeling for explanation**: When you want to explicitly describe and quantify the relationship between the outcome variable $y$ and a set of explanatory variables $x$, determine the significance of any relationships, have measures summarizing these relationships, and possibly identify any *causal* relationships between the variables. 
-1. **Modeling for prediction**: When you want to predict an outcome variable $y$ based on the information contained in a set of predictor variables $x$. Unlike modeling for explanation, however, you don't care so much about understanding how all the variables relate and interact with one another, but rather only whether you can make good predictions about $y$ using the information in $x$.
+1. **설명을 위한 모델링(Modeling for explanation)**: 결과 변수 $y$와 일련의 설명 변수 $x$ 사이의 관계를 명시적으로 설명하고 정량화하며, 관계의 유의성을 결정하고, 이러한 관계를 요약하는 측도를 확보하며, 변수 간의 *인과(causal)* 관계를 식별하고 싶을 때 사용합니다.
+2. **예측을 위한 모델링(Modeling for prediction)**: 일련의 예측 변수 $x$에 포함된 정보를 바탕으로 결과 변수 $y$를 예측하고 싶을 때 사용합니다. 설명을 위한 모델링과 달리, 모든 변수가 서로 어떻게 관련되고 상호작용하는지 이해하는 것보다는 $x$의 정보를 사용하여 $y$에 대해 얼마나 좋은 예측을 할 수 있는지에만 관심을 가집니다.
 
-For example, say you are interested in an outcome variable $y$ of whether patients develop lung cancer and information $x$ on their risk factors, such as smoking habits, age, and socioeconomic status. If we are modeling for explanation, we would be interested in both describing and quantifying the effects of the different risk factors. One reason could be that you want to design an intervention to reduce lung cancer incidence in a population, such as targeting smokers of a specific age group with advertising for smoking cessation programs. If we are modeling for prediction, however, we wouldn't care so much about understanding how all the individual risk factors contribute to lung cancer, but rather only whether we can make good predictions of which people will contract lung cancer.
+예를 들어, 환자의 폐암 발생 여부라는 결과 변수 $y$와 흡연 습관, 연령, 사회경제적 지위 등 위험 요인에 대한 정보 $x$에 관심이 있다고 가정해 봅시다. 만약 설명을 위한 모델링을 한다면, 각 위험 요인의 효과를 설명하고 정량화하는 데 관심을 가질 것입니다. 그 이유 중 하나는 특정 연령대의 흡연자를 대상으로 금연 프로그램 광고를 하는 것과 같이 인구 집단의 폐암 발생률을 낮추기 위한 개입(intervention)을 설계하고 싶기 때문일 수 있습니다. 반면 예측을 위한 모델링을 한다면, 각 개별 위험 요인이 폐암에 어떻게 기여하는지 이해하는 것보다는 어떤 사람이 폐암에 걸릴지 잘 예측할 수 있는지에만 관심을 가질 것입니다.
 
-In this book, we'll focus on modeling for explanation and hence refer to $x$ as *explanatory variables*. If you are interested in learning about modeling for prediction, we suggest you check out books and courses on the field of *machine learning* such as [*An Introduction to Statistical Learning with Applications in R (ISLR)*](https://www.statlearning.com/) [@islr2017]. Furthermore, while there exist many techniques for modeling, such as tree-based models and neural networks, in this book we'll focus on one particular technique: *linear regression*. \index{regression!linear} Linear regression is one of the most commonly-used and easy-to-understand approaches to modeling.
+이 책에서는 설명을 위한 모델링에 집중할 것이며, 따라서 $x$를 *설명 변수*라고 부를 것입니다. 예측을 위한 모델링에 대해 배우고 싶다면 [*An Introduction to Statistical Learning with Applications in R (ISLR)*](https://www.statlearning.com/) [@islr2017]과 같은 *머신러닝(machine learning)* 분야의 책과 강의를 참고하시기 바랍니다. 또한 트리 기반 모델이나 신경망과 같은 많은 모델링 기법이 존재하지만, 이 책에서는 특히 한 가지 기법인 *선형 회귀(linear regression)*에 집중할 것입니다. \index{regression!linear} 선형 회귀는 가장 흔히 사용되고 이해하기 쉬운 모델링 접근 방식 중 하나입니다.
 
-Linear regression involves a *numerical* outcome variable $y$ and explanatory variables $x$ that are either *numerical* or *categorical*. Furthermore, the relationship between $y$ and $x$ is assumed to be linear, or in other words, a line. However, we'll see that what constitutes a "line" will vary depending on the nature of your explanatory variables $x$.
+선형 회귀는 *수치형* 결과 변수 $y$와 *수치형* 또는 *범주형*인 설명 변수 $x$를 다룹니다. 또한 $y$와 $x$의 관계는 선형(linear), 즉 직선이라고 가정합니다. 하지만 설명 변수 $x$의 성격에 따라 무엇이 "직선"을 구성하는지는 달라질 것임을 보게 될 것입니다.
 
-In Chapter \@ref(regression) on basic regression, we'll only consider models with a single explanatory variable $x$. In Section \@ref(model1), the explanatory variable will be numerical. This scenario is known as *simple linear regression*. In Section \@ref(model2), the explanatory variable will be categorical.
+기초 회귀 분석을 다루는 제\@ref(regression)장에서는 단일 설명 변수 $x$를 갖는 모델만 고려할 것입니다. 섹션 \@ref(model1)에서는 설명 변수가 수치형일 것입니다. 이 시나리오는 *단순 선형 회귀(simple linear regression)*로 알려져 있습니다. 섹션 \@ref(model2)에서는 설명 변수가 범주형일 것입니다.
 
-In Chapter \@ref(multiple-regression) on multiple regression, we'll extend the ideas behind basic regression and consider models with two explanatory variables $x_1$ and $x_2$.  In Section \@ref(model4), we'll have two numerical explanatory variables. In Section \@ref(model3), we'll have one numerical and one categorical explanatory variable. In particular, we'll consider two such models: *interaction* and *parallel slopes* models.
+다중 회귀 분석을 다루는 제\@ref(multiple-regression)장에서는 기초 회귀 분석의 아이디어를 확장하여 두 개의 설명 변수 $x_1$과 $x_2$를 갖는 모델을 고려할 것입니다. 섹션 \@ref(model4)에서는 두 개의 수치형 설명 변수를 가질 것입니다. 섹션 \@ref(model3)에서는 하나의 수치형 설명 변수와 하나의 범주형 설명 변수를 가질 것입니다. 특히 *상호작용(interaction)* 모델과 *평행 직선(parallel slopes)* 모델이라는 두 가지 모델을 살펴볼 것입니다.
 
-In Chapter \@ref(inference-for-regression) on inference for regression, we'll revisit our regression models and analyze the results using the tools for *statistical inference* you'll develop in Chapters \@ref(sampling), \@ref(confidence-intervals), and \@ref(hypothesis-testing) on sampling, bootstrapping and confidence intervals, and hypothesis testing and $p$-values, respectively.
+회귀 분석을 위한 추론을 다루는 제\@ref(inference-for-regression)장에서는 회귀 모델을 다시 살펴보고, 제\@ref(sampling)장의 샘플링, 제\@ref(confidence-intervals)장의 부트스트래핑과 신뢰 구간, 그리고 제\@ref(hypothesis-testing)장의 가설 검정과 $p$-값 등을 통해 익히게 될 *통계적 추론(statistical inference)* 도구들을 사용하여 결과를 분석할 것입니다.
 
-Let's now begin with basic regression, \index{regression!basic} which refers to linear regression models with a single explanatory variable $x$. We'll also discuss important statistical concepts like the *correlation coefficient*, that "correlation isn't necessarily causation," and what it means for a line to be "best-fitting."
+이제 단일 설명 변수 $x$를 갖는 선형 회귀 모델인 기초 회귀 분석을 시작해 보겠습니다. \index{regression!basic} 또한 *상관 계수(correlation coefficient)*, "상관관계가 반드시 인과관계를 의미하지는 않는다"는 사실, 그리고 직선이 "가장 잘 맞는다(best-fitting)"는 것이 무엇을 의미하는지와 같은 중요한 통계적 개념들도 논의할 것입니다.
 
 
-### Needed packages {-#reg-packages}
 
-Let's now load all the packages needed for this chapter (this assumes you've already installed them). In this chapter, we introduce some new packages:
 
-1. The `tidyverse` "umbrella" [@R-tidyverse] package. Recall from our discussion in Section \@ref(tidyverse-package) that loading the `tidyverse` package by running `library(tidyverse)` loads the following commonly used data science packages all at once:
-    + `ggplot2` for data visualization
-    + `dplyr` for data wrangling
-    + `tidyr` for converting data to "tidy" format
-    + `readr` for importing spreadsheet data into R
-    + As well as the more advanced `purrr`, `tibble`, `stringr`, and `forcats` packages
-1. The `moderndive` \index{R packages!moderndive} package of datasets and functions for tidyverse-friendly introductory linear regression.
-1. The `skimr` [@R-skimr] package, which provides a simple-to-use function to quickly compute a wide array of commonly used summary statistics. \index{summary statistics}
+### 필요한 패키지 {-#reg-packages}
 
-If needed, read Section \@ref(packages) for information on how to install and load R packages.
+이제 이번 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). 이번 장에서는 몇 가지 새로운 패키지를 소개합니다.
+
+1. `tidyverse` "우산" [@R-tidyverse] 패키지: 섹션 \@ref(tidyverse-package)에서 논의했듯이, `library(tidyverse)`를 실행하여 `tidyverse` 패키지를 로드하면 다음과 같이 자주 사용되는 데이터 과학 패키지들을 한꺼번에 로드합니다.
+    + 데이터 시각화를 위한 `ggplot2`
+    + 데이터 전처리를 위한 `dplyr`
+    + 데이터 형식을 "깔끔하게" 변환하기 위한 `tidyr`
+    + 스프레드시트 데이터를 R로 불러오기 위한 `readr`
+    + 그 외 심화 패키지인 `purrr`, `tibble`, `stringr`, `forcats`
+2. `moderndive` \index{R packages!moderndive} 패키지: tidyverse 친화적인 기초 선형 회귀 분석을 위한 데이터셋과 함수들을 제공합니다.
+3. `skimr` [@R-skimr] 패키지: 자주 사용되는 다양한 요약 통계량을 빠르게 계산할 수 있는 사용하기 쉬운 함수를 제공합니다. \index{summary statistics}
+
+필요하다면 섹션 \@ref(packages)를 참고하여 R 패키지를 설치하고 로드하는 방법을 다시 확인하세요.
 
 ```{r, eval=FALSE}
 library(tidyverse)
@@ -85,17 +92,12 @@ library(skimr)
 library(gapminder)
 ```
 ```{r, echo=FALSE, message=FALSE, purl=TRUE}
-# The code presented to the reader in the chunk above is different than the code
-# in this chunk that is actually run to build the book. In particular we do not
-# load the skimr package.
+# 독자에게 보여지는 위 청크의 코드는 이 책을 빌드할 때 실제 실행되는 아래 코드가 다릅니다.
+# 특히 skimr 패키지를 로드하지 않는데, 그 이유는 이 책에서 사용한 skimr v1.0.6이
+# 나머지 장들의 모든 kable() 코드를 깨지게 만들기 때문입니다. v2에서 이 문제가
+# 해결되었을 수 있습니다: https://github.com/moderndive/ModernDive_book/issues/271
 # 
-# This is because skimr v1.0.6 which we used for the book causes all
-# kable() code to break for the remaining chapters in the book. v2 might
-# fix these issues:
-# https://github.com/moderndive/ModernDive_book/issues/271
-
-# As a workaround for v1 of ModernDive, all skimr::skim() output in this chapter
-# has been hard coded.
+# ModernDive v1의 대안으로, 이번 장의 모든 skimr::skim() 출력은 하드코딩되었습니다.
 library(tidyverse)
 library(moderndive)
 # library(skimr)
@@ -104,7 +106,7 @@ library(gapminder)
 
 
 ```{r, message=FALSE, echo=FALSE, purl=FALSE}
-# Packages needed internally, but not in text.
+# 내부적으로는 필요하지만 본문에는 나오지 않는 패키지들.
 library(mvtnorm)
 library(broom)
 library(kableExtra)
@@ -115,61 +117,62 @@ library(patchwork)
 
 
 
-## One numerical explanatory variable {#model1}
+## 하나의 수치형 설명 변수 {#model1}
 
-Why do some professors and instructors at universities and colleges receive high teaching evaluations scores from students while others receive lower ones? Are there differences in teaching evaluations between instructors of different demographic groups? Could there be an impact due to student biases? These are all questions that are of interest to university/college administrators, as teaching evaluations are among the many criteria considered in determining which instructors and professors get promoted.
+왜 대학의 어떤 교수님들은 학생들로부터 높은 강의 평가 점수를 받는 반면, 어떤 분들은 낮은 점수를 받을까요? 서로 다른 인구통계학적 집단의 강사들 사이에 강의 평가 점수 차이가 있을까요? 학생들의 편견이 영향을 미칠 수 있을까요? 강의 평가는 강사와 교수의 승진을 결정할 때 고려되는 많은 기준 중 하나이기 때문에, 이러한 질문들은 대학 행정가들에게 큰 관심사입니다.
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 n_courses <- evals %>% nrow()
 ```
 
-Researchers at the University of Texas in Austin, Texas (UT Austin) tried to answer the following research question: what factors explain differences in instructor teaching evaluation scores? To this end, they collected instructor and course information on `r n_courses` courses. A full description of the study can be found at [openintro.org](https://www.openintro.org/stat/data/?data=evals).
+텍사스주 오스틴에 위치한 텍사스 대학교(UT Austin)의 연구원들은 다음 연구 질문에 답하려고 노력했습니다: 강사의 강의 평가 점수 차이를 설명하는 요인은 무엇인가? 이를 위해 그들은 `r n_courses`개 강좌에 대한 강사 및 강좌 정보를 수집했습니다. 연구에 대한 전체 설명은 [openintro.org](https://www.openintro.org/stat/data/?data=evals)에서 확인할 수 있습니다.
 
-In this section, we'll keep things simple for now and try to explain differences in instructor teaching scores as a function of one numerical variable: the instructor's "beauty" score (we'll describe how this score was determined shortly). Could it be that instructors with higher "beauty" scores also have higher teaching evaluations? Could it be instead that instructors with higher "beauty" scores tend to have lower teaching evaluations? Or could it be that there is no relationship between "beauty" score and teaching evaluations? We'll answer these questions by modeling the relationship between teaching scores and "beauty" scores using *simple linear regression* \index{regression!simple linear} where we have:
+이 섹션에서는 우선 상황을 단순하게 유지하여, 강사의 강의 평가 점수 차이를 하나의 수치형 변수, 즉 강사의 "미모(beauty)" 점수(이 점수가 어떻게 결정되었는지는 곧 설명하겠습니다)의 함수로 설명해 보려 합니다. 미모 점수가 높은 강사가 강의 평가 점수도 더 높을까요? 아니면 반대로 미모 점수가 높은 강사가 강의 평가 점수는 더 낮은 경향이 있을까요? 그것도 아니면 미모 점수와 강의 평가 점수 사이에는 아무런 관계가 없을까요? 우리는 다음과 같은 조건의 *단순 선형 회귀(simple linear regression)*를 사용하여 강의 평가 점수와 미모 점수 사이의 관계를 모델링함으로써 이 질문들에 답할 것입니다. \index{regression!simple linear}
 
-1. A numerical outcome variable $y$ (the instructor's teaching score) and
-1. A single numerical explanatory variable $x$ (the instructor's "beauty" score).
+1. 수치형 결과 변수 $y$ (강사의 강의 평가 점수)
+2. 단일 수치형 설명 변수 $x$ (강사의 "미모" 점수)
 
 
-### Exploratory data analysis {#model1EDA}
 
-The data on the `r n_courses` courses at UT Austin can be found in the `evals` data frame included in the `moderndive` package. However, to keep things simple, let's `select()` only the subset of the variables we'll consider in this chapter, and save this data in a new data frame called `evals_ch5`:
+### 탐색적 데이터 분석 {#model1EDA}
+
+UT Austin의 `r n_courses`개 강좌에 대한 데이터는 `moderndive` 패키지에 포함된 `evals` 데이터 프레임에서 찾을 수 있습니다. 하지만 상황을 단순하게 유지하기 위해, 이번 장에서 고려할 변수들만 `select()`하여 `evals_ch5`라는 새로운 데이터 프레임에 저장해 보겠습니다.
 
 ```{r}
 evals_ch5 <- evals %>%
   select(ID, score, bty_avg, age)
 ```
 
-A crucial step before doing any kind of analysis or modeling is performing an *exploratory data analysis*, \index{data analysis!exploratory} or EDA for short. EDA gives you a sense of the distributions of the individual variables in your data, whether any potential relationships exist between variables, whether there are outliers and/or missing values, and (most importantly) how to build your model. Here are three common steps in an EDA:
+어떤 종류의 분석이나 모델링을 하기 전에 거쳐야 하는 중요한 단계는 *탐색적 데이터 분석(exploratory data analysis)*, 줄여서 EDA를 수행하는 것입니다. \index{data analysis!exploratory} EDA는 데이터에 포함된 개별 변수의 분포, 변수 간의 잠재적 관계 존재 여부, 이상치(outliers) 및/또는 결측치(missing values) 여부, 그리고 (가장 중요하게는) 모델을 어떻게 구축할지에 대한 감을 제공합니다. EDA의 세 가지 일반적인 단계는 다음과 같습니다.
 
-1. Most crucially, looking at the raw data values.
-1. Computing summary statistics, such as means, medians, and interquartile ranges.
-1. Creating data visualizations.
+1. 가장 결정적으로, 원시 데이터 값(raw data values)을 살펴봅니다.
+2. 평균, 중앙값, 사분위 범위(interquartile range)와 같은 요약 통계량을 계산합니다.
+3. 데이터 시각화를 수행합니다.
 
-Let's perform the first common step in an exploratory data analysis: looking at the raw data values. Because this step seems so trivial, unfortunately many data analysts ignore it. However, getting an early sense of what your raw data looks like can often prevent many larger issues down the road. 
+탐색적 데이터 분석의 첫 번째 단계인 원시 데이터 값 살펴보기를 수행해 봅시다. 이 단계는 너무 사소해 보이기 때문에 안타깝게도 많은 데이터 분석가들이 무시하곤 합니다. 하지만 원시 데이터가 어떻게 생겼는지 초기에 파악하는 것은 나중에 발생할 수 있는 많은 큰 문제들을 예방할 수 있게 해줍니다.
 
-You can do this by using RStudio's spreadsheet viewer or by using the `glimpse()` function as introduced in Subsection \@ref(exploredataframes) on exploring data frames:
+섹션 \@ref(exploredataframes)의 데이터 프레임 탐색하기에서 소개한 것처럼 RStudio의 스프레드시트 뷰어를 사용하거나 `glimpse()` 함수를 사용할 수 있습니다.
 
 ```{r}
 glimpse(evals_ch5)
 ```
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 n_courses_ch5 <- evals_ch5 %>% nrow()
 ```
 
-Observe that ``Rows: `r n_courses_ch5` `` indicates that there are `r n_courses_ch5` rows/observations in `evals_ch5`, where each row corresponds to one observed course at UT Austin. It is important to note that the *observational unit* \index{observational unit} is an individual course and not an individual instructor. Recall from Subsection \@ref(exploredataframes) that the observational unit is the "type of thing" that is being measured by our variables. Since instructors teach more than one course in an academic year, the same instructor will appear more than once in the data. Hence there are fewer than `r n_courses_ch5` unique instructors being represented in `evals_ch5`. We'll revisit this idea in Section \@ref(regression-conditions), when we talk about the "independence assumption" for inference for regression.
+``Rows: `r n_courses_ch5` ``는 `evals_ch5`에 `r n_courses_ch5`개의 행/관측치가 있음을 나타내며, 각 행은 UT Austin에서 관측된 하나의 강좌에 해당합니다. 여기서 *관측 단위(observational unit)*는 개별 강사가 아니라 개별 강좌라는 점에 주목하는 것이 중요합니다. \index{observational unit} 섹션 \@ref(exploredataframes)에서 배웠듯이 관측 단위는 변수들에 의해 측정되는 "항목의 유형"입니다. 강사들은 한 학년도에 하나 이상의 강좌를 가르치기 때문에, 동일한 강사가 데이터에 한 번 이상 나타날 수 있습니다. 따라서 `evals_ch5`에 나타난 고유한 강사의 수는 `r n_courses_ch5`명보다 적습니다. 이 아이디어는 섹션 \@ref(regression-conditions)에서 회귀 분석을 위한 추론의 "독립성 가정"에 대해 이야기할 때 다시 다룰 것입니다.
 
-A full description of all the variables included in `evals` can be found at [openintro.org](https://www.openintro.org/stat/data/?data=evals) or by reading the associated help file (run `?evals` in the console). However, let's fully describe only the `r evals_ch5 %>% ncol()` variables we selected in `evals_ch5`:
+`evals`에 포함된 모든 변수에 대한 전체 설명은 [openintro.org](https://www.openintro.org/stat/data/?data=evals)에서 확인하거나 관련 도움말 파일(콘솔에서 `?evals` 실행)을 통해 읽을 수 있습니다. 여기서는 우리가 `evals_ch5`에서 선택한 `r evals_ch5 %>% ncol()`개 변수만 자세히 설명하겠습니다.
 
-1. `ID`: An identification variable used to distinguish between the 1 through `r n_courses_ch5` courses in the dataset.
-1. `score`: A numerical variable of the course instructor's average teaching score, where the average is computed from the evaluation scores from all students in that course.  Teaching scores of 1 are lowest and 5 are highest. This is the outcome variable $y$ of interest.
-1. `bty_avg`: A numerical variable of the course instructor's average "beauty" score, where the average is computed from a separate panel of six students. "Beauty" scores of 1 are lowest and 10 are highest. This is the explanatory variable $x$ of interest.
-1. `age`: A numerical variable of the course instructor's age. This will be another explanatory variable $x$ that we'll use in the *Learning check* at the end of this subsection.
+1. `ID`: 데이터셋에 있는 1번부터 `r n_courses_ch5`번까지의 강좌를 구분하는 데 사용되는 식별 변수입니다.
+2. `score`: 해당 강좌의 모든 학생이 매긴 평가 점수를 평균하여 계산한 강사의 평균 강의 평가 점수(수치형 변수)입니다. 강의 평가 점수는 1점이 가장 낮고 5점이 가장 높습니다. 이것이 우리가 관심을 갖는 결과 변수 $y$입니다.
+3. `bty_avg`: 6명의 학생으로 구성된 별도의 패널이 평가한 강사의 평균 "미모" 점수(수치형 변수)입니다. 미모 점수는 1점이 가장 낮고 10점이 가장 높습니다. 이것이 우리가 관심을 갖는 설명 변수 $x$입니다.
+4. `age`: 강사의 연령(수치형 변수)입니다. 이 변수는 이 소섹션 끝에 있는 *학습 확인* 문제에서 또 다른 설명 변수 $x$로 사용할 것입니다.
 
-An alternative way to look at the raw data values is by choosing a random sample of the rows in `evals_ch5` by piping it into the `sample_n()` \index{dplyr!sample\_n()} function from the `dplyr` package. Here we set the `size` argument to be `5`, indicating that we want a random sample of 5 rows. We display the results in Table \@ref(tab:five-random-courses). Note that due to the random nature of the sampling, you will likely end up with a different subset of 5 rows.
+원시 데이터 값을 확인하는 또 다른 방법은 `evals_ch5`를 `dplyr` 패키지의 `sample_n()` 함수에 파이프로 연결하여 임의의 행 샘플을 선택하는 것입니다. \index{dplyr!sample\_n()} 여기서는 `size` 인자를 `5`로 설정하여 5개의 행을 무작위로 샘플링해 보겠습니다. 결과는 표 \@ref(tab:five-random-courses)와 같습니다. 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개의 행을 보게 될 것입니다.
 
 ```{r, eval=FALSE}
 evals_ch5 %>%
@@ -180,17 +183,17 @@ evals_ch5 %>%
   sample_n(5) %>%
   kbl(
     digits = 3,
-    caption = "A random sample of 5 out of the 463 courses at UT Austin",
+    caption = "UT Austin의 463개 강좌 중 무작위로 추출한 5개 샘플",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Now that we've looked at the raw values in our `evals_ch5` data frame and got a preliminary sense of the data, let's move on to the next common step in an exploratory data analysis: computing summary statistics. Let's start by computing the mean and median of our numerical outcome variable `score` and our numerical explanatory variable "beauty" score denoted as `bty_avg`. We'll do this by using the `summarize()` function from `dplyr` along with the `mean()` and `median()` summary functions we saw in Section \@ref(summarize).
+이제 `evals_ch5` 데이터 프레임의 원시 값들을 살펴보고 데이터에 대한 예비적인 파악을 마쳤으므로, 탐색적 데이터 분석의 다음 단계인 요약 통계량 계산으로 넘어가 보겠습니다. 먼저 수치형 결과 변수 `score`와 수치형 설명 변수인 "미모" 점수 `bty_avg`의 평균과 중앙값을 계산해 봅시다. 섹션 \@ref(summarize)에서 보았던 `mean()` 및 `median()` 요약 함수와 함께 `dplyr`의 `summarize()` 함수를 사용하겠습니다.
 
 ```{r}
 evals_ch5 %>%
@@ -198,21 +201,21 @@ evals_ch5 %>%
             median_bty_avg = median(bty_avg), median_score = median(score))
 ```
 
-However, what if we want other summary statistics as well, such as the standard deviation (a measure of spread), the minimum and maximum values, and various percentiles? 
+그런데 표준편차(퍼짐 정도의 측도), 최솟값과 최댓값, 그리고 다양한 백분위수와 같은 다른 요약 통계량도 알고 싶다면 어떻게 해야 할까요?
 
-Typing out all these summary statistic functions in `summarize()` would be long and tedious. Instead, let's use the convenient `skim()` function from the `skimr` \index{R packages!skimr!skim()} package. This function takes in a data frame, "skims" it, and returns commonly used summary statistics. Let's take our `evals_ch5` data frame, `select()` only the outcome and explanatory variables teaching `score` and `bty_avg`, and pipe them into the `skim()` function:
+`summarize()` 안에 이 모든 요약 통계 함수들을 일일이 타이핑하는 것은 길고 지루할 것입니다. 대신 `skimr` 패키지의 편리한 `skim()` 함수를 사용해 봅시다. \index{R packages!skimr!skim()} 이 함수는 데이터 프레임을 입력으로 받아 "훑어보고(skims)", 자주 사용되는 요약 통계량들을 반환합니다. `evals_ch5` 데이터 프레임을 가져와서 결과 변수 `score`와 설명 변수 `bty_avg`만 `select()`한 뒤 `skim()` 함수로 파이프 연결을 해보겠습니다.
 
 ```{r eval=FALSE}
 evals_ch5 %>% select(score, bty_avg) %>% skim()
 ```
 
 ```
-Skim summary statistics
- n obs: 463 
- n variables: 2 
+Skim 요약 통계량
+ 관측치 수: 463 
+ 변수 수: 2 
 
-── Variable type:numeric
- variable missing complete   n mean   sd   p0  p25  p50 p75 p100
+── 변수 유형: 수치형(numeric)
+ 변수명   결측치  완결수    n  평균   표준편차   p0    p25   p50   p75  p100
   bty_avg       0      463 463 4.42 1.53 1.67 3.17 4.33 5.5 8.17
     score       0      463 463 4.17 0.54 2.3  3.8  4.3  4.6 5   
 ```
@@ -227,32 +230,33 @@ Used remotes::install_version("skimr", version = "1.0.6") to use that version
 instead.
 -->
 
-(For formatting purposes in this book, the inline histogram that is usually printed with `skim()` has been removed. This can be done by using `skim_with(numeric = list(hist = NULL))` prior to using the `skim()` function for version 1.0.6 of `skimr`.)
 
-For the numerical variables teaching `score` and `bty_avg` it returns:
+(이 책의 형식상 `skim()`과 함께 출력되는 인라인 히스토그램은 제거되었습니다. 이는 `skimr` v1.0.6 기준으로 `skim()` 함수를 사용하기 전에 `skim_with(numeric = list(hist = NULL))`를 사용하여 수행할 수 있습니다.)
 
-- `missing`: the number of missing values
-- `complete`: the number of non-missing or complete values
-- `n`: the total number of values
-- `mean`: the average
-- `sd`: the standard deviation
-- `p0`: the 0th percentile: the value at which 0% of observations are smaller than it (the *minimum* value)
-- `p25`: the 25th percentile: the value at which 25% of observations are smaller than it (the *1st quartile*)
-- `p50`: the 50th percentile: the value at which 50% of observations are smaller than it (the *2nd quartile* and more commonly called the *median*)
-- `p75`: the 75th percentile: the value at which 75% of observations are smaller than it (the *3rd quartile*)
-- `p100`: the 100th percentile: the value at which 100% of observations are smaller than it (the *maximum* value)
+`score`와 `bty_avg`라는 두 수치형 변수에 대해 다음이 반환됩니다.
 
-Looking at this output, we can see how the values of both variables distribute. For example, the mean teaching score was 4.17 out of 5, whereas the mean "beauty" score was 4.42 out of 10. Furthermore, the middle 50% of teaching scores was between 3.80 and 4.6 (the first and third quartiles), whereas the middle 50% of "beauty" scores falls within 3.17 to 5.5 out of 10.
+- `missing`: 결측치 수
+- `complete`: 결측치가 없는 완결된 값의 수
+- `n`: 총 값의 수
+- `mean`: 평균
+- `sd`: 표준편차
+- `p0`: 0번째 백분위수: 전체 관측치의 0%가 이 값보다 작음을 의미(*최솟값*)
+- `p25`: 25번째 백분위수: 전체 관측치의 25%가 이 값보다 작음을 의미(*제1사분위수*)
+- `p50`: 50번째 백분위수: 전체 관측치의 50%가 이 값보다 작음을 의미(*제2사분위수*이자 흔히 *중앙값*이라 함)
+- `p75`: 75번째 백분위수: 전체 관측치의 75%가 이 값보다 작음을 의미(*제3사분위수*)
+- `p100`: 100번째 백분위수: 전체 관측치의 100%가 이 값보다 작음을 의미(*최댓값*)
 
-The `skim()` function only returns what are known as *univariate* \index{univariate} summary statistics: functions that take a single variable and return some numerical summary of that variable. However, there also exist *bivariate* \index{bivariate} summary statistics: functions that take in two variables and return some summary of those two variables. In particular, when the two variables are numerical, we can compute the \index{correlation (coefficient)} *correlation coefficient*. Generally speaking, *coefficients* are quantitative expressions of a specific phenomenon.  A *correlation coefficient* is a quantitative expression of the *strength of the linear relationship between two numerical variables*. Its value ranges between -1 and 1 where:
+이 출력을 통해 두 변수의 값이 어떻게 분포하는지 알 수 있습니다. 예를 들어, 평균 강의 평가 점수는 5점 만점에 4.17점인 반면, 평균 "미모" 점수는 10점 만점에 4.42점이었습니다. 또한 강의 평가 점수의 중앙 50%는 3.80점에서 4.6점 사이(제1사분위수와 제3사분위수)였으며, "미모" 점수의 중앙 50%는 10점 만점에 3.17점에서 5.5점 사이였습니다.
 
-* -1 indicates a perfect *negative relationship*: As one variable increases, the value of the other variable tends to go down, following a straight line.
-* 0 indicates no relationship: The values of both variables go up/down independently of each other.
-* +1 indicates a perfect *positive relationship*: As the value of one variable goes up, the value of the other variable tends to go up as well in a linear fashion.
+`skim()` 함수는 단일 변수만 입력으로 받아 해당 변수의 요약 수치를 반환하는 *일변량(univariate)* 요약 통계량만 반환합니다. \index{univariate} 하지만 두 변수를 입력으로 받아 두 변수 간의 관계를 요약해 주는 *이변량(bivariate)* 요약 통계량도 존재합니다. \index{bivariate} 특히 두 변수가 모두 수치형일 때, 우리는 *상관 계수(correlation coefficient)*를 계산할 수 있습니다. \index{correlation (coefficient)} 일반적으로 말해서 *계수(coefficients)*는 특정 현상을 정량적으로 표현한 것입니다. *상관 계수*는 *두 수치형 변수 사이의 선형적 관계의 강도*를 정량적으로 표현한 것입니다. 그 값은 -1에서 1 사이이며 의미는 다음과 같습니다.
 
-Figure \@ref(fig:correlation1) gives examples of 9 different correlation coefficient values for hypothetical numerical variables $x$ and $y$. For example, observe in the top right plot that for a correlation coefficient of -0.75 there is a negative linear relationship between $x$ and $y$, but it is not as strong as the negative linear relationship between $x$ and $y$ when the correlation coefficient is -0.9 or -1.
+* -1은 완벽한 *음의 관계*: 한 변수가 증가함에 따라 다른 변수의 값은 직선을 따라 감소하는 경향이 있습니다.
+* 0은 아무런 관계 없음: 두 변수의 값이 서로 독립적으로 증감합니다.
+* +1은 완벽한 *양의 관계*: 한 변수가 증가함에 따라 다른 변수의 값도 선형적으로 증가하는 경향이 있습니다.
 
-```{r correlation1, echo=FALSE, fig.cap="Nine different correlation coefficients.", fig.height=2.6, purl=FALSE}
+그림 \@ref(fig:correlation1)은 가상의 수치형 변수 $x$와 $y$에 대해 9가지 다른 상관 계수 값의 예시를 보여줍니다. 예를 들어 오른쪽 상단 플롯에서 상관 계수가 -0.75인 경우 $x$와 $y$ 사이에 음의 선형 관계가 있지만, 상관 계수가 -0.9나 -1인 경우만큼 강하지는 않음을 확인할 수 있습니다.
+
+```{r correlation1, echo=FALSE, fig.cap="9가지 다른 상관 계수 값의 예시.", fig.height=2.6, purl=FALSE}
 correlation <- c(-0.9999, -0.9, -0.75, -0.3, 0, 0.3, 0.75, 0.9, 0.9999)
 n_sim <- 100
 values <- NULL
@@ -281,7 +285,7 @@ corr_plot <- ggplot(data = values, mapping = aes(V1, V2)) +
     axis.ticks = element_blank()
   )
 
-if (is_latex_output()) {
+if (knitr::is_latex_output()) {
   corr_plot +
     theme(
       strip.text = element_text(colour = "black"),
@@ -292,16 +296,16 @@ if (is_latex_output()) {
 }
 ```
 
-The correlation coefficient can be computed using the `get_correlation()` \index{moderndive!get\_correlation()} function in the `moderndive` package. In this case, the inputs to the function are the two numerical variables for which we want to calculate the correlation coefficient. 
+상관 계수는 `moderndive` 패키지의 `get_correlation()` 함수를 사용하여 계산할 수 있습니다. \index{moderndive!get\_correlation()} 이 경우 함수의 입력값은 상관 계수를 계산하려는 두 수치형 변수입니다.
 
-We put the name of the outcome variable on the left-hand side of the `~` "tilde" sign, while putting the name of the explanatory variable on the right-hand side. This is known as R's \index{R!formula notation} *formula notation*. We will use this same "formula" syntax with regression later in this chapter.
+우리는 `~` (물결표) 기호의 왼쪽에 결과 변수 이름을 두고, 오른쪽에 설명 변수 이름을 둡니다. 이는 R의 *표뮬라 표기법(formula notation)*으로 알려져 있습니다. \index{R!formula notation} 이 책의 후반부에서 회귀 분석을 다룰 때도 이와 동일한 "표뮬라" 구문을 사용할 것입니다.
 
 ```{r}
 evals_ch5 %>% 
   get_correlation(formula = score ~ bty_avg)
 ```
 
-An alternative way to compute correlation is to use the `cor()` summary function within a `summarize()`:
+상관관계를 계산하는 또 다른 방법은 `summarize()` 내에서 `cor()` 요약 함수를 사용하는 것입니다.
 
 ```{r, eval=FALSE}
 evals_ch5 %>% 
@@ -315,20 +319,21 @@ cor_ch5 <- evals_ch5 %>%
   pull()
 ```
 
-In our case, the correlation coefficient of `r cor_ch5` indicates that the relationship between teaching evaluation score and "beauty" average is "weakly positive." There is a certain amount of subjectivity in interpreting correlation coefficients, especially those that aren't close to the extreme values of -1, 0, and 1. To develop your intuition about correlation coefficients, play the "Guess the Correlation" 1980's style video game mentioned in Subsection \@ref(additional-resources-basic-regression).
+우리의 경우, 상관 계수 `r cor_ch5`는 강의 평가 점수와 평균 "미모" 점수 사이의 관계가 "약한 양의 관계"임을 나타냅니다. 특히 상관 계수가 -1, 0, 1과 같은 극단적인 값에 가깝지 않을 때, 이를 해석하는 데에는 어느 정도 주관성이 개입됩니다. 상관 계수에 대한 여러분의 직관을 키우고 싶다면, 소섹션 \@ref(additional-resources-basic-regression)에서 언급된 1980년대 스타일의 비디오 게임 "상관 계수 맞추기(Guess the Correlation)"를 플레이해 보세요.
 
-Let's now perform the last of the steps in an exploratory data analysis: creating data visualizations. Since both the `score` and `bty_avg` variables are numerical, a scatterplot is an appropriate graph to visualize this data. Let's do this using `geom_point()` and display the result in Figure \@ref(fig:numxplot1). Furthermore, let's highlight the six points in the top right of the visualization in a box.
+
+탐색적 데이터 분석의 마지막 단계인 데이터 시각화를 수행해 봅시다. `score`와 `bty_avg` 변수가 모두 수치형이므로, 이 데이터를 시각화하기에 적절한 그래프는 산점도(scatterplot)입니다. `geom_point()`를 사용하여 시각화하고 결과는 그림 \@ref(fig:numxplot1)에 표시하겠습니다. 또한 시각화의 오른쪽 상단에 있는 6개의 점을 상자로 강조하겠습니다.
 
 ```{r, eval=FALSE}
 ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_point() +
-  labs(x = "Beauty Score", 
-       y = "Teaching Score",
-       title = "Scatterplot of relationship of teaching and beauty scores")
+  labs(x = "미모 점수", 
+       y = "강의 평가 점수",
+       title = "강의 평가 점수와 미모 점수 관계의 산점도")
 ```
 
-```{r numxplot1, echo=FALSE, fig.cap="Instructor evaluation scores at UT Austin.", fig.height=4.5, purl=FALSE}
-# Define orange box
+```{r numxplot1, echo=FALSE, fig.cap="UT Austin의 강사 평가 점수.", fig.height=4.5, purl=FALSE}
+# 주황색 상자 정의
 margin_x <- 0.15
 margin_y <- 0.075
 box <- tibble(
@@ -339,62 +344,62 @@ box <- tibble(
 ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_point() +
   labs(
-    x = "Beauty Score",
-    y = "Teaching Score",
-    title = "Scatterplot of relationship of teaching and beauty scores"
+    x = "미모 점수",
+    y = "강의 평가 점수",
+    title = "강의 평가 점수와 미모 점수 관계의 산점도"
   ) +
   geom_path(data = box, aes(x = x, y = y), col = "orange", size = 1)
 ```
 
-Observe that most "beauty" scores lie between 2 and 8, while most teaching scores lie between 3 and 5. Furthermore, while opinions may vary, it is our opinion that the relationship between teaching score and "beauty" score is "weakly positive." This is consistent with our earlier computed correlation coefficient of `r cor_ch5`.
+대부분의 "미모" 점수는 2점에서 8점 사이에 있고, 대부분의 강의 평가 점수는 3점에서 5점 사이에 있음을 알 수 있습니다. 또한 의견이 다를 수 있지만, 강의 평가 점수와 "미모" 점수 사이의 관계는 "약한 양의 관계"라고 생각됩니다. 이는 앞서 계산한 상관 계수 `r cor_ch5`와 일치합니다.
 
-Furthermore, there appear to be six points in the top-right of this plot highlighted in the box. However, this is not actually the case, as this plot suffers from *overplotting*. Recall from Subsection \@ref(overplotting) that overplotting occurs when several points are stacked directly on top of each other, making it difficult to distinguish them. So while it may appear that there are only six points in the box, there are actually more.  This fact is only apparent when using `geom_jitter()` in place of `geom_point()`. We display the resulting plot in Figure \@ref(fig:numxplot2) along with the same small box as in Figure \@ref(fig:numxplot1).
+또한 이 플롯의 오른쪽 상단에 상자로 강조된 6개의 점이 있는 것처럼 보입니다. 하지만 실제로는 그렇지 않은데, 이 플롯이 *중복 플로팅(overplotting)* 문제를 겪고 있기 때문입니다. 소섹션 \@ref(overplotting)에서 배웠듯이, 중복 플로팅은 여러 개의 점이 서로 바로 위에 겹쳐 쌓여 있어 이를 구분하기 어려울 때 발생합니다. 따라서 상자 안에 6개의 점만 있는 것처럼 보일 수 있지만, 실제로는 더 많습니다. 이 사실은 `geom_point()` 대신 `geom_jitter()`를 사용할 때만 명확해집니다. 그 결과를 그림 \@ref(fig:numxplot2)에 표시하고, 그림 \@ref(fig:numxplot1)과 동일한 작은 상자를 함께 두었습니다.
 
 ```{r, eval=FALSE}
 ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_jitter() +
-  labs(x = "Beauty Score", y = "Teaching Score",
-       title = "Scatterplot of relationship of teaching and beauty scores")
+  labs(x = "미모 점수", y = "강의 평가 점수",
+       title = "강의 평가 점수와 미모 점수 관계의 산점도")
 ```
-```{r numxplot2, echo=FALSE, fig.cap="Instructor evaluation scores at UT Austin.", fig.height=4.2, purl=FALSE}
+```{r numxplot2, echo=FALSE, fig.cap="UT Austin의 강사 평가 점수.", fig.height=4.2, purl=FALSE}
 ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_jitter() +
   labs(
-    x = "Beauty Score", y = "Teaching Score",
-    title = "(Jittered) Scatterplot of relationship of teaching and beauty scores"
+    x = "미모 점수", y = "강의 평가 점수",
+    title = "강의 평가 점수와 미모 점수 관계의 (지터링된) 산점도"
   ) +
   geom_path(data = box, aes(x = x, y = y), col = "orange", size = 1)
 ```
 
-It is now apparent that there are `r evals_ch5 %>% filter(score > 4.5 & bty_avg > 7.5) %>% nrow()` points in the area highlighted in the box and not six as originally suggested in Figure \@ref(fig:numxplot1). Recall from Subsection \@ref(overplotting) on overplotting that jittering adds a little random "nudge" to each of the points to break up these ties. Furthermore, recall that jittering is strictly a visualization tool; it does not alter the original values in the data frame `evals_ch5`. To keep things simple going forward, however, we'll only present regular scatterplots rather than their jittered counterparts.
+이제 그림 \@ref(fig:numxplot1)에서 처럼 6개가 아니라 상자로 강조된 영역에 `r evals_ch5 %>% filter(score > 4.5 & bty_avg > 7.5) %>% nrow()`개의 점이 있음이 분명해졌습니다. 소섹션 \@ref(overplotting)의 중복 플로팅에서 보았듯이, 지터링은 각 점에 약간의 무작위 "밀어내기(nudge)"를 추가하여 겹친 점들을 떼어놓습니다. 또한 지터링은 엄격히 시각화 도구일 뿐이며, 데이터 프레임 `evals_ch5`의 원래 값을 변경하지 않는다는 점을 기억하세요. 하지만 앞으로의 설명을 단순하게 유지하기 위해 지터링된 버전보다는 일반 산점도만을 제시하겠습니다.
 
-Let's build on the unjittered scatterplot in Figure \@ref(fig:numxplot1) by adding a "best-fitting" line: of all possible lines we can draw on this scatterplot, it is the line that "best" fits through the cloud of points. We do this by adding a new `geom_smooth(method = "lm", se = FALSE)` layer to the `ggplot()` code that created the scatterplot in Figure \@ref(fig:numxplot1). The `method = "lm"` argument sets the line to be a "`l`inear `m`odel." The `se = FALSE` \index{ggplot2!geom\_smooth()} argument suppresses _standard error_ uncertainty bars. (We'll define the concept of _standard error_ later in Subsection \@ref(sampling-definitions).)
+그림 \@ref(fig:numxplot1)의 지터링되지 않은 산점도에 "가장 잘 맞는(best-fitting)" 직선을 추가하여 발전시켜 봅시다. 이 직선은 산점도에 그릴 수 있는 모든 가능한 직선 중에서 점들의 구름(cloud)을 가자 "잘" 통과하는 직선입니다. 그림 \@ref(fig:numxplot1)을 생성한 `ggplot()` 코드에 새로운 `geom_smooth(method = "lm", se = FALSE)` 레이어를 추가하여 이를 수행합니다. `method = "lm"` 인자는 직선을 "선형 모델(`l`inear `m`odel)"로 설정합니다. \index{ggplot2!geom\_smooth()} `se = FALSE` 인자는 *표준 오차(standard error)* 불확실성 막대를 표시하지 않도록 합니다. (표준 오차의 개념은 나중에 소섹션 \@ref(sampling-definitions)에서 정의하겠습니다.)
 
-```{r numxplot3, fig.cap="Regression line.", message=FALSE}
+```{r numxplot3, fig.cap="회귀 직선.", message=FALSE}
 ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score",
-       title = "Relationship between teaching and beauty scores") +  
+  labs(x = "미모 점수", y = "강의 평가 점수",
+       title = "강의 평가 점수와 미모 점수 사이의 관계") +  
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-The line in the resulting Figure \@ref(fig:numxplot3) is called a "regression line." The regression line \index{regression!line} is a visual summary of the relationship between two numerical variables, in our case the outcome variable `score` and the explanatory variable `bty_avg`. The positive slope of the blue line is consistent with our earlier observed correlation coefficient of `r cor_ch5` suggesting that there is a positive relationship between these two variables: as instructors have higher "beauty" scores, so also do they receive higher teaching evaluations. We'll see later, however, that while the correlation coefficient and the slope of a regression line always have the same sign (positive or negative), they typically do not have the same value.
+그림 \@ref(fig:numxplot3)의 직선은 "회귀 직선(regression line)"이라고 불립니다. \index{regression!line} 회귀 직선은 두 수치형 변수(우리의 경우 결과 변수 `score`와 설명 변수 `bty_avg`) 사이의 관계를 시각적으로 요약한 것입니다. 파란색 직선의 양(+)의 기울기는 강사의 "미모" 점수가 높을수록 강의 평가 점수도 더 높게 받는다는 점을 시사하며, 이는 앞서 관찰한 상관 계수 `r cor_ch5`와 일치합니다. 하지만 나중에 보겠지만 상관 계수와 회귀 직선의 기울기는 항상 같은 부호(양수 또는 음수)를 가지지만, 일반적으로 같은 값을 가지지는 않습니다.
 
-Furthermore, a regression line is "best-fitting" in that it minimizes some mathematical criteria. We present these mathematical criteria in Subsection \@ref(leastsquares), but we suggest you read this subsection only after first reading the rest of this section on regression with one numerical explanatory variable.
+또한 회귀 직선은 어떤 수학적 기준을 최소화한다는 점에서 "가장 잘 맞는(best-fitting)" 직선입니다. 소섹션 \@ref(leastsquares)에서 이 수학적 기준을 제시하겠지만, 이 섹션의 나머지 부분인 하나의 수치형 설명 변수를 이용한 회귀 분석을 모두 읽은 후에 해당 소섹션을 읽어보시길 권장합니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Conduct a new exploratory data analysis with the same outcome variable $y$ being `score` but with `age` as the new explanatory variable $x$. Remember, this involves three things:
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 동일한 결과 변수 $y$인 `score`를 사용하되 설명 변수 $x$를 `age`(연령)로 바꾸어 새로운 탐색적 데이터 분석을 수행하세요. 다음 세 가지를 포함해야 함을 기억하세요.
 
-(a) Looking at the raw data values.
-(a) Computing summary statistics.
-(a) Creating data visualizations.
+(a) 원시 데이터 값 살펴보기
+(b) 요약 통계량 계산하기
+(c) 데이터 시각화 수행하기
 
-What can you say about the relationship between age and teaching scores based on this exploration?
+이 탐색 결과를 바탕으로 연령과 강의 평가 점수 사이의 관계에 대해 무엇을 말할 수 있나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -402,23 +407,24 @@ What can you say about the relationship between age and teaching scores based on
 ```
 
 
-### Simple linear regression {#model1table}
 
-You may recall from secondary/high school algebra that the equation of a line is $y = a + b\cdot x$. (Note that the $\cdot$ symbol is equivalent to the $\times$ "multiply by" mathematical symbol. We'll use the $\cdot$ symbol in the rest of this book as it is more succinct.) It is defined by two coefficients $a$ and $b$. The intercept coefficient $a$ is the value of $y$ when $x = 0$. The slope coefficient $b$ for $x$ is the increase in $y$ for every increase of one in $x$. This is also called the "rise over run."
+### 단순 선형 회귀 {#model1table}
 
-However, when defining a regression line like the regression line in Figure \@ref(fig:numxplot3), we use slightly different notation: the equation of the regression line is $\widehat{y} = b_0 + b_1 \cdot x$ \index{regression!equation of a line}. The intercept coefficient is $b_0$, so $b_0$ is the value of $\widehat{y}$ when $x = 0$. The slope coefficient for $x$ is $b_1$, i.e., the increase in $\widehat{y}$ for every increase of one in $x$. Why do we put a "hat" on top of the $y$? It's a form of notation commonly used in regression to indicate that we have a \index{regression!fitted value} "fitted value," or the value of $y$ on the regression line for a given $x$ value. We'll discuss this more in the upcoming Subsection \@ref(model1points).
+중고등학교 대수학 시간에 직선의 방정식이 $y = a + b\cdot x$라고 배웠던 것을 기억하실 겁니다. (여기서 $\cdot$ 기호는 수학의 곱하기 기호인 $\times$와 동일합니다. 이 책에서는 간결함을 위해 이후로도 $\cdot$ 기호를 사용하겠습니다.) 직선은 두 개의 계수(coefficients) $a$와 $b$에 의해 정의됩니다. 절편(intercept) 계수 $a$는 $x = 0$일 때의 $y$ 값입니다. 기울기(slope) 계수 $b$는 $x$가 1만큼 증가할 때 $y$의 증가량을 의미합니다.
 
-We know that the regression line in Figure \@ref(fig:numxplot3) has a positive slope $b_1$ corresponding to our explanatory $x$ variable `bty_avg`. Why? Because as instructors tend to have higher `bty_avg` scores, so also do they tend to have higher teaching evaluation `scores`. However, what is the numerical value of the slope $b_1$? What about the intercept $b_0$?  Let's not compute these two values by hand, but rather let's use a computer!
+하지만 그림 \@ref(fig:numxplot3)과 같은 회귀 직선을 정의할 때는 약간 다른 표기법을 사용합니다. 회귀 직선의 방정식은 \index{regression!equation of a line} $\widehat{y} = b_0 + b_1 \cdot x$입니다. 절편 계수는 $b_0$이며, 따라서 $b_0$는 $x = 0$일 때의 $\widehat{y}$ 값입니다. $x$에 대한 기울기 계수는 $b_1$이며, 즉 $x$가 1만큼 증가할 때 $\widehat{y}$의 증가량을 나타냅니다. 왜 $y$ 위에 "모자(hat)"를 씌웠을까요? 이는 회귀 분석에서 흔히 사용되는 표기법으로, \index{regression!fitted value} 특정 $x$ 값에 대한 회귀 직선 위의 값인 "적합값(fitted value)"임을 나타냅니다. 이에 대해서는 이어지는 소섹션 \@ref(model1points)에서 더 자세히 논의하겠습니다.
 
-We can obtain the values of the intercept $b_0$ and the slope for `bty_avg` $b_1$ by outputting a *linear regression table*. This is done in two steps:
+우리는 그림 \@ref(fig:numxplot3)의 회귀 직선이 설명 변수 $x$인 `bty_avg`에 대해 양(+)의 기울기 $b_1$을 가진다는 것을 알고 있습니다. 왜 그럴까요? 강사들의 `bty_avg` 점수가 높을수록 강의 평가 `score` 점수도 높은 경향이 있기 때문입니다. 그렇다면 기울기 $b_1$의 수치적 값은 얼마일까요? 절편 $b_0$는 어떨까요? 이 두 값을 손으로 계산하지 말고 컴퓨터를 사용하여 구해 봅시다!
 
-1. We first "fit" the linear regression model using the `lm()` function and save it in `score_model`.
-1. We get the regression table by applying the `get_regression_table()` \index{moderndive!get\_regression\_table()} function from the `moderndive` package to `score_model`.
+일련의 과정을 거쳐 *선형 회귀 표(linear regression table)*를 출력함으로써 절편 $b_0$와 `bty_avg`에 대한 기울기 $b_1$의 값을 얻을 수 있습니다. 이는 다음 두 단계로 수행됩니다.
+
+1. 먼저 `lm()` 함수를 사용하여 선형 회귀 모델을 "적합(fit)"시키고 이를 `score_model`에 저장합니다.
+2. `moderndive` 패키지의 `get_regression_table()` 함수를 `score_model`에 적용하여 회귀 표를 얻습니다. \index{moderndive!get\_regression\_table()}
 
 ```{r, eval=FALSE}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
-# Get regression table:
+# 회귀 표 가져오기:
 get_regression_table(score_model)
 ```
 ```{r, echo=FALSE, purl=FALSE}
@@ -431,17 +437,17 @@ evals_line <- score_model %>%
 get_regression_table(score_model) %>%
   kbl(
     digits = 3,
-    caption = "Linear regression table",
+    caption = "선형 회귀 표",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Let's first focus on interpreting the regression table output in Table \@ref(tab:regtable), and then we'll later revisit the code that produced it. In the `estimate` column of Table \@ref(tab:regtable) are the intercept $b_0$ = `r evals_line[1]` and the slope $b_1$ = `r evals_line[2]` for `bty_avg`. Thus the equation of the regression line in Figure \@ref(fig:numxplot3) follows:
+먼저 표 \@ref(tab:regtable)의 회귀 표 출력을 해석하는 데 집중하고, 나중에 이를 생성한 코드를 다시 살펴보겠습니다. 표 \@ref(tab:regtable)의 `estimate` 열에는 절편 $b_0$ = `r evals_line[1]`과 `bty_avg`에 대한 기울기 $b_1$ = `r evals_line[2]`가 있습니다. 따라서 그림 \@ref(fig:numxplot3)의 회귀 직선 방정식은 다음과 같습니다.
 
 $$
 \begin{aligned}
@@ -451,49 +457,49 @@ $$
 \end{aligned}
 $$
 
-The intercept $b_0$ = `r evals_line[1]` is the average teaching score $\widehat{y}$ = $\widehat{\text{score}}$ for those courses where the instructor had a "beauty" score `bty_avg` of 0. Or in graphical terms, it's where the line intersects the $y$ axis when $x$ = 0. Note, however, that while the \index{regression!equation of a line!intercept} intercept of the regression line has a mathematical interpretation, it has no *practical* interpretation here, since observing a `bty_avg` of 0 is impossible; it is the average of six panelists' "beauty" scores ranging from 1 to 10. Furthermore, looking at the scatterplot with the regression line in Figure \@ref(fig:numxplot3), no instructors had a "beauty" score anywhere near 0.
+절편 $b_0$ = `r evals_line[1]`은 강사의 "미모" 점수 `bty_avg`가 0인 강좌들의 평균 강의 평가 점수 $\widehat{y}$ = $\widehat{\text{score}}$입니다. 기하학적으로 말하면 $x=0$일 때 직선이 $y$축과 만나는 지점입니다. 하지만 \index{regression!equation of a line!intercept} 회귀 직선의 절편이 수학적 해석을 갖기는 하지만, 여기서는 *실질적인(practical)* 해석이 불가능하다는 점에 유의하세요. `bty_avg`가 0인 경우는 관측될 수 없는데, 이는 1점에서 10점 사이의 점수를 주는 6명 패널의 평균값이기 때문입니다. 게다가 그림 \@ref(fig:numxplot3)의 회귀 직선 산점도를 보면 어떤 강사도 0에 가까운 "미모" 점수를 받지 않았습니다.
 
-Of greater interest is the \index{regression!equation of a line!slope} slope $b_1$ = $b_{\text{bty}\_\text{avg}}$ for `bty_avg` of `r evals_line[2]`, as this summarizes the relationship between the teaching and "beauty" score variables. Note that the sign is positive, suggesting a positive relationship between these two variables, meaning teachers with higher "beauty" scores also tend to have higher teaching scores. Recall from earlier that the correlation coefficient is `r cor_ch5`. They both have the same positive sign, but have a different value. Recall further that the correlation's interpretation is the "strength of linear association". The \index{regression!interpretation of the slope} slope's interpretation is a little different:
+더 흥미로운 것은 `bty_avg`에 대한 \index{regression!equation of a line!slope} 기울기 $b_1$ = $b_{\text{bty}\_\text{avg}}$ = `r evals_line[2]`입니다. 이는 강의 평가 변수와 "미모" 점수 변수 사이의 관계를 요약해 줍니다. 부호가 양수(+)인 것에 주목하세요. 이는 두 변수 사이의 양의 관계를 시사하며, 미모 점수가 높은 교사가 강의 평가 점수도 더 높게 받는 경향이 있음을 의미합니다. 앞서 상관 계수가 `r cor_ch5`였음을 떠올려 보세요. 둘 다 동일한 양의 부호를 갖지만 값은 다릅니다. 상관관계의 해석은 "선형적 연관성의 강도"임을 다시 기억하세요. \index{regression!interpretation of the slope} 기울기의 해석은 조금 다릅니다.
 
-> For every increase of 1 unit in `bty_avg`, there is an *associated* increase of, *on average*, `r evals_line[2]` units of `score`.
+> `bty_avg`가 1단위 증가할 때마다, `score`는 *평균적으로* `r evals_line[2]`단위만큼 *연관되어* 증가합니다.
 
-We only state that there is an *associated* increase and not necessarily a *causal* increase. For example, perhaps it's not that higher "beauty" scores directly cause higher teaching scores per se. Instead, the following could hold true: individuals from wealthier backgrounds tend to have stronger educational backgrounds and hence have higher teaching scores, while at the same time these wealthy individuals also tend to have higher "beauty" scores. In other words, just because two variables are strongly associated, it doesn't necessarily mean that one causes the other. This is summed up in the often quoted phrase, "correlation is not necessarily causation."  We discuss this idea further in Subsection \@ref(correlation-is-not-causation).  
+우리는 단지 *연관된(associated)* 증가라고 말할 뿐, 반드시 *인과적인(causal)* 증가라고 하지는 않습니다. 예를 들어 높은 "미모" 점수가 그 자체로 직접적으로 높은 강의 평가 점수를 유발하는 것이 아닐 수도 있습니다. 대신 다음과 같은 상황이 가능할 수 있습니다: 부유한 배경을 가진 개인들이 더 탄탄한 교육 배경을 갖는 경향이 있어 강의 평가 점수가 높으면서, 동시에 이 부유한 개인들이 높은 "미모" 점수를 받는 경향이 있을 수도 있습니다. 즉, 두 변수가 강하게 연관되어 있다고 해서 반드시 한 변수가 다른 변수를 유발한다는 의미는 아닙니다. 이는 "상관관계가 반드시 인과관계를 의미하지는 않는다"라는 자주 인용되는 문구로 요약됩니다. 이 아이디어에 대해서는 소섹션 \@ref(correlation-is-not-causation)에서 더 자세히 논의합니다.
 
-Furthermore, we say that this associated increase is *on average* `r evals_line[2]` units of teaching `score`, because you might have two instructors whose `bty_avg` scores differ by 1 unit, but their difference in teaching scores won't necessarily be exactly `r evals_line[2]`. What the slope of `r evals_line[2]` is saying is that across all possible courses, the *average* difference in teaching score between two instructors whose "beauty" scores differ by one is `r evals_line[2]`.
+또한 우리는 이 연관된 증가가 *평균적으로* `r evals_line[2]`단위의 강의 평가 `score`라고 말하는데, 그 이유는 `bty_avg` 점수가 1단위 차이 나는 두 강사의 실제 강의 평가 점수 차이가 반드시 정확히 `r evals_line[2]`는 아닐 것이기 때문입니다. 기울기 `r evals_line[2]`가 의미하는 바는 가능한 모든 강좌에 걸쳐, "미모" 점수가 1만큼 차이 나는 두 강사 사이의 강의 평가 점수의 *평균적인* 차이가 `r evals_line[2]`라는 것입니다.
 
-Now that we've learned how to compute the equation for the regression line in Figure \@ref(fig:numxplot3) using the values in the `estimate` column of Table \@ref(tab:regtable), and how to interpret the resulting intercept and slope, let's revisit the code that generated this table:
+이제 표 \@ref(tab:regtable)의 `estimate` 열에 있는 값들을 사용하여 그림 \@ref(fig:numxplot3)의 회귀 직선 방정식을 계산하는 법과 그 결과인 절편 및 기울기를 해석하는 법을 배웠으니, 이 표를 생성한 코드를 다시 살펴보겠습니다.
 
 ```{r, eval=FALSE}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
-# Get regression table:
+# 회귀 표 가져오기:
 get_regression_table(score_model)
 ```
 
-First, we "fit" the linear regression model to the `data` using the `lm()` \index{lm()} function and save this as `score_model`. When we say "fit", we mean  "find the best fitting line to this data." `lm()` stands for "linear model" and is used as follows: `lm(y ~ x, data = data_frame_name)` where:
+첫째, `lm()` 함수를 사용하여 `data`에 선형 회귀 모델을 "적합"시키고 이를 `score_model`로 저장합니다. \index{lm()} 여기서 "적합시킨다"는 말은 "이 데이터에 가장 잘 맞는 직선을 찾는다"는 의미입니다. `lm`은 "선형 모델(linear model)"의 약자이며 다음과 같이 사용됩니다: `lm(y ~ x, data = 데이터_프레임_이름)`
 
-* `y` is the outcome variable, followed by a tilde `~`. In our case, `y` is set to `score`.
-* `x` is the explanatory variable. In our case, `x` is set to `bty_avg`.
-* The combination of `y ~ x` is called a *model formula*. (Note the order of `y` and `x`.) In our case, the model formula is `score ~ bty_avg`. We saw such model formulas earlier when we computed the correlation coefficient using the `get_correlation()` function in Subsection \@ref(model1EDA).
-* `data_frame_name` is the name of the data frame that contains the variables `y` and `x`. In our case, `data_frame_name` is the `evals_ch5` data frame.
+* `y`는 결과 변수이며 뒤에 물결표 `~`가 옵니다. 우리의 경우 `y`는 `score`로 설정되었습니다.
+* `x`는 설명 변수입니다. 우리의 경우 `x`는 `bty_avg`로 설정되었습니다.
+* `y ~ x`의 조합을 *모델 포뮬라(model formula)*라고 부릅니다. (이때 `y`와 `x`의 순서에 유의하세요.) 우리의 경우 모델 포뮬라는 `score ~ bty_avg`입니다. 이러한 모델 포뮬라는 앞서 소섹션 \@ref(model1EDA)에서 `get_correlation()` 함수를 사용하여 상관 계수를 계산할 때도 보았습니다.
+* `데이터_프레임_이름`은 변수 `y`와 `x`를 포함하고 있는 데이터 프레임의 이름입니다. 우리의 경우 `데이터_프레임_이름`은 `evals_ch5` 데이터 프레임입니다.
 
-Second, we take the saved model in `score_model` and apply the `get_regression_table()` function from the `moderndive` package to it to obtain the regression table in Table \@ref(tab:regtable). This function is an example of what's known in computer programming as a *wrapper function*. \index{functions!wrapper} They take other pre-existing functions and "wrap" them into a single function that hides its inner workings.  This concept is illustrated in Figure \@ref(fig:moderndive-figure-wrapper).
+둘째, `score_model`에 저장된 모델을 가져와 `moderndive` 패키지의 `get_regression_table()` 함수를 적용하여 표 \@ref(tab:regtable)과 같은 회귀 표를 얻습니다. 이 함수는 컴퓨터 프로그래밍에서 *래퍼 함수(wrapper function)*라고 알려진 것의 한 예입니다. \index{functions!wrapper} 래퍼 함수는 기존의 다른 함수들을 가져와 내부 작동 방식을 숨긴 채 하나의 함수로 "감싸(wrap)" 놓은 것입니다. 이 개념은 그림 \@ref(fig:moderndive-figure-wrapper)에 잘 나타나 있습니다.
 
-```{r moderndive-figure-wrapper, echo=FALSE, fig.cap="The concept of a wrapper function.", out.height="60%", out.width="60%", purl=FALSE}
-include_graphics("images/shutterstock/wrapper_function.png")
+```{r moderndive-figure-wrapper, echo=FALSE, fig.cap="래퍼 함수의 개념.", out.height="60%", out.width="60%", purl=FALSE}
+knitr::include_graphics("images/shutterstock/wrapper_function.png")
 ```
 
-So all you need to worry about is what the inputs look like and what the outputs look like; you leave all the other details "under the hood of the car." In our regression modeling example, the `get_regression_table()` function takes a saved `lm()` linear regression model as input and returns a data frame of the regression table as output. If you're interested in learning more about the `get_regression_table()` function's inner workings, check out Subsection \@ref(underthehood).
+따라서 여러분은 입력이 무엇이고 출력이 무엇인지만 걱정하면 되며, 나머지 세부 사항은 "자동차 엔진룸 안"의 일로 남겨두면 됩니다. 우리의 회귀 모델링 예시에서 `get_regression_table()` 함수는 저장된 `lm()` 선형 회귀 모델을 입력으로 받아 회귀 표 데이터 프레임을 출력으로 반환합니다. `get_regression_table()` 함수의 내부 작동 방식에 대해 더 알고 싶다면 소섹션 \@ref(underthehood)를 참고하세요.
 
-Lastly, you might be wondering what the remaining five columns in Table \@ref(tab:regtable) are: `std_error`, `statistic`, `p_value`, `lower_ci` and `upper_ci`. They are the _standard error_, _test statistic_, _p-value_, _lower 95% confidence interval bound_, and _upper 95% confidence interval bound_. They tell us about both the *statistical significance* and *practical significance* of our results. This is loosely the "meaningfulness" of our results from a statistical perspective. Let's put aside these ideas for now and revisit them in Chapter \@ref(inference-for-regression) on (statistical) inference for regression. We'll do this after we've had a chance to cover standard errors in Chapter \@ref(sampling), confidence intervals in Chapter \@ref(confidence-intervals), and hypothesis testing and $p$-values in Chapter \@ref(hypothesis-testing).
+마지막으로 표 \@ref(tab:regtable)의 나머지 5개 열인 `std_error`, `statistic`, `p_value`, `lower_ci`, `upper_ci`가 무엇인지 궁금할 것입니다. 이들은 각각 *표준 오차(standard error)*, *검정 통계량(test statistic)*, *p-값(p-value)*, *95% 신뢰 구간의 하한*, *95% 신뢰 구간의 상한*입니다. 이들은 우리 결과의 *통계적 유의성(statistical significance)*과 *실질적 유의성(practical significance)* 모두에 대해 알려줍니다. 이는 통계적 관점에서 우리 결과가 얼마나 "의미 있는지"를 나타냅니다. 일단 이 개념들은 제쳐두고 제\@ref(inference-for-regression)장 회귀 분석을 위한 (통계적) 추론에서 다시 다루도록 하겠습니다. 제\@ref(sampling)장의 표준 오차, 제\@ref(confidence-intervals)장의 신뢰 구간, 그리고 제\@ref(hypothesis-testing)장의 가설 검정과 $p$-값을 모두 배운 후에 다시 살펴보겠습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Fit a new simple linear regression using `lm(score ~ age, data = evals_ch5)` where `age` is the new explanatory variable $x$. Get information about the "best-fitting" line from the regression table by applying the `get_regression_table()` function. How do the regression results match up with the results from your earlier exploratory data analysis?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `age`를 새로운 설명 변수 $x$로 사용하여 `lm(score ~ age, data = evals_ch5)`로 새로운 단순 선형 회귀 분석을 수행하세요. `get_regression_table()` 함수를 적용하여 회귀 표로부터 "가장 잘 맞는" 직선에 대한 정보를 얻으세요. 회귀 분석 결과가 앞서 수행한 탐색적 데이터 분석 결과와 어떻게 일치하나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -501,9 +507,10 @@ Lastly, you might be wondering what the remaining five columns in Table \@ref(ta
 ```
 
 
-### Observed/fitted values and residuals {#model1points}
 
-We just saw how to get the value of the intercept and the slope of a regression line from the `estimate` column of a regression table generated by the `get_regression_table()` function. Now instead say we want information on individual observations. For example, let's focus on the 21st of the `r n_courses_ch5` courses in the `evals_ch5` data frame in Table \@ref(tab:instructor-21):
+### 관측값/적합값과 잔차 {#model1points}
+
+우리는 방금 `get_regression_table()` 함수가 생성한 회귀 표의 `estimate` 열을 통해 회귀 직선의 절편과 기울기 값을 얻는 방법을 보았습니다. 이제 개별 관측치에 대한 정보를 알고 싶다고 가정해 봅시다. 예를 들어 `evals_ch5` 데이터 프레임에 있는 `r n_courses_ch5`개 강좌 중 21번째 강좌에 집중해 보겠습니다(표 \@ref(tab:instructor-21)).
 
 ```{r instructor-21, echo=FALSE, purl=FALSE}
 index <- which(evals_ch5$bty_avg == 7.333 & evals_ch5$score == 4.9)
@@ -518,31 +525,31 @@ evals_ch5 %>%
   slice(index) %>%
   kbl(
     digits = 4,
-    caption = "Data for the 21st course out of 463",
+    caption = "463개 강좌 중 21번째 강좌의 데이터",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-What is the value $\widehat{y}$ on the regression line corresponding to this instructor's `bty_avg` "beauty" score of `r x`? In Figure \@ref(fig:numxplot4) we mark three values corresponding to the instructor for this 21st course and give their statistical names:
+이 강사의 "미모" 점수 `bty_avg`가 `r x`일 때, 이에 해당하는 회귀 직선 위의 값 $\widehat{y}$는 얼마일까요? 그림 \@ref(fig:numxplot4)에서는 이 21번째 강좌의 강사에 해당하는 세 가지 값을 표시하고 각각의 통계적 명칭을 부여했습니다.
 
-* Circle: The *observed value* $y$ = `r y` is this course's instructor's actual teaching score.
-* Square: The *fitted value* $\widehat{y}$ is the value on the regression line for $x$ = `bty_avg` = `r x`. This value is computed using the intercept and slope in the previous regression table: 
+* 원: *관측값(observed value)* $y$ = `r y`는 이 강좌 강사의 실제 강의 평가 점수입니다.
+* 사각형: *적합값(fitted value)* $\widehat{y}$는 $x$ = `bty_avg` = `r x`일 때 회귀 직선 위의 값입니다. 이 값은 이전 회귀 표의 절편과 기울기를 사용하여 계산됩니다.
 
 $$\widehat{y} = b_0 + b_1 \cdot x = `r evals_line[1]` + `r evals_line[2]` \cdot `r x` = `r y_hat`$$
 
-* Arrow: The length of this arrow is the *residual* \index{regression!residual} and is computed by subtracting the fitted value $\widehat{y}$ from the observed value $y$. The residual can be thought of as a model's error or "lack of fit" for a particular observation.  In the case of this course's instructor, it is $y - \widehat{y}$ = `r y` - `r y_hat` = `r resid`.
+* 화살표: 이 화살표의 길이는 *잔차(residual)*이며, \index{regression!residual} 관측값 $y$에서 적합값 $\widehat{y}$를 빼서 계산합니다. 잔차는 특정 관측치에 대한 모델의 오차 또는 "적합도 부족(lack of fit)"으로 생각할 수 있습니다. 이 강좌 강사의 경우 $y - \widehat{y}$ = `r y` - `r y_hat` = `r resid`입니다.
 
-```{r numxplot4, echo=FALSE, fig.cap="Example of observed value, fitted value, and residual.", fig.height=2.8, message=FALSE, purl=FALSE}
+```{r numxplot4, echo=FALSE, fig.cap="관측값, 적합값 및 잔차의 예시.", fig.height=2.8, message=FALSE, purl=FALSE}
 best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_point(color = "grey") +
   labs(
-    x = "Beauty Score", y = "Teaching Score",
-    title = "Relationship of teaching and beauty scores"
+    x = "미모 점수", y = "강의 평가 점수",
+    title = "강의 평가 점수와 미모 점수의 관계"
   ) +
   geom_smooth(method = "lm", se = FALSE) +
   annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 4) +
@@ -554,9 +561,9 @@ best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
 best_fit_plot
 ```
 
-Now say we want to compute both the fitted value $\widehat{y} = b_0 + b_1 \cdot x$ and the residual $y - \widehat{y}$ for *all* `r n_courses_ch5` courses in the study. Recall that each course corresponds to one of the `r n_courses_ch5` rows in the `evals_ch5` data frame and also one of the `r n_courses_ch5` points in the regression plot in Figure \@ref(fig:numxplot4).
+이제 연구에 포함된 *모든* `r n_courses_ch5`개 강좌에 대해 적합값 $\widehat{y} = b_0 + b_1 \cdot x$와 잔차 $y - \widehat{y}$를 모두 계산하고 싶다고 가정해 봅시다. 각 강좌는 `evals_ch5` 데이터 프레임의 `r n_courses_ch5`개 행 중 하나에 해당하며, 동시에 그림 \@ref(fig:numxplot4)의 회귀 플롯에 있는 `r n_courses_ch5`개 점 중 하나에 해당함을 기억하세요.
 
-We could repeat the previous calculations we performed by hand `r n_courses_ch5` times, but that would be tedious and time consuming. Instead, let's do this using a computer with the `get_regression_points()` function. Just like the `get_regression_table()` function, the `get_regression_points()` function is a "wrapper" function. However, this function returns a different output. Let's apply the `get_regression_points()` function to `score_model`, which is where we saved our `lm()` model in the previous section. In Table \@ref(tab:regression-points-1) we present the results of only the 21st through 24th courses for brevity's sake.
+앞서 수행한 계산을 직접 `r n_courses_ch5`번 반복할 수도 있지만, 그것은 매우 지루하고 시간이 많이 걸리는 일일 것입니다. 대신 컴퓨터와 `get_regression_points()` 함수를 사용하여 이를 수행해 봅시다. `get_regression_table()` 함수와 마찬가지로 `get_regression_points()` 함수도 "래퍼" 함수입니다. 하지만 이 함수는 다른 결과를 반환합니다. 앞선 섹션에서 `lm()` 모델을 저장했던 `score_model`에 `get_regression_points()` 함수를 적용해 봅시다. 간결함을 위해 표 \@ref(tab:regression-points-1)에는 21번째부터 24번째 강좌의 결과만 제시합니다.
 
 ```{r, eval=FALSE}
 regression_points <- get_regression_points(score_model)
@@ -570,12 +577,12 @@ regression_points %>%
   slice(c(index, index + 1, index + 2, index + 3)) %>%
   kable(
     digits = 3,
-    caption = "Regression points (for only the 21st through 24th courses)",
+    caption = "회귀 포인트 (21번째부터 24번째 강좌만 표시)",
     booktabs = TRUE,
     linesep = ""
   )
 
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 n_regression_points <- regression_points %>% nrow()
 score_24 <- regression_points$score[24]
 bty_avg_24 <- regression_points$bty_avg[24] %>% format(round(2), nsmall = 2)
@@ -584,29 +591,29 @@ residual_24 <- regression_points$residual[24]
 
 ```
 
-Let's inspect the individual columns and match them with the elements of Figure \@ref(fig:numxplot4):
+개별 열을 검토하고 그림 \@ref(fig:numxplot4)의 요소들과 대조해 봅시다.
 
-* The `score` column represents the observed outcome variable $y$. This is the y-position of the `r n_regression_points` black points.
-* The `bty_avg` column represents the values of the explanatory variable $x$. This is the x-position of the `r n_regression_points` black points.
-* The `score_hat` column represents the fitted values $\widehat{y}$. This is the corresponding value on the regression line for the `r n_regression_points` $x$ values.
-* The `residual` column represents the residuals $y - \widehat{y}$. This is the `r n_regression_points` vertical distances between the `r n_regression_points` black points and the regression line.
+* `score` 열은 관측된 결과 변수 $y$를 나타냅니다. 이는 `r n_regression_points`개 검은색 점의 y축 위치입니다.
+* `bty_avg` 열은 설명 변수 $x$의 값을 나타냅니다. 이는 `r n_regression_points`개 검은색 점의 x축 위치입니다.
+* `score_hat` 열은 적합값 $\widehat{y}$를 나타냅니다. 이는 `r n_regression_points`개 $x$ 값에 대해 회귀 직선 위에 대응하는 값입니다.
+* `residual` 열은 잔차 $y - \widehat{y}$를 나타냅니다. 이는 `r n_regression_points`개 검은색 점과 회귀 직선 사이의 수직 거리입니다.
 
-Just as we did for the instructor of the 21st course in the `evals_ch5` dataset (in the first row of the table), let's repeat the calculations for the instructor of the 24th course (in the fourth row of Table \@ref(tab:regression-points-1)):
+`evals_ch5` 데이터셋의 21번째 강좌 강사(표의 첫 번째 행)에 대해 했던 것처럼, 24번째 강좌 강사(표 \@ref(tab:regression-points-1)의 네 번째 행)에 대해서도 계산을 반복해 봅시다.
 
-* `score` = `r score_24` is the observed teaching `score` $y$ for this course's instructor.
-* `bty_avg` = `r bty_avg_24` is the value of the explanatory variable `bty_avg` $x$ for this course's instructor.
-* `score_hat` = `r score_hat_24` = `r evals_line[1]` + `r evals_line[2]` $\cdot$ `r bty_avg_24` is the fitted value $\widehat{y}$ on the regression line for this course's instructor.
-* `residual` = `r residual_24` =  `r score_24` - `r score_hat_24` is the value of the residual for this instructor. In other words, the model's fitted value was off by `r residual_24` teaching score units for this course's instructor.
+* `score` = `r score_24`는 이 강좌 강사의 관측된 강의 평가 점수 $y$입니다.
+* `bty_avg` = `r bty_avg_24`는 이 강좌 강사의 설명 변수 `bty_avg`($x$) 값입니다.
+* `score_hat` = `r score_hat_24` = `r evals_line[1]` + `r evals_line[2]` $\cdot$ `r bty_avg_24`는 이 강좌 강사에 대한 회귀 직선 위의 적합값 $\widehat{y}$입니다.
+* `residual` = `r residual_24` =  `r score_24` - `r score_hat_24`는 이 강사의 잔차 값입니다. 즉, 이 강좌 강사의 경우 모델의 적합값은 실제 강의 평가 점수와 `r residual_24`만큼 차이가 났습니다.
 
-At this point, you can skip ahead if you like to Subsection \@ref(leastsquares) to learn about the processes behind what makes "best-fitting" regression lines. As a primer, a "best-fitting" line refers to the line that minimizes the *sum of squared residuals* out of all possible lines we can draw through the points. In Section \@ref(model2), we'll discuss another common scenario of having a categorical explanatory variable and a numerical outcome variable.
+이제 원하신다면 소섹션 \@ref(leastsquares)로 건너뛰어 "가장 잘 맞는" 회귀 직선을 만드는 과정에 대해 배울 수 있습니다. 미리 귀띔해 드리자면, "가장 잘 맞는" 직선이란 점들을 통과하도록 그을 수 있는 모든 가능한 직선 중에서 *잔차 제곱합(sum of squared residuals)*을 최소화하는 직선을 의미합니다. 섹션 \@ref(model2)에서는 범주형 설명 변수와 수치형 결과 변수가 있는 또 다른 일반적인 시나리오를 논의하겠습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Generate a data frame of the residuals of the model where you used `age` as the explanatory $x$ variable.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `age`를 설명 변수 $x$로 사용했던 모델의 잔차 데이터 프레임을 생성하세요.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -617,15 +624,16 @@ At this point, you can skip ahead if you like to Subsection \@ref(leastsquares) 
 
 
 
-## One categorical explanatory variable {#model2}
 
-It's an unfortunate truth that life expectancy is not the same across all countries in the world. International development agencies are interested in studying these differences in life expectancy in the hopes of identifying where governments should allocate resources to address this problem. In this section, we'll explore differences in life expectancy in two ways:
+## 하나의 범주형 설명 변수 {#model2}
 
-1. Differences between continents: Are there significant differences in average life expectancy between the five populated continents of the world: Africa, the Americas, Asia, Europe, and Oceania?
-1. Differences within continents: How does life expectancy vary within the world's five continents? For example, is the spread of life expectancy among the countries of Africa larger than the spread of life expectancy among the countries of Asia?
+기대 수명이 전 세계 모든 국가에서 동일하지 않다는 것은 안타까운 사실입니다. 국제 개발 기구들은 정부가 이 문제를 해결하기 위해 어디에 자원을 할당해야 할지 파악하기 위해 기대 수명의 차이를 연구하는 데 관심이 많습니다. 이 섹션에서는 두 가지 방식으로 기대 수명의 차이를 탐색해 보겠습니다.
+
+1. 대륙 간 차이: 전 세계 사람이 거주하는 5개 대륙(아프리카, 미주, 아시아, 유럽, 오세아니아) 사이에 평균 기대 수명의 유의미한 차이가 있는가?
+2. 대륙 내 차이: 세계 5개 대륙 내에서 기대 수명은 어떻게 변하는가? 예를 들어, 아프리카 국가들 사이의 기대 수명 분포가 아시아 국가들 사이의 기대 수명 분포보다 더 넓은가?
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 n_countries <- gapminder %>%
   select(country) %>%
   n_distinct()
@@ -637,19 +645,19 @@ year_end <- gapminder %>%
   max()
 ```
 
-To answer such questions, we'll use the `gapminder` data frame included in the `gapminder` \index{R packages!gapminder!gapminder data frame} package. This dataset has international development statistics such as life expectancy, GDP per capita, and population for `r n_countries` countries for 5-year intervals between `r year_start` and `r year_end`. Recall we visualized some of this data in Figure \@ref(fig:gapminder) in Subsection \@ref(gapminder) on the grammar of graphics.
+이러한 질문에 답하기 위해 `gapminder` 패키지에 포함된 `gapminder` 데이터 프레임을 사용할 것입니다. \index{R packages!gapminder!gapminder data frame} 이 데이터셋은 `r year_start`년부터 `r year_end`년 사이 5년 간격으로 조사된 `r n_countries`개 국가의 기대 수명, 1인당 GDP, 인구와 같은 국제 개발 통계를 담고 있습니다. 앞서 소섹션 \@ref(gapminder)의 시각화 원리에서 그림 \@ref(fig:gapminder)를 통해 이 데이터의 일부를 시각화했던 것을 기억하실 겁니다.
 
-We'll use this data for basic regression again, but now using an explanatory variable $x$ that is categorical, as opposed to the numerical explanatory variable model we used in the previous Section \@ref(model1).
+우리는 다시 기초 회귀 분석을 위해 이 데이터를 사용할 것인데, 이번에는 이전 섹션 \@ref(model1)에서 사용했던 수치형 설명 변수 모델과 달리 범주형 설명 변수 $x$를 사용할 것입니다.
 
-1. A numerical outcome variable $y$ (a country's life expectancy) and
-1. A single categorical explanatory variable $x$ (the continent that the country is a part of).
+1. 수치형 결과 변수 $y$ (국가별 기대 수명)
+2. 단일 범주형 설명 변수 $x$ (해당 국가가 속한 대륙)
 
-When the explanatory variable $x$ is categorical, the concept of a "best-fitting" regression line is a little different than the one we saw previously in Section \@ref(model1) where the explanatory variable $x$ was numerical. We'll study these differences shortly in Subsection \@ref(model2table), but first we conduct an exploratory data analysis.
+설명 변수 $x$가 범주형일 때 "가장 잘 맞는" 회귀 직선의 개념은 설명 변수 $x$가 수치형이었던 이전 섹션 \@ref(model1)의 개념과는 약간 다릅니다. 소섹션 \@ref(model2table)에서 이러한 차이점을 곧 살펴보겠지만, 그전에 먼저 탐색적 데이터 분석을 수행해 봅시다.
 
 
-### Exploratory data analysis {#model2EDA}
+### 탐색적 데이터 분석 {#model2EDA}
 
-The data on the `r n_countries` countries can be found in the `gapminder` data frame included in the `gapminder` package. However, to keep things simple, let's `filter()` for only those observations/rows corresponding to the year 2007. Additionally, let's `select()` only the subset of the variables we'll consider in this chapter. We'll save this data in a new data frame called `gapminder2007`:
+`r n_countries`개 국가에 대한 데이터는 `gapminder` 패키지의 `gapminder` 데이터 프레임에서 찾을 수 있습니다. 하지만 상황을 단순하게 유지하기 위해, 2007년에 해당하는 관측치/행들만 `filter()`해 봅시다. 또한 이번 장에서 고려할 변수들만 `select()`하겠습니다. 이 데이터를 `gapminder2007`이라는 새로운 데이터 프레임에 저장하겠습니다.
 
 ```{r, message=FALSE}
 library(gapminder)
@@ -659,7 +667,7 @@ gapminder2007 <- gapminder %>%
 ```
 
 ```{r, echo=FALSE, purl=FALSE}
-# Hidden: internally compute mean and median life expectancy
+# 내부적으로 전 세계 평균 및 중앙치 기대 수명 계산
 lifeExp_worldwide <- gapminder2007 %>%
   summarize(median = median(lifeExp), mean = mean(lifeExp))
 mean_africa <- gapminder2007 %>%
@@ -667,26 +675,26 @@ mean_africa <- gapminder2007 %>%
   summarize(mean_africa = mean(lifeExp)) %>%
   pull(mean_africa)
 
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 gapminder2007_rows <- gapminder2007 %>% nrow()
 ```
 
-Let's perform the first common step in an exploratory data analysis: looking at the raw data values. You can do this by using RStudio's spreadsheet viewer or by using the `glimpse()` command as introduced in Subsection \@ref(exploredataframes) on exploring data frames:
+탐색적 데이터 분석의 첫 번째 단계인 원시 데이터 값 살펴보기를 수행해 봅시다. 소섹션 \@ref(exploredataframes)에서 배운 것처럼 RStudio의 스프레드시트 뷰어 또는 `glimpse()` 명령을 사용할 수 있습니다.
 
 ```{r}
 glimpse(gapminder2007)
 ```
 
-Observe that ``Rows: `r gapminder2007_rows` `` indicates that there are `r gapminder2007_rows` rows/observations in `gapminder2007`, where each row corresponds to one country. In other words, the *observational unit* is an individual country. Furthermore, observe that the variable `continent` is of type `<fct>`, which stands for _factor_, which is R's way of encoding categorical variables.
+``Rows: `r gapminder2007_rows` ``는 `gapminder2007`에 `r gapminder2007_rows`개의 행/관측치가 있음을 나타내며, 각 행은 하나의 국가에 해당합니다. 즉, *관측 단위*는 개별 국가입니다. 또한 `continent` 변수가 `<fct>` 타입임을 알 수 있는데, 이는 범주형 변수를 인코딩하는 R의 방식인 *팩터(factor)*를 의미합니다.
 
-A full description of all the variables included in `gapminder` can be found by reading the associated help file (run `?gapminder` in the console). However, let's fully describe only the `r ncol(gapminder2007)` variables we selected in `gapminder2007`:
+`gapminder`에 포함된 모든 변수에 대한 전체 설명은 도움말 파일(콘솔에서 `?gapminder` 실행)을 통해 볼 수 있습니다. 여기서는 우리가 `gapminder2007`에서 선택한 `r ncol(gapminder2007)`개 변수만 자세히 설명하겠습니다.
 
-1. `country`: An identification variable of type character/text used to distinguish the 142 countries in the dataset.
-1. `lifeExp`: A numerical variable of that country's life expectancy at birth. This is the outcome variable $y$ of interest.
-1. `continent`: A categorical variable with five levels. Here "levels" correspond to the possible categories: Africa, Asia, Americas, Europe, and Oceania. This is the explanatory variable $x$ of interest.
-1. `gdpPercap`: A numerical variable of that country's GDP per capita in US inflation-adjusted dollars that we'll use as another outcome variable $y$ in the *Learning check* at the end of this subsection.
+1. `country`: 데이터셋에 있는 142개 국가를 구분하는 데 사용되는 문자형/텍스트 식별 변수입니다.
+2. `lifeExp`: 해당 국가의 출생 시 기대 수명을 나타내는 수치형 변수입니다. 이것이 우리가 관심을 갖는 결과 변수 $y$입니다.
+3. `continent`: 5개의 레벨을 가진 범주형 변수입니다. 여기서 "레벨(levels)"은 아프리카, 아시아, 미주, 유럽, 오세아니아라는 가능한 범주들에 해당합니다. 이것이 우리가 관심을 갖는 설명 변수 $x$입니다.
+4. `gdpPercap`: 미국 달러 기준으로 물가 상승률이 조정된 해당 국가의 1인당 GDP를 나타내는 수치형 변수입니다. 이 변수는 이 소섹션 끝에 있는 *학습 확인* 문제에서 또 다른 결과 변수 $y$로 사용할 것입니다.
 
-Let's look at a random sample of five out of the `r gapminder2007_rows` countries in Table \@ref(tab:model2-data-preview). 
+표 \@ref(tab:model2-data-preview)에서 `r gapminder2007_rows`개 국가 중 무작위로 추출한 5개 샘플을 살펴봅시다.
 
 ```{r, eval=FALSE}
 gapminder2007 %>% sample_n(size = 5)
@@ -696,17 +704,17 @@ gapminder2007 %>%
   sample_n(5) %>%
   kbl(
     digits = 3,
-    caption = "Random sample of 5 out of 142 countries",
+    caption = "142개 국가 중 무작위로 추출한 5개 샘플",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Note that random sampling will likely produce a different subset of 5 rows for you than what's shown. Now that we've looked at the raw values in our `gapminder2007` data frame and got a sense of the data, let's move on to computing summary statistics. Let's once again apply the `skim()` function from the `skimr` package. Recall from our previous EDA that this function takes in a data frame, "skims" it, and returns commonly used summary statistics. Let's take our `gapminder2007` data frame, `select()` only the outcome and explanatory variables `lifeExp` and `continent`, and pipe them into the `skim()` function:
+무작위 샘플링이기 때문에 여러분이 보게 될 5개의 행은 위에 표시된 것과 다를 수 있습니다. 이제 `gapminder2007` 데이터 프레임의 원시 값들을 보고 데이터에 대한 감을 잡았으니, 요약 통계량 계산으로 넘어가 봅시다. 다시 한번 `skimr` 패키지의 `skim()` 함수를 적용해 보겠습니다. 앞선 EDA에서 보았듯이 이 함수는 데이터 프레임을 훑어보고 자주 쓰이는 요약 통계량을 반환합니다. `gapminder2007` 데이터 프레임을 가져와서 결과 변수 `lifeExp`와 설명 변수 `continent`만 `select()`한 뒤 `skim()` 함수로 파이프 연결을 해보겠습니다.
 
 ```{r eval=FALSE}
 gapminder2007 %>%
@@ -727,54 +735,56 @@ Skim summary statistics
   lifeExp       0      142 142 67.01 12.07 39.61 57.16 71.94 76.41 82.6
 ```
 
-The `skim()` output now reports summaries for categorical variables (`Variable type:factor`) separately from the numerical variables (`Variable type:numeric`). For the categorical variable `continent`, it reports:
 
-- `missing`, `complete`, and `n`,  which are the number of missing, complete, and total number of values as before, respectively.
-- `n_unique`: The number of unique levels to this variable, corresponding to Africa, Asia, Americas, Europe, and Oceania. This refers to how many countries are in the data for each continent.
-- `top_counts`: In this case, the top four counts: `Africa` has 52 countries, `Asia` has 33, `Europe` has 30, and `Americas` has 25. Not displayed is `Oceania` with 2 countries.
-- `ordered`: This tells us whether the categorical variable is "ordinal": whether there is an encoded hierarchy (like low, medium, high). In this case, `continent` is not ordered.
+이제 `skim()` 출력 결과는 범주형 변수(`Variable type:factor`)와 수치형 변수(`Variable type:numeric`)에 대한 요약을 따로 보고합니다. 범주형 변수 `continent`의 경우 다음과 같이 보고합니다.
+
+- `missing`, `complete`, `n`: 이전과 마찬가지로 결측값, 완전한 값, 전체 값의 개수입니다.
+- `n_unique`: 이 변수의 고유한 레벨 개수로, 아프리카, 아시아, 미주, 유럽, 오세아니아에 해당합니다. 이는 각 대륙별로 데이터에 얼마나 많은 국가가 있는지 나타냅니다.
+- `top_counts`: 이 경우 상위 4개의 카운트를 보여줍니다. 아프리카 52개국, 아시아 33개국, 유럽 30개국, 미주 25개국입니다. 표시되지 않은 오세아니아는 2개국입니다.
+- `ordered`: 범주형 변수가 "순서형(ordinal)"인지, 즉 인코딩된 계층 구조(예: 낮음, 중간, 높음)가 있는지 알려줍니다. 이 경우 `continent`는 순서가 없습니다.
 
 ```{r, echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 median_life_exp <- lifeExp_worldwide$median %>% round(2)
 mean_life_exp <- lifeExp_worldwide$mean %>% round(2)
 ```
 
-Turning our attention to the summary statistics of the numerical variable `lifeExp`, we observe that the global median life expectancy in 2007 was `r median_life_exp`. Thus, half of the world's countries (`r n_countries/2` countries) had a life expectancy less than `r median_life_exp`. The mean life expectancy of `r mean_life_exp` is lower, however. Why is the mean life expectancy lower than the median?
+수치형 변수인 `lifeExp`의 요약 통계량으로 시선을 돌려보면, 2007년 전 세계 기대 수명의 중앙값은 `r median_life_exp`세였습니다. 즉, 전 세계 국가의 절반(`r n_countries/2`개국)은 기대 수명이 `r median_life_exp`세 미만이었습니다. 그러나 평균 기대 수명은 `r mean_life_exp`세로 이보다 낮습니다. 왜 평균 기대 수명이 중앙값보다 낮을까요?
 
-We can answer this question by performing the last of the three common steps in an exploratory data analysis: creating data visualizations. Let's visualize the distribution of our outcome variable $y$ = `lifeExp` in Figure \@ref(fig:lifeExp2007hist).
+탐색적 데이터 분석의 마지막 단계인 데이터 시각화를 수행하여 이 질문에 답해 봅시다. 그림 \@ref(fig:lifeExp2007hist)에서 결과 변수 $y$ = `lifeExp`의 분포를 시각화해 보겠습니다.
 
-```{r lifeExp2007hist, echo=TRUE, fig.cap="Histogram of life expectancy in 2007.", fig.height=5.2}
+```{r lifeExp2007hist, echo=TRUE, fig.cap="2007년 기대 수명 히스토그램.", fig.height=5.2}
 ggplot(gapminder2007, aes(x = lifeExp)) +
   geom_histogram(binwidth = 5, color = "white") +
-  labs(x = "Life expectancy", y = "Number of countries",
-       title = "Histogram of distribution of worldwide life expectancies")
+  labs(x = "기대 수명", y = "국가 수",
+       title = "전 세계 기대 수명 분포 히스토그램")
 ```
 
-We see that this data is *left-skewed*, also known as *negatively* \index{skew} skewed: there are a few countries with  low life expectancy that are bringing down the mean life expectancy. However, the median is less sensitive to the effects of such outliers; hence, the median is greater than the mean in this case.
+데이터가 *왼쪽으로 치우친(left-skewed)*, 또는 *음의 방향으로* \index{skew} 치우친 것을 볼 수 있습니다. 기대 수명이 낮은 몇몇 국가들이 평균 기대 수명을 깎아먹고 있습니다. 그러나 중앙값은 이러한 이상치의 영향을 덜 받기 때문에, 이 경우 중앙값이 평균보다 크게 나타납니다.
 
-Remember, however, that we want to compare life expectancies both between continents and within continents. In other words, our visualizations need to incorporate some notion of the variable `continent`. We can do this easily with a faceted histogram. Recall from Section \@ref(facets) that facets allow us to split a visualization by the different values of another variable. We display the resulting visualization in Figure \@ref(fig:catxplot0b) by adding a \index{ggplot2!facet\_wrap()} `facet_wrap(~ continent, nrow = 2)` layer.
+
+하지만 우리의 목적은 대륙 간 및 대륙 내 기대 수명을 비교하는 것임을 기억하세요. 즉, 시각화에 `continent` 변수의 개념을 포함해야 합니다. 면 분할 히스토그램을 사용하면 이를 쉽게 수행할 수 있습니다. 섹션 \@ref(facets)에서 배웠듯이 면 분할은 다른 변수의 값에 따라 시각화를 분할할 수 있게 해줍니다. \index{ggplot2!facet\_wrap()} `facet_wrap(~ continent, nrow = 2)` 레이어를 추가하여 그 결과를 그림 \@ref(fig:catxplot0b)에 나타냈습니다.
 
 ```{r eval=FALSE} 
 ggplot(gapminder2007, aes(x = lifeExp)) +
   geom_histogram(binwidth = 5, color = "white") +
-  labs(x = "Life expectancy", 
-       y = "Number of countries",
-       title = "Histogram of distribution of worldwide life expectancies") +
+  labs(x = "기대 수명", 
+       y = "국가 수",
+       title = "전 세계 기대 수명 분포 히스토그램") +
   facet_wrap(~ continent, nrow = 2)
 ```
 
-```{r catxplot0b, echo=FALSE, fig.cap="Life expectancy in 2007.", fig.height=4.3, purl=FALSE}
+```{r catxplot0b, echo=FALSE, fig.cap="2007년 기대 수명.", fig.height=4.3, purl=FALSE}
 faceted_life_exp <- ggplot(gapminder2007, aes(x = lifeExp)) +
   geom_histogram(binwidth = 5, color = "white") +
   labs(
-    x = "Life expectancy", y = "Number of countries",
-    title = "Histogram of distribution of worldwide life expectancies"
+    x = "기대 수명", y = "국가 수",
+    title = "전 세계 기대 수명 분포 히스토그램"
   ) +
   facet_wrap(~continent, nrow = 2)
 
-# Make the text black and reduce darkness of the grey in the facet labels
-if (is_latex_output()) {
+# 라텍스 출력시 텍스트를 검은색으로 하고 패싯 라벨의 회색 농도를 줄임
+if (knitr::is_latex_output()) {
   faceted_life_exp +
     theme(
       strip.text = element_text(colour = "black"),
@@ -785,22 +795,22 @@ if (is_latex_output()) {
 }
 ```
 
-Observe that unfortunately the distribution of African life expectancies is much lower than the other continents, while in Europe life expectancies tend to be higher and furthermore do not vary as much. On the other hand, both Asia and Africa have the most variation in life expectancies. There is the least variation in Oceania, but keep in mind that there are only two countries in Oceania: Australia and New Zealand.
+안타깝게도 아프리카의 기대 수명 분포는 다른 대륙보다 훨씬 낮으며, 유럽의 기대 수명은 더 높고 변동성도 크지 않음을 알 수 있습니다. 반면 아시아와 아프리카는 기대 수명의 변동이 가장 큽니다. 오세아니아는 변동이 가장 적지만, 오세아니아에는 호주와 뉴질랜드 두 국가뿐이라는 점을 유념하세요.
 
-Recall that an alternative method to visualize the distribution of a numerical variable split by a categorical variable is by using a side-by-side boxplot. We map the categorical variable `continent` to the $x$-axis and the different life expectancies within each continent on the $y$-axis in Figure \@ref(fig:catxplot1).
+범주형 변수에 따라 나뉜 수치형 변수의 분포를 시각화하는 또 다른 방법은 나란히 놓인 박스 플롯을 사용하는 것입니다. 그림 \@ref(fig:catxplot1)에서는 범주형 변수인 `continent`를 $x$축에, 각 대륙 내의 다양한 기대 수명을 $y$축에 매핑했습니다.
 
-```{r catxplot1, fig.cap="Life expectancy in 2007.", fig.height=3.4}
+```{r catxplot1, fig.cap="2007년 기대 수명.", fig.height=3.4}
 ggplot(gapminder2007, aes(x = continent, y = lifeExp)) +
   geom_boxplot() +
-  labs(x = "Continent", y = "Life expectancy",
-       title = "Life expectancy by continent")
+  labs(x = "대륙", y = "기대 수명",
+       title = "대륙별 기대 수명")
 ```
 
-Some people prefer comparing the distributions of a numerical variable between different levels of a categorical variable using a boxplot instead of a faceted histogram. This is because we can make quick comparisons between the categorical variable's levels with imaginary horizontal lines. For example, observe in Figure \@ref(fig:catxplot1) that we can quickly convince ourselves that Oceania has the highest median life expectancies by drawing an imaginary horizontal line at $y$ = 80. Furthermore, as we observed in the faceted histogram in Figure \@ref(fig:catxplot0b), Africa and Asia have the largest variation in life expectancy as evidenced by their large interquartile ranges (the heights of the boxes).
+어떤 사람들은 면 분할 히스토그램보다 박스 플롯을 사용하여 범주형 변수의 레벨 간 수치형 변수의 분포를 비교하는 것을 선호합니다. 가상의 수평선을 그어 범주형 변수의 레벨 사이를 빠르게 비교할 수 있기 때문입니다. 예를 들어 그림 \@ref(fig:catxplot1)에서 $y = 80$에 가상의 수평선을 그어보면, 오세아니아의 중앙 기대 수명이 가장 높다는 것을 금방 확인할 수 있습니다. 또한 그림 \@ref(fig:catxplot0b)의 히스토그램에서 관찰했듯이, 아프리카와 아시아는 사분위수 범위(IQR, 박스의 높이)가 넓어 기대 수명의 변동이 가장 크다는 것을 알 수 있습니다.
 
-It’s important to remember, however, that the solid lines in the middle of the boxes correspond to the medians (the middle value) rather than the mean (the average). So, for example, if you look at Asia, the solid line denotes the median life expectancy of around 72 years. This tells us that half of all countries in Asia have a life expectancy below 72 years, whereas half have a life expectancy above 72 years.
+하지만 박스 내부의 굵은 가로선은 평균이 아니라 중앙값이라는 점을 기억하는 것이 중요합니다. 예를 들어 아시아의 경우, 중앙 기대 수명은 약 72세입니다. 이는 아시아 국가 전체의 절반은 기대 수명이 72세 미만이고, 나머지 절반은 72세 이상임을 의미합니다.
 
-Let's compute the median and mean life expectancy for each continent with a little more data wrangling and display the results in Table \@ref(tab:catxplot0).
+데이터 전처리를 통해 각 대륙별 기대 수명의 중앙값과 평균을 계산하고 그 결과를 표 \@ref(tab:catxplot0)에 나타내 봅시다.
 
 ```{r, eval=TRUE}
 lifeExp_by_continent <- gapminder2007 %>%
@@ -812,47 +822,48 @@ lifeExp_by_continent <- gapminder2007 %>%
 lifeExp_by_continent %>%
   kable(
     digits = 3,
-    caption = "Life expectancy by continent",
+    caption = "대륙별 기대 수명",
     booktabs = TRUE,
     linesep = ""
   )
 ```
 
-Observe the order of the second column `median` life expectancy: Africa is lowest, the Americas and Asia are next with similar medians, then Europe, then Oceania. This ordering corresponds to the ordering of the solid black lines inside the boxes in our side-by-side boxplot in Figure \@ref(fig:catxplot1). 
+두 번째 열인 중앙값 순서를 살펴보면, 아프리카가 가장 낮고, 미주와 아시아가 비슷한 중앙값으로 그 뒤를 이으며, 그다음으로 유럽, 오세아니아 순입니다. 이 순서는 그림 \@ref(fig:catxplot1)의 박스 플롯 내부 굵은 검은색 선의 위치와 일치합니다.
+
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is used for dynamic non-static in-line text output purposes
-# Coding model earlier to calculate the intercepts etc below
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
+# 아래의 절편 등을 계산하기 위해 미리 모델을 작성합니다.
 lifeExp_model <- lm(lifeExp ~ continent, data = gapminder2007)
 
-# Africa / Intercept
+# 아프리카 / 절편
 intercept <- get_regression_table(lifeExp_model) %>%
   filter(term == "intercept") %>%
   pull(estimate) %>%
   round(1)
 
-# Americas
+# 미주
 offset_americas <- get_regression_table(lifeExp_model) %>%
   filter(term == "continent: Americas") %>%
   pull(estimate) %>%
   round(1)
 mean_americas <- intercept + offset_americas
 
-# Asia
+# 아시아
 offset_asia <- get_regression_table(lifeExp_model) %>%
   filter(term == "continent: Asia") %>%
   pull(estimate) %>%
   round(1)
 mean_asia <- intercept + offset_asia
 
-# Europe
+# 유럽
 offset_europe <- get_regression_table(lifeExp_model) %>%
   filter(term == "continent: Europe") %>%
   pull(estimate) %>%
   round(1)
 mean_europe <- intercept + offset_europe
 
-# Oceania
+# 오세아니아
 offset_oceania <- get_regression_table(lifeExp_model) %>%
   filter(term == "continent: Oceania") %>%
   pull(estimate) %>%
@@ -860,12 +871,12 @@ offset_oceania <- get_regression_table(lifeExp_model) %>%
 mean_oceania <- intercept + offset_oceania
 ```
 
-Let's now turn our attention to the values in the third column `mean`. Using Africa's mean life expectancy of `r intercept` as a *baseline for comparison*, let's start making comparisons to the mean life expectancies of the other four continents and put these values in Table \@ref(tab:continent-mean-life-expectancies), which we'll revisit later on in this section.
+이제 세 번째 열인 평균(`mean`) 값으로 시선을 돌려봅시다. 아프리카의 평균 기대 수명인 `r intercept`를 *비교를 위한 기준점(baseline for comparison)*으로 삼아 다른 4개 대륙의 평균 기대 수명과 비교하고, 그 값들을 표 \@ref(tab:continent-mean-life-expectancies)에 정리해 보겠습니다. 이 표는 이 섹션의 뒷부분에서 다시 살펴보겠습니다.
 
-1. For the Americas, it is `r mean_americas` - `r intercept` = `r offset_americas` years higher.
-1. For Asia, it is `r mean_asia` - `r intercept` = `r offset_asia` years higher.
-1. For Europe, it is `r mean_europe` - `r intercept` = `r offset_europe` years higher.
-1. For Oceania, it is `r mean_oceania` - `r intercept` = `r offset_oceania` years higher.
+1. 미주의 경우: `r mean_americas` - `r intercept` = `r offset_americas`년 더 높습니다.
+2. 아시아의 경우: `r mean_asia` - `r intercept` = `r offset_asia`년 더 높습니다.
+3. 유럽의 경우: `r mean_europe` - `r intercept` = `r offset_europe`년 더 높습니다.
+4. 오세아니아의 경우: `r mean_oceania` - `r intercept` = `r offset_oceania`년 더 높습니다.
 
 ```{r continent-mean-life-expectancies, echo=FALSE, purl=FALSE}
 gapminder2007 %>%
@@ -874,23 +885,23 @@ gapminder2007 %>%
   mutate(`Difference versus Africa` = mean - mean_africa) %>%
   kbl(
     digits = 3,
-    caption = "Mean life expectancy by continent and relative differences from mean for Africa",
+    caption = "대륙별 평균 기대 수명 및 아프리카 평균과의 상대적 차이",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Conduct a new exploratory data analysis with the same explanatory variable $x$ being `continent` but with `gdpPercap` as the new outcome variable $y$. What can you say about the differences in GDP per capita between continents based on this exploration?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 동일한 설명 변수 $x$인 `continent`를 사용하되, `gdpPercap`을 새로운 결과 변수 $y$로 삼아 새로운 탐색적 데이터 분석을 수행하세요. 이 탐색 결과를 바탕으로 대륙 간 1인당 GDP 차이에 대해 무엇을 말할 수 있나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -898,14 +909,14 @@ gapminder2007 %>%
 ```
 
 
-### Linear regression {#model2table}
+### 선형 회귀 {#model2table}
 
-In Subsection \@ref(model1table) we introduced simple linear regression, which involves modeling the relationship between a numerical outcome variable $y$ and a numerical explanatory variable $x$. In our life expectancy example, we now instead have a categorical explanatory variable `continent`. Our model will not yield a "best-fitting" regression line like in Figure \@ref(fig:numxplot3), but rather *offsets* relative to a baseline for comparison.\index{offset}
+소섹션 \@ref(model1table)에서 수치형 결과 변수 $y$와 수치형 설명 변수 $x$ 사이의 관계를 모델링하는 단순 선형 회귀를 소개했습니다. 이번 기대 수명 예제에서는 수치형 대신 범주형 설명 변수인 `continent`가 있습니다. 우리의 모델은 그림 \@ref(fig:numxplot3)과 같은 "가장 잘 맞는" 회귀 직선을 산출하는 것이 아니라, 비교 기준점에 대한 *오프셋(offsets)* \index{offset}을 산출할 것입니다.
 
-As we did in Subsection \@ref(model1table) when studying the relationship between teaching scores and "beauty" scores, let's output the regression table for this model. Recall that this is done in two steps:
+강의 평가 점수와 "미모" 점수 사이의 관계를 연구했을 때처럼, 이 모델에 대한 회귀 표를 출력해 봅시다. 이는 다음 두 단계로 수행됨을 기억하세요.
 
-1. We first "fit" the linear regression model using the `lm(y ~ x, data)` function and save it in `lifeExp_model`.
-1. We get the regression table by applying the `get_regression_table()` function from the `moderndive` package to `lifeExp_model`.
+1. `lm(y ~ x, data)` 함수를 사용하여 선형 회귀 모델을 "적합"시키고 이를 `lifeExp_model`에 저장합니다.
+2. `moderndive` 패키지의 `get_regression_table()` 함수를 `lifeExp_model`에 적용하여 회귀 표를 얻습니다.
 
 ```{r, eval=FALSE}
 lifeExp_model <- lm(lifeExp ~ continent, data = gapminder2007)
@@ -918,33 +929,34 @@ lifeExp_model <- lm(lifeExp ~ continent, data = gapminder2007)
 get_regression_table(lifeExp_model) %>%
   kbl(
     digits = 3,
-    caption = "Linear regression table",
+    caption = "선형 회귀 표",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Let's once again focus on the values in the `term` and `estimate` columns of Table \@ref(tab:catxplot4b). Why are there now 5 rows? Let's break them down one-by-one:
+다시 한번 표 \@ref(tab:catxplot4b)의 `term`과 `estimate` 열의 값들에 집중해 봅시다. 왜 이제는 5개의 행이 있을까요? 하나씩 분석해 보겠습니다.
 
-1. `intercept` corresponds to the mean life expectancy of countries in Africa of `r intercept` years.
-1. `continent: Americas` corresponds to countries in the Americas and the value +`r offset_americas` is the same difference in mean life expectancy relative to Africa we displayed in Table \@ref(tab:continent-mean-life-expectancies). In other words, the mean life expectancy of countries in the Americas is $`r intercept` + `r offset_americas` = `r mean_americas`$.
-1. `continent: Asia` corresponds to countries in Asia and the value +`r offset_asia` is the same difference in mean life expectancy relative to Africa we displayed in Table \@ref(tab:continent-mean-life-expectancies). In other words, the mean life expectancy of countries in Asia is $`r intercept` + `r offset_asia` = `r mean_asia`$.
-1. `continent: Europe` corresponds to countries in Europe and the value +`r offset_europe` is the same difference in mean life expectancy relative to Africa we displayed in Table \@ref(tab:continent-mean-life-expectancies). In other words, the mean life expectancy of countries in Europe is $`r intercept` + `r offset_europe` = `r mean_europe`$.
-1. `continent: Oceania` corresponds to countries in Oceania and the value +`r offset_oceania` is the same difference in mean life expectancy relative to Africa we displayed in Table \@ref(tab:continent-mean-life-expectancies). In other words, the mean life expectancy of countries in Oceania is $`r intercept` + `r offset_oceania` = `r mean_oceania`$.
+1. `intercept`는 아프리카 국가들의 평균 기대 수명인 `r intercept`년에 해당합니다.
+2. `continent: Americas`는 미주 국가들에 해당하며, 그 값인 +`r offset_americas`는 표 \@ref(tab:continent-mean-life-expectancies)에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 미주 국가들의 평균 기대 수명은 $`r intercept` + `r offset_americas` = `r mean_americas`$입니다.
+3. `continent: Asia`는 아시아 국가들에 해당하며, 그 값인 +`r offset_asia`는 표 \@ref(tab:continent-mean-life-expectancies)에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 아시아 국가들의 평균 기대 수명은 $`r intercept` + `r offset_asia` = `r mean_asia`$입니다.
+4. `continent: Europe`은 유럽 국가들에 해당하며, 그 값인 +`r offset_europe`는 표 \@ref(tab:continent-mean-life-expectancies)에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 유럽 국가들의 평균 기대 수명은 $`r intercept` + `r offset_europe` = `r mean_europe`$입니다.
+5. `continent: Oceania`는 오세아니아 국가들에 해당하며, 그 값인 +`r offset_oceania`는 표 \@ref(tab:continent-mean-life-expectancies)에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 오세아니아 국가들의 평균 기대 수명은 $`r intercept` + `r offset_oceania` = `r mean_oceania`$입니다.
 
-To summarize, the 5 values in the `estimate` column in Table \@ref(tab:catxplot4b) correspond to the "baseline for comparison" continent Africa (the intercept) as well as four "offsets" from this baseline for the remaining 4 continents: the Americas, Asia, Europe, and Oceania.
+요약하자면, 표 \@ref(tab:catxplot4b)의 `estimate` 열에 있는 5개의 값은 "비교 기준점" 대륙인 아프리카(절편)와 나머지 4개 대륙(미주, 아시아, 유럽, 오세아니아)에 대한 이 기준점으로부터의 4개의 "오프셋"에 해당합니다.
 
-You might be asking at this point why was Africa chosen as the "baseline for comparison" group. This is the case for no other reason than it comes first alphabetically of the five continents; by default R arranges factors/categorical variables in alphanumeric order. You can change this baseline group to be another continent if you manipulate the variable `continent`'s factor "levels" using the `forcats` package. See [Chapter 15](https://r4ds.had.co.nz/factors.html) of *R for Data Science* [@rds2016] for examples. 
+여기서 왜 아프리카가 "비교를 위한 기준점" 그룹으로 선택되었는지 궁금할 것입니다. 이는 단지 5개 대륙 중에서 알파벳 순서가 가장 빠르기 때문일 뿐입니다. 기본적으로 R은 팩터/범주형 변수를 알파벳 순서로 배열합니다. 만약 `forcats` 패키지를 사용하여 `continent` 변수의 팩터 "레벨"을 조작한다면 이 기준점 그룹을 다른 대륙으로 바꿀 수 있습니다. 예시는 *R for Data Science* [@rds2016]의 [제15장](https://r4ds.had.co.nz/factors.html)을 참고하세요.
 
-Let's now write the equation for our fitted values $\widehat{y} = \widehat{\text{life exp}}$.
+
+이제 적합값에 대한 방정식 $\widehat{y} = \widehat{\text{life exp}}$를 써 봅시다.
 
 <!--
-Note: Even though markdown preview of the following LaTeX looks garbled, it
-comes out correct in the HTML output.
+참고: 다음 LaTeX의 마크다운 미리보기가 깨져 보일 수 있지만, 
+HTML 출력물에서는 올바르게 나옵니다.
 -->
 $$
 \begin{aligned}
@@ -955,29 +967,29 @@ $$
 \end{aligned}
 $$
 
-Whoa! That looks daunting! Don't fret, however, as once you understand what all the elements mean, things simplify greatly. First, $\mathbb{1}_{A}(x)$ is what's known in mathematics as an "indicator function." It returns only one of two possible values, 0 and 1, where
+우와! 꽤 겁나게 생겼네요! 하지만 걱정하지 마세요. 각 요소가 무엇을 의미하는지 이해하고 나면 상황은 아주 단순해집니다. 먼저 $\mathbb{1}_{A}(x)$는 수학에서 "지시 함수(indicator function)"라고 알려진 것입니다. 이는 다음 두 가지 값 중 하나(0 또는 1)만을 반환합니다.
 
 $$
 \mathbb{1}_{A}(x) = \left\{
 \begin{array}{ll}
-1 & \text{if } x \text{ is in } A \\
-0 & \text{if } \text{otherwise} \end{array}
+1 & \text{만약 } x\text{가 } A\text{에 속한다면} \\
+0 & \text{그렇지 않다면} \end{array}
 \right.
 $$
 
-In a statistical modeling context, this is also known as a *dummy variable*. \index{dummy variable} In our case, let's consider the first such indicator variable $\mathbb{1}_{\text{Amer}}(x)$. This indicator function returns 1 if a country is in the Americas, 0 otherwise:
+통계 모델링 맥락에서 이는 *더미 변수(dummy variable)*라고도 불립니다. \index{dummy variable} 우리의 경우, 첫 번째 지시 변수인 $\mathbb{1}_{\text{Amer}}(x)$를 생각해 봅시다. 이 지시 함수는 국가가 미주 대륙에 속하면 1을 반환하고, 그렇지 않으면 0을 반환합니다.
 
 $$
 \mathbb{1}_{\text{Amer}}(x) = \left\{
 \begin{array}{ll}
-1 & \text{if } \text{country } x \text{ is in the Americas} \\
-0 & \text{otherwise}\end{array}
+1 & \text{만약 국가 } x\text{가 미주 대륙에 속한다면} \\
+0 & \text{그렇지 않다면}\end{array}
 \right.
 $$
 
-Second, $b_0$ corresponds to the intercept as before; in this case, it's the mean life expectancy of all countries in Africa. Third, the $b_{\text{Amer}}$, $b_{\text{Asia}}$, $b_{\text{Euro}}$, and $b_{\text{Ocean}}$ represent the 4 "offsets relative to the baseline for comparison" in the regression table output in Table \@ref(tab:catxplot4b): `continent: Americas`, `continent: Asia`, `continent: Europe`, and `continent: Oceania`.
+둘째, $b_0$는 이전과 마찬가지로 절편에 해당하며, 이 경우 아프리카에 속한 모든 국가의 평균 기대 수명입니다. 셋째, $b_{\text{Amer}}$, $b_{\text{Asia}}$, $b_{\text{Euro}}$, $b_{\text{Ocean}}$은 표 \@ref(tab:catxplot4b)의 회귀 표 출력물에 있는 "비교를 위한 기준점 대비 4개의 오프셋"인 `continent: Americas`, `continent: Asia`, `continent: Europe`, `continent: Oceania`를 나타냅니다.
 
-Let's put this all together and compute the fitted value $\widehat{y} = \widehat{\text{life exp}}$ for a country in Africa. Since the country is in Africa, all four indicator functions $\mathbb{1}_{\text{Amer}}(x)$, $\mathbb{1}_{\text{Asia}}(x)$, $\mathbb{1}_{\text{Euro}}(x)$, and $\mathbb{1}_{\text{Ocean}}(x)$ will equal 0, and thus:
+이제 이 모든 것을 종합하여 아프리카에 있는 국가의 적합값 $\widehat{y} = \widehat{\text{life exp}}$를 계산해 봅시다. 그 국가는 아프리카에 있으므로 4개의 지시 함수 $\mathbb{1}_{\text{Amer}}(x)$, $\mathbb{1}_{\text{Asia}}(x)$, $\mathbb{1}_{\text{Euro}}(x)$, $\mathbb{1}_{\text{Ocean}}(x)$는 모두 0이 되며, 따라서 다음과 같습니다.
 
 $$
 \begin{aligned}
@@ -992,7 +1004,7 @@ $$
 \end{aligned}
 $$
 
-In other words, all that's left is the intercept $b_0$, corresponding to the average life expectancy of African countries of `r intercept` years. Next, say we are considering a country in the Americas. In this case, only the indicator function $\mathbb{1}_{\text{Amer}}(x)$ for the Americas will equal 1, while all the others will equal 0, and thus:
+즉, 남는 것은 절편 $b_0$뿐이며, 이는 아프리카 국가들의 평균 기대 수명인 `r intercept`년에 해당합니다. 다음으로 미주 대륙에 있는 국가를 고려한다고 해봅시다. 이 경우 미주에 대한 지시 함수 $\mathbb{1}_{\text{Amer}}(x)$만 1이 되고 나머지는 모두 0이 되며, 따라서 다음과 같습니다.
 
 $$
 \begin{aligned}
@@ -1005,9 +1017,9 @@ $$
 \end{aligned}
 $$
 
-which is the mean life expectancy for countries in the Americas of `r mean_americas` years in Table \@ref(tab:continent-mean-life-expectancies). Note the "offset from the baseline for comparison" is +`r offset_americas` years. 
+이는 표 \@ref(tab:continent-mean-life-expectancies)에 있는 미주 국가들의 평균 기대 수명인 `r mean_americas`년입니다. 여기서 "비교를 위한 기준점 대비 오프셋"은 +`r offset_americas`년임을 알 수 있습니다.
 
-Let's do one more. Say we are considering a country in Asia. In this case, only the indicator function $\mathbb{1}_{\text{Asia}}(x)$ for Asia will equal 1, while all the others will equal 0, and thus:
+하나 더 해봅시다. 아시아에 있는 국가를 고려한다고 해봅시다. 이 경우 아시아에 대한 지시 함수 $\mathbb{1}_{\text{Asia}}(x)$만 1이 되고 나머지는 모두 0이 됩니다.
 
 $$
 \begin{aligned}
@@ -1020,20 +1032,20 @@ $$
 \end{aligned}
 $$
 
-which is the mean life expectancy for Asian countries of `r mean_asia` years in Table \@ref(tab:continent-mean-life-expectancies). The "offset from the baseline for comparison" here is +`r offset_asia` years.
+이는 표 \@ref(tab:continent-mean-life-expectancies)에 있는 아시아 국가들의 평균 기대 수명인 `r mean_asia`년입니다. 여기서 "비교를 위한 기준점 대비 오프셋"은 +`r offset_asia`년입니다.
 
-Let's generalize this idea a bit. If we fit a linear regression model using a categorical explanatory variable $x$ that has $k$ possible categories, the regression table will return an intercept and $k - 1$ "offsets." In our case, since there are $k = 5$ continents, the regression model returns an intercept corresponding to the baseline for comparison group of Africa and $k - 1 = 4$ offsets corresponding to the Americas, Asia, Europe, and Oceania.
+이 아이디어를 좀 더 일반화해 봅시다. 만약 $k$개의 가능한 범주를 가진 범주형 설명 변수 $x$를 사용하여 선형 회귀 모델을 적합시킨다면, 회귀 표는 절편과 $k - 1$개의 "오프셋"을 반환할 것입니다. 우리의 경우 대륙이 $k = 5$개이므로, 회귀 모델은 비교 기준점 그룹인 아프리카에 해당하는 절편과 나머지 4개 대륙(미주, 아시아, 유럽, 오세아니아)에 해당하는 $k - 1 = 4$개의 오프셋을 반환합니다.
 
-Understanding a regression table output when you're using a categorical explanatory variable is a topic those new to regression often struggle with. The only real remedy for these struggles is practice, practice, practice. However, once you equip yourselves with an understanding of how to create regression models using categorical explanatory variables, you'll be able to incorporate many new variables into your models, given the large amount of the world's data that is categorical. If you feel like you're still struggling at this point, however, we suggest you closely compare Tables \@ref(tab:continent-mean-life-expectancies) and \@ref(tab:catxplot4b) and note how you can compute all the values from one table using the values in the other.
+범주형 설명 변수를 사용할 때 회귀 표의 출력물을 이해하는 것은 회귀 분석을 처음 접하는 사람들이 자주 어려워하는 주제입니다. 이러한 어려움에 대한 유일한 해결책은 연습, 연습, 또 연습뿐입니다. 하지만 일단 범주형 설명 변수를 사용하여 회귀 모델을 만드는 법을 익히고 나면, 세상의 많은 데이터가 범주형이라는 점을 고려할 때 모델에 많은 새로운 변수들을 포함할 수 있게 될 것입니다. 만약 이 시점에서도 여전히 어렵게 느껴진다면 표 \@ref(tab:continent-mean-life-expectancies)와 표 \@ref(tab:catxplot4b)를 주의 깊게 비교하면서 한 표의 값들을 사용하여 다른 표의 모든 값을 어떻게 계산할 수 있는지 확인해 보시기 바랍니다.
 
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Fit a new linear regression using `lm(gdpPercap ~ continent, data = gapminder2007)` where `gdpPercap` is the new outcome variable $y$. Get information about the "best-fitting" line from the regression table by applying the `get_regression_table()` function. How do the regression results match up with the results from your previous exploratory data analysis?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** `gdpPercap`을 새로운 결과 변수 $y$로 사용하여 `lm(gdpPercap ~ continent, data = gapminder2007)`로 새로운 선형 회귀 분석을 수행하세요. `get_regression_table()` 함수를 적용하여 회귀 표로부터 "가장 잘 맞는" 직선에 대한 정보를 얻으세요. 회귀 분석 결과가 앞서 수행한 탐색적 데이터 분석 결과와 어떻게 일치하나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -1041,15 +1053,16 @@ Understanding a regression table output when you're using a categorical explanat
 ```
 
 
-### Observed/fitted values and residuals {#model2points}
 
-Recall in Subsection \@ref(model1points), we defined the following three concepts:
+### 관측값/적합값과 잔차 {#model2points}
 
-1. Observed values $y$, or the observed value of the outcome variable \index{regression!observed values}
-1. Fitted values $\widehat{y}$, or the value on the regression line for a given $x$ value
-1. Residuals $y - \widehat{y}$, or the error between the observed value and the fitted value
+소섹션 \@ref(model1points)에서 정의한 다음 세 가지 개념을 떠올려 봅시다.
 
-We obtained these values and other values using the `get_regression_points()` function from the `moderndive` package. This time, however, let's add an argument setting `ID = "country"`: this is telling the function to use the variable `country` in `gapminder2007` as an *identification variable* in the output. This will help contextualize our analysis by matching values to countries.
+1. 관측값 $y$: 결과 변수의 실제 관측된 값 \index{regression!observed values}
+2. 적합값 $\widehat{y}$: 주어진 $x$ 값에 대해 회귀 직선(또는 모델) 위에 위치한 값
+3. 잔차 $y - \widehat{y}$: 관측값과 적합값 사이의 오차
+
+우리는 `moderndive` 패키지의 `get_regression_points()` 함수를 사용하여 이 값들을 얻었습니다. 이번에는 `ID = "country"` 인자를 추가해 보겠습니다. 이는 함수가 `gapminder2007`의 `country` 변수를 출력 결과의 *식별 변수(identification variable)*로 사용하도록 지정하는 것입니다. 이렇게 하면 각 행의 값을 특정 국가와 연결하여 분석의 문맥을 파악하는 데 도움이 됩니다.
 
 ```{r, eval=FALSE}
 regression_points <- get_regression_points(lifeExp_model, ID = "country")
@@ -1061,18 +1074,18 @@ regression_points %>%
   slice(1:10) %>%
   kbl(
     digits = 3,
-    caption = "Regression points (First 10 out of 142 countries)",
+    caption = "회귀 포인트 (142개국 중 처음 10개국)",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
 ```{r echo=FALSE, purl=FALSE}
-# This code is for inline dynamic coding
+# 이 코드는 동적인 비정적 인라인 텍스트 출력 목적으로 사용됩니다.
 afghanistan_life_exp <- regression_points %>%
   filter(country == "Afghanistan") %>%
   pull(lifeExp) %>%
@@ -1080,19 +1093,19 @@ afghanistan_life_exp <- regression_points %>%
 afghanistan_offset <- (afghanistan_life_exp - mean_asia) %>% round(1)
 ```
 
-Observe in Table \@ref(tab:model2-residuals) that `lifeExp_hat` contains the fitted values $\widehat{y}$ = $\widehat{\text{lifeExp}}$. If you look closely, there are only 5 possible values for `lifeExp_hat`. These correspond to the five mean life expectancies for the 5 continents that we displayed in Table \@ref(tab:continent-mean-life-expectancies) and computed using the values in the `estimate` column of the regression table in Table \@ref(tab:catxplot4b).
+표 \@ref(tab:model2-residuals)에서 `lifeExp_hat`이 적합값 $\widehat{y}$ = $\widehat{\text{lifeExp}}$를 포함하고 있음을 확인하세요. 자세히 보면 `lifeExp_hat`에 단 5가지의 가능한 값만 있다는 것을 알 수 있습니다. 이들은 표 \@ref(tab:continent-mean-life-expectancies)에서 보여주었던 5개 대륙의 평균 기대 수명에 해당하며, 표 \@ref(tab:catxplot4b)의 회귀 표에 있는 `estimate` 열의 값들을 사용하여 계산된 것들입니다.
 
-The `residual` column is simply $y - \widehat{y}$ = `lifeExp - lifeExp_hat`. These values can be interpreted as the deviation of a country's life expectancy from its continent's average life expectancy. For example, look at the first row of Table \@ref(tab:model2-residuals) corresponding to Afghanistan. The residual of $y - \widehat{y} = `r afghanistan_life_exp` - `r mean_asia` = `r afghanistan_offset`$ is telling us that Afghanistan's life expectancy is a whopping `r -1 * afghanistan_offset` years lower than the mean life expectancy of all Asian countries. This can in part be explained by the many years of war that country has suffered.
+`residual` 열은 단순히 $y - \widehat{y}$ = `lifeExp - lifeExp_hat`입니다. 이 값들은 한 국가의 기대 수명이 해당 대륙의 평균 기대 수명으로부터 얼마나 벗어나 있는지로 해석할 수 있습니다. 예를 들어 아프가니스탄(Afghanistan)에 해당하는 표 \@ref(tab:model2-residuals)의 첫 번째 행을 보세요. 잔차 $y - \widehat{y} = `r afghanistan_life_exp` - `r mean_asia` = `r afghanistan_offset`$은 아프가니스탄의 기대 수명이 모든 아시아 국가의 평균 기대 수명보다 무려 `r -1 * afghanistan_offset`년이나 낮다는 것을 말해줍니다. 이는 부분적으로 그 나라가 겪어온 오랜 전쟁으로 설명될 수 있습니다.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Using either the sorting functionality of RStudio's spreadsheet viewer or using the data wrangling tools you learned in Chapter \@ref(wrangling), identify the five countries with the five smallest (most negative) residuals? What do these negative residuals say about their life expectancy relative to their continents' life expectancy?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** RStudio 스프레드시트 뷰어의 정렬 기능을 사용하거나 제\@ref(wrangling)장에서 배운 데이터 전처리 도구를 사용하여, 잔차가 가장 작은(가장 큰 음수 값) 5개 국가를 찾아보세요. 이 음수 잔차들은 해당 대륙의 기대 수명과 비교했을 때 이 국가들의 기대 수명에 대해 무엇을 말해주고 있나요?
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Repeat this process, but identify the five countries with the five largest (most positive) residuals. What do these positive residuals say about their life expectancy relative to their continents' life expectancy?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 동일한 과정을 반복하되, 이번에는 잔차가 가장 큰(가장 큰 양수 값) 5개 국가를 찾아보세요. 이 양수 잔차들은 해당 대륙의 기대 수명과 비교했을 때 이 국가들의 기대 수명에 대해 무엇을 말해주고 있나요?
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -1103,45 +1116,49 @@ The `residual` column is simply $y - \widehat{y}$ = `lifeExp - lifeExp_hat`. The
 
 
 
-## Related topics {#reg-related-topics}
 
-### Correlation is not necessarily causation {#correlation-is-not-causation}
+## 관련 주제 {#reg-related-topics}
 
-Throughout this chapter we've been cautious when interpreting regression slope coefficients. We always discussed the "associated" effect of an explanatory variable $x$ on an outcome variable $y$. For example, our statement from Subsection \@ref(model1table) that "for every increase of 1 unit in `bty_avg`, there is an *associated* increase of on average `r evals_line[2]` units of `score`." We include the term "associated" to be extra careful not to suggest we are making a *causal* statement. So while "beauty" score of `bty_avg` is positively correlated with teaching `score`, we can't necessarily make any statements about "beauty" scores' direct causal effect  on teaching score without more information on how this study was conducted. Here is another example: a not-so-great medical doctor goes through medical records and finds that patients who slept with their shoes on tended to wake up more with headaches. So this doctor declares, "Sleeping with shoes on causes headaches!"
+### 상관관계가 반드시 인과관계를 의미하지는 않는다 {#correlation-is-not-causation}
 
-```{r moderndive-figure-causal-graph-2, echo=FALSE, fig.cap="Does sleeping with shoes on cause headaches?", out.width="60%", out.height="60%", purl=FALSE}
-include_graphics("images/shutterstock/shoes_headache.png")
+이 장 전반에 걸쳐 우리는 회귀 계수의 기울기를 해석할 때 신중을 기했습니다. 우리는 항상 설명 변수 $x$가 결과 변수 $y$에 미치는 "연관된(associated)" 효과에 대해 논의했습니다. 예를 들어 소섹션 \@ref(model1table)에서 "`bty_avg`가 1단위 증가할 때마다, `score`는 평균적으로 `r evals_line[2]`단위만큼 *연관되어* 증가한다"라고 기술했습니다. 우리가 "연관된"이라는 용어를 포함한 이유는 자칫 *인과적(causal)* 진술을 하는 것으로 오해받지 않도록 각별히 주의하기 위해서였습니다. 비록 "미모" 점수인 `bty_avg`가 강의 평가 점수인 `score`와 양의 상관관계가 있긴 하지만, 이 연구가 어떻게 수행되었는지에 대한 더 많은 정보 없이는 미모 점수가 강의 평가 점수에 직접적인 인과적 영향을 미친다고 단정할 수 없습니다.
+
+추가적인 예를 들어보겠습니다: 실력이 부족한 한 의사가 진료 기록을 훑어보다가 신발을 신은 채 잠을 잔 환자들이 두통을 느끼며 깨어나는 경향이 있다는 것을 발견했습니다. 그래서 이 의사는 이렇게 선언합니다. "신발을 신고 자는 것이 두통을 유발한다!"
+
+```{r moderndive-figure-causal-graph-2, echo=FALSE, fig.cap="신발을 신고 자는 것이 두통을 유발할까요?", out.width="60%", out.height="60%", purl=FALSE}
+knitr::include_graphics("images/shutterstock/shoes_headache.png")
 ```
 
-However, there is a good chance that if someone is sleeping with their shoes on, it's potentially because they are intoxicated from alcohol. Furthermore, higher levels of drinking leads to more hangovers, and hence more headaches. The amount of alcohol consumption here is what's known as a *confounding/lurking* variable\index{confounding variable}. It "lurks" behind the scenes, confounding the causal relationship (if any) of "sleeping with shoes on" with "waking up with a headache." We can summarize this in Figure \@ref(fig:moderndive-figure-causal-graph) with a *causal graph* where:
+하지만 어떤 사람이 신발을 신은 채 잠을 잤다면, 그것은 아마도 술에 취했기 때문일 가능성이 큽니다. 그리고 과도한 음주는 숙취를 유발하고, 그에 따라 두통을 일으키게 됩니다. 여기서 음주량은 *혼란/잠재(confounding/lurking)* 변수라고 불리는 것입니다. \index{confounding variable} 이는 배후에 "잠재해" 있으면서, "신발을 신고 자는 것"과 "두통과 함께 깨어나는 것" 사이의 인과 관계(혹은 만약 있다면 그 관계)를 혼란스럽게 만듭니다. 우리는 이를 그림 \@ref(fig:moderndive-figure-causal-graph)의 *인과 그래프(causal graph)*로 요약할 수 있습니다.
 
-* Y is a *response* variable; here it is "waking up with a headache." \index{variables!response / outcome / dependent}
-* X is a *treatment* variable whose causal effect we are interested in; here it is "sleeping with shoes on."\index{variables!treatment}
+* Y는 *반응(response)* 변수입니다. 여기서는 "두통과 함께 깨어나는 것"입니다. \index{variables!response / outcome / dependent}
+* X는 우리가 인과적 효과에 관심을 갖는 *처치(treatment)* 변수입니다. 여기서는 "신발을 신고 자는 것"입니다. \index{variables!treatment}
 
-```{r moderndive-figure-causal-graph, echo=FALSE, out.width="50%", fig.cap="Causal graph.", purl=FALSE}
-include_graphics("images/flowcharts/flowchart.009-cropped.png")
+```{r moderndive-figure-causal-graph, echo=FALSE, out.width="50%", fig.cap="인과 그래프.", purl=FALSE}
+knitr::include_graphics("images/flowcharts/flowchart.009-cropped.png")
 ```
 
-To study the relationship between Y and X, we could use a regression model where the outcome variable is set to Y and the explanatory variable is set to be X, as you've been doing throughout this chapter. However, Figure \@ref(fig:moderndive-figure-causal-graph) also includes a third variable with arrows pointing at both X and Y:
+Y와 X 사이의 관계를 연구하기 위해, 여러분이 이번 장 내내 해왔던 것처럼 결과 변수를 Y로, 설명 변수를 X로 설정한 회귀 모델을 사용할 수 있습니다. 그러나 그림 \@ref(fig:moderndive-figure-causal-graph)에는 X와 Y 모두를 가리키는 화살표가 있는 세 번째 변수가 포함되어 있습니다.
 
-* Z is a *confounding* variable \index{variables!confounding} that affects both X and Y, thereby "confounding" their relationship. Here the confounding variable is alcohol.
+* Z는 X와 Y 모두에 영향을 미치며 그 둘의 관계를 "혼란스럽게" 만드는 *혼란(confounding)* 변수입니다. \index{variables!confounding} 여기서는 알코올입니다.
 
-Alcohol will cause people to be both more likely to sleep with their shoes on as well as be more likely to wake up with a headache. Thus any regression model of the relationship between X and Y should also use Z as an explanatory variable. In other words, our doctor needs to take into account who had been drinking the night before. In the next chapter, we'll start covering multiple regression models that allow us to incorporate more than one variable in our regression models.
+알코올은 사람들이 신발을 신은 채 잠을 자게 만들 뿐만 아니라, 두통과 함께 깨어날 가능성도 높입니다. 따라서 X와 Y 사이의 관계에 대한 모든 회귀 모델은 Z 역시 설명 변수로 사용해야 합니다. 즉, 의사는 환자가 전날 밤에 술을 마셨는지 여부를 고려해야 합니다. 다음 장에서는 회귀 모델에 하나 이상의 변수를 포함할 수 있게 해주는 다중 회귀 모델에 대해 다룰 것입니다.
 
-Establishing causation is a tricky problem and frequently takes either carefully designed experiments or methods to control for the effects of confounding variables. Both these approaches attempt, as best they can, either to take all possible confounding variables into account or negate their impact. This allows researchers to focus only on the relationship of interest: the relationship between the outcome variable Y and the treatment variable X.
+인과 관계를 규명하는 것은 까다로운 문제이며, 대개 정교하게 설계된 실험이나 혼란 변수의 효과를 통제하기 위한 방법들이 필요합니다. 이 두 가지 접근 방식은 가능한 모든 혼란 변수를 고려하거나 그 영향을 배제하기 위해 최선을 다합니다. 이를 통해 연구자들은 오직 관심 있는 관계, 즉 결과 변수 Y와 처치 변수 X 사이의 관계에만 집중할 수 있게 됩니다.
 
-As you read news stories, be careful not to fall into the trap of thinking that correlation necessarily implies causation.  Check out the [Spurious Correlations](http://www.tylervigen.com/spurious-correlations) website for some rather comical examples of variables that are correlated, but are definitely not causally related.
+뉴스를 읽을 때 상관관계가 반드시 인과관계를 의미한다는 함정에 빠지지 않도록 주의하세요. 상관관계는 있지만 인과 관계는 전혀 없는 다소 코믹한 사례들을 [가짜 상관(Spurious Correlations)](http://www.tylervigen.com/spurious-correlations) 웹사이트에서 확인해 보세요.
 
 
-### Best-fitting line {#leastsquares}
 
-Regression lines are also known as "best-fitting" lines. But what do we mean by "best"? Let's unpack the criteria that is used in regression to determine "best." Recall Figure \@ref(fig:numxplot4), where for an instructor with a "beauty" score of $x = 7.333$ we mark the *observed value* $y$ with a circle, the *fitted value* $\widehat{y}$ with a square, and the *residual* $y - \widehat{y}$ with an arrow. We re-display Figure \@ref(fig:numxplot4) in the top-left plot of Figure \@ref(fig:best-fitting-line) in addition to three more arbitrarily chosen course instructors:
+### 가장 잘 맞는 직선 {#leastsquares}
 
-```{r best-fitting-line, fig.height=5.5, echo=FALSE, fig.cap="Example of observed value, fitted value, and residual.", purl=FALSE, message=FALSE}
-# First residual
+회귀 직선은 "가장 잘 맞는(best-fitting)" 직선이라고도 불립니다. 하지만 여기서 "가장 잘 맞는다"는 것은 무엇을 의미할까요? 회귀 분석에서 "가장 잘 맞는다"는 기준을 결정하는 요소를 파헤쳐 봅시다. 그림 \@ref(fig:numxplot4)를 떠올려 보세요. "미모" 점수가 $x = 7.333$인 강사에 대해 *관측값* $y$를 원으로, *적합값* $\widehat{y}$를 정사각형으로, 그리고 *잔차* $y - \widehat{y}$를 화살표로 표시했습니다. 그림 \@ref(fig:best-fitting-line)의 왼쪽 상단 그래프에 이 그림 \@ref(fig:numxplot4)를 다시 표시하고, 추가로 임의로 선택한 세 명의 강사 데이터를 더했습니다.
+
+```{r best-fitting-line, fig.height=5.5, echo=FALSE, fig.cap="관측값, 적합값, 잔차의 예.", purl=FALSE, message=FALSE}
+# 첫 번째 잔차
 best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
   geom_point(size = 0.8, color = "grey") +
-  labs(x = "Beauty Score", y = "Teaching Score") +
+  labs(x = "미모 점수", y = "강의 평가 점수") +
   geom_smooth(method = "lm", se = FALSE) +
   annotate("point", x = x, y = y, col = "red", size = 2) +
   annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 2) +
@@ -1149,9 +1166,9 @@ best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
     x = x, xend = x, y = y, yend = y_hat, color = "blue",
     arrow = arrow(type = "closed", length = unit(0.02, "npc"))
   )
-p1 <- best_fit_plot + labs(title = "First instructor's residual")
+p1 <- best_fit_plot + labs(title = "첫 번째 강사의 잔차")
 
-# Second residual
+# 두 번째 잔차
 index <- which(evals_ch5$bty_avg == 2.333 & evals_ch5$score == 2.7)
 target_point <- get_regression_points(score_model) %>%
   slice(index)
@@ -1167,9 +1184,9 @@ best_fit_plot <- best_fit_plot +
     x = x, xend = x, y = y, yend = y_hat, color = "blue",
     arrow = arrow(type = "closed", length = unit(0.02, "npc"))
   )
-p2 <- best_fit_plot + labs(title = "Adding second instructor's residual")
+p2 <- best_fit_plot + labs(title = "두 번째 강사의 잔차 추가")
 
-# Third residual
+# 세 번째 잔차
 index <- which(evals_ch5$bty_avg == 3.667 & evals_ch5$score == 4.4)
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
 target_point <- get_regression_points(score_model) %>%
@@ -1187,7 +1204,7 @@ best_fit_plot <- best_fit_plot +
     color = "blue",
     arrow = arrow(type = "closed", length = unit(0.02, "npc"))
   )
-p3 <- best_fit_plot + labs(title = "Adding third instructor's residual")
+p3 <- best_fit_plot + labs(title = "세 번째 강사의 잔차 추가")
 
 index <- which(evals_ch5$bty_avg == 6 & evals_ch5$score == 3.8)
 score_model <- lm(score ~ bty_avg, data = evals_ch5)
@@ -1205,59 +1222,59 @@ best_fit_plot <- best_fit_plot +
     x = x, xend = x, y = y, yend = y_hat, color = "blue",
     arrow = arrow(type = "closed", length = unit(0.02, "npc"))
   )
-p4 <- best_fit_plot + labs(title = "Adding fourth instructor's residual")
+p4 <- best_fit_plot + labs(title = "네 번째 강사의 잔차 추가")
 
 p1 + p2 + p3 + p4 + plot_layout(nrow = 2)
 ```
 
-The three other plots refer to:
+나머지 세 개의 그래프는 다음을 나타냅니다.
 
-1. A course whose instructor had a "beauty" score $x$ = 2.333 and teaching score $y$ = 2.7. The residual in this case is $2.7 - 4.036 = -1.336$, which we mark with a new `r if_else(!is_latex_output(), "blue", "")` arrow in the top-right plot.
-1. A course whose instructor had a "beauty" score $x = 3.667$ and teaching score $y = 4.4$. The residual in this case is $4.4 - 4.125 = 0.2753$, which we mark with a new `r if_else(!is_latex_output(), "blue", "")` arrow in the bottom-left plot.
-1. A course whose instructor had a "beauty" score $x = 6$ and teaching score $y = 3.8$. The residual in this case is $3.8 - 4.28 = -0.4802$, which we mark with a new `r if_else(!is_latex_output(), "blue", "")` arrow in the bottom-right plot.
+1. "미모" 점수 $x$ = 2.333, 강의 평가 점수 $y$ = 2.7인 강사. 이 경우 잔차는 $2.7 - 4.036 = -1.336$이며, 오른쪽 상단 그래프에 새로운 `r if_else(!knitr::is_latex_output(), "파란색", "")` 화살표로 표시했습니다.
+2. "미모" 점수 $x = 3.667$, 강의 평가 점수 $y = 4.4$인 강사. 이 경우 잔차는 $4.4 - 4.125 = 0.2753$이며, 왼쪽 하단 그래프에 새로운 `r if_else(!knitr::is_latex_output(), "파란색", "")` 화살표로 표시했습니다.
+3. "미모" 점수 $x = 6$, 강의 평가 점수 $y = 3.8$인 강사. 이 경우 잔차는 $3.8 - 4.28 = -0.4802$이며, 오른쪽 하단 그래프에 새로운 `r if_else(!knitr::is_latex_output(), "파란색", "")` 화살표로 표시했습니다.
 
-Now say we repeated this process of computing residuals for all `r n_courses_ch5` courses' instructors, then we squared all the residuals, and then we summed them. We call this quantity the *sum of squared residuals*\index{sum of squared residuals}; it is a measure of the _lack of fit_ of a model. Larger values of the sum of squared residuals indicate a bigger lack of fit. This corresponds to a worse fitting model.
+이제 모든 `r n_courses_ch5`개 강의에 대해 잔차를 계산하고, 그 잔차들을 모두 제곱한 뒤 합산하는 과정을 반복한다고 가정해 봅시다. 우리는 이 값을 *잔차 제곱합(sum of squared residuals)* \index{sum of squared residuals}이라고 부르며, 이는 모델이 데이터를 얼마나 **잘 설명하지 못하는지(lack of fit)**를 나타내는 척도입니다. 잔차 제곱합의 값이 클수록 모델의 설명력이 떨어지며, 이는 모델이 데이터에 잘 맞지 않음을 의미합니다.
 
-If the regression line fits all the points perfectly, then the sum of squared residuals is 0. This is because if the regression line fits all the points perfectly, then the fitted value $\widehat{y}$ equals the observed value $y$ in all cases, and hence the residual $y-\widehat{y}$ = 0 in all cases, and the sum of even a large number of 0's is still 0. 
+회귀 직선이 모든 점을 완벽하게 통과한다면 잔차 제곱합은 0이 됩니다. 회귀 직선이 모든 점을 완벽하게 통과한다는 것은 모든 경우에 적합값 $\widehat{y}$가 관측값 $y$와 같음을 의미하며, 따라서 모든 경우에 잔차 $y-\widehat{y} = 0$이 되고, 아무리 많은 0을 더해도 그 합은 0이기 때문입니다.
 
-Furthermore, of all possible lines we can draw through the cloud of `r n_courses_ch5` points, the regression line minimizes this value. In other words, the regression and its corresponding fitted values $\widehat{y}$ minimizes the sum of the squared residuals:
+더불어, 우리가 `r n_courses_ch5`개의 점들이 모인 구름 사이로 그을 수 있는 가능한 모든 직선 중에서, 회귀 직선은 이 잔차 제곱합을 최소화하는 직선입니다. 즉, 회귀 분석과 그에 따른 적합값 $\widehat{y}$는 다음 잔차 제곱합을 최소화합니다.
 
 $$
 \sum_{i=1}^{n}(y_i - \widehat{y}_i)^2
 $$
 
-Let's use our data wrangling tools from Chapter \@ref(wrangling) to compute the sum of squared residuals exactly:
+제\@ref(wrangling)장에서 배운 데이터 전처리 도구를 사용하여 잔차 제곱합을 정확하게 계산해 봅시다.
 
 ```{r}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(score ~ bty_avg, 
                   data = evals_ch5)
 
-# Get regression points:
+# 회귀 포인트 추출:
 regression_points <- get_regression_points(score_model)
 regression_points
-# Compute sum of squared residuals
+# 잔차 제곱합 계산
 regression_points %>%
   mutate(squared_residuals = residual^2) %>%
   summarize(sum_of_squared_residuals = sum(squared_residuals))
 ```
 
-Any other straight line drawn in the figure would yield a sum of squared residuals greater than 132. This is a mathematically guaranteed fact that you can prove using calculus and linear algebra. That's why alternative names for the linear regression line are the *best-fitting line* and the *least-squares line*. Why do we square the residuals (i.e., the arrow lengths)? So that both positive and negative deviations of the same amount are treated equally. (That being said, while taking the absolute value of the residuals would also treat both positive and negative deviations of the same amount equally, squaring the residuals is used for reasons related to calculus: taking derivatives and minimizing functions. To learn more we suggest you consult a textbook on mathematical statistics.)
+그림에 그은 다른 어떤 직선도 132보다 큰 잔차 제곱합을 산출할 것입니다. 이는 미적분학과 선형 대수학을 사용하여 증명할 수 있는 수학적으로 보장된 사실입니다. 이것이 선형 회귀 직선의 또 다른 이름이 *가장 잘 맞는 직선(best-fitting line)* 또는 *최소제곱 직선(least-squares line)*인 이유입니다. 왜 잔차(즉, 화살표의 길이)를 제곱할까요? 양의 편차와 음의 편차가 동일한 양만큼 발생했을 때 이를 동등하게 취급하기 위해서입니다. (잔차의 절댓값을 취해도 양과 음의 편차를 동등하게 취급할 수 있지만, 잔차를 제곱하는 것은 미분을 구하고 함수를 최소화하는 미적분학적 이유 때문입니다. 더 자세히 배우고 싶다면 수리 통계학 교과서를 참고하시기 바랍니다.)
 
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
-**_Learning check_**
+**_학습 확인_**
 \vspace{-0.1in}
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Note in Figure \@ref(fig:three-lines) there are 3 points marked with dots and:
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** 그림 \@ref(fig:three-lines)에는 세 개의 점이 찍혀 있고 다음과 같은 선들이 있습니다.
 
-* The "best" fitting solid regression line `r if_else(is_latex_output(), "", "in blue")`
-* An arbitrarily chosen dotted `r if_else(is_latex_output(), "", "red")` line 
-* Another arbitrarily chosen dashed `r if_else(is_latex_output(), "", "green")` line
+* `r if_else(knitr::is_latex_output(), "파란색", "")` 실선: "가장 잘 맞는" 회귀 직선
+* 임의로 선택된 `r if_else(knitr::is_latex_output(), "빨간색", "")` 점선
+* 또 다른 임의로 선택된 `r if_else(knitr::is_latex_output(), "초록색", "")` 파선
 
-```{r three-lines, fig.cap="Regression line and two others.", out.width="85%", echo=FALSE, purl=FALSE, message=FALSE}
+```{r three-lines, fig.cap="회귀 직선과 다른 두 직선.", out.width="85%", echo=FALSE, purl=FALSE, message=FALSE}
 example <- tibble(
   x = c(0, 0.5, 1),
   y = c(2, 1, 3)
@@ -1273,7 +1290,7 @@ ggplot(example, aes(x = x, y = y)) +
   geom_point(size = 4)
 ```
 
-Compute the sum of squared residuals by hand for each line and show that of these three lines, the regression line `r if_else(is_latex_output(), "", "in blue")` has the smallest value.
+각 직선에 대해 손으로 잔차 제곱합을 계산하고, 이 세 직선 중 `r if_else(knitr::is_latex_output(), "파란색", "")` 회귀 직선의 값이 가장 작음을 보여주세요.
 
 ```{block, type="learncheck", purl=FALSE}
 \vspace{-0.25in}
@@ -1281,21 +1298,22 @@ Compute the sum of squared residuals by hand for each line and show that of thes
 ```
 
 
-### `get_regression_x()` functions {#underthehood}
 
-Recall in this chapter we introduced two functions from the `moderndive` package:
+### `get_regression_x()` 함수들 {#underthehood}
 
-1. `get_regression_table()` that returns a regression table in Subsection \@ref(model1table) and
-1. `get_regression_points()` that returns point-by-point information from a regression model in Subsection \@ref(model1points).
+이 장에서 우리는 `moderndive` 패키지의 두 가지 함수를 소개했음을 떠올려 보세요.
 
-What is going on behind the scenes with the `get_regression_table()` and `get_regression_points()` functions? We mentioned in Subsection \@ref(model1table) that these were examples of *wrapper functions*. Such functions take other pre-existing functions and "wrap" them into single functions that hide the user from their inner workings. This way all the user needs to worry about is what the inputs look like and what the outputs look like. In this subsection, we'll "get under the hood" of these functions and see how the "engine" of these wrapper functions works.
+1. 소섹션 \@ref(model1table)에서 회귀 표를 반환하는 `get_regression_table()`
+2. 소섹션 \@ref(model1points)에서 회귀 모델로부터 각 포인트별 정보를 반환하는 `get_regression_points()`
 
-Recall our two-step process to generate a regression table from Subsection \@ref(model1table):
+`get_regression_table()`과 `get_regression_points()` 함수의 내부에서는 어떤 일이 벌어지고 있을까요? 우리는 소섹션 \@ref(model1table)에서 이 함수들이 *래퍼 함수(wrapper functions)*의 예라고 언급했습니다. 이러한 함수들은 기존에 존재하던 다른 함수들을 가져와서, 사용자가 내부 작동 방식을 일일이 알 필요 없도록 하나의 함수로 "감싸(wrap)" 안으로 숨깁니다. 이렇게 하면 사용자는 입력값이 무엇인지, 그리고 출력 결과가 어떠해야 하는지만 신경 쓰면 됩니다. 이번 소섹션에서는 이 함수들의 "내부를 들여다보고(get under the hood)" 래퍼 함수의 "엔진"이 어떻게 작동하는지 살펴보겠습니다.
+
+소섹션 \@ref(model1table)에서 회귀 표를 생성하기 위해 거쳤던 2단계 과정을 떠올려 보세요.
 
 ```{r, eval=FALSE}
-# Fit regression model:
+# 회귀 모델 적합:
 score_model <- lm(formula = score ~ bty_avg, data = evals_ch5)
-# Get regression table:
+# 회귀 표 추출:
 get_regression_table(score_model)
 ```
 
@@ -1304,22 +1322,22 @@ score_model <- lm(score ~ bty_avg, data = evals_ch5)
 get_regression_table(score_model) %>%
   kbl(
     digits = 3,
-    caption = "Regression table",
+    caption = "회귀 표",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-The `get_regression_table()` wrapper function takes two pre-existing functions in other R packages:
+`get_regression_table()` 래퍼 함수는 다른 R 패키지에 있는 다음 두 가지 함수를 가져와서 사용합니다.
 
-* `tidy()` \index{R packages!broom!tidy()} from the [`broom` package](https://broom.tidyverse.org/) [@R-broom] and 
-* `clean_names()` \index{R packages!janitor!clean\_names()} from the [`janitor` package](https://github.com/sfirke/janitor) [@R-janitor]
+* [`broom` 패키지](https://broom.tidyverse.org/) [@R-broom]의 `tidy()` \index{R packages!broom!tidy()}
+* [`janitor` 패키지](https://github.com/sfirke/janitor) [@R-janitor]의 `clean_names()` \index{R packages!janitor!clean\_names()}
 
-and "wraps" them into a single function that takes in a saved `lm()` linear model, here `score_model`, and returns a regression table saved as a "tidy" data frame. Here is how we used the `tidy()` and `clean_names()` functions to produce Table \@ref(tab:regtable-broom):
+그리고 이들을 단일 함수로 "감싸서" 저장된 `lm()` 선형 모델(여기서는 `score_model`)을 입력받아 "정돈된(tidy)" 데이터 프레임 형태의 회귀 표를 반환합니다. 다음은 `tidy()`와 `clean_names()` 함수를 사용하여 표 \@ref(tab:regtable-broom)를 생성하는 방법입니다.
 
 ```{r, eval=FALSE}
 library(broom)
@@ -1343,19 +1361,19 @@ score_model %>%
   ) %>%
   kbl(
     digits = 3,
-    caption = "Regression table using tidy() from broom package",
+    caption = "broom 패키지의 tidy()를 사용한 회귀 표",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-Yikes! That's a lot of code! So, in order to simplify your lives, we made the editorial decision to "wrap" all the code into `get_regression_table()`, freeing you from the need to understand the inner workings of the function. Note that the `mutate_if()` function is from the `dplyr` package and applies the `round()` function to three significant digits precision only to those variables that are numerical.
+이런! 코드가 꽤 길군요! 그래서 여러분의 수고를 덜어드리기 위해, 저희는 모든 코드를 `get_regression_table()` 안에 "감싸서" 여러분이 함수의 내부 작동 방식을 이해해야 하는 부담에서 벗어나도록 결정했습니다. 참고로 `mutate_if()` 함수는 `dplyr` 패키지의 함수로, 수치형 변수들에 대해서만 `round()` 함수를 적용하여 소수점 셋째 자리까지 반올림합니다.
 
-Similarly, the `get_regression_points()` function is another wrapper function, but this time returning information about the individual points involved in a regression model like the fitted values, observed values, and the residuals. `get_regression_points()` \index{moderndive!get\_regression\_points()} uses the `augment()` \index{R packages!broom!augment()} function in the [`broom` package](https://broom.tidyverse.org/) instead of the `tidy()` function as with `get_regression_table()` to produce the data shown in Table \@ref(tab:regpoints-augment):
+마찬가지로 `get_regression_points()` 함수도 또 다른 래퍼 함수입니다. 이번에는 회귀 모델과 관련된 각 포인트의 정보인 적합값, 관측값, 잔차를 반환합니다. `get_regression_points()` \index{moderndive!get\_regression\_points()}는 `get_regression_table()`에서 사용한 `tidy()` 함수 대신 [`broom` 패키지](https://broom.tidyverse.org/)의 `augment()` \index{R packages!broom!augment()} 함수를 사용하여 표 \@ref(tab:regpoints-augment)와 같은 데이터를 생성합니다.
 
 ```{r, eval=FALSE}
 library(broom)
@@ -1377,31 +1395,32 @@ score_model %>%
   slice(1:10) %>%
   kbl(
     digits = 3,
-    caption = "Regression points using augment() from broom package",
+    caption = "broom 패키지의 augment()를 사용한 회귀 포인트",
     booktabs = TRUE,
     linesep = ""
   ) %>%
   kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
     latex_options = c("hold_position")
   )
 ```
 
-In this case, it outputs only the variables of interest to students learning regression: the outcome variable $y$ (`score`), all explanatory/predictor variables (`bty_avg`), all resulting `fitted` values $\hat{y}$ used by applying the equation of the regression line to `bty_avg`, and the `resid`ual $y - \hat{y}$.
+이 경우 회귀 분석을 배우는 학생들에게 꼭 필요한 변수들만 출력합니다. 결과 변수 $y$ (`score`), 모든 설명/예측 변수 (`bty_avg`), 회귀 직선 방정식을 `bty_avg`에 적용하여 계산된 모든 `fitted` 값 $\hat{y}$, 그리고 잔차 `resid` ($y - \hat{y}$)입니다.
 
-If you're even more curious about how these and other wrapper functions work, take a look at the source code for these functions on [GitHub](https://github.com/moderndive/moderndive/blob/master/R/regression_functions.R).
-
-
+이 함수들과 다른 래퍼 함수들이 어떻게 작동하는지 더 궁금하시다면, [GitHub](https://github.com/moderndive/moderndive/blob/master/R/regression_functions.R)에서 해당 함수들의 소스 코드를 살펴보시기 바랍니다.
 
 
 
-## Conclusion {#reg-conclusion}
 
-### Additional resources {#additional-resources-basic-regression}
+
+
+## 결론 {#reg-conclusion}
+
+### 추가 자료 {#additional-resources-basic-regression}
 
 ```{r echo=FALSE, results="asis", purl=FALSE}
-if (is_latex_output()) {
-  cat("Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).")
+if (knitr::is_latex_output()) {
+  cat("모든 *학습 확인(Learning checks)*에 대한 정답은 온라인 [부록 D](https://moderndive.com/D-appendixD.html)에서 확인할 수 있습니다.")
 }
 ```
 
@@ -1409,15 +1428,15 @@ if (is_latex_output()) {
 generate_r_file_link("05-regression.R")
 ```
 
-As we suggested in Subsection \@ref(model1EDA), interpreting coefficients that are not close to the extreme values of -1, 0, and 1 can be somewhat subjective. To help develop your sense of correlation coefficients, we suggest you play the 80s-style video game called, "Guess the Correlation", at <http://guessthecorrelation.com/>.
+소섹션 \@ref(model1EDA)에서 제안했듯이, -1, 0, 1과 같은 극단적인 값에서 멀어진 상관계수를 해석하는 것은 다소 주관적일 수 있습니다. 상관계수에 대한 감각을 키우는 데 도움을 주기 위해, <http://guessthecorrelation.com/>에서 제공하는 80년대 스타일의 비디오 게임인 "Guess the Correlation(상관계수 맞추기)"을 해보시길 권장합니다.
 
-(ref:guess-corr) Preview of "Guess the Correlation" game.
+(ref:guess-corr) "Guess the Correlation" 게임 미리보기.
 
 ```{r guess-the-correlation, echo=FALSE, fig.cap="(ref:guess-corr)", purl=FALSE, out.width="70%", purl=FALSE}
-include_graphics("images/copyright/guess_the_correlation.png")
+knitr::include_graphics("images/copyright/guess_the_correlation.png")
 ```
 
 
-### What's to come?
+### 다음에는 무엇을 배울까요?
 
-In this chapter, you've studied the term _basic regression_, where you fit models that only have one explanatory variable. In Chapter \@ref(multiple-regression), we'll study *multiple regression*, where our regression models can now have more than one explanatory variable! In particular, we'll consider two scenarios: regression models with one numerical and one categorical explanatory variable and regression models with two numerical explanatory variables. This will allow you to construct more sophisticated and more powerful models, all in the hopes of better explaining your outcome variable $y$.
+이 장에서는 하나의 설명 변수만을 사용하는 모델을 적합시키는 *기초 회귀(basic regression)*에 대해 공부했습니다. 제\@ref(multiple-regression)장에서는 두 개 이상의 설명 변수를 가질 수 있는 *다중 회귀(multiple regression)*에 대해 배울 것입니다! 특히 두 가지 시나리오를 다룰 것입니다. 하나는 수치형 설명 변수와 범주형 설명 변수를 각각 하나씩 사용하는 회귀 모델이고, 다른 하나는 두 개의 수치형 설명 변수를 사용하는 모델입니다. 이를 통해 결과 변수 $y$를 더 잘 설명할 수 있는 더욱 정교하고 강력한 모델을 구축할 수 있게 될 것입니다.

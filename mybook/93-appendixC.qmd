@@ -1,16 +1,20 @@
-# Tips and Tricks {#appendixC}
+```{r, include=FALSE}
+source("_common.R")
+```
 
-### Needed packages {-}
+# 팁과 요령 {#appendixC}
 
-Let's load all the packages needed for this chapter (this assumes you've already installed them). Recall from our discussion in Section \@ref(tidyverse-package) that loading the `tidyverse` package by running `library(tidyverse)` loads the following commonly used data science packages all at once:
+### 필요한 패키지 {-}
 
-* `ggplot2` for data visualization
-* `dplyr` for data wrangling
-* `tidyr` for converting data to "tidy" format
-* `readr` for importing spreadsheet data into R
-* As well as the more advanced `purrr`, `tibble`, `stringr`, and `forcats` packages.
+이 장에서 필요한 모든 패키지를 불러옵니다(이미 설치되어 있다고 가정합니다). 5.1.2절(\@ref(tidyverse-package))에서 논의했듯이, `library(tidyverse)`를 실행하여 `tidyverse` 패키지를 불러오면 다음과 같이 자주 사용되는 데이터 과학용 패키지들을 한 번에 불러올 수 있습니다.
 
-If needed, read Section \@ref(packages) for information on how to install and load R packages. 
+* 데이터 시각화를 위한 `ggplot2`
+* 데이터 전처리를 위한 `dplyr`
+* 데이터를 "tidy" 형식으로 변환하기 위한 `tidyr`
+* 스프레드시트 데이터를 R로 가져오기 위한 `readr`
+* 그리고 더 고급 패키지인 `purrr`, `tibble`, `stringr`, `forcats` 패키지들.
+
+필요하다면 1.3절(\@ref(packages))을 읽고 R 패키지를 설치하고 불러오는 방법에 대한 정보를 확인하세요.
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -23,10 +27,10 @@ library(nycflights13)
 
 
 
-## Data wrangling
+## 데이터 전처리 (Data wrangling)
 
 ```{r setup, include=FALSE}
-opts_chunk$set(
+knitr::opts_chunk$set(
   echo = TRUE, message = FALSE, warning = FALSE, eval = TRUE,
   cache = TRUE,
   fig.width = 16 / 2, fig.height = 9 / 2
@@ -36,19 +40,19 @@ opts_chunk$set(
 set.seed(76)
 ```
 
-In this Section, we address some of the most common data wrangling questions we've encountered in student projects (shout out to [Dr. Jenny Smetzer](https://www.scsparkscience.org/fellow/jennifer-smetzer/) for her work setting this up!):
+이 절에서는 학생 프로젝트에서 자주 접하게 되는 가장 일반적인 데이터 전처리 관련 질문들을 다룹니다(이를 정리해준 [Dr. Jenny Smetzer](https://www.scsparkscience.org/fellow/jennifer-smetzer/)에게 감사를 표합니다!):
 
-* \@ref(appendix-missing-values): Dealing with missing values
-* \@ref(appendix-reordering-bars): Reordering bars in a barplot
-* \@ref(appendix-money-on-axis): Showing money on an axis
-* \@ref(appendix-changing-values): Changing values inside cells
-* \@ref(appendix-convert-numerical-categorical): Converting a numerical variable to a categorical one
-* \@ref(appendix-prop): Computing proportions
-* \@ref(appendix-commas): Dealing with %, commas, and \$
+* \@ref(appendix-missing-values): 결측치 처리하기
+* \@ref(appendix-reordering-bars): 막대 그래프의 막대 순서 재정렬하기
+* \@ref(appendix-money-on-axis): 축에 화폐 단위 표시하기
+* \@ref(appendix-changing-values): 셀 내부의 값 변경하기
+* \@ref(appendix-convert-numerical-categorical): 수치형 변수를 범주형 변수로 변환하기
+* \@ref(appendix-prop): 비율 계산하기
+* \@ref(appendix-commas): %, 콤마(,), \$ 기호 처리하기
 
 ![](images/data_ninja1.png){width=30%}        
 
-Let's load an example movies dataset, pare down the rows and columns a bit, and then show the first 10 rows using `slice()`.
+예제 영화 데이터셋을 불러와서 행과 열을 조금 줄인 다음, `slice()`를 사용하여 처음 10개 행을 확인해 보겠습니다.
 
 ```{r, eval=FALSE}
 movies_ex <- read_csv("https://moderndive.com/data/movies.csv") %>%
@@ -68,27 +72,27 @@ movies_ex %>%
 ```
 
 
-### Dealing with missing values {#appendix-missing-values}
+### 결측치 처리하기 {#appendix-missing-values}
 
-You see the revenue in `million`s value for the movie "2 Fast 2 Furious" is `NA` (missing). So the following occurs when computing the median revenue:
+영화 "2 Fast 2 Furious"의 `millions` 열(수익) 값이 `NA`(결측치)인 것을 볼 수 있습니다. 따라서 수익의 중앙값을 계산할 때 다음과 같은 결과가 발생합니다.
 
 ```{r}
 movies_ex %>%
   summarize(mean_profit = median(millions))
 ```
 
-You should always think about why a data value might be missing and what that missingness may mean. For example, imagine you are conducting a study on the effects of smoking on lung cancer and a lot of your patients' data is missing because they died of lung cancer. If you just "sweep these patients under the rug" and ignore them, you are clearly biasing the results. 
+데이터 값이 왜 누락되었을 수 있는지, 그리고 그 누락이 무엇을 의미하는지 항상 생각해야 합니다. 예를 들어, 흡연이 폐암에 미치는 영향에 대한 연구를 수행하는데 폐암으로 사망했기 때문에 많은 환자의 데이터가 누락되었다고 가정해 봅시다. 만약 여러분이 이 환자들을 무시한다면, 연구 결과에 분명히 편향(bias)이 생길 것입니다.
 
-While there are statistical methods to deal with missing data they are beyond the reach of this class. The easiest thing to do is to remove all missing cases, but **you should always at the very least report to the reader if you do so, as by removing the missing values you may be biasing your results.**
+결측 데이터를 처리하는 통계적 방법이 있지만, 이는 본 수업의 범위를 벗어납니다. 가장 쉬운 방법은 결측된 모든 사례를 제거하는 것이지만, **결측치를 제거할 때는 항상 최소한 독자에게 그 사실을 알려야 합니다. 결측치를 제거하면 결과가 왜곡될 수 있기 때문입니다.**
 
-You can do this with a `na.rm = TRUE` argument like so:
+다음과 같이 `na.rm = TRUE` 인수를 사용하여 이를 처리할 수 있습니다.
 
 ```{r}
 movies_ex %>%
   summarize(mean_profit = median(millions, na.rm = TRUE))
 ```
 
-If you decide you want to remove the row with the missing data, you can use the filter function like so:
+결측 데이터가 포함된 행 자체를 제거하고 싶다면 다음과 같이 `filter` 함수를 사용할 수 있습니다.
 
 ```{r}
 movies_no_missing <- movies_ex %>%
@@ -98,12 +102,12 @@ movies_no_missing %>%
   slice(1:10)
 ```
 
-We see "2 Fast 2 Furious" is now gone.
+이제 "2 Fast 2 Furious"가 사라진 것을 확인할 수 있습니다.
 
 
-### Reordering bars in a barplot {#appendix-reordering-bars}
+### 막대 그래프의 막대 순서 재정렬하기 {#appendix-reordering-bars}
 
-Let's compute the total revenue for each movie type and plot a barplot.
+각 영화 유형별 총 수익을 계산하고 막대 그래프를 그려보겠습니다.
 
 ```{r}
 revenue_by_type <- movies_ex %>%
@@ -112,10 +116,10 @@ revenue_by_type <- movies_ex %>%
 revenue_by_type
 ggplot(revenue_by_type, aes(x = type, y = total_revenue)) +
   geom_col() +
-  labs(x = "Movie genre", y = "Total box office revenue (in millions of $)")
+  labs(x = "영화 장르", y = "총 박스오피스 수익 (백만 달러)")
 ```
 
-Say we want to reorder the categorical variable `type` so that the bars show in a different order. We can reorder the bars by manually defining the order of the `levels` in the `factor()` command:
+범주형 변수 `type`을 재정렬하여 막대가 다른 순서로 표시되게 하고 싶다고 가정해 봅시다. `factor()` 명령의 `levels` 인수를 사용하여 막대의 순서를 직접 정의할 수 있습니다.
 
 ```{r}
 type_levels <- c("rom comedy", "action", "drama", "animated", "comedy", "fantasy")
@@ -125,10 +129,10 @@ revenue_by_type <- revenue_by_type %>%
 
 ggplot(revenue_by_type, aes(x = type, y = total_revenue)) +
   geom_col() +
-  labs(x = "Movie genre", y = "Total boxoffice revenue (in millions of $)")
+  labs(x = "영화 장르", y = "총 박스오피스 수익 (백만 달러)")
 ```
 
-Or if you want to reorder `type` in ascending order of `total_revenue`, we use `reorder()`:
+또는 `total_revenue`를 기준으로 `type`을 오름차순으로 재정렬하려면 `reorder()` 함수를 사용합니다.
 
 ```{r}
 revenue_by_type <- revenue_by_type %>%
@@ -137,12 +141,11 @@ revenue_by_type <- revenue_by_type %>%
 ggplot(revenue_by_type, aes(x = type, y = total_revenue)) +
   geom_col() +
   labs(
-    x = "Movie genre", y = "Total boxoffice revenue (in millions of $)"
+    x = "영화 장르", y = "총 박스오피스 수익 (백만 달러)"
   )
 ```
 
-Or if you want to reorder `type` in descending order of `total_revenue`, just put
-a `-` sign in front of `-total_revenue` in `reorder()`:
+`total_revenue`를 기준으로 내림차순으로 재정렬하려면 `reorder()` 함수에서 `total_revenue` 앞에 `-` 기호를 붙이면 됩니다.
 
 ```{r}
 revenue_by_type <- revenue_by_type %>%
@@ -151,18 +154,17 @@ revenue_by_type <- revenue_by_type %>%
 ggplot(revenue_by_type, aes(x = type, y = total_revenue)) +
   geom_col() +
   labs(
-    x = "Movie genre", y = "Total boxoffice revenue (in millions of $)"
+    x = "영화 장르", y = "총 박스오피스 수익 (백만 달러)"
   )
 ```
 
-For more advanced categorical variable (i.e. factor) manipulations, check out
-the [`forcats` package](https://forcats.tidyverse.org/){target="_blank"}. Note: `forcats` is an anagram of `factors`.
+더 고급스러운 범주형 변수(즉, 요인(factor)) 조작에 대해서는 [`forcats` 패키지](https://forcats.tidyverse.org/){target="_blank"}를 확인해 보세요. 참고로 `forcats`는 `factors`의 애너그램(철자 바꾸기)입니다.
 
 
 ![](https://raw.githubusercontent.com/tidyverse/forcats/refs/heads/main/man/figures/logo.png){width=20%} 
 
 
-### Showing money on an axis {#appendix-money-on-axis}
+### 축에 화폐 단위 표시하기 {#appendix-money-on-axis}
 
 ```{r fig.height=3, fig.width=5}
 movies_ex <- movies_ex %>%
@@ -170,25 +172,25 @@ movies_ex <- movies_ex %>%
 
 ggplot(data = movies_ex, aes(x = rating, y = revenue)) +
   geom_boxplot() +
-  labs(x = "rating", y = "Revenue in $", title = "Profits for different movie ratings")
+  labs(x = "등급", y = "수익 ($)", title = "영화 등급별 수익")
 ```
 
-Google "ggplot2 axis scale dollars" and click on the [first link](http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations) and search for the word "dollars". You'll find:
+구글에서 "ggplot2 axis scale dollars"를 검색하고 [첫 번째 링크](http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations)를 클릭한 후 "dollars"라는 단어를 검색해 보세요. 다음과 같은 내용을 찾을 수 있습니다.
 
 ```{r fig.height=3, fig.width=5}
-# Don't forget to load the scales package first!
+# 먼저 scales 패키지를 불러오는 것을 잊지 마세요!
 library(scales)
 
 ggplot(data = movies_ex, aes(x = rating, y = revenue)) +
   geom_boxplot() +
-  labs(x = "rating", y = "Revenue in $", title = "Profits for different movie ratings") +
+  labs(x = "등급", y = "수익 ($)", title = "영화 등급별 수익") +
   scale_y_continuous(labels = dollar)
 ```
 
 
-### Changing values inside cells {#appendix-changing-values}
+### 셀 내부의 값 변경하기 {#appendix-changing-values}
 
-The `rename()` function in the `dplyr` package renames column/variable names. To "rename" values inside cells of a particular column, you need to `mutate()` the column using one of the three functions below. There might be other ones too, but these are the three we've seen the most. In these examples, we'll change values in the variable `type`.
+`dplyr` 패키지의 `rename()` 함수는 열/변수의 이름을 바꿉니다. 특정 열의 셀 내부의 값을 "바꾸려면", 아래의 세 가지 함수 중 하나를 사용하여 열을 `mutate()`해야 합니다. 다른 함수들도 있을 수 있지만, 이 세 가지가 가장 자주 쓰입니다. 이 예제들에서는 `type` 변수의 값을 변경해 보겠습니다.
 
 1. `if_else()`
 1. `recode()`
@@ -196,7 +198,7 @@ The `rename()` function in the `dplyr` package renames column/variable names. To
 
 #### `if_else()` {-}
 
-Switch all instances of `rom comedy` with `romantic comedy` using `if_else()` from the `dplyr` package. If a particular row has `type == "rom comedy"`, then return `"romantic comedy"`, else return whatever was originally in `type`. Save everything in a new variable `type_new`:
+`dplyr` 패키지의 `if_else()`를 사용하여 `rom comedy`의 모든 인스턴스를 `romantic comedy`로 바꿉니다. 특정 행의 `type`이 `"rom comedy"`이면 `"romantic comedy"`를 반환하고, 그렇지 않으면 원래 `type`에 있던 값을 반환합니다. 모든 내용을 새 변수 `type_new`에 저장합니다.
 
 ```{r}
 movies_ex %>%
@@ -204,7 +206,7 @@ movies_ex %>%
   slice(1:10)
 ```
 
-Do the same here, but return `"not romantic comedy"` if `type` is not `"rom comedy"` and this time overwrite the original `type` variable:
+여기서도 같은 작업을 수행하지만, `type`이 `"rom comedy"`가 아니면 `"not romantic comedy"`를 반환하고, 이번에는 원래의 `type` 변수를 덮어씁니다.
 
 ```{r}
 movies_ex %>%
@@ -214,7 +216,7 @@ movies_ex %>%
 
 #### `recode()` {-}
 
-`if_else()` is rather limited however. What if we want to "rename" all `type` so that they start with uppercase? Use `recode()`:
+하지만 `if_else()`는 다소 제한적입니다. 모든 `type`이 대문자로 시작하도록 "이름을 바꾸고" 싶다면 어떻게 해야 할까요? `recode()`를 사용하세요.
 
 ```{r}
 movies_ex %>%
@@ -231,7 +233,7 @@ movies_ex %>%
 
 #### `case_when()` {-}
 
-`case_when()` is a little trickier, but allows you to evaluate boolean operations using `==`, `>`, `>=`, `&`, `|`, etc:
+`case_when()`은 조금 더 까다롭지만, `==`, `>`, `>=`, `&`, `|` 등을 사용하여 불리언(boolean) 연산을 평가할 수 있게 해줍니다.
 
 ```{r}
 movies_ex %>%
@@ -240,16 +242,16 @@ movies_ex %>%
       case_when(
         type == "action" & millions > 40 ~ "Big budget action",
         type == "rom comedy" & millions < 40 ~ "Small budget romcom",
-        # Need this for everything else that aren't the two cases above:
+        # 위의 두 경우에 해당하지 않는 나머지를 위해 필요합니다.
         TRUE ~ "Rest"
       )
   )
 ```
 
 
-### Converting a numerical variable to a categorical one {#appendix-convert-numerical-categorical}
+### 수치형 변수를 범주형 변수로 변환하기 {#appendix-convert-numerical-categorical}
 
-Sometimes we want to turn a numerical, continuous variable into a categorical variable. For instance, what if we wanted to have a variable that tells us if a movie made one hundred million dollars or more. That is to say, we can create a binary variable, which is the same thing as a categorical variable with 2 levels. We can again use the `mutate()` function:
+가끔 수치형 연속 변수를 범주형 변수로 바꾸고 싶을 때가 있습니다. 예를 들어, 영화가 1억 달러 이상의 수익을 올렸는지 여부를 나타내는 변수를 만들고 싶다고 해봅시다. 즉, 2개의 레벨을 가진 범주형 변수인 이진 변수(binary variable)를 만들 수 있습니다. 이때 다시 `mutate()` 함수를 사용할 수 있습니다.
 
 ```{r}
 movies_ex %>%
@@ -257,14 +259,14 @@ movies_ex %>%
   slice(1:10)
 ```
 
-What if you want to convert a numerical variable into a categorical variable with more than 2 levels? One way is to use the `cut()` command. For instance, below, we `cut()` the `score` variable, to recode it into 4 categories:
+만약 수치형 변수를 2개 이상의 레벨을 가진 범주형 변수로 변환하고 싶다면 어떻게 해야 할까요? 한 가지 방법은 `cut()` 명령을 사용하는 것입니다. 예를 들어, 아래에서는 `score` 변수를 4개의 카테고리로 다시 코딩하기 위해 `cut()`을 사용합니다.
 
 1. 0 - 40 = bad
 2. 40.1 - 60 = so-so
 3. 60.1 - 80 = good
 4. 80.1+ = great
 
-We set the breaking points for cutting the numerical variable with the `c(0, 40, 60, 80, 100)` part, and set the labels for each of these bins with the `labels = c("bad", "so-so", "good", "great")` part. All this action happens inside the `mutate()` command, so the new categorical variable `score_categ` is added to the data frame. 
+`c(0, 40, 60, 80, 100)` 부분을 통해 수치형 변수를 자를 지점들을 설정하고, `labels = c("bad", "so-so", "good", "great")` 부분을 통해 각 구간의 라벨을 설정합니다. 이 모든 작업은 `mutate()` 명령 내부에서 이루어지므로, 새로운 범주형 변수인 `score_categ`가 데이터 프레임에 추가됩니다.
 
 ```{r}
 movies_ex %>%
@@ -275,19 +277,15 @@ movies_ex %>%
   slice(1:10)
 ```
 
-Other options with the `cut` function:
+`cut` 함수의 다른 옵션들:
 
-*  By default, if the value is exactly the upper bound of an interval, it's
-included in the lessor category (e.g. 60.0 is 'so-so' not 'good'), to 
-flip this, include the argument `right = FALSE`.
-*  You could also have R equally divide the variable into a balanced
-number of groups.  For example, specifying `breaks = 3` would create 3 groups with
-approximately the same number of values in each group.
+* 기본적으로 값이 정확히 구간의 상한선인 경우, 더 작은 카테고리에 포함됩니다(예: 60.0은 'good'이 아니라 'so-so'임). 이를 반대로 바꾸려면 `right = FALSE` 인수를 포함하세요.
+* R이 변수를 균형 잡힌 개수의 그룹으로 똑같이 나누게 할 수도 있습니다. 예를 들어, `breaks = 3`을 지정하면 각 그룹에 대략 같은 수의 값이 포함된 3개의 그룹이 생성됩니다.
 
 
-### Computing proportions {#appendix-prop}
+### 비율 계산하기 {#appendix-prop}
 
-By using a `group_by()` followed not by a `summarize()` as is often the case, but rather a `mutate()`. So say we compute the total revenue millions for each movie rating and type:
+자주 사용되는 `group_by()` 뒤에 `summarize()`가 오는 대신 `mutate()`를 사용하는 방법입니다. 각 영화 등급(rating)과 유형(type)에 따른 총 수익(백만 달러)을 계산한다고 해봅시다.
 
 ```{r}
 rating_by_type_millions <- movies_ex %>%
@@ -298,25 +296,25 @@ rating_by_type_millions <- movies_ex %>%
 rating_by_type_millions
 ```
 
-Say within each movie rating (G, PG, PG-13, R), we want to know the proportion of `total_millions` that made by each movie type (animated, action, comedy, etc). We can:
+각 영화 등급(G, PG, PG-13, R) 내에서 각 영화 유형(애니메이션, 액션, 코미디 등)이 차지하는 `total_millions`의 비율을 알고 싶다면 다음과 같이 할 수 있습니다.
 
 ```{r}
 rating_by_type_millions %>%
   group_by(rating) %>%
   mutate(
-    # Compute a new column of the sum of millions split by rating:
+    # 등급별로 나누어진 수입의 합계를 새로운 열로 계산합니다.
     total_millions = sum(millions),
-    # Compute the proportion within each rating:
+    # 각 등급 내에서의 비율을 계산합니다.
     prop = millions / total_millions
   )
 ```
 
-So for example, the 4 proportions corresponding to R rated movies are 0.596 + 0.142 + 0.213 + 0.0491 = 1.
+예를 들어, R 등급 영화에 해당하는 4개의 비율을 합하면 0.596 + 0.142 + 0.213 + 0.0491 = 1이 됩니다.
 
 
-### Dealing with %, commas, and \$ {#appendix-commas}
+### %, 콤마(,), \$ 기호 처리하기 {#appendix-commas}
 
-Say you have numerical data that are recorded as percentages, have commas, or are in dollar form and hence are character strings. How do you convert these to numerical values? Using the `parse_number()` function from the `readr` package inside a `mutate()`! Shout out to [Stack Overflow](https://stackoverflow.com/a/52965808/3674500){target="_blank"}.
+퍼센트로 기록되어 있거나, 콤마가 있거나, 달러 형태여서 문자열로 처리된 수치 데이터가 있다고 해봅시다. 이를 어떻게 수치형 값으로 변환할까요? `mutate()` 내부에서 `readr` 패키지의 `parse_number()` 함수를 사용하면 됩니다! [Stack Overflow](https://stackoverflow.com/a/52965808/3674500){target="_blank"}에 감사를 표합니다.
 
 ```{r}
 library(readr)
@@ -325,7 +323,7 @@ parse_number("145,897")
 parse_number("$1,234.5")
 ```
 
-What about the other way around? Use the `scales` package!
+반대의 경우는 어떨까요? `scales` 패키지를 사용하세요!
 
 ```{r}
 library(scales)
@@ -338,7 +336,7 @@ dollar(1234.5)
 ***
 
 
-**Congratulations. You are now an R Ninja!**
+**축하합니다. 이제 여러분은 R 닌자(R Ninja)입니다!**
 
 ![](images/Rninja.png){width=40%}  
 
@@ -349,11 +347,11 @@ dollar(1234.5)
 
 
 
-## Interactive graphics
+## 대화형 그래픽 (Interactive graphics)
 
-### Interactive linegraphs
+### 대화형 선그래프
 
-Another useful tool for viewing linegraphs such as this is the `dygraph` function in the `dygraphs` package in combination with the `dyRangeSelector` function.  This allows us to zoom in on a selected range and get an interactive plot for us to work with:
+이와 같은 선그래프를 보는 또 다른 유용한 도구는 `dygraphs` 패키지의 `dygraph()` 함수와 `dyRangeSelector()` 함수를 함께 사용하는 것입니다. 이를 통해 선택한 범위를 확대하고 우리가 작업할 수 있는 대화형 플롯을 얻을 수 있습니다.
 
 ```{r warning=FALSE, out.width="100%"}
 library(dygraphs)
@@ -365,9 +363,11 @@ flights_summarized <- flights_day %>%
   as.data.frame()
 rownames(flights_summarized) <- flights_summarized$date
 flights_summarized <- select(flights_summarized, -date)
-dyRangeSelector(dygraph(flights_summarized))
+if (knitr::is_html_output()) {
+  dyRangeSelector(dygraph(flights_summarized))
+}
 ```
 
 <br>
 
-The syntax here is a little different than what we have covered so far.  The `dygraph` function is expecting for the dates to be given as the `rownames` of the object.  We convert our data to a data frame (since tibbles don't allow for easy row name manipulation), and then remove the `date` variable from the `flights_summarized` data frame since it is accounted for in the `rownames`.  Lastly, we run the `dygraph` function on the new data frame that only contains the median arrival delay as a column and then provide the ability to have a selector to zoom in on the interactive plot via `dyRangeSelector`.  (Note that this plot will only be interactive in the HTML version of this book.)
+여기서 구문은 지금까지 다룬 내용과는 약간 다릅니다. `dygraph()` 함수는 날짜가 객체의 행 이름(`rownames`)으로 제공되기를 기대합니다. 데이터를 데이터 프레임으로 변환한 다음(티블(tibble)은 행 이름 조작이 쉽지 않기 때문입니다), `date` 변수를 `flights_summarized` 데이터 프레임에서 제거합니다. 이는 이미 행 이름으로 반영되어 있기 때문입니다. 마지막으로, 중앙값 도착 지연 시간만을 열로 가진 새 데이터 프레임에 대해 `dygraph()` 함수를 실행하고, `dyRangeSelector`를 통해 대화형 플롯을 확대/축소할 수 있는 선택기 기능을 제공합니다. (이 플롯은 이 책의 HTML 버전에서만 대화형으로 작동한다는 점에 유의하세요.)
