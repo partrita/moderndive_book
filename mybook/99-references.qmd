@@ -5,3 +5,8 @@ source("_common.R")
 \backmatter
 
 # 참고 문헌 {-}
+
+이 책에서 인용된 참고 문헌 목록입니다.
+
+::: {#refs}
+:::

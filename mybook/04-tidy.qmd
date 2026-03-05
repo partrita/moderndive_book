@@ -2,7 +2,7 @@
 source("_common.R")
 ```
 
-# 데이터 불러오기와 "깔끔한" 데이터 {#tidy}
+# 데이터 불러오기와 "깔끔한" 데이터 {#sec-tidy}
 
 
 ```{r setup_tidy, include=FALSE, purl=FALSE}
@@ -33,16 +33,16 @@ options(knitr.kable.NA = "")
 set.seed(76)
 ```
 
- @sec-programming-concepts절에서 R의 \index{data frame} 데이터 프레임 개념을 소개했습니다. 데이터 프레임은 행(row)이 관측치에 해당하고 열(column)이 각 관측치를 설명하는 변수에 해당하는, 마치 스프레드시트와 같은 직사각형의 데이터 표현 방식입니다. @sec-nycflights13절에서는 `nycflights13` 패키지에 포함된 `flights` 데이터 프레임을 통해 첫 번째 데이터를 탐색하기 시작했습니다. @sec-viz장에서는 `flights` 및 `weather`와 같은 다른 데이터 프레임에 포함된 데이터를 기반으로 시각화를 생성했습니다. @sec-wrangling장에서는 기존 데이터 프레임을 가져와 우리의 목적에 맞게 변형하고 수정하는 방법을 배웠습니다.
+ @sec-programming-concepts 절에서 R의 \index{data frame} 데이터 프레임 개념을 소개했습니다. 데이터 프레임은 행(row)이 관측치에 해당하고 열(column)이 각 관측치를 설명하는 변수에 해당하는, 마치 스프레드시트와 같은 직사각형의 데이터 표현 방식입니다. @sec-nycflights13 절에서는 `nycflights13` 패키지에 포함된 `flights` 데이터 프레임을 통해 첫 번째 데이터를 탐색하기 시작했습니다. @sec-viz 장에서는 `flights` 및 `weather`와 같은 다른 데이터 프레임에 포함된 데이터를 기반으로 시각화를 생성했습니다. @sec-wrangling 장에서는 기존 데이터 프레임을 가져와 우리의 목적에 맞게 변형하고 수정하는 방법을 배웠습니다.
 
 이 책의 "`tidyverse`를 사용한 데이터 과학" 부분의 마지막 장인 이번 장에서는, "깔끔한(tidy)" 데이터라고 불리는 데이터 포맷 유형을 논의하며 이러한 아이디어를 확장해 보겠습니다. 데이터를 "깔끔한" 포맷으로 저장한다는 것은 "깔끔하게 정리됨"이라는 일상적인 의미 이상의 뜻을 가지고 있음을 알게 될 것입니다. 대신, R을 사용하는 데이터 과학자들이 사전에 정의된 일련의 규칙에 따라 데이터가 저장되는 방식인 "깔끔한(tidy)"이라는 용어를 정의하고 그 규칙들을 개괄적으로 설명할 것입니다.
 
- @sec-viz장의 데이터 시각화와 @sec-wrangling장의 데이터 전처리를 다룰 때는 이러한 유형의 데이터 포맷에 대한 지식이 필요하지 않았습니다. 사용된 모든 데이터가 이미 "깔끔한" 포맷이었기 때문입니다. 이번 장에서는 지금까지 다룬 도구들을 효과적으로 사용하기 위해 이 포맷이 왜 필수적인지 살펴보겠습니다. 나아가 회귀 분석과 통계적 추론을 다루는 이 책의 모든 후속 장에서도 이 개념은 매우 유용할 것입니다. 하지만 그 전에, R에서 스프레드시트 데이터를 불러오는 방법부터 먼저 알아보겠습니다.
+ @sec-viz 장의 데이터 시각화와 @sec-wrangling 장의 데이터 전처리를 다룰 때는 이러한 유형의 데이터 포맷에 대한 지식이 필요하지 않았습니다. 사용된 모든 데이터가 이미 "깔끔한" 포맷이었기 때문입니다. 이번 장에서는 지금까지 다룬 도구들을 효과적으로 사용하기 위해 이 포맷이 왜 필수적인지 살펴보겠습니다. 나아가 회귀 분석과 통계적 추론을 다루는 이 책의 모든 후속 장에서도 이 개념은 매우 유용할 것입니다. 하지만 그 전에, R에서 스프레드시트 데이터를 불러오는 방법부터 먼저 알아보겠습니다.
 
 
 ### 필요한 패키지 {-#tidy-packages}
 
-이번 장에 필요한 모든 패키지들을 로드해 봅시다(앞서 이미 설치했다고 가정합니다). 필요한 경우 R 패키지 설치 및 로드 방법에 대한 정보는 @sec-packages절을 참고하세요.
+이번 장에 필요한 모든 패키지들을 로드해 봅시다(앞서 이미 설치했다고 가정합니다). 필요한 경우 R 패키지 설치 및 로드 방법에 대한 정보는 @sec-packages 절을 참고하세요.
 
 ```{r message=FALSE}
 library(dplyr)
@@ -64,7 +64,7 @@ library(scales)
 
 
 
-## 데이터 불러오기 {#csv}
+## 데이터 불러오기 {#sec-csv}
 
 지금까지 우리는 거의 전적으로 R 패키지 내부에 저장된 데이터만을 사용해 왔습니다. 하지만 여러분의 컴퓨터나 온라인 어딘가에 저장된 여러분만의 데이터를 사용하고 싶다면 어떨까요? R에서 이 데이터를 어떻게 분석할 수 있을까요? 스프레드시트 데이터는 대개 다음 세 가지 포맷 중 하나로 저장됩니다.
 
@@ -74,7 +74,7 @@ library(scales)
 * 각 줄의 값들은 쉼표로 구분됩니다. 즉, 서로 다른 변수의 값들이 각 행에서 쉼표로 나뉩니다.
 * 첫 번째 줄은 종종(항상 그런 것은 아니지만 열과 변수의 이름을 나타내는 *헤더(header)* 행입니다.
 
-둘째, 엑셀 `.xlsx` 스프레드시트 파일입니다. 이 포맷은 마이크로소프트의 독점 소프트웨어인 엑셀을 기반으로 합니다. 핵심 정보만 담긴 `.csv` 파일과 달리, `.xlsx` 엑셀 파일은 많은 메타데이터\index{meta-data}(데이터에 대한 데이터)를 포함하고 있습니다. @sec-groupby절에서 `group_by()` 동사를 사용하여 데이터 프레임에 "그룹 구조" 메타데이터를 추가했던 예시를 떠올려 보세요. 엑셀 스프레드시트 메타데이터의 예로는 굵게 또는 기울임 글꼴 사용, 셀 색상 지정, 다양한 열 너비, 수식 매크로 등이 있습니다.
+둘째, 엑셀 `.xlsx` 스프레드시트 파일입니다. 이 포맷은 마이크로소프트의 독점 소프트웨어인 엑셀을 기반으로 합니다. 핵심 정보만 담긴 `.csv` 파일과 달리, `.xlsx` 엑셀 파일은 많은 메타데이터\index{meta-data}(데이터에 대한 데이터)를 포함하고 있습니다. @sec-groupby 절에서 `group_by()` 동사를 사용하여 데이터 프레임에 "그룹 구조" 메타데이터를 추가했던 예시를 떠올려 보세요. 엑셀 스프레드시트 메타데이터의 예로는 굵게 또는 기울임 글꼴 사용, 셀 색상 지정, 다양한 열 너비, 수식 매크로 등이 있습니다.
 
 셋째, 스프레드시트 작업을 위한 "클라우드" 또는 온라인 기반 방식인 [구글 스프레드시트](https://www.google.com/sheets/about/ 파일입니다. 구글 스프레드시트를 사용하면 데이터를 쉼표로 구분된 값인 `.csv`와 엑셀인 `.xlsx` 포맷 모두로 다운로드할 수 있습니다. 구글 스프레드시트 데이터를 R로 불러오는 한 가지 방법은 구글 스프레드시트 메뉴 바에서 파일 -> 다운로드 -> "Microsoft Excel" 또는 "쉼표로 구분된 값"을 선택한 다음 해당 데이터를 R로 로드하는 것입니다. 구글 스프레드시트 데이터를 R로 불러오는 더 고급 방법은 [`googlesheets4`](https://googlesheets4.tidyverse.org/ 패키지를 사용하는 것인데, 이 방법은 더 심화된 데이터 과학 서적에 맡기도록 하겠습니다.
 
@@ -94,7 +94,7 @@ dem_score <- read_csv("data/dem_score.csv")
 dem_score
 ```
 
-이 `dem_score` 데이터 프레임에서 최솟값 `-10`은 고도로 독점적인 국가를 나타내고, 최댓값 `10`은 고도로 민주적인 국가를 나타냅니다. 또한 서로 다른 변수 이름들을 백틱(`)이 감싸고 있다는 점에 주목하세요. R의 변수 이름은 기본적으로 숫자로 시작하거나 공백을 포함할 수 없지만, 열 이름을 백틱으로 감싸면 이를 우회할 수 있습니다. 이어지는 @sec-case-study-tidy절의 사례 연구에서 `dem_score` 데이터 프레임을 다시 살펴보겠습니다.
+이 `dem_score` 데이터 프레임에서 최솟값 `-10`은 고도로 독점적인 국가를 나타내고, 최댓값 `10`은 고도로 민주적인 국가를 나타냅니다. 또한 서로 다른 변수 이름들을 백틱(`)이 감싸고 있다는 점에 주목하세요. R의 변수 이름은 기본적으로 숫자로 시작하거나 공백을 포함할 수 없지만, 열 이름을 백틱으로 감싸면 이를 우회할 수 있습니다. 이어지는 @sec-case-study-tidy 절의 사례 연구에서 `dem_score` 데이터 프레임을 다시 살펴보겠습니다.
 
 `readr` 패키지에 포함된 `read_csv()` 함수는 R에 기본으로 설치된 `read.csv()` 함수와는 다릅니다. 이름의 차이는 미묘해 보일 수 있지만(`.` 대신 `_` 사용), `read_csv()` 함수가 웹에서 데이터를 읽어오는 데 훨씬 더 편리하고 일반적으로 데이터를 불러오는 속도도 훨씬 빠릅니다. 게다가 `readr` 패키지의 `read_csv()` 함수는 데이터를 기본적으로 `tibble` 형태로 저장합니다.
 
@@ -103,7 +103,7 @@ dem_score
 
 동일한 데이터를 불러오되, 이번에는 여러분의 컴퓨터에 저장된 엑셀 파일에서 읽어와 보겠습니다. 나아가 콘솔에서 `read_csv()`를 실행하는 대신 RStudio의 그래픽 인터페이스를 사용하여 이 작업을 수행하겠습니다. 먼저, <a href="https://moderndive.com/data/dem_score.xlsx" download>https://moderndive.com/data/dem_score.xlsx</a>로 이동하여 엑셀 파일 `dem_score.xlsx`를 다운로드한 후 다음 단계를 따르세요.
 
-1. RStudio의 파일(Files 창으로 이동합니다.
+1. RStudio의 파일(Files) 창으로 이동합니다.
 2. 다운로드한 `dem_score.xlsx` 엑셀 파일이 저장된 디렉토리(즉, 컴퓨터 폴더)로 이동합니다. 예를 들어, 다운로드 폴더에 저장되어 있을 수 있습니다.
 3. `dem_score.xlsx`를 클릭합니다.
 4. "Import Dataset..."을 클릭합니다.
@@ -120,7 +120,7 @@ knitr::include_graphics("images/rstudio_screenshots/read_excel.png")
 
 
 
-## "깔끔한" 데이터 {#tidy-data-ex}
+## "깔끔한" 데이터 {#sec-tidy-data-ex}
 
 이제 화제를 바꿔서 `fivethirtyeight` 패키지의 흥미로운 예시를 통해 "깔끔한(tidy)" 데이터 포맷의 개념에 대해 알아보겠습니다. `fivethirtyeight` 패키지 [@R-fivethirtyeight]는 데이터 저널리즘 웹사이트인 [FiveThirtyEight.com](https://fivethirtyeight.com/)에 게시된 많은 기사에서 사용된 데이터셋에 접근할 수 있게 해줍니다. `fivethirtyeight` 패키지에 포함된 총 `r nrow(data(package = "fivethirtyeight")[[3]])`개의 데이터셋 전체 목록을 확인하려면 패키지 웹페이지 <https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html>를 방문하세요.\index{R packages!fivethirtyeight}
 
@@ -133,7 +133,7 @@ drinks %>%
 
 `?drinks`를 실행하여 도움말 파일을 읽어보면, `drinks`가 `r drinks %>% nrow()`개 국가에서 소비되는 맥주, 증류주, 와인의 평균 서빙 횟수에 대한 설문 조사 결과를 담은 데이터 프레임임을 알 수 있습니다. 이 데이터는 원래 FiveThirtyEight.com의 Mona Chalabi 기사인 ["Dear Mona Followup: Where Do People Drink The Most Beer, Wine And Spirits?"](https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/)에 보도되었습니다.
 
- @sec-wrangling장에서 배운 데이터 전처리 동사 중 몇 가지를 `drinks` 데이터 프레임에 적용해 봅시다.
+ @sec-wrangling 장에서 배운 데이터 전처리 동사 중 몇 가지를 `drinks` 데이터 프레임에 적용해 봅시다.
 
 1. `filter()`를 사용하여 미국(USA), 중국(China), 이탈리아(Italy), 사우디아라비아(Saudi Arabia 4개 국가만 골라낸 *다음*
 2. `-` 기호를 사용하여 `total_litres_of_pure_alcohol`을 제외한 모든 열을 `select()`한 *다음*
@@ -167,7 +167,7 @@ if (knitr::is_html_output()) {
 }
 ```
 
- @sec-grammarofgraphics절에서 소개한 그래픽 문법을 분석해 봅시다.
+ @sec-grammarofgraphics 절에서 소개한 그래픽 문법을 분석해 봅시다.
 
 1. 4개 수준(China, Italy, Saudi Arabia, USA)을 가진 범주형 변수 `country`는 막대의 `x` 위치에 매핑되어야 합니다.
 2. 수치형 변수 `servings`는 막대의 `y` 위치(막대의 높이)에 매핑되어야 합니다.
@@ -195,7 +195,7 @@ n_countries <- drinks_smaller_tidy %>%
 R에서 데이터 과학을 수행할 때, 롱/내로우 포맷 \index{long data format}은 "깔끔한(tidy)" 포맷으로도 알려져 있습니다. 데이터 시각화와 데이터 전처리를 위해 `ggplot2` 및 `dplyr` 패키지를 사용하려면 입력 데이터 프레임이 반드시 "깔끔한" 포맷이어야 합니다. 따라서 "깔끔하지 않은" 모든 데이터는 먼저 "깔끔한" 포맷으로 변환해야 합니다. `drinks_smaller`와 같은 "깔끔하지 않은" 데이터 프레임을 `drinks_smaller_tidy`와 같은 "깔끔한" 데이터 프레임으로 변환하기 전에, 먼저 "깔끔한" 데이터가 무엇인지 정의해 보겠습니다.
 
 
-### "깔끔한" 데이터의 정의 {#tidy-definition}
+### "깔끔한" 데이터의 정의 {#sec-tidy-definition}
 
 "깔끔한(tidy)"이라는 단어는 일상생활에서도 자주 사용됩니다.
 
@@ -370,7 +370,7 @@ if (knitr::is_html_output()) {
 }
 ```
 
-"와이드" 포맷의 데이터를 "깔끔한" 포맷으로 변환하는 것은 처음 R을 접하는 사용자들에게 혼란을 줄 수 있습니다. `pivot_longer()` 함수에 익숙해지는 유일한 방법은 다양한 데이터셋을 사용하여 반복해서 연습하는 것입니다. 예를 들어 `?pivot_longer`를 실행하고 도움말 파일 하단의 예제들을 살펴보세요. @sec-case-study-tidy절의 사례 연구에서 `pivot_longer()`를 사용하여 와이드 포맷을 깔끔한 포맷으로 변환하는 또 다른 예시를 보여드리겠습니다.
+"와이드" 포맷의 데이터를 "깔끔한" 포맷으로 변환하는 것은 처음 R을 접하는 사용자들에게 혼란을 줄 수 있습니다. `pivot_longer()` 함수에 익숙해지는 유일한 방법은 다양한 데이터셋을 사용하여 반복해서 연습하는 것입니다. 예를 들어 `?pivot_longer`를 실행하고 도움말 파일 하단의 예제들을 살펴보세요. @sec-case-study-tidy 절의 사례 연구에서 `pivot_longer()`를 사용하여 와이드 포맷을 깔끔한 포맷으로 변환하는 또 다른 예시를 보여드리겠습니다.
 
 반대로 "깔끔한" 데이터 프레임을 "와이드" 포맷으로 변환하고 싶다면 \index{tidyr!pivot\_wider()} `pivot_wider()` 함수를 대신 사용해야 합니다. `?pivot_wider`를 실행하여 도움말 하단의 예제들을 확인해 보세요.
 
@@ -409,9 +409,9 @@ airline_safety_smaller
 
 ### `nycflights13` 패키지
 
- @sec-nycflights13절에서 소개했던 2013년 뉴욕에서 출발하는 모든 국내선 항공편 데이터인 `nycflights13` 패키지를 떠올려 보세요. `View(flights)`를 실행하여 `flights` 데이터 프레임을 다시 살펴보겠습니다. `flights`는 직사각형 모양이며, `r flights %>% nrow() %>% comma()`개의 행은 각각 하나의 항공편에 대응하고 `r flights %>% ncol()`개의 열은 각 항공편의 다양한 특성/측정값에 대응합니다. 이는 @sec-tidy-definition절에서 배운 "깔끔한" 데이터의 정의 중 첫 두 가지 기준, 즉 "각 변수는 하나의 열을 형성한다"와 "각 관측치는 하나의 행을 형성한다"를 충족합니다. 그렇다면 세 번째 속성인 "각 관측 단위 유형은 하나의 표를 형성한다"는 어떠할까요?
+ @sec-nycflights13 절에서 소개했던 2013년 뉴욕에서 출발하는 모든 국내선 항공편 데이터인 `nycflights13` 패키지를 떠올려 보세요. `View(flights)`를 실행하여 `flights` 데이터 프레임을 다시 살펴보겠습니다. `flights`는 직사각형 모양이며, `r flights %>% nrow() %>% comma()`개의 행은 각각 하나의 항공편에 대응하고 `r flights %>% ncol()`개의 열은 각 항공편의 다양한 특성/측정값에 대응합니다. 이는 @sec-tidy-definition 절에서 배운 "깔끔한" 데이터의 정의 중 첫 두 가지 기준, 즉 "각 변수는 하나의 열을 형성한다"와 "각 관측치는 하나의 행을 형성한다"를 충족합니다. 그렇다면 세 번째 속성인 "각 관측 단위 유형은 하나의 표를 형성한다"는 어떠할까요?
 
- @sec-exploredataframes절에서 `flights` 데이터 프레임의 관측 단위가 개별 항공편임을 확인했습니다. 즉, `flights` 데이터 프레임의 행들은 개별 항공편의 특성/측정값을 나타냅니다. 또한 `nycflights13` 패키지에는 행이 서로 다른 관측 단위를 나타내는 다른 데이터 프레임들도 포함되어 있습니다 [@R-nycflights13].
+ @sec-exploredataframes 절에서 `flights` 데이터 프레임의 관측 단위가 개별 항공편임을 확인했습니다. 즉, `flights` 데이터 프레임의 행들은 개별 항공편의 특성/측정값을 나타냅니다. 또한 `nycflights13` 패키지에는 행이 서로 다른 관측 단위를 나타내는 다른 데이터 프레임들도 포함되어 있습니다 [@R-nycflights13].
 
 * `airlines`: 두 글자로 된 IATA 항공사 코드와 항공사 이름 간의 변환표(총 `r airlines %>% nrow()`개). 관측 단위는 항공사입니다.
 * `planes`: 사용된 `r planes %>% nrow() %>% comma()`대 항공기 각각에 대한 정보. 즉, 관측 단위는 항공기입니다.
@@ -425,13 +425,13 @@ airline_safety_smaller
 
 
 
-## 사례 연구: 과테말라의 민주주의 {#case-study-tidy}
+## 사례 연구: 과테말라의 민주주의 {#sec-case-study-tidy}
 
 이 명칭에서는 "깔끔하지 않은" 포맷(와이드 포맷)의 데이터 프레임을 "깔끔한" 포맷(롱/내로우 포맷)의 데이터 프레임으로 변환하는 또 다른 예시를 보여드리겠습니다. 이번에도 `tidyr` 패키지의 `pivot_longer()` 함수를 사용하겠습니다.
 
-나아가 `ggplot2`와 `dplyr` 패키지의 함수들을 활용하여, 1952년부터 1992년까지 40년 동안 과테말라의 민주주의 점수가 어떻게 변했는지 보여주는 *시계열 그래프(time-series plot)*를 만들어 보겠습니다. @sec-linegraphs절에서 `geom_line()`을 사용하여 시계열 그래프(선 그래프)를 만드는 방법을 배웠던 것을 떠올려 보세요.
+나아가 `ggplot2`와 `dplyr` 패키지의 함수들을 활용하여, 1952년부터 1992년까지 40년 동안 과테말라의 민주주의 점수가 어떻게 변했는지 보여주는 *시계열 그래프(time-series plot)*를 만들어 보겠습니다. @sec-linegraphs 절에서 `geom_line()`을 사용하여 시계열 그래프(선 그래프)를 만드는 방법을 배웠던 것을 떠올려 보세요.
 
- @sec-csv절에서 불러온 `dem_score` 데이터 프레임을 사용하되, 과테말라에 해당하는 데이터에만 집중해 보겠습니다.
+ @sec-csv 절에서 불러온 `dem_score` 데이터 프레임을 사용하되, 과테말라에 해당하는 데이터에만 집중해 보겠습니다.
 
 ```{r}
 guat_dem <- dem_score %>% 
@@ -439,14 +439,14 @@ guat_dem <- dem_score %>%
 guat_dem
 ```
 
- @sec-grammarofgraphics절에서 보았던 그래픽 문법을 적용해 봅시다.
+ @sec-grammarofgraphics 절에서 보았던 그래픽 문법을 적용해 봅시다.
 
 먼저 `data = guat_dem`을 설정하고 `geom_line()` 레이어를 사용해야 한다는 것은 알지만, 변수의 미적 속성 매핑은 어떻게 해야 할까요? 연도에 따라 민주주의 점수가 어떻게 변했는지 보고 싶으므로, 다음과 같이 매핑해야 합니다.
 
 * `year`를 x 위치 미적 속성에 매핑
 * `democracy_score`를 y 위치 미적 속성에 매핑
 
-그런데 여기서 @sec-tidy-data-ex절의 `drinks_smaller` 예시와 마찬가지로 곤란한 상황에 직면하게 됩니다. `country`라는 변수가 있지만 유일한 값은 `"Guatemala"`입니다. 다른 변수들은 서로 다른 연도 값으로 표시되어 있습니다. 안타깝게도 `guat_dem` 데이터 프레임은 "깔끔한" 상태가 아니며, 따라서 그래픽 문법을 적용하기에 적절한 포맷이 아닙니다. 이대로는 `ggplot2` 패키지를 사용할 수 없습니다.
+그런데 여기서 @sec-tidy-data-ex 절의 `drinks_smaller` 예시와 마찬가지로 곤란한 상황에 직면하게 됩니다. `country`라는 변수가 있지만 유일한 값은 `"Guatemala"`입니다. 다른 변수들은 서로 다른 연도 값으로 표시되어 있습니다. 안타깝게도 `guat_dem` 데이터 프레임은 "깔끔한" 상태가 아니며, 따라서 그래픽 문법을 적용하기에 적절한 포맷이 아닙니다. 이대로는 `ggplot2` 패키지를 사용할 수 없습니다.
 
 `guat_dem`에서 연도에 해당하는 열들의 값을 가져와 `year`라는 새로운 "이름(names)" 변수로 변환해야 합니다. 또한, 데이터 프레임 내부의 민주주의 점수 값들을 가져와 `democracy_score`라는 새로운 "값(values)" 변수로 만들어야 합니다. 결과적으로 데이터 프레임은 `country`, `year`, `democracy_score`라는 세 개의 열을 갖게 될 것입니다. `tidyr` 패키지의 `pivot_longer()` 함수가 이 작업을 수행해 줍니다.
 
@@ -500,7 +500,7 @@ ggplot(guat_dem_tidy, aes(x = year, y = democracy_score)) +
 
 
 
-## `tidyverse` 패키지 {#tidyverse-package}
+## `tidyverse` 패키지 {#sec-tidyverse-package}
 
 이번 장의 시작 부분에서 데이터 과학을 위해 가장 빈번하게 사용되는 R 패키지 4개를 로드했다는 사실에 주목하세요.
 
@@ -513,7 +513,7 @@ library(tidyr)
 
 `ggplot2`는 데이터 시각화, `dplyr`는 데이터 전처리, `readr`는 스프레드시트 데이터를 R로 불러오기, 그리고 `tidyr`는 데이터를 "깔끔한" 포맷으로 변환하기 위한 것입니다. 이 패키지들을 하나씩 로드하는 것보다 훨씬 빠른 방법이 있는데, 바로 `tidyverse` 패키지를 설치하고 로드하는 것입니다. `tidyverse` 패키지는 "우산(umbrella)" 패키지 역할을 하여, 이를 설치하거나 로드하면 여러 패키지를 한꺼번에 설치/로드해 줍니다.
 
- @sec-packages절에서 보았던 것처럼 일반적인 패키지 설치 방법대로 `tidyverse` 패키지를 설치한 후, 다음과 같이 실행하면 됩니다.
+ @sec-packages 절에서 보았던 것처럼 일반적인 패키지 설치 방법대로 `tidyverse` 패키지를 설치한 후, 다음과 같이 실행하면 됩니다.
 
 ```{r, eval=FALSE, purl=FALSE}
 library(tidyverse)
@@ -572,7 +572,7 @@ if (knitr::is_html_output()) {
 
 ### 앞으로 배울 내용
 
-축하합니다! 이 책의 "`tidyverse`를 사용한 데이터 과학" 부분을 모두 마쳤습니다. 이제 이 책의 "moderndive를 사용한 데이터 모델링" 부분인 @sec-regression장과 @sec-multiple-regression장으로 넘어가 보겠습니다. 여기서는 여러분이 익힌 데이터 시각화와 데이터 전처리 기술을 활용하여 데이터 프레임의 다양한 변수 간 관계를 모델링하는 방법을 배울 것입니다.
+축하합니다! 이 책의 "`tidyverse`를 사용한 데이터 과학" 부분을 모두 마쳤습니다. 이제 이 책의 "moderndive를 사용한 데이터 모델링" 부분인 @sec-regression 장과 @sec-multiple-regression 장으로 넘어가 보겠습니다. 여기서는 여러분이 익힌 데이터 시각화와 데이터 전처리 기술을 활용하여 데이터 프레임의 다양한 변수 간 관계를 모델링하는 방법을 배울 것입니다.
 
 단, @sec-inference-for-regression 장의 "회귀 분석을 위한 추론"은 @sec-sampling 장, @sec-confidence-intervals 장, @sec-hypothesis-testing 장에서 통계적 추론을 다룬 후에 살펴볼 예정입니다. 그림 @fig-part2 에 표시된 것처럼, 이제 데이터 모델링의 세계로 힘차게 나아가 봅시다!
 

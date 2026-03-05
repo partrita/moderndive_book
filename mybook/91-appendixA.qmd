@@ -2,16 +2,6 @@
 source("_common.R")
 ```
 
-\cleardoublepage
-
-```{r echo=FALSE, results='asis'}
-if(!knitr::is_latex_output()){
-  cat("# (APPENDIX Appendix {-}")
-} else {
-  cat("\\appendix")
-}
-```
-
 # 통계적 배경 {#appendixA}
 
 ```{r setup_appA, include=FALSE}
@@ -45,7 +35,7 @@ library(ggrepel)
 
 
 
-## 기초 통계 용어 {#appendix-stat-terms}
+## 기초 통계 용어 {#sec-appendix-stat-terms}
 
 다음의 모든 통계 용어는 *수치형(numerical)* 변수에만 적용되지만, *분포(distribution)*는 수치형과 범주형 변수 모두에 존재할 수 있습니다.
 
@@ -62,7 +52,7 @@ $$Mean = \frac{x_1 + x_2 + \cdots + x_n}{n}$$
 중앙값은 먼저 변수의 데이터를 가장 작은 것부터 가장 큰 것 순으로 정렬하여 계산합니다. 데이터를 정렬한 후 리스트에서 가운데 있는 요소가 *중앙값(median)*입니다. 만약 가운데가 두 값 사이에 있다면, 중앙값은 그 두 중간값의 평균입니다.
 
 
-### 표준 편차와 분산 {#appendix-sd-variance}
+### 표준 편차와 분산 {#sec-appendix-sd-variance}
 
 다음으로 변수의 *표준 편차(standard deviation, sd)*에 대해 논의하겠습니다. 공식이 처음에는 다소 위협적일 수 있지만, 이는 본질적으로 주어진 데이터 값이 평균에서 얼마나 떨어져 있을 것으로 기대되는지를 측정하는 지표라는 점을 기억하는 것이 중요합니다.
 
@@ -102,15 +92,15 @@ $$variance = sd^2 = \frac{(x_1 - Mean)^2 + (x_2 - Mean)^2 + \cdots + (x_n - Mean
 
 
 
-## 정규 분포 {#appendix-normal-curve}
+## 정규 분포 {#sec-appendix-normal-curve}
 
-이제 특별한 종류의 분포인 \index{distribution!normal} *정규 분포(normal distributions)*에 대해 논의해 보겠습니다. 이러한 종 모양의 분포는 두 가지 값에 의해 정의됩니다: (1 분포의 중심을 위치시키는 *평균* $\mu$ ("mu")와 (2 분포의 변동(variation)을 결정하는 *표준 편차* $\sigma$ ("sigma")입니다. 그림 @fig-normal-curves에는 다음 세 가지 정규 분포를 그렸습니다:
+이제 특별한 종류의 분포인 \index{distribution!normal} *정규 분포(normal distributions)*에 대해 논의해 보겠습니다. 이러한 종 모양의 분포는 두 가지 값에 의해 정의됩니다: (1) 분포의 중심을 위치시키는 *평균* $\mu$ ("mu")와 (2) 분포의 변동(variation)을 결정하는 *표준 편차* $\sigma$ ("sigma")입니다. 그림 @fig-normal-curves 에는 다음 세 가지 정규 분포를 그렸습니다:
 
 1. 실선 정규 곡선: 평균 $\mu = 5$, 표준 편차 $\sigma = 2$.
 1. 점선 정규 곡선: 평균 $\mu = 5$, 표준 편차 $\sigma = 5$.
 1. 파선 정규 곡선: 평균 $\mu = 15$, 표준 편차 $\sigma = 2$.
 
-```{r normal-curves, echo=FALSE, fig.cap="세 개의 정규 분포.", purl=FALSE, out.width="90%"}
+```{r fig-normal-curves, echo=FALSE, fig.cap="세 개의 정규 분포.", purl=FALSE, out.width="90%"}
 all_points <- tibble(
   domain = seq(from = -10, to = 25, by = 0.01),
   `mu = 5, sigma = 2` = dnorm(x = domain, mean = 5, sd = 2),
@@ -160,13 +150,13 @@ all_points %>%
 1. 값의 95%는 평균의 $\pm$ 1.96 $\approx$ 2 표준 편차 범위 내에 있습니다.
 1. 값의 99.7%는 평균의 $\pm$ 3 표준 편차 범위 내에 있습니다.
 
-이를 그림 @fig-normal-rule-of-thumb의 표준 정규 곡선에서 설명해 보겠습니다. 파선은 -3, -1.96, -1, 0, 1, 1.96, 3 지점에 있습니다. 이 7개의 선은 x축을 8개의 구간으로 나눕니다. 각 8개 구간에 대한 정규 곡선 아래 면적이 표시되어 있으며, 이를 모두 더하면 100%가 됩니다. 예를 들어:
+이를 그림 @fig-normal-rule-of-thumb 의 표준 정규 곡선에서 설명해 보겠습니다. 파선은 -3, -1.96, -1, 0, 1, 1.96, 3 지점에 있습니다. 이 7개의 선은 x축을 8개의 구간으로 나눕니다. 각 8개 구간에 대한 정규 곡선 아래 면적이 표시되어 있으며, 이를 모두 더하면 100%가 됩니다. 예를 들어:
 
 1. 중간 두 구간은 -1에서 1 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 34% + 34% = 68%를 나타냅니다. 즉, 값의 68%에 해당합니다.
 1. 중간 네 구간은 -1.96에서 1.96 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 13.5% + 34% + 34% + 13.5% = 95%를 나타냅니다. 즉, 값의 95%에 해당합니다.
 1. 중간 여섯 구간은 -3에서 3 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 2.35% + 13.5% + 34% + 34% + 13.5% + 2.35% = 99.7%를 나타냅니다. 즉, 값의 99.7%에 해당합니다.
 
-```{r normal-rule-of-thumb, echo=FALSE, fig.cap="정규 곡선 아래 면적에 대한 경험적 법칙.", purl=FALSE, out.width = "80%"}
+```{r fig-normal-rule-of-thumb, echo=FALSE, fig.cap="정규 곡선 아래 면적에 대한 경험적 법칙.", purl=FALSE, out.width = "80%"}
 shade_3_sd <- function(x) {
   y <- dnorm(x, mean = 0, sd = 1)
   y[x <= -3 | x >= 3] <- NA
@@ -235,36 +225,48 @@ v2 TODO: 이후에 다음을 사용한 LC를 고려해 보세요: <https://galle
 
 
 
-## log10 변환 {#appendix-log10-transformations}
+## log10 변환 {#sec-appendix-log10-transformations}
 
 가장 간단하게 말해서, log10 변환은 밑이 10인 *로그(logarithms)*를 반환합니다. 예를 들어 $1000 = 10^3$이므로, R에서 `log10(1000)`을 실행하면 `3`이 반환됩니다. log10 변환을 되돌리려면 10을 이 값만큼 거듭제곱합니다. 예를 들어, 이전의 log10 변환을 되돌려 원래 값인 1000을 얻으려면 R에서 `10^3 = 1000`을 실행하여 10의 3승을 계산합니다. \index{log transformations}
 
-로그 변환을 사용하면 *규모의 차수(orders of magnitude)*의 변화에 집중할 수 있습니다. 즉, *가산적 변화(additive changes)* 대신 *승법적 변화(multiplicative changes)*에 집중할 수 있게 해줍니다. 이 아이디어를 2019년 미국 달러 기준 소비재 가격 예시와 함께 표 @tbl-logten에서 설명해 보겠습니다.
+로그 변환을 사용하면 *규모의 차수(orders of magnitude)*의 변화에 집중할 수 있습니다. 즉, *가산적 변화(additive changes)* 대신 *승법적 변화(multiplicative changes)*에 집중할 수 있게 해줍니다. 이 아이디어를 2019년 미국 달러 기준 소비재 가격 예시와 함께 표 @tbl-logten 에서 설명해 보겠습니다.
 
 <!--
 v2 TODO: 다음과 같은 텍스트 추가:
 절대적인 증가/감소 대신 상대적인 백분율 증가/감소로 이러한 변화를 표현할 수도 있습니다.
 -->
 
-```{r logten, echo=FALSE}
-tibble(Price = c(1,10,100,1000,10000,100000,1000000)) %>% 
+```{r tbl-logten, echo=FALSE}
+library(knitr)
+library(kableExtra)
+library(scales)
+library(dplyr)
+
+tibble(Price = c(1, 10, 100, 1000, 10000, 100000, 1000000)) %>%
   mutate(
     `log10(Price)` = log10(Price),
-    Price = dollar(Price),
-    `Order of magnitude` = c("일 단위(Singles)", "십 단위(Tens)", "백 단위(Hundreds)", "천 단위(Thousands)", "만 단위(Tens of thousands)", "십만 단위(Hundreds of thousands)", "백만 단위(Millions)"),
-    `Examples` = c("커피 한 잔", "책", "휴대전화", "고화질 TV", "자동차", "고급 자동차 및 주택", "고급 주택")
-  ) %>% 
+    `Order of magnitude` = c("일 단위(Singles)", "십 단위(Tens)", "백 단위(Hundreds)", 
+                             "천 단위(Thousands)", "만 단위(Tens of thousands)", 
+                             "십만 단위(Hundreds of thousands)", "백만 단위(Millions)"),
+    Examples = c("커피 한 잔", "책", "휴대전화", "고화질 TV", "자동차", 
+                 "고급 자동차 및 주택", "고급 주택"),
+    Price = dollar(Price) # 서식 변경을 mutate 마지막 단계에 배치합니다.
+  ) %>%
+  select(Price, `log10(Price)`, `Order of magnitude`, Examples) %>% # 열 순서를 고정합니다.
   kable(
-    digits = 3, 
-    caption = "log10 변환된 가격, 규모의 차수 및 예시", 
+    digits = 3,
+    caption = "log10 변환된 가격, 규모의 차수 및 예시",
     booktabs = TRUE,
-    linesep = ""
-  ) %>% 
-  kable_styling(font_size = ifelse(knitr::is_latex_output(), 10, 16), 
-                latex_options = c("hold_position"))
+    linesep = "",
+    align = "llcl" # 왼쪽, 왼쪽, 중앙, 왼쪽 정렬을 지정합니다.
+  ) %>%
+  kable_styling(
+    font_size = ifelse(knitr::is_latex_output(), 10, 16),
+    latex_options = c("hold_position")
+  )
 ```
 
-표 @tbl-logten을 바탕으로 log10 변환에 대해 몇 가지 언급해 보겠습니다:
+표 @tbl-logten 을 바탕으로 log10 변환에 대해 몇 가지 언급해 보겠습니다:
 
 1. \$76의 log10 변환된 값을 알고 싶다고 합시다. 계산기 없이는 정확히 계산하기 어렵습니다. 하지만 \$76은 \$10와 \$100 사이에 있고 log10(10) = 1, log10(100) = 2이므로, log10(76)은 1과 2 사이에 있음을 알 수 있습니다. 실제로 log10(76)은 1.880814입니다.
 1. log10 변환은 *단조적(monotonic)*입니다. 즉, 순서를 보존합니다. 따라서 가격 A가 가격 B보다 낮다면, log10(가격 A) 역시 log10(가격 B)보다 낮을 것입니다.

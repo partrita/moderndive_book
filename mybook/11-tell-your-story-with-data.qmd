@@ -2,10 +2,10 @@
 source("_common.R")
 ```
 
-# 데이터로 이야기 들려주기 {#thinking-with-data}
+# 데이터로 이야기 들려주기 {#sec-thinking-with-data}
 
 ```{r setup_thinking_with_data, include=FALSE, purl=FALSE}
-# 학습 확인(Learning Check 번호 정의:
+# 학습 확인 Learning Check 번호 정의:
 chap <- 11
 lc <- 0
 
@@ -38,48 +38,45 @@ knitr::include_graphics("images/flowcharts/flowchart/flowchart.002.png")
 ```
 
 
-
-
-
 ## 복습
 
-지금까지 다룬 내용을 다시 한 번 짚어보겠습니다. 먼저 @sec-getting-started에서 R과 RStudio의 차이점을 배우고, R 코딩을 시작하며, 첫 번째 R 패키지를 설치하고 로드하고, 여러분의 첫 번째 데이터셋인 2013년 뉴욕시 주요 공항에서 출발한 모든 국내선 `flights` 데이터를 탐색하며 데이터 여행을 시작했습니다. 그런 다음 이 책의 다음 세 부분을 다루었습니다(2부와 4부는 하나의 부분으로 결합되었습니다).
+지금까지 다룬 내용을 다시 한 번 짚어보겠습니다. 먼저 @sec-getting-started 에서 R과 RStudio의 차이점을 배우고, R 코딩을 시작하며, 첫 번째 R 패키지를 설치하고 로드하고, 여러분의 첫 번째 데이터셋인 2013년 뉴욕시 주요 공항에서 출발한 모든 국내선 `flights` 데이터를 탐색하며 데이터 여행을 시작했습니다. 그런 다음 이 책의 다음 세 부분을 다루었습니다(2부와 4부는 하나의 부분으로 결합되었습니다).
 
 1. `tidyverse`를 이용한 데이터 과학. 여러분은 `tidyverse` 패키지들을 사용하여 데이터 과학 도구 상자를 조립했습니다. 구체적으로는 다음과 같습니다:
-    + @sec-viz: `ggplot2` 패키지를 사용하여 데이터를 시각화했습니다.
-    + @sec-wrangling: `dplyr` 패키지를 사용하여 데이터를 정제(wrangle)했습니다.
-    + @sec-tidy: 모든 `tidyverse` 패키지의 표준화된 데이터 프레임 입력 및 출력 형식으로서 "깔끔한(tidy)" 데이터의 개념을 배웠습니다. 또한 `readr` 패키지를 사용하여 스프레드시트 파일을 R로 불러오는 방법을 배웠습니다.
+    + @sec-viz : `ggplot2` 패키지를 사용하여 데이터를 시각화했습니다.
+    + @sec-wrangling : `dplyr` 패키지를 사용하여 데이터를 정제(wrangle)했습니다.
+    + @sec-tidy : 모든 `tidyverse` 패키지의 표준화된 데이터 프레임 입력 및 출력 형식으로서 "깔끔한(tidy)" 데이터의 개념을 배웠습니다. 또한 `readr` 패키지를 사용하여 스프레드시트 파일을 R로 불러오는 방법을 배웠습니다.
     
 2. `moderndive`를 이용한 데이터 모델링. 이러한 데이터 과학 도구와 `moderndive` 패키지의 도우미 함수들을 사용하여 첫 번째 데이터 모델을 적합시켰습니다. 구체적으로는 다음과 같습니다:
-    + @sec-regression: 하나의 설명 변수만 있는 기초 회귀 모델을 발견했습니다.
-    + @sec-multiple-regression: 둘 이상의 설명 변수가 있는 다중 회귀 모델을 조사했습니다. 
+    + @sec-regression : 하나의 설명 변수만 있는 기초 회귀 모델을 발견했습니다.
+    + @sec-multiple-regression : 둘 이상의 설명 변수가 있는 다중 회귀 모델을 조사했습니다. 
     
 3. `infer`를 이용한 통계적 추론. 새로 습득한 데이터 과학 도구들을 다시 한 번 사용하여 `infer` 패키지로 통계적 추론의 실체를 파헤쳤습니다. 구체적으로는 다음과 같습니다:
-    + @sec-sampling: 통계적 추론에서 표집 변동(sampling variability)이 수행하는 역할과 이 표집 변동에서 표본 크기가 수행하는 역할을 배웠습니다.
-    + @sec-confidence-intervals: 부트스트래핑을 사용하여 신뢰 구간을 구축했습니다.
-    + @sec-hypothesis-testing: 순열(permutation)을 사용하여 가설 검정을 수행했습니다.
+    + @sec-sampling : 통계적 추론에서 표집 변동(sampling variability)이 수행하는 역할과 이 표집 변동에서 표본 크기가 수행하는 역할을 배웠습니다.
+    + @sec-confidence-intervals : 부트스트래핑을 사용하여 신뢰 구간을 구축했습니다.
+    + @sec-hypothesis-testing : 순열(permutation)을 사용하여 가설 검정을 수행했습니다.
     
-4. `moderndive`를 이용한 데이터 모델링(재방문): 통계적 추론에 대한 이해를 바탕으로, @sec-regression와 @sec-multiple-regression에서 구축한 모델들을 재방문하고 검토했습니다. 구체적으로는 다음과 같습니다:
-    + @sec-inference-for-regression: 회귀 환경에서 신뢰 구간과 가설 검정을 해석했습니다.
+4. `moderndive`를 이용한 데이터 모델링(재방문): 통계적 추론에 대한 이해를 바탕으로, @sec-regression 와 @sec-multiple-regression 에서 구축한 모델들을 재방문하고 검토했습니다. 구체적으로는 다음과 같습니다:
+    + @sec-inference-for-regression : 회귀 환경에서 신뢰 구간과 가설 검정을 해석했습니다.
 
-우리는 원래 \index{Lambert, Diane} 다이앤 램버트(Diane Lambert 박사가 만든 표현인 ["데이터로 생각하기(thinking with data)"](https://arxiv.org/pdf/1410.3127.pdf)의 첫 경험을 여러분과 함께해 왔습니다. 이 표현의 저변에 깔린 철학은 그림 @fig-moderndive-figure-conclusion의 플로우차트에서 여러분의 길을 안내했습니다.
+우리는 원래 \index{Lambert, Diane} 다이앤 램버트(Diane Lambert 박사가 만든 표현인 ["데이터로 생각하기(thinking with data)"](https://arxiv.org/pdf/1410.3127.pdf)의 첫 경험을 여러분과 함께해 왔습니다. 이 표현의 저변에 깔린 철학은 그림 @fig-moderndive-figure-conclusion 의 플로우차트에서 여러분의 길을 안내했습니다.
 
-이 철학은 [제니퍼 브라이언(Jennifer Bryan)](https://twitter.com/jennybryan \index{Bryan, Jenny} 박사와 [해들리 위컴(Hadley Wickham)](https://twitter.com/hadleywickham \index{Wickham, Hadley} 박사가 큐레이팅한 데이터 과학 워크플로와 통계 분석의 실질적인 측면에 초점을 맞춘 프리프린트 모음인 ["Practical Data Science for Stats"](https://peerj.com/collections/50-practicaldatascistats/)에도 잘 요약되어 있습니다. 그들은 다음과 같이 언급했습니다:
+이 철학은 [제니퍼 브라이언(Jennifer Bryan)](https://twitter.com/jennybryan) \index{Bryan, Jenny} 박사와 [해들리 위컴(Hadley Wickham)](https://twitter.com/hadleywickham) \index{Wickham, Hadley} 박사가 큐레이팅한 데이터 과학 워크플로와 통계 분석의 실질적인 측면에 초점을 맞춘 프리프린트 모음인 ["Practical Data Science for Stats"](https://peerj.com/collections/50-practicaldatascistats/)에도 잘 요약되어 있습니다. 그들은 다음과 같이 언급했습니다:
 
 > 기존의 통계 문헌이나 커리큘럼에는 일상적인 분석 작업의 많은 측면이 거의 빠져 있습니다. 하지만 이러한 활동은 데이터 분석가와 응용 통계학자들의 시간과 노력의 상당 부분을 차지합니다. 이 모음집의 목표는 현대적인 데이터 분석 워크플로의 가시성을 높이고 채택을 촉진하는 것입니다. 우리는 산업계와 학계 사이, 소프트웨어 공학 상의 통계 및 컴퓨터 과학 사이, 그리고 서로 다른 도메인 사이에서 도구와 프레임워크의 전수를 용이하게 하는 것을 목표로 합니다.
 
-즉, 21세기에 "데이터로 생각할" 준비를 갖추기 위해서는 분석가들이 서문에서 보았던 ["데이터/과학 파이프라인"](http://r4ds.had.co.nz/explore-intro.html)(그림 @fig-pipeline-figure-conclusion에 다시 표시됨)을 거치는 연습이 필요합니다. 너무 오랫동안 통계 교육은 이 파이프라인을 **전체적으로** 살펴보는 대신 일부분에만 집중해 왔다는 것이 우리의 생각입니다.
+즉, 21세기에 "데이터로 생각할" 준비를 갖추기 위해서는 분석가들이 서문에서 보았던 ["데이터/과학 파이프라인"](http://r4ds.had.co.nz/explore-intro.html)(그림 @fig-pipeline-figure-conclusion 에 다시 표시됨)을 거치는 연습이 필요합니다. 너무 오랫동안 통계 교육은 이 파이프라인을 **전체적으로** 살펴보는 대신 일부분에만 집중해 왔다는 것이 우리의 생각입니다.
 
 ```{r pipeline-figure-conclusion, fig.cap="데이터/과학 파이프라인.", out.height="70%", out.width="70%", echo=FALSE, purl = FALSE}
 knitr::include_graphics("images/r4ds/data_science_pipeline.png")
 ```
 
-이 책을 마무리하며, 데이터를 다루는 몇 가지 추가 사례 연구를 제시해 드리겠습니다. @sec-seattle-house-prices절에서는 미국 워싱턴주 시애틀의 주택 매매 가격을 분석하기 위해 "데이터/과학 파이프라인"을 완전히 한 번 통과해 볼 것입니다. @sec-data-journalism절에서는 데이터 저널리즘 웹사이트인 [FiveThirtyEight.com](https://fivethirtyeight.com/)\index{FiveThirtyEight}에서 가져온 효과적인 데이터 스토리텔링의 몇 가지 예를 제시해 드립니다. 이러한 사례 연구를 제시하는 이유는 여러분이 "데이터로 생각할" 수 있을 뿐만 아니라, "데이터로 여러분의 이야기를 들려줄" 수도 있어야 한다고 믿기 때문입니다. 어떻게 하는지 알아봅시다!
+이 책을 마무리하며, 데이터를 다루는 몇 가지 추가 사례 연구를 제시해 드리겠습니다. @sec-seattle-house-prices 절에서는 미국 워싱턴주 시애틀의 주택 매매 가격을 분석하기 위해 "데이터/과학 파이프라인"을 완전히 한 번 통과해 볼 것입니다. @sec-data-journalism 절에서는 데이터 저널리즘 웹사이트인 [FiveThirtyEight.com](https://fivethirtyeight.com/)\index{FiveThirtyEight}에서 가져온 효과적인 데이터 스토리텔링의 몇 가지 예를 제시해 드립니다. 이러한 사례 연구를 제시하는 이유는 여러분이 "데이터로 생각할" 수 있을 뿐만 아니라, "데이터로 여러분의 이야기를 들려줄" 수도 있어야 한다고 믿기 때문입니다. 어떻게 하는지 알아봅시다!
 
 
 ### 필요한 패키지 {-#story-packages}
 
-이 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). R 패키지를 설치하고 로드하는 방법에 대한 정보는 @sec-packages절을 읽어보십시오.
+이 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). R 패키지를 설치하고 로드하는 방법에 대한 정보는 @sec-packages 절을 읽어보십시오.
 
 ```{r, eval=FALSE}
 library(tidyverse)
@@ -95,7 +92,7 @@ library(fivethirtyeight)
 # 모든 kable( 코드를 깨뜨리기 때문입니다. v2에서 이러한 문제가 수정되었을 수 있습니다:
 # https://github.com/moderndive/ModernDive_book/issues/271
 
-# ModernDive v1의 임시 방편으로, 이 장의 모든 skimr::skim( 출력은 
+# ModernDive v1의 임시 방편으로, 이 장의 모든 skimr::skim 출력은 
 # 하드 코딩되었습니다.
 library(tidyverse)
 library(moderndive)
@@ -114,7 +111,7 @@ library(scales)
 
 
 
-## 사례 연구: 시애틀 주택 가격 {#seattle-house-prices}
+## 사례 연구: 시애틀 주택 가격 {#sec-seattle-house-prices}
 
 [Kaggle.com](https://www.kaggle.com/)은 기업, 정부 기관 및 개인이 업로드한 데이터셋을 호스팅하는 머신 러닝 및 예측 모델링 경진대회 웹사이트입니다. 그들의 데이터셋 중 하나는 ["미국 킹 카운티의 주택 매매(House Sales in King County, USA)"](https://www.kaggle.com/harlfoxem/housesalesprediction)입니다. 이 데이터셋은 그레이터 시애틀 대도시 지역을 포함하는 미국 워싱턴주 킹 카운티에서 2014년 5월부터 2015년 5월 사이에 팔린 주택의 매매 가격으로 구성되어 있습니다. 이 데이터셋은 `moderndive` 패키지에 포함된 `house_prices` 데이터 프레임에 들어 있습니다.
 
@@ -130,7 +127,7 @@ library(scales)
 
 이 책 전체에서 수없이 말했듯이, 데이터가 주어졌을 때 가장 중요한 첫 번째 단계는 탐색적 데이터 분석(EDA)을 수행하는 것입니다. 탐색적 데이터 분석을 통해 데이터의 느낌을 파악하고, 데이터의 문제를 식별하며, 이상치(outlier)를 찾아내고, 모델 구축에 도움을 얻을 수 있습니다.
 
-하위 @sec-model1EDA절에서 소개한 탐색적 데이터 분석의 공통된 세 단계를 상기해 보십시오:
+하위 @sec-model1EDA 절에서 소개한 탐색적 데이터 분석의 공통된 세 단계를 상기해 보십시오:
 
 1. 가공되지 않은 데이터 값 살펴보기.
 2. 요약 통계량 계산하기.
@@ -150,9 +147,9 @@ glimpse(house_prices)
 
 예를 들어, `condition` 변수가 `1`부터 `5`까지의 값을 가지고 있지만, R에는 범주형 변수를 저장하는 방식 중 하나인 "요인(factors)"을 뜻하는 `fct`로 저장되어 있음에 주목하십시오. 따라서 여러분은 이것들을 수치값 1에서 5가 아니라 "라벨" 1에서 5로 생각해야 합니다.
 
-이제 EDA의 두 번째 단계인 요약 통계량 계산을 수행해 보겠습니다. @sec-summarize절에서 **요약 통계량**은 많은 수의 값을 요약하는 단일 수치값임을 배웠습니다. 요약 통계량의 예로는 평균, 중앙값, 표준 편차 및 다양한 백분위수가 있습니다.
+이제 EDA의 두 번째 단계인 요약 통계량 계산을 수행해 보겠습니다. @sec-summarize 절에서 **요약 통계량**은 많은 수의 값을 요약하는 단일 수치값임을 배웠습니다. 요약 통계량의 예로는 평균, 중앙값, 표준 편차 및 다양한 백분위수가 있습니다.
 
-`dplyr` 패키지의 `summarize()` 함수와 R의 내장 **요약 함수**인 `mean()`, `median()` 등을 사용하여 이를 수행할 수 있습니다. 하지만 @sec-mutate절에서 비행기가 공중에서 메운 시간인 `gain` 변수의 다양한 요약 통계량을 계산하는 다음 코드를 보았습니다.
+`dplyr` 패키지의 `summarize()` 함수와 R의 내장 **요약 함수**인 `mean()`, `median()` 등을 사용하여 이를 수행할 수 있습니다. 하지만 @sec-mutate 절에서 비행기가 공중에서 메운 시간인 `gain` 변수의 다양한 요약 통계량을 계산하는 다음 코드를 보았습니다.
 
 ```{r, eval=FALSE}
 gain_summary <- flights %>% 
@@ -168,7 +165,7 @@ gain_summary <- flights %>%
   )
 ```
 
-이 과정을 `price`, `sqft_living`, `condition` 세 변수 모두에 대해 반복하는 것은 코딩하기가 번거로울 것입니다. 대신에, 하위 @sec-model4EDA절\index{R packages!skimr!skim()}에서 처음 사용했던 `skimr` 패키지의 편리한 `skim()` 함수를 사용하여 우리 모델에 관심 있는 변수들만 `select()` 해봅시다.
+이 과정을 `price`, `sqft_living`, `condition` 세 변수 모두에 대해 반복하는 것은 코딩하기가 번거로울 것입니다. 대신에, 하위 @sec-model4EDA 절 \index{R packages!skimr!skim()}에서 처음 사용했던 `skimr` 패키지의 편리한 `skim()` 함수를 사용하여 우리 모델에 관심 있는 변수들만 `select()` 해봅시다.
 
 ```{r, eval=FALSE}
   select(price, sqft_living, condition) %>% 
@@ -196,7 +193,7 @@ Skim summary statistics
 
 하지만 중앙값은 이러한 이상치 주택 가격에 민감하지 않습니다. 이것이 부동산 시장에 대한 뉴스에서 일반적으로 평균 가격이 아닌 중앙 주택 가격을 보도하는 이유입니다. 여기서 우리는 중앙값이 평균보다 **이상치에 더 강건(robust)**하다고 말합니다. 마찬가지로 표준 편차와 사분위수 범위(IQR)는 모두 퍼짐과 변동성의 척도이지만, IQR이 **이상치에 더 강건**합니다.\index{outliers}
 
-이제 탐색적 데이터 분석의 공통된 세 단계 중 마지막인 데이터 시각화 만들기를 수행해 보겠습니다. 먼저 **단변량(univariate)** 시각화를 만들어 봅시다. 이것은 한 번에 하나의 변수에만 집중하는 그래프입니다. `price`와 `sqft_living`은 수치형 변수이므로, @sec-histograms절의 히스토그램에서 보았듯이 `geom_histogram()`을 사용하여 그 분포를 시각화할 수 있습니다. 반면 `condition`은 범주형이므로 `geom_bar()`를 사용하여 그 분포를 시각화할 수 있습니다. 막대 그래프에 관한 @sec-geombar절에서 상기했듯이, `condition`은 "미리 집계"되어 있지 않으므로 `geom_col()`이 아닌 `geom_bar()`를 사용합니다.
+이제 탐색적 데이터 분석의 공통된 세 단계 중 마지막인 데이터 시각화 만들기를 수행해 보겠습니다. 먼저 **단변량(univariate)** 시각화를 만들어 봅시다. 이것은 한 번에 하나의 변수에만 집중하는 그래프입니다. `price`와 `sqft_living`은 수치형 변수이므로, @sec-histograms 절의 히스토그램에서 보았듯이 `geom_histogram()`을 사용하여 그 분포를 시각화할 수 있습니다. 반면 `condition`은 범주형이므로 `geom_bar()`를 사용하여 그 분포를 시각화할 수 있습니다. 막대 그래프에 관한 @sec-geombar 절에서 상기했듯이, `condition`은 "미리 집계"되어 있지 않으므로 `geom_col()`이 아닌 `geom_bar()`를 사용합니다.
 
 ```{r, eval=FALSE, message=FALSE}
 # Histogram of house price:
@@ -215,7 +212,7 @@ ggplot(house_prices, aes(x = condition)) +
   labs(x = "condition", title = "House condition")
 ```
 
-그림 @fig-house-prices-viz에서 이 세 가지 시각화를 한 번에 표시합니다.
+그림 @fig-house-prices-viz 에서 이 세 가지 시각화를 한 번에 표시합니다.
 
 ```{r house-prices-viz, echo=FALSE, message=FALSE, fig.cap="시애틀 주택 가격 데이터의 탐색적 시각화.", fig.height=4.8, purl=FALSE}
 p1 <- ggplot(house_prices, aes(x = price)) +
@@ -238,9 +235,9 @@ p1 + p2 + p3 + plot_layout(ncol = 2)
 
 `price`와 `sqft_living` 변수 모두에서 오른쪽으로 치우친 특성 때문에 x축의 하단에 있는 주택들을 구별하기가 어렵습니다. 이는 매우 비싸고 거대한 크기의 극소수 주택들 때문에 x축의 눈금이 압축되어 있기 때문입니다.
 
-그렇다면 이 치우침(skew)에 대해 무엇을 할 수 있을까요? 이 변수들에 **log10 변환(log10 transformation)**을 적용해 봅시다. 이러한 변환이 익숙하지 않다면 로그(log 변환에 대한 부록 @sec-appendix-log10-transformations를 읽어보시길 강력히 권장합니다.\index{log transformations} 요약하자면, 로그 변환을 사용하면 변수의 척도를 변경하여 **가산적(additive)** 변화 대신 **승법적(multiplicative)** 변화에 집중할 수 있습니다. 즉, 관점을 **절대적** 변화에서 **상대적** 변화로 옮겨줍니다. 이러한 승법적/상대적 변화를 **자릿수(orders of magnitude)** 변화라고도 합니다.
+그렇다면 이 치우침(skew)에 대해 무엇을 할 수 있을까요? 이 변수들에 **log10 변환(log10 transformation)**을 적용해 봅시다. 이러한 변환이 익숙하지 않다면 로그(log 변환에 대한 부록 @sec-appendix-log10-transformations 를 읽어보시길 강력히 권장합니다.\index{log transformations} 요약하자면, 로그 변환을 사용하면 변수의 척도를 변경하여 **가산적(additive)** 변화 대신 **승법적(multiplicative)** 변화에 집중할 수 있습니다. 즉, 관점을 **절대적** 변화에서 **상대적** 변화로 옮겨줍니다. 이러한 승법적/상대적 변화를 **자릿수(orders of magnitude)** 변화라고도 합니다.
 
- @sec-mutate절의 `mutate()` 함수를 사용하여 오른쪽으로 치우친 변수인 `price`와 `sqft_living`의 새로운 log10 변환 버전을 만들어 보겠습니다. 후자의 경우 `log10_sqft_living`이라는 이름보다 짧고 이해하기 쉬운 `log10_size`라는 이름을 붙이겠습니다.
+ @sec-mutate 절의 `mutate()` 함수를 사용하여 오른쪽으로 치우친 변수인 `price`와 `sqft_living`의 새로운 log10 변환 버전을 만들어 보겠습니다. 후자의 경우 `log10_sqft_living`이라는 이름보다 짧고 이해하기 쉬운 `log10_size`라는 이름을 붙이겠습니다.
 
 ```{r}
 house_prices <- house_prices %>%
@@ -261,7 +258,7 @@ house_prices %>%
 
 반면 `log10_price`가 6보다 작은 다른 모든 주택들의 가격은 \$1,000,000 미만입니다. 세 번째 행의 주택은 `sqft_living`이 1,000 미만인 유일한 주택입니다. $1000 = 10^3$이므로, `log10_size`가 3보다 작은 유일한 주택입니다.
 
-이제 그림 @fig-log10-price-viz에서 `price`의 변환 전후 효과를 시각화해 보겠습니다.
+이제 그림 @fig-log10-price-viz 에서 `price`의 변환 전후 효과를 시각화해 보겠습니다.
 
 ```{r, eval=FALSE}
 # log10 변환 전:
@@ -316,7 +313,7 @@ p2 <- ggplot(house_prices, aes(x = log10_size)) +
 p1 + p2
 ```
 
-그림 @fig-log10-size-viz를 보면 log10 변환이 변수의 치우침을 해결하는 데 비슷한 효과를 주는 것을 알 수 있습니다. 이 두 경우에서 결과적인 분포가 더 대칭적이고 종 모양이 되었지만, 항상 그런 것은 아니라는 점을 강조합니다.
+그림 @fig-log10-size-viz 를 보면 log10 변환이 변수의 치우침을 해결하는 데 비슷한 효과를 주는 것을 알 수 있습니다. 이 두 경우에서 결과적인 분포가 더 대칭적이고 종 모양이 되었지만, 항상 그런 것은 아니라는 점을 강조합니다.
 
 이제 `log10_price`와 `log10_size`가 대칭적이 되었으므로, 새로운 변수들을 사용하도록 다중 회귀 모델을 수정하겠습니다.
 
@@ -330,11 +327,11 @@ p1 + p2
 
 이제 **다변량(multivariate)** 시각화를 만들며 EDA를 이어가겠습니다. 앞서 본 단변량 히스토그램이나 막대 그래프와 달리, 다변량 시각화는 둘 이상의 변수 사이의 관계를 보여줍니다. 모델링의 목표가 변수들 사이의 관계를 탐구하는 것이기 때문에 이는 EDA의 아주 중요한 단계입니다.
 
-우리 모델은 수치형 결과 변수와 수치형 설명 변수 하나, 그리고 범주형 설명 변수 하나를 포함하므로, 텍스트북의 @sec-model4절에서 UT 오스틴의 강의 점수 데이터셋을 공부했던 것과 유사한 회귀 모델링 상황입니다. 당시 수치형 결과 변수는 강의 점수(`score`)였고, 수치형 설명 변수는 강사의 연령(`age`), 범주형 설명 변수는 성별(`gender`)이었습니다.
+우리 모델은 수치형 결과 변수와 수치형 설명 변수 하나, 그리고 범주형 설명 변수 하나를 포함하므로, 텍스트북의 @sec-model4 절에서 UT 오스틴의 강의 점수 데이터셋을 공부했던 것과 유사한 회귀 모델링 상황입니다. 당시 수치형 결과 변수는 강의 점수(`score`)였고, 수치형 설명 변수는 강사의 연령(`age`), 범주형 설명 변수는 성별(`gender`)이었습니다.
 
-따라서 우리는 두 가지 모델 선택지를 가집니다. 하나는 각 `condition` 레벨의 회귀 직선이 서로 다른 기울기와 절편을 가지는 (1 **상호작용 모델(interaction model)**이고, 다른 하나는 각 `condition` 레벨의 회귀 직선이 동일한 기울기를 가지지만 절편만 다른 (2 **평행 기울기 모델(parallel slopes model)**입니다.
+따라서 우리는 두 가지 모델 선택지를 가집니다. 하나는 각 `condition` 레벨의 회귀 직선이 서로 다른 기울기와 절편을 가지는 **상호작용 모델(interaction model)**이고, 다른 하나는 각 `condition` 레벨의 회귀 직선이 동일한 기울기를 가지지만 절편만 다른 **평행 기울기 모델(parallel slopes model)**입니다.
 
-하위 @sec-model4table절에서 언급했듯이, `ggplot2` 패키지의 `geom_smooth()` 방식은 평행 기울기 모델을 그리는 편리한 방법이 없기 때문에 `moderndive` 패키지에 포함된 `geom_parallel_slopes()` 함수를 사용하여 그립니다. 그림 @fig-house-price-parallel-slopes에서 두 모델의 결과를 모두 표시하며, 왼쪽은 상호작용 모델입니다.
+하위 @sec-model4table 절에서 언급했듯이, `ggplot2` 패키지의 `geom_smooth()` 방식은 평행 기울기 모델을 그리는 편리한 방법이 없기 때문에 `moderndive` 패키지에 포함된 `geom_parallel_slopes()` 함수를 사용하여 그립니다. 그림 @fig-house-price-parallel-slopes 에서 두 모델의 결과를 모두 표시하며, 왼쪽은 상호작용 모델입니다.
 
 ```{r, eval=FALSE}
 # 상호작용 모델 그리기
@@ -385,9 +382,9 @@ if (knitr::is_html_output()) {
 }
 ```
 
-두 경우 모두 주택 가격과 크기 사이에 양의 관계(positive relationship)가 있음을 알 수 있습니다. 즉, 주택이 클수록 더 비싼 경향이 있습니다. 또한, 두 그래프 모두에서 `condition` 5인 주택의 직선이 가장 높은 곳에 위치하고, 그 뒤를 `condition` 4와 3이 잇는 것으로 보아 대부분의 주택 크기에서 `condition` 5인 주택이 가장 비싼 경향이 있음을 알 수 있습니다. `condition` 1과 2의 경우 이 패턴이 그리 명확하지 않습니다. 그림 @fig-house-prices-viz의 `condition`에 대한 단변량 막대 그래프에서 상기했듯이, `condition` 1 또는 2인 주택은 극소수이기 때문입니다.
+두 경우 모두 주택 가격과 크기 사이에 양의 관계(positive relationship)가 있음을 알 수 있습니다. 즉, 주택이 클수록 더 비싼 경향이 있습니다. 또한, 두 그래프 모두에서 `condition` 5인 주택의 직선이 가장 높은 곳에 위치하고, 그 뒤를 `condition` 4와 3이 잇는 것으로 보아 대부분의 주택 크기에서 `condition` 5인 주택이 가장 비싼 경향이 있음을 알 수 있습니다. `condition` 1과 2의 경우 이 패턴이 그리 명확하지 않습니다. 그림 @fig-house-prices-viz 의 `condition`에 대한 단변량 막대 그래프에서 상기했듯이, `condition` 1 또는 2인 주택은 극소수이기 때문입니다.
 
-그림 @fig-house-price-interaction-2에서 상호작용 모델의 분할(faceted 버전을 보여줍니다. 이제 `condition` 1 또는 2인 주택이 얼마나 적은지 훨씬 더 분명하게 드러납니다.
+그림 @fig-house-price-interaction-2 에서 상호작용 모델의 분할(faceted) 버전을 보여줍니다. 이제 `condition` 1 또는 2인 주택이 얼마나 적은지 훨씬 더 분명하게 드러납니다.
 
 ```{r eval=FALSE}
 ggplot(house_prices, 
@@ -429,16 +426,16 @@ if (!knitr::is_latex_output()) {
 }
 ```
 
-그림 @fig-house-price-parallel-slopes의 왼쪽 그래프에 있는 상호작용 모델의 시각화와 그림 @fig-house-price-interaction-2의 분할 버전 중 어느 탐색적 시각화가 더 나을까요? 보편적인 정답은 없습니다. 여러분이 전달하고자 하는 내용에 따라 선택하고 그 선택을 고수해야 하며, 필요에 따라 두 가지를 모두 포함하고 논의하는 것도 하나의 옵션이 될 수 있습니다.
+그림 @fig-house-price-parallel-slopes 의 왼쪽 그래프에 있는 상호작용 모델의 시각화와 그림 @fig-house-price-interaction-2 의 분할 버전 중 어느 탐색적 시각화가 더 나을까요? 보편적인 정답은 없습니다. 여러분이 전달하고자 하는 내용에 따라 선택하고 그 선택을 고수해야 하며, 필요에 따라 두 가지를 모두 포함하고 논의하는 것도 하나의 옵션이 될 수 있습니다.
 
 
-### 회귀 모델링 {#house-prices-regression}
+### 회귀 모델링 {#sec-house-prices-regression}
 
-그림 @fig-house-price-parallel-slopes의 두 모델 중 어느 것이 "더 나을까요"? 왼쪽 그래프의 상호작용 모델일까요, 아니면 오른쪽 그래프의 평행 기울기 모델일까요?
+그림 @fig-house-price-parallel-slopes 의 두 모델 중 어느 것이 "더 나을까요"? 왼쪽 그래프의 상호작용 모델일까요, 아니면 오른쪽 그래프의 평행 기울기 모델일까요?
 
-우리는 하위 @sec-model-selection절의 **모델 선택(model selection)**에서 이와 유사한 논의를 했습니다. 추가된 복잡성이 **정당화(warranted)**되는 경우에만 더 복잡한 모델을 선호해야 한다고 언급했던 것을 상기해 보십시오. 이 사례의 경우, 총 5개의 절편과 5개의 기울기를 고려하는 상호작용 모델이 더 복잡한 모델입니다. 이는 5개의 절편을 고려하지만 기울기는 하나만 공통으로 고려하는 평행 기울기 모델과 대조됩니다.
+우리는 하위 @sec-model-selection 절의 **모델 선택(model selection)**에서 이와 유사한 논의를 했습니다. 추가된 복잡성이 **정당화(warranted)**되는 경우에만 더 복잡한 모델을 선호해야 한다고 언급했던 것을 상기해 보십시오. 이 사례의 경우, 총 5개의 절편과 5개의 기울기를 고려하는 상호작용 모델이 더 복잡한 모델입니다. 이는 5개의 절편을 고려하지만 기울기는 하나만 공통으로 고려하는 평행 기울기 모델과 대조됩니다.
 
-상호작용 모델의 추가된 복잡성이 정당화될까요? 그림 @fig-house-price-parallel-slopes의 왼쪽 그래프를 보면, 몇몇 직선들이 약간 교차하는(x-like 패턴을 보인다는 점에서 상호작용 모델이 정당화된다는 것이 우리의 의견입니다. 따라서 우리는 이 분석의 나머지 부분에서 상호작용 모델에만 집중할 것입니다. 하지만 이러한 시각적 접근 방식은 다분히 주관적이므로 자유롭게 반론을 제기하셔도 좋습니다! 상호작용 모델의 다섯 가지 다른 기울기와 다섯 가지 다른 절편은 무엇일까요? 회귀 표에서 이 값들을 얻을 수 있습니다. 회귀 표를 얻기 위한 두 단계 과정을 상기해 보십시오:
+상호작용 모델의 추가된 복잡성이 정당화될까요? 그림 @fig-house-price-parallel-slopes 의 왼쪽 그래프를 보면, 몇몇 직선들이 약간 교차하는(x-like 패턴을 보인다는 점에서 상호작용 모델이 정당화된다는 것이 우리의 의견입니다. 따라서 우리는 이 분석의 나머지 부분에서 상호작용 모델에만 집중할 것입니다. 하지만 이러한 시각적 접근 방식은 다분히 주관적이므로 자유롭게 반론을 제기하셔도 좋습니다! 상호작용 모델의 다섯 가지 다른 기울기와 다섯 가지 다른 절편은 무엇일까요? 회귀 표에서 이 값들을 얻을 수 있습니다. 회귀 표를 얻기 위한 두 단계 과정을 상기해 보십시오:
 
 ```{r, eval=FALSE}
 # 회귀 모델 적합시키기:
@@ -465,7 +462,7 @@ get_regression_table(price_interaction) %>%
   )
 ```
 
-우리는 하위 @sec-model4interactiontable절에서 수치형 설명 변수와 범주형 설명 변수가 모두 있을 때 회귀 표를 해석하는 방법을 이미 보았습니다. 이제 표 @tbl-seattle-interaction의 `estimate` 열에 있는 10개 값 모두에 대해 동일한 작업을 해보겠습니다.
+우리는 하위 @sec-model4interactiontable 절에서 수치형 설명 변수와 범주형 설명 변수가 모두 있을 때 회귀 표를 해석하는 방법을 이미 보았습니다. 이제 표 @tbl-seattle-interaction 의 `estimate` 열에 있는 10개 값 모두에 대해 동일한 작업을 해보겠습니다.
 
 이 경우, 범주형 변수 `condition`의 "비교 기준(baseline for comparison)" 그룹은 알파벳순으로 "1"이 가장 앞에 오기 때문에 `condition1` 주택입니다. 따라서 `intercept`와 `log10_size` 값은 이 기준 그룹에 대한 `log10_size`의 절편과 기울기입니다. 그 다음으로 `condition2`부터 `condition5` 항들은 `condition1` 절편에 대한 절편의 **차이(offsets)**입니다. 마지막으로 `log10_size:condition2`부터 `log10_size:condition5`는 `condition1`의 `log10_size` 기울기에 대한 `log10_size` 기울기의 **차이(offsets)**입니다.
 
@@ -552,10 +549,10 @@ $$
 \end{aligned}
 $$
 
-이것들은 그림 @fig-house-price-parallel-slopes의 왼쪽 그래프와 그림 @fig-house-price-interaction-2의 분할 그래프에 있는 회귀 직선들에 해당합니다. 다섯 가지 상태 유형 모두에서 집의 크기가 커질수록 가격이 상승합니다. 이는 대부분의 사람들이 예상하는 바입니다. 하지만 집 크기에 따른 가격 증가율(rate of increase)은 상태가 3, 4, 5인 집에서 각각 `r offset_log10_size + offset_log10_size_condition3`, `r offset_log10_size + offset_log10_size_condition4`, `r offset_log10_size + offset_log10_size_condition5`로 가장 빠릅니다. 이들은 다섯 가지 기울기 중 가장 큰 세 개의 기울기입니다.
+이것들은 그림 @fig-house-price-parallel-slopes 의 왼쪽 그래프와 그림 @fig-house-price-interaction-2 의 분할 그래프에 있는 회귀 직선들에 해당합니다. 다섯 가지 상태 유형 모두에서 집의 크기가 커질수록 가격이 상승합니다. 이는 대부분의 사람들이 예상하는 바입니다. 하지만 집 크기에 따른 가격 증가율(rate of increase)은 상태가 3, 4, 5인 집에서 각각 `r offset_log10_size + offset_log10_size_condition3`, `r offset_log10_size + offset_log10_size_condition4`, `r offset_log10_size + offset_log10_size_condition5`로 가장 빠릅니다. 이들은 다섯 가지 기울기 중 가장 큰 세 개의 기울기입니다.
 
 
-### 예측하기 {#house-prices-making-predictions}
+### 예측하기 {#sec-house-prices-making-predictions}
 
 ```{r echo=FALSE, purl=FALSE}
 # 이 코드는 동적 텍스트 출력을 위해 사용됩니다.
@@ -567,7 +564,7 @@ ex_log10_price_prediction <- 5.75
 
 여러분이 부동산 중개인(realtor)이고 어떤 사람이 전화를 걸어 자신의 집이 얼마에 팔릴지 묻는다고 가정해 봅시다. 그들은 집의 상태(`condition`)가 `r ex_condition`이고 크기는 `r ex_size`평방 피트라고 말합니다. 그들에게 뭐라고 대답하시겠습니까? 우리가 적합시킨 상호작용 모델을 사용하여 예측해 봅시다!
 
-먼저 그림 @fig-house-price-interaction-3에서 시각적으로 이 예측을 수행해 보겠습니다. 이 집의 예측된 `log10_price`는 검은색 점으로 표시되어 있습니다. 이 점은 다음 두 선이 교차하는 지점입니다:
+먼저 그림 @fig-house-price-interaction-3 에서 시각적으로 이 예측을 수행해 보겠습니다. 이 집의 예측된 `log10_price`는 검은색 점으로 표시되어 있습니다. 이 점은 다음 두 선이 교차하는 지점입니다:
 
 * 상태가 `r ex_condition`인 주택들의 회귀 직선과
 * `log10_size`가 `r ex_size_log10`인 수직 점선. 우리의 예측 변수가 거주 공간 평방 피트를 log10 변환한 값인 $\log10(`per ex_size`) = `r ex_size_log10`$이기 때문입니다.
@@ -595,7 +592,7 @@ if (knitr::is_html_output()) {
 2.45 + 1 * log10(1900)
 ```
 
-이 값은 앞서 시각적으로 내린 예측값인 `r ex_log10_price_prediction`과 매우 가깝습니다. 하지만 잠깐만요! 이 집의 가격에 대한 우리 예측값이 \$`r ex_log10_price_prediction`일까요? 아닙니다! 우리는 `log10_price`를 결과 변수로 사용하고 있다는 점을 기억하십시오! 따라서 달러 단위의 `price` 예측값을 얻으려면 부록 @sec-appendix-log10-transformations에서 설명한 대로 10의 거듭제곱을 취하여 로그를 풀어야(unlog 합니다.
+이 값은 앞서 시각적으로 내린 예측값인 `r ex_log10_price_prediction`과 매우 가깝습니다. 하지만 잠깐만요! 이 집의 가격에 대한 우리 예측값이 \$`r ex_log10_price_prediction`일까요? 아닙니다! 우리는 `log10_price`를 결과 변수로 사용하고 있다는 점을 기억하십시오! 따라서 달러 단위의 `price` 예측값을 얻으려면 부록 @sec-appendix-log10-transformations 에서 설명한 대로 10의 거듭제곱을 취하여 로그를 풀어야(unlog 합니다.
 
 ```{r}
 10^(2.45 + 1 * log10(1900))
@@ -638,7 +635,7 @@ v2 TODO: Inference for regression for Seattle house prices
 
 
 
-## 사례 연구: 효과적인 데이터 스토리텔링 {#data-journalism}
+## 사례 연구: 효과적인 데이터 스토리텔링 {#sec-data-journalism}
 
 이 책을 진행하면서 여러분은 다양한 방식으로 데이터를 다루는 방법을 보았습니다. 어떤 변수 유형의 조합에 어떤 유형의 그래프가 가장 적합한지 이해함으로써 데이터를 그리는 효과적인 전략을 배웠습니다. 스프레드시트 형식으로 데이터를 요약하고 다양한 변수에 대한 요약 통계량을 계산했습니다. 또한, 표집(sampling)을 사용하여 모집단에 대한 결론을 도출하는 과정으로서 통계적 추론의 가치를 확인했습니다. 마지막으로 선형 회귀 모델을 적합시키는 방법과 모든 신뢰 구간 및 가설 검정이 타당한 해석을 갖도록 필요한 조건을 확인하는 것의 중요성을 탐구했습니다. 이 과정 전반에 걸쳐 여러분은 많은 계산 기법을 배웠고, 재현 가능한 R 코드를 작성하는 데 집중했습니다.
 
@@ -664,14 +661,14 @@ Walt Hickey\index{Hickey, Walt}의 FiveThirtyEight.com 기사인 ["할리우드�
 glimpse(US_births_1994_2003)
 ```
 
-우리는 각 날짜(`date`)별 출생아 수(`births`)에 집중하되, 1999년에 발생한 출생아만 살펴보겠습니다. @sec-filter절에서 보았듯이 `dplyr` 패키지의 `filter()` 함수를 사용하여 이를 수행할 수 있습니다:
+우리는 각 날짜(`date`)별 출생아 수(`births`)에 집중하되, 1999년에 발생한 출생아만 살펴보겠습니다. @sec-filter 절에서 보았듯이 `dplyr` 패키지의 `filter()` 함수를 사용하여 이를 수행할 수 있습니다:
 
 ```{r}
 US_births_1999 <- US_births_1994_2003 %>%
   filter(year == 1999)
 ```
 
- @sec-linegraphs절에서 논의한 바와 같이, `date`는 시간의 개념이므로 순차적인 순서가 있습니다. 따라서 산점도보다는 꺾은선 그래프(linegraph)가 더 적절한 시각화 방법입니다. 즉, `geom_point()` 대신 `geom_line()`을 사용해야 합니다. 이러한 그래프를 \index{time series plots} **시계열(time series)** 그래프라고 부른다는 것을 상기해 보십시오.
+ @sec-linegraphs 절에서 논의한 바와 같이, `date`는 시간의 개념이므로 순차적인 순서가 있습니다. 따라서 산점도보다는 꺾은선 그래프(linegraph)가 더 적절한 시각화 방법입니다. 즉, `geom_point()` 대신 `geom_line()`을 사용해야 합니다. 이러한 그래프를 \index{time series plots} **시계열(time series)** 그래프라고 부른다는 것을 상기해 보십시오.
 
 ```{r us-births, fig.cap="1999년 미국 출생아 수.", fig.height=6.4}
 ggplot(US_births_1999, aes(x = date, y = births)) +
@@ -683,7 +680,7 @@ ggplot(US_births_1999, aes(x = date, y = births)) +
 
 2000년 1월 1일 직전에 출생아 수가 크게 급감하는 것을 볼 수 있는데, 이는 아마도 연말 연시 휴가 시즌 때문일 것입니다. 그런데 1999년 10월 1일 직전에 14,000명이 넘는 출생아가 발생한 커다란 스파이크(spike)는 무엇일까요? 이 이례적으로 높은 스파이크의 원인은 무엇일까요?
 
-`US_births_1999`의 행들을 출생아 수의 내림차순으로 정렬해 보겠습니다. @sec-arrange절에서 배웠듯이 `dplyr` 패키지의 `arrange()` 함수를 사용하여 `births`를 내림차순(`desc`)으로 정렬하면 됩니다:
+`US_births_1999`의 행들을 출생아 수의 내림차순으로 정렬해 보겠습니다. @sec-arrange 절에서 배웠듯이 `dplyr` 패키지의 `arrange()` 함수를 사용하여 `births`를 내림차순(`desc`)으로 정렬하면 됩니다:
 
 ```{r}
 US_births_1999 %>% 

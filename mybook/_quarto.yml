@@ -13,10 +13,10 @@ project:
     - purl.R
 
 book:
-  title: "ModernDive: Statistical Inference via Data Science"
-  subtitle: "A ModernDive into R and the Tidyverse"
+  title: "ModernDive: 데이터 과학을 통한 통계적 추론"
+  subtitle: "R과 Tidyverse에 대한 ModernDive 소개"
   author: "Chester Ismay and Albert Y. Kim"
-  date: "July 2, 2020"
+  date: "2026-03-05"
   chapters:
     - index.qmd
     - 01-getting-started.qmd
@@ -52,6 +52,7 @@ bibliography:
   - bib/books.bib
   - bib/packages.bib
   - bib/articles.bib
+  - references.bib
 
 format:
   html:
