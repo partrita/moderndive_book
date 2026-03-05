@@ -6,7 +6,7 @@ source("_common.R")
 # 가설 검정 {#hypothesis-testing}  
     
 ```{r setup_hypo, include=FALSE, purl=FALSE}
-# 학습 확인(Learning Check) 번호 정의에 사용됨:
+# 학습 확인 Learning Check 번호 정의에 사용됨:
 chap <- 9
 lc <- 0
 
@@ -30,9 +30,9 @@ options(scipen = 99) # , digits = 3)
 set.seed(76)
 ```
 
-8장(\@ref(confidence-intervals))에서 신뢰 구간을 공부했으므로, 이제 또 다른 흔히 사용되는 통계적 추론 방법인 **가설 검정(hypothesis testing)**에 대해 알아보겠습니다. 가설 검정을 통해 우리는 모집단으로부터 데이터 표본을 추출하고, 서로 경쟁하는 가설들의 타당성에 대해 추론할 수 있습니다. 예를 들어, 섹션 \@ref(ht-activity)에서 다룰 "승진" 활동에서는 1970년대에 수행된 심리학 연구 데이터를 연구하여, 당시 은행 산업에서 승진율에 성별에 따른 차별이 존재했는지 조사할 것입니다.
+8장(@sec-confidence-intervals)에서 신뢰 구간을 공부했으므로, 이제 또 다른 흔히 사용되는 통계적 추론 방법인 **가설 검정(hypothesis testing)**에 대해 알아보겠습니다. 가설 검정을 통해 우리는 모집단으로부터 데이터 표본을 추출하고, 서로 경쟁하는 가설들의 타당성에 대해 추론할 수 있습니다. 예를 들어, @sec-ht-activity절에서 다룰 "승진" 활동에서는 1970년대에 수행된 심리학 연구 데이터를 연구하여, 당시 은행 산업에서 승진율에 성별에 따른 차별이 존재했는지 조사할 것입니다.
 
-좋은 소식은 7장(\@ref(sampling))과 8장(\@ref(confidence-intervals))에서 가설 검정을 이해하는 데 필요한 많은 개념을 이미 다루었다는 것입니다. 우리는 여기서 이러한 아이디어들을 더욱 확장하고 가설 검정을 이해하기 위한 일반적인 틀(framework)을 제공할 것입니다. 이 일반적인 틀을 이해함으로써, 여러분은 이를 다양한 시나리오에 맞게 조정할 수 있을 것입니다.
+좋은 소식은 7장(@sec-sampling)과 8장(@sec-confidence-intervals)에서 가설 검정을 이해하는 데 필요한 많은 개념을 이미 다루었다는 것입니다. 우리는 여기서 이러한 아이디어들을 더욱 확장하고 가설 검정을 이해하기 위한 일반적인 틀(framework)을 제공할 것입니다. 이 일반적인 틀을 이해함으로써, 여러분은 이를 다양한 시나리오에 맞게 조정할 수 있을 것입니다.
 
 신뢰 구간에 대해서도 마찬가지입니다. *모든* 신뢰 구간에 적용되는 하나의 일반적인 틀이 있었고, `infer` 패키지는 이 틀을 중심으로 설계되었습니다. 구체적인 내용은 신뢰 구간의 유형에 따라 약간씩 다를 수 있지만, 일반적인 틀은 동일하게 유지됩니다.
 
@@ -48,7 +48,7 @@ if (!knitr::is_latex_output()) {
 
 ### 필요한 패키지 {-#nhst-packages}
 
-이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). 섹션 \@ref(tidyverse-package)에서의 논의를 상기해 보면, `library(tidyverse)`를 실행하여 `tidyverse` 패키지를 불러오면 다음과 같이 흔히 사용되는 데이터 과학 패키지들이 한꺼번에 로드됩니다.
+이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). @sec-tidyverse-package절에서의 논의를 상기해 보면, `library(tidyverse)`를 실행하여 `tidyverse` 패키지를 불러오면 다음과 같이 흔히 사용되는 데이터 과학 패키지들이 한꺼번에 로드됩니다.
 
 * 데이터 시각화를 위한 `ggplot2`
 * 데이터 핸들링(wrangling)을 위한 `dplyr`
@@ -56,7 +56,7 @@ if (!knitr::is_latex_output()) {
 * 스프레드시트 데이터를 R로 가져오기 위한 `readr`
 * 그리고 더 고급 패키지인 `purrr`, `tibble`, `stringr`, `forcats` 패키지들
 
-필요하다면 R 패키지를 설치하고 불러오는 방법에 대한 정보는 섹션 \@ref(packages)를 참고하십시오.
+필요하다면 R 패키지를 설치하고 불러오는 방법에 대한 정보는 @sec-packages절을 참고하십시오.
 
 ```{r message=FALSE}
 library(tidyverse)
@@ -91,7 +91,7 @@ library(ggrepel)
 ```{r echo=FALSE, purl=FALSE}
 # 이 코드는 동적인 인라인 텍스트 출력 목적으로 사용됩니다.
 n_resumes <- promotions %>% nrow()
-# 50/50 (이진) 성별 분할 가정
+# 50/50 이진 성별 분할 가정
 n_resumes_gender <- n_resumes / 2
 ```
 
@@ -116,7 +116,7 @@ promotions %>%
 변수 `id`는 모든 `r n_resumes`개 행에 대한 식별 변수 역할을 하며, `decision` 변수는 지원자가 승진 대상으로 선택되었는지 여부를 나타내고, `gender` 변수는 이력서에 사용된 이름의 성별을 나타냅니다. 이 데이터가 실제 `r n_resumes_gender`명의 남성과 `r n_resumes_gender`명의 여성이 아니라, `r n_resumes`개의 동일한 이력서 중 전형적인 "남성" 이름이 할당된 `r n_resumes_gender`개와 전형적인 "여성" 이름이 할당된 `r n_resumes_gender`개에 관한 것임을 기억하십시오.
 
 
-두 범주형 변수인 `decision`과 `gender` 사이의 관계에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 섹션 \@ref(two-categ-barplot)에서 이러한 관계를 시각화하는 방법 중 하나로 누적 막대 그래프(stacked barplot)를 보았던 것을 상기하십시오.
+두 범주형 변수인 `decision`과 `gender` 사이의 관계에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 @sec-two-categ-barplot절에서 이러한 관계를 시각화하는 방법 중 하나로 누적 막대 그래프(stacked barplot)를 보았던 것을 상기하십시오.
 
 ```{r eval=FALSE}
 ggplot(promotions, aes(x = gender, fill = decision)) +
@@ -135,7 +135,7 @@ if (knitr::is_html_output()) {
 }
 ```
 
-그림 \@ref(fig:promotions-barplot)를 보면 여성 이름이 적힌 이력서의 승진 결정 확률이 훨씬 낮은 것처럼 보입니다. 데이터 핸들링을 위한 `dplyr` 패키지를 사용하여 각 그룹에 대해 승진이 수락된 이력서의 비율을 계산하여 이러한 승진율을 수치화해 봅시다. 여기서 개수를 세기 위해 `summarize(n = n())`의 지름길인 `tally()` 함수를 사용함에 유의하십시오.
+그림 @fig-promotions-barplot를 보면 여성 이름이 적힌 이력서의 승진 결정 확률이 훨씬 낮은 것처럼 보입니다. 데이터 핸들링을 위한 `dplyr` 패키지를 사용하여 각 그룹에 대해 승진이 수락된 이력서의 비율을 계산하여 이러한 승진율을 수치화해 봅시다. 여기서 개수를 세기 위해 `summarize(n = n())`의 지름길인 `tally()` 함수를 사용함에 유의하십시오.
 
 ```{r}
 promotions %>% 
@@ -172,7 +172,7 @@ p_women_promoted <- (n_women_promoted_original / n_resumes_gender) %>% round(3)
 
 먼저, 승진에 성차별이 존재하지 않는 가상의 우주를 상상해 보십시오. 그러한 가상의 우주에서는 지원자의 성별이 승진 가능성에 아무런 영향을 미치지 않을 것입니다. 이를 우리의 `promotions` 데이터 프레임으로 가져와 생각해보면, `gender` 변수는 아무런 의미가 없는 라벨일 뿐입니다. 만약 이러한 `gender` 라벨이 무의미하다면, 우리는 이를 아무런 영향 없이 "뒤섞어서(shuffling)" 무작위로 재할당할 수 있을 것입니다!
 
-이 아이디어를 설명하기 위해, 표 \@ref(tab:compare-six)에 있는 `r n_resumes`개의 이력서 중 임의로 선택된 6개에 집중해봅시다. `decision` 열은 3개의 이력서가 승진했고 3개는 그렇지 않았음을 보여줍니다. `gender` 열은 원래 이력서 이름의 성별을 보여줍니다.
+이 아이디어를 설명하기 위해, 표 @tbl-compare-six에 있는 `r n_resumes`개의 이력서 중 임의로 선택된 6개에 집중해봅시다. `decision` 열은 3개의 이력서가 승진했고 3개는 그렇지 않았음을 보여줍니다. `gender` 열은 원래 이력서 이름의 성별을 보여줍니다.
 
 하지만 성차별이 없는 가상 세계에서 성별은 무의미하므로, `gender` 값을 무작위로 "뒤섞는" 것은 아무런 문제가 되지 않습니다. `shuffled_gender` 열은 그러한 가능한 무작위 셔플링 결과 중 하나를 보여줍니다. 네 번째 열에서 남성 이름과 여성 이름의 수가 각각 3개로 동일하게 유지되지만, 이제는 서로 다른 순서로 나열되어 있음을 확인하십시오.
 
@@ -199,13 +199,13 @@ promotions_sample %>%
   )
 ```
 
-다시 말하지만, 이러한 성별 라벨의 무작위 셔플링은 성차별이 없는 가상의 우주에서만 의미가 있습니다. 이러한 성별 변수의 셔플링을 모든 `r n_resumes`개의 이력서에 대해 손으로 직접 확장하려면 어떻게 해야 할까요? 한 가지 방법은 그림 \@ref(fig:deck-of-cards)에 표시된 표준 52장짜리 카드 덱을 사용하는 것입니다.
+다시 말하지만, 이러한 성별 라벨의 무작위 셔플링은 성차별이 없는 가상의 우주에서만 의미가 있습니다. 이러한 성별 변수의 셔플링을 모든 `r n_resumes`개의 이력서에 대해 손으로 직접 확장하려면 어떻게 해야 할까요? 한 가지 방법은 그림 @fig-deck-of-cards에 표시된 표준 52장짜리 카드 덱을 사용하는 것입니다.
 
 ```{r deck-of-cards, echo=FALSE, fig.cap="표준 52장 카드 덱.", purl=FALSE, out.width="100%"}
 knitr::include_graphics("images/shutterstock/shutterstock_670789453.jpg")
 ```
 
-카드의 절반은 빨간색(다이아몬드와 하트)이고 나머지 절반은 검은색(스페이드와 클로버)이므로, 빨간색 카드 두 장과 검은색 카드 두 장을 제거하면 빨간색 카드 `r n_resumes_gender`장과 검은색 카드 `r n_resumes_gender`장이 남게 됩니다. 그림 \@ref(fig:shuffling)에서 보는 것처럼 이 `r n_resumes`장의 카드를 섞은 후, 카드를 하나씩 뒤집으면서 빨간색 카드에는 "남성"을, 검은색 카드에는 "여성"을 할당할 수 있습니다.
+카드의 절반은 빨간색(다이아몬드와 하트)이고 나머지 절반은 검은색(스페이드와 클로버)이므로, 빨간색 카드 두 장과 검은색 카드 두 장을 제거하면 빨간색 카드 `r n_resumes_gender`장과 검은색 카드 `r n_resumes_gender`장이 남게 됩니다. 그림 @fig-shuffling에서 보는 것처럼 이 `r n_resumes`장의 카드를 섞은 후, 카드를 하나씩 뒤집으면서 빨간색 카드에는 "남성"을, 검은색 카드에는 "여성"을 할당할 수 있습니다.
 
 ```{r shuffling, echo=FALSE, fig.cap="카드 덱 섞기.", purl=FALSE, out.width="100%", out.height="100%"}
 knitr::include_graphics("images/shutterstock/shutterstock_128283971.jpg")
@@ -213,7 +213,7 @@ knitr::include_graphics("images/shutterstock/shutterstock_128283971.jpg")
 
 우리는 그러한 셔플링 결과 하나를 `moderndive` 패키지의 `promotions_shuffled` 데이터 프레임에 저장해 두었습니다. 원래의 `promotions`와 셔플된 `promotions_shuffled` 데이터 프레임을 비교해보면, `decision` 변수는 동일하지만 `gender` 변수가 변경된 것을 볼 수 있습니다.
 
-원래의 `promotions` 데이터에 대해 수행했던 것과 동일한 탐색적 데이터 분석을 우리의 `promotions_shuffled` 데이터 프레임에 대해서도 반복해 봅시다. `decision`과 새로 셔플된 `gender` 변수 사이의 관계를 시각화하는 막대 그래프를 만들고, 이를 그림 \@ref(fig:promotions-barplot-permuted)에서 원래의 셔플되지 않은 버전과 비교해 봅시다.
+원래의 `promotions` 데이터에 대해 수행했던 것과 동일한 탐색적 데이터 분석을 우리의 `promotions_shuffled` 데이터 프레임에 대해서도 반복해 봅시다. `decision`과 새로 셔플된 `gender` 변수 사이의 관계를 시각화하는 막대 그래프를 만들고, 이를 그림 @fig-promotions-barplot-permuted에서 원래의 셔플되지 않은 버전과 비교해 봅시다.
 
 ```{r, eval=FALSE}
 ggplot(promotions_shuffled, 
@@ -246,7 +246,7 @@ plot2 <- ggplot(promotions_shuffled, aes(x = gender, fill = decision)) +
 if (knitr::is_html_output()) {
   plot1 + plot2
 } else {
-  (plot1 + scale_fill_grey()) + (plot2 + scale_fill_grey())
+  plot1 + scale_fill_grey() + plot2 + scale_fill_grey()
 }
 ```
 
@@ -301,7 +301,7 @@ n_shuffle <- 16L
 
 ### `r n_shuffle`번 뒤섞기 (Shuffling `r n_shuffle` times)
 
-우리는 이 셔플링 활동을 반복하기 위해 `r n_shuffle`개 팀의 친구들을 모집했습니다. 그들은 이 값들을 [공유 스프레드시트](https://docs.google.com/spreadsheets/d/1Q-ENy3o5IrpJshJ7gn3hJ5A0TOWV2AZrKNHMsshQtiE/)에 기록했습니다. 그림 \@ref(fig:tactile-shuffling)에 처음 10개 행과 5개 열의 스냅샷을 표시합니다.
+우리는 이 셔플링 활동을 반복하기 위해 `r n_shuffle`개 팀의 친구들을 모집했습니다. 그들은 이 값들을 [공유 스프레드시트](https://docs.google.com/spreadsheets/d/1Q-ENy3o5IrpJshJ7gn3hJ5A0TOWV2AZrKNHMsshQtiE/)에 기록했습니다. 그림 @fig-tactile-shuffling에 처음 10개 행과 5개 열의 스냅샷을 표시합니다.
 
 ```{r tactile-shuffling, echo=FALSE, fig.cap = "셔플링 결과가 기록된 공유 스프레드시트 스냅샷 (m은 남성, f는 여성).", fig.show="hold", purl=FALSE, out.width="100%"}
 knitr::include_graphics("images/sampling/promotions/shared_spreadsheet.png")
@@ -334,7 +334,7 @@ shuffled_data_tidy <- shuffled_data_tidy %>%
   mutate(stat = m - f)
 ```
 
-이러한 `r n_shuffle`개의 *셔플(shuffles)* 열 각각에 대해 승진율의 차이를 계산했고, 그림 \@ref(fig:null-distribution-1)에 히스토그램으로 분포를 표시했습니다. 또한 실제 생활에서 발생한 관찰된 승진율 차이인 `r observed_test_statistic` = `r observed_test_statistic*100`%를 어두운 선으로 표시했습니다.
+이러한 `r n_shuffle`개의 *셔플(shuffles)* 열 각각에 대해 승진율의 차이를 계산했고, 그림 @fig-null-distribution-1에 히스토그램으로 분포를 표시했습니다. 또한 실제 생활에서 발생한 관찰된 승진율 차이인 `r observed_test_statistic` = `r observed_test_statistic*100`%를 어두운 선으로 표시했습니다.
 
 ```{r null-distribution-1, fig.cap="셔플된 승진율 차이의 분포.", purl=FALSE, echo=FALSE}
 ggplot(data = shuffled_data_tidy, aes(x = stat)) +
@@ -347,7 +347,7 @@ ggplot(data = shuffled_data_tidy, aes(x = stat)) +
 
 먼저 히스토그램이 대략 0을 중심으로 한다는 점에 주목하십시오. 승진율의 차이가 0이라는 것은 양쪽 성별의 승진율이 같았다는 것과 같습니다. 다시 말해, 이 `r n_shuffle`개 값의 중심은 우리가 성차별이 없는 가상 우주에서 기대하는 것과 일치합니다.
 
-하지만 값들이 0을 중심으로 모여 있긴 하지만, 0 주변에 변동이 존재합니다. 이는 성차별이 없는 가상 우주라 하더라도 우연한 **표본 변동(sampling variation)** 때문에 여전히 작은 승진율 차이를 관찰할 가능성이 높기 때문입니다. 그림 \@ref(fig:null-distribution-1)의 히스토그램을 보면, 그러한 차이는 심지어 `r shuffled_data_tidy$stat %>% min() %>% round(3)`나 `r shuffled_data_tidy$stat %>% max() %>% round(3)`만큼 극단적일 수도 있습니다.
+하지만 값들이 0을 중심으로 모여 있긴 하지만, 0 주변에 변동이 존재합니다. 이는 성차별이 없는 가상 우주라 하더라도 우연한 **표본 변동(sampling variation)** 때문에 여전히 작은 승진율 차이를 관찰할 가능성이 높기 때문입니다. 그림 @fig-null-distribution-1의 히스토그램을 보면, 그러한 차이는 심지어 `r shuffled_data_tidy$stat %>% min() %>% round(3)`나 `r shuffled_data_tidy$stat %>% max() %>% round(3)`만큼 극단적일 수도 있습니다.
 
 이제 우리가 실제 생활에서 관찰한 것에 관심을 돌려봅시다. `r observed_test_statistic` = `r observed_test_statistic*100`%의 차이가 수직선으로 표시되어 있습니다. 스스로에게 질문해 보십시오. 성차별이 없는 가상의 세계에서, 우리가 이 정도의 차이를 관찰할 가능성이 얼마나 될까요? 의견은 다를 수 있겠지만, 저희 생각에는 자주 일어나지는 않을 것 같습니다! 이제 다시 물어보십시오. 이 결과가 우리의 성차별 없는 가상 우주에 대해 무엇을 말해주고 있나요?
 
@@ -390,7 +390,7 @@ ggplot(data = tactile_permutes, aes(x = stat)) +
   scale_y_continuous(breaks = 0:10)
 ```
 
-우리가 선택한 33개의 표본 중 오직 하나만이 우리가 관찰한 것만큼 극단적인 것을 볼 수 있습니다. 따라서 우리는 성차별이 작용하고 있을지도 모른다는 것을 암시하는 데이터가 보이기 시작한다고 추측할 수 있습니다. 계산된 통계량의 상당수는 0에 가깝고, 나머지는 -0.1과 0.1의 차이 주변에 나타납니다. 그렇다면 이 암시를 조금 더 명확하게 하기 위해 어떤 추가 증거가 필요할까요? 더 많은 시뮬레이션입니다! 7장(\@ref(sampling))과 8장(\@ref(confidence-intervals))에서 했던 것처럼, 우리는 이러한 순열과 계산을 여러 번 시뮬레이션하기 위해 컴퓨터를 사용할 것입니다. 다음 섹션에서 `infer` 패키지를 사용하여 바로 그렇게 해보겠습니다.
+우리가 선택한 33개의 표본 중 오직 하나만이 우리가 관찰한 것만큼 극단적인 것을 볼 수 있습니다. 따라서 우리는 성차별이 작용하고 있을지도 모른다는 것을 암시하는 데이터가 보이기 시작한다고 추측할 수 있습니다. 계산된 통계량의 상당수는 0에 가깝고, 나머지는 -0.1과 0.1의 차이 주변에 나타납니다. 그렇다면 이 암시를 조금 더 명확하게 하기 위해 어떤 추가 증거가 필요할까요? 더 많은 시뮬레이션입니다! 7장(@sec-sampling)과 8장(@sec-confidence-intervals)에서 했던 것처럼, 우리는 이러한 순열과 계산을 여러 번 시뮬레이션하기 위해 컴퓨터를 사용할 것입니다. 다음 섹션에서 `infer` 패키지를 사용하여 바로 그렇게 해보겠습니다.
 -->
 
 
@@ -398,13 +398,13 @@ ggplot(data = tactile_permutes, aes(x = stat)) +
 
 이 활동에서 우리가 방금 시연한 것은 **순열 검정(permutation test)**을 이용한 **가설 검정(hypothesis testing)**이라는 통계적 절차입니다. "순열(permutation)" \index{permutation}이라는 용어는 "셔플링(뒤섞기)"에 대한 수학적 용어입니다. 즉, 일련의 값을 가져와 여러분이 플레잉 카드로 했던 것처럼 무작위로 재정렬하는 것입니다.
 
-사실 순열은 8장(\@ref(confidence-intervals))에서 수행했던 붓스트랩 방법과 같은 **재표본 추출(resampling)**의 또 다른 형태입니다. 붓스트랩 방법은 **복원(with replacement)** 재추출을 포함하는 반면, 순열 방법은 **비복원(without replacement)** 재추출을 포함합니다.
+사실 순열은 8장(@sec-confidence-intervals)에서 수행했던 붓스트랩 방법과 같은 **재표본 추출(resampling)**의 또 다른 형태입니다. 붓스트랩 방법은 **복원(with replacement)** 재추출을 포함하는 반면, 순열 방법은 **비복원(without replacement)** 재추출을 포함합니다.
 
-섹션 \@ref(resampling-tactile)에서 페니를 나타내는 종이 조각과 모자를 사용했던 활동을 생각해 보십시오. 페니를 뽑은 후 모자에 다시 넣었습니다. 이제 우리의 카드 덱을 생각해 보십시오. 카드를 뽑은 후 여러분 앞에 펼쳐 놓고 색깔을 기록한 다음, 카드 덱에 다시 넣지 **않았습니다**.
+ @sec-resampling-tactile절에서 페니를 나타내는 종이 조각과 모자를 사용했던 활동을 생각해 보십시오. 페니를 뽑은 후 모자에 다시 넣었습니다. 이제 우리의 카드 덱을 생각해 보십시오. 카드를 뽑은 후 여러분 앞에 펼쳐 놓고 색깔을 기록한 다음, 카드 덱에 다시 넣지 **않았습니다**.
 
 이전 예시에서 우리는 성차별이 없다는 가상의 우주의 타당성을 검정했습니다. `r n_resumes`개의 이력서로 구성된 관찰된 표본에 포함된 증거는 우리의 가상 우주와 다소 일치하지 않았습니다. 따라서 우리는 이 가상 우주를 **기각(reject)**하고 성차별이 존재한다는 것을 증거가 암시한다고 선언하고 싶을 것입니다.
 
-섹션 \@ref(case-study-two-prop-ci)에서 다뤘던 하품이 전염되는지에 대한 사례 연구를 기억해 보십시오. 이전 예시 역시 알려지지 않은 모집단 비율 차이에 대한 추론을 포함합니다. 이번에는 $p_{m} - p_{f}$가 될 것인데, 여기서 $p_{m}$은 승진 후보로 추천되는 남성 이름 이력서의 모집단 비율이고, $p_{f}$는 여성 이름 이력서에 대한 동일한 모집단 비율입니다. 표 \@ref(tab:table-diff-prop)에서 지금까지 보았던 추론 시나리오 중 하나임을 상기하십시오.
+ @sec-case-study-two-prop-ci절에서 다뤘던 하품이 전염되는지에 대한 사례 연구를 기억해 보십시오. 이전 예시 역시 알려지지 않은 모집단 비율 차이에 대한 추론을 포함합니다. 이번에는 $p_{m} - p_{f}$가 될 것인데, 여기서 $p_{m}$은 승진 후보로 추천되는 남성 이름 이력서의 모집단 비율이고, $p_{f}$는 여성 이름 이력서에 대한 동일한 모집단 비율입니다. 표 @tbl-table-diff-prop에서 지금까지 보았던 추론 시나리오 중 하나임을 상기하십시오.
 
 ```{r table-diff-prop, echo=FALSE, message=FALSE, purl=FALSE}
 # 다음 Google Doc은 CSV로 게시되어 read_csv()를 사용하여 로드됩니다:
@@ -450,13 +450,13 @@ sampling_scenarios %>%
 
 ## 가설 검정의 이해 {#understanding-ht}
 
-섹션 \@ref(sampling-framework)에서 보았던 표본 추출과 관련된 용어, 기법, 정의들과 마찬가지로 가설 검정과 관련된 용어, 기법, 정의들도 매우 많습니다. 이들을 배우는 것이 처음에는 매우 벅찬 일처럼 느껴질 수 있습니다. 하지만 연습하고 또 연습하다 보면 누구나 마스터할 수 있습니다.
+ @sec-sampling-framework절에서 보았던 표본 추출과 관련된 용어, 기법, 정의들과 마찬가지로 가설 검정과 관련된 용어, 기법, 정의들도 매우 많습니다. 이들을 배우는 것이 처음에는 매우 벅찬 일처럼 느껴질 수 있습니다. 하지만 연습하고 또 연습하다 보면 누구나 마스터할 수 있습니다.
 
-첫째, **가설(hypothesis)** \index{hypothesis testing!hypothesis}은 알려지지 않은 모집단 모수의 값에 대한 진술입니다. 우리의 이력서 활동에서 관심 있는 모집단 모수는 모집단 비율의 차이인 $p_{m} - p_{f}$입니다. 가설 검정은 이 책에서 다룰 다섯 가지 추론 시나리오의 표 \@ref(tab:table-ch8)에 있는 모든 모집단 모수를 포함할 수 있으며, 여기서는 다루지 않는 더 고급 유형들도 포함할 수 있습니다.
+첫째, **가설(hypothesis)** \index{hypothesis testing!hypothesis}은 알려지지 않은 모집단 모수의 값에 대한 진술입니다. 우리의 이력서 활동에서 관심 있는 모집단 모수는 모집단 비율의 차이인 $p_{m} - p_{f}$입니다. 가설 검정은 이 책에서 다룰 다섯 가지 추론 시나리오의 표 @tbl-table-ch8에 있는 모든 모집단 모수를 포함할 수 있으며, 여기서는 다루지 않는 더 고급 유형들도 포함할 수 있습니다.
 
 둘째, **가설 검정(hypothesis test)** \index{hypothesis testing}은 서로 경쟁하는 두 가설 사이의 검정으로 구성됩니다. (1) **귀무 가설(null hypothesis)** $H_0$ ("H-제로" 또는 "H-낫"이라고 읽음)과 (2) **대립 가설(alternative hypothesis)** $H_A$ ($H_1$으로도 표시함) 사이의 대결입니다.
 
-일반적으로 귀무 가설 \index{hypothesis testing!null hypothesis}은 "효과가 없다"거나 "관심 있는 차이가 없다"는 주장입니다. 많은 경우 귀무 가설은 현재 상태(status quo) 또는 아무런 흥미로운 일이 일어나지 않는 상황을 나타냅니다. 또한 일반적으로 대립 가설 \index{hypothesis testing!alternative hypothesis}은 실험자나 연구자가 입증하고 싶거나 증거를 찾아 지원하고 싶은 주장입니다. 이는 귀무 가설 $H_0$에 대한 "도전자" 가설로 간주됩니다. 우리의 이력서 활동에서 적절한 가설 검정은 다음과 같습니다.
+일반적으로 귀무 가설 \index{hypothesis testing!null hypothesis}은 "효과가 없다"거나 "관심 있는 차이가 없다"는 주장입니다. 많은 경우 귀무 가설은 현재 상태(status quo 또는 아무런 흥미로운 일이 일어나지 않는 상황을 나타냅니다. 또한 일반적으로 대립 가설 \index{hypothesis testing!alternative hypothesis}은 실험자나 연구자가 입증하고 싶거나 증거를 찾아 지원하고 싶은 주장입니다. 이는 귀무 가설 $H_0$에 대한 "도전자" 가설로 간주됩니다. 우리의 이력서 활동에서 적절한 가설 검정은 다음과 같습니다.
 
 $$
 \begin{aligned}
@@ -476,15 +476,15 @@ H_0 &: p_{m} - p_{f} = 0\\
 \end{aligned}
 $$
 
-대립 가설 $H_A$가 $p_{m} - p_{f} > 0$으로 단측 가설임을 확인하십시오. 만약 양측 대립 가설을 선택했다면 $p_{m} - p_{f} \neq 0$으로 설정했을 것입니다. 지금은 단순함을 유지하기 위해 더 간단한 단측 대립 가설을 고수하겠습니다. 섹션 \@ref(ht-case-study)에서 양측 대립 가설의 예시를 제시할 것입니다.
+대립 가설 $H_A$가 $p_{m} - p_{f} > 0$으로 단측 가설임을 확인하십시오. 만약 양측 대립 가설을 선택했다면 $p_{m} - p_{f} \neq 0$으로 설정했을 것입니다. 지금은 단순함을 유지하기 위해 더 간단한 단측 대립 가설을 고수하겠습니다. @sec-ht-case-study절에서 양측 대립 가설의 예시를 제시할 것입니다.
 
-셋째, **검정 통계량(test statistic)** \index{hypothesis testing!test statistic}은 가설 검정에 사용되는 **점 추정치/표본 통계량** 공식입니다. 여기서 표본 통계량은 단지 관찰된 표본을 기반으로 한 요약 통계량일 뿐입니다. 섹션 \@ref(summarize)에서 요약 통계량은 많은 값을 받아 하나의 값만 반환한다는 것을 보았습니다. 여기서 표본은 남성 이름의 이력서 $n_m$ = `r n_resumes_gender`개와 여성 이름의 이력서 $n_f$ = `r n_resumes_gender`개가 될 것입니다. 따라서 관심 있는 점 추정치는 표본 비율의 차이인 $\widehat{p}_{m} - \widehat{p}_{f}$입니다.
+셋째, **검정 통계량(test statistic)** \index{hypothesis testing!test statistic}은 가설 검정에 사용되는 **점 추정치/표본 통계량** 공식입니다. 여기서 표본 통계량은 단지 관찰된 표본을 기반으로 한 요약 통계량일 뿐입니다. @sec-summarize절에서 요약 통계량은 많은 값을 받아 하나의 값만 반환한다는 것을 보았습니다. 여기서 표본은 남성 이름의 이력서 $n_m$ = `r n_resumes_gender`개와 여성 이름의 이력서 $n_f$ = `r n_resumes_gender`개가 될 것입니다. 따라서 관심 있는 점 추정치는 표본 비율의 차이인 $\widehat{p}_{m} - \widehat{p}_{f}$입니다.
 
 넷째, **관찰된 검정 통계량(observed test statistic)** \index{hypothesis testing!observed test statistic}은 우리가 실제 생활에서 관찰한 검정 통계량의 값입니다. 우리의 경우, `promotions` 데이터 프레임에 저장된 데이터를 사용하여 이 값을 계산했습니다. 관찰된 차이는 남성 이름의 이력서에 유리한 $\widehat{p}_{m} -\widehat{p}_{f} = `r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`\%$였습니다.
 
-다섯째, **귀무 분포(null distribution)** \index{hypothesis testing!null distribution}는 **귀무 가설 $H_0$가 참이라고 가정할 때** 검정 통계량의 표본 분포입니다. 오! 꽤 긴 정의군요! 천천히 하나씩 풀어봅시다. 귀무 분포를 이해하는 핵심은 귀무 가설 $H_0$가 참이라고 **가정된다**는 점입니다. 우리가 지금 단계에서 $H_0$가 참이라고 말하는 것이 아니라, 단지 가설 검정 목적으로 그것이 참이라고 가정하는 것뿐입니다. 우리의 경우, 이는 승진율에 성차별이 존재하지 않는 가상의 우주에 해당합니다. 귀무 가설 $H_0$를 가정할 때(또는 "$H_0$ 하에서"라고 표현함), 표본 변동으로 인해 검정 통계량은 어떻게 변할까요? 우리의 경우, $H_0$ 하에서 표본 추출로 인해 표본 비율의 차이인 $\widehat{p}_{m} - \widehat{p}_{f}$는 어떻게 달라질까요? 하위 섹션 \@ref(sampling-definitions)에서 점 추정치가 표본 변동으로 인해 어떻게 변하는지 보여주는 분포를 **표본 분포(sampling distributions)**라고 불렀던 것을 상기하십시오. 귀무 분포에 대해 기억해야 할 유일한 추가 사항은 그것이 **귀무 가설 $H_0$가 참이라고 가정할 때**의 표본 분포라는 점입니다.
+다섯째, **귀무 분포(null distribution)** \index{hypothesis testing!null distribution}는 **귀무 가설 $H_0$가 참이라고 가정할 때** 검정 통계량의 표본 분포입니다. 오! 꽤 긴 정의군요! 천천히 하나씩 풀어봅시다. 귀무 분포를 이해하는 핵심은 귀무 가설 $H_0$가 참이라고 **가정된다**는 점입니다. 우리가 지금 단계에서 $H_0$가 참이라고 말하는 것이 아니라, 단지 가설 검정 목적으로 그것이 참이라고 가정하는 것뿐입니다. 우리의 경우, 이는 승진율에 성차별이 존재하지 않는 가상의 우주에 해당합니다. 귀무 가설 $H_0$를 가정할 때(또는 "$H_0$ 하에서"라고 표현함), 표본 변동으로 인해 검정 통계량은 어떻게 변할까요? 우리의 경우, $H_0$ 하에서 표본 추출로 인해 표본 비율의 차이인 $\widehat{p}_{m} - \widehat{p}_{f}$는 어떻게 달라질까요? 하위 @sec-sampling-definitions절에서 점 추정치가 표본 변동으로 인해 어떻게 변하는지 보여주는 분포를 **표본 분포(sampling distributions)**라고 불렀던 것을 상기하십시오. 귀무 분포에 대해 기억해야 할 유일한 추가 사항은 그것이 **귀무 가설 $H_0$가 참이라고 가정할 때**의 표본 분포라는 점입니다.
 
-우리의 경우, 이전에 그림 \@ref(fig:null-distribution-1)에서 귀무 분포를 시각화했으며, 이를 새로운 표기법과 용어를 사용하여 그림 \@ref(fig:null-distribution-2)에 다시 표시합니다. 이는 성차별이 없는 가상의 우주를 **가정**하고 우리 친구들이 계산한 `r n_shuffle`개의 표본 비율 차이의 분포입니다. 또한 관찰된 검정 통계량인 `r observed_test_statistic`의 값을 수직선으로 표시했습니다.
+우리의 경우, 이전에 그림 @fig-null-distribution-1에서 귀무 분포를 시각화했으며, 이를 새로운 표기법과 용어를 사용하여 그림 @fig-null-distribution-2에 다시 표시합니다. 이는 성차별이 없는 가상의 우주를 **가정**하고 우리 친구들이 계산한 `r n_shuffle`개의 표본 비율 차이의 분포입니다. 또한 관찰된 검정 통계량인 `r observed_test_statistic`의 값을 수직선으로 표시했습니다.
 
 ```{r null-distribution-2, fig.cap = "귀무 분포와 관찰된 검정 통계량.", purl=FALSE, echo=FALSE, fig.height=3.3}
 ggplot(data = shuffled_data_tidy, aes(x = stat)) +
@@ -495,7 +495,7 @@ ggplot(data = shuffled_data_tidy, aes(x = stat)) +
 
 여섯째, **p-값(p-value)** \index{hypothesis testing!p-value} 또는 **유의 확률**은 **귀무 가설 $H_0$가 참이라고 가정할 때**, 관찰된 검정 통계량만큼이나 극단적이거나 그보다 더 극단적인 검정 통계량을 얻을 확률입니다. 다시 한번 오! 이것도 천천히 풀어보겠습니다. p-값을 "놀라움(surprise)"의 수량화로 생각할 수 있습니다. $H_0$가 참이라고 가정할 때, 우리가 관찰한 것에 대해 얼마나 놀랐을까요? 우리의 경우, 성차별이 없는 가상 우주에서 $H_0$가 참이라고 가정할 때 우리가 수집한 표본으로부터 승진율 차이인 `r observed_test_statistic`을 관찰했다면 얼마나 놀랄까요? 매우 놀랄까요? 약간 놀랄까요?
 
-p-값은 이 확률을 수치화합니다. 그림 \@ref(fig:null-distribution-2)에 있는 `r n_shuffle`개의 표본 비율 차이의 경우, 어느 정도의 비율이 더 "극단적인" 결과를 가졌을까요? 여기서 극단적이라는 것은 "남성" 지원자가 "여성" 지원자보다 높은 비율로 승진한다는 대립 가설 $H_A$의 관점에서 정의됩니다. 다시 말해, 남성에게 유리한 차별이 $`r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`\%$보다 **더욱** 뚜렷하게 나타난 경우가 얼마나 자주 있었을까요?
+p-값은 이 확률을 수치화합니다. 그림 @fig-null-distribution-2에 있는 `r n_shuffle`개의 표본 비율 차이의 경우, 어느 정도의 비율이 더 "극단적인" 결과를 가졌을까요? 여기서 극단적이라는 것은 "남성" 지원자가 "여성" 지원자보다 높은 비율로 승진한다는 대립 가설 $H_A$의 관점에서 정의됩니다. 다시 말해, 남성에게 유리한 차별이 $`r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`\%$보다 **더욱** 뚜렷하게 나타난 경우가 얼마나 자주 있었을까요?
 
 ```{r, echo=FALSE, purl=FALSE}
 num <- sum(shuffled_data_tidy$stat >= observed_test_statistic)
@@ -503,20 +503,20 @@ denom <- nrow(shuffled_data_tidy)
 p_val <- round((num + 1) / (denom + 1), 3)
 ```
 
-이 경우, `r n_shuffle`번 중 `r sum(shuffled_data_tidy$stat >= observed_test_statistic)`번 관찰된 차이인 `r observed_test_statistic` = `r observed_test_statistic*100`%보다 크거나 같은 비율 차이를 얻었습니다. 매우 드문(사실은 발생하지 않은) 결과입니다! 성차별이 없는 가상 우주에서 이렇게 뚜렷한 승진율 차이가 발생할 확률이 매우 희박하다는 점을 감안할 때, 우리는 가상 우주를 **기각(reject)** \index{hypothesis testing!reject the null hypothesis}하려는 경향이 생깁니다. 대신 "남성" 지원자에게 유리한 차별이 존재한다는 가설을 지지하게 됩니다. 다시 말해, 우리는 $H_A$를 위해 $H_0$를 기각합니다.
+이 경우, `r n_shuffle`번 중 `r sum(shuffled_data_tidy$stat >= observed_test_statistic)`번 관찰된 차이인 `r observed_test_statistic` = `r observed_test_statistic*100`%보다 크거나 같은 비율 차이를 얻었습니다. 매우 드문(사실은 발생하지 않은 결과입니다! 성차별이 없는 가상 우주에서 이렇게 뚜렷한 승진율 차이가 발생할 확률이 매우 희박하다는 점을 감안할 때, 우리는 가상 우주를 **기각(reject)** \index{hypothesis testing!reject the null hypothesis}하려는 경향이 생깁니다. 대신 "남성" 지원자에게 유리한 차별이 존재한다는 가설을 지지하게 됩니다. 다시 말해, 우리는 $H_A$를 위해 $H_0$를 기각합니다.
 
 <!--
 v2 TODO: p-값 계산에 관찰된 검정 통계량 포함하기
 
 나중에 보겠지만 p-값은 정확히 1/`r n_shuffle`이 아니라,
-계산에 관찰된 검정 통계량을 포함해야 하므로 (`r num` + 1)/(`r denom` + 1) = `r num + 1`/`r denom + 1` = `r p_val`이 됩니다.
+계산에 관찰된 검정 통계량을 포함해야 하므로 (`r num` + 1)/(`r denom` + 1) = `r num + 1`/`r (denom + 1)` = `r p_val`이 됩니다.
 -->
 
-일곱째이자 마지막으로, 많은 가설 검정 절차에서 검정의 **유의 수준(significance level)** \index{hypothesis testing!significance level}을 사전에 설정하는 것이 권장됩니다. 이는 그리스 문자 $\alpha$ ("알파"라고 읽음)로 표시됩니다. 이 값은 p-값에 대한 컷오프(기준점) 역할을 하며, p-값이 $\alpha$보다 작으면 "귀무 가설 $H_0$를 기각"하게 됩니다.
+일곱째이자 마지막으로, 많은 가설 검정 절차에서 검정의 **유의 수준(significance level)** \index{hypothesis testing!significance level}을 사전에 설정하는 것이 권장됩니다. 이는 그리스 문자 $\alpha$ ("알파"라고 읽음)로 표시됩니다. 이 값은 p-값에 대한 컷오프(기준점 역할을 하며, p-값이 $\alpha$보다 작으면 "귀무 가설 $H_0$를 기각"하게 됩니다.
 
-반대로 p-값이 $\alpha$보다 작지 않으면 " $H_0$를 기각하지 못한다"라고 말합니다. 후자의 진술이 " $H_0$를 수용한다"는 말과는 다르다는 점에 유의하십시오. 이 차이는 다소 미묘하며 즉각적으로 명확하지 않을 수 있습니다. 이에 대해서는 나중에 섹션 \@ref(ht-interpretation)에서 다시 다루겠습니다.
+반대로 p-값이 $\alpha$보다 작지 않으면 " $H_0$를 기각하지 못한다"라고 말합니다. 후자의 진술이 " $H_0$를 수용한다"는 말과는 다르다는 점에 유의하십시오. 이 차이는 다소 미묘하며 즉각적으로 명확하지 않을 수 있습니다. 이에 대해서는 나중에 @sec-ht-interpretation절에서 다시 다루겠습니다.
 
-연구 분야에 따라 서로 다른 $\alpha$ 값을 사용하는 경향이 있지만, 흔히 사용되는 $\alpha$ 값은 0.1, 0.01, 0.05이며, 명확한 이유 없이 0.05를 선택하는 경우가 많습니다. 유의 수준 $\alpha$에 대해서는 섹션 \@ref(ht-interpretation)에서 더 자세히 이야기하겠지만, 우선 `infer` 패키지를 사용하여 승진 활동에 해당하는 가설 검정을 본격적으로 수행해 봅시다.
+연구 분야에 따라 서로 다른 $\alpha$ 값을 사용하는 경향이 있지만, 흔히 사용되는 $\alpha$ 값은 0.1, 0.01, 0.05이며, 명확한 이유 없이 0.05를 선택하는 경우가 많습니다. 유의 수준 $\alpha$에 대해서는 @sec-ht-interpretation절에서 더 자세히 이야기하겠지만, 우선 `infer` 패키지를 사용하여 승진 활동에 해당하는 가설 검정을 본격적으로 수행해 봅시다.
 
 
 
@@ -524,9 +524,9 @@ v2 TODO: p-값 계산에 관찰된 검정 통계량 포함하기
 
 ## 가설 검정 수행 {#ht-infer}
 
-8장(\@ref(bootstrap-process))에서는 신뢰 구간을 구축하는 방법을 보여드렸습니다. 먼저 `dplyr` 데이터 핸들링 함수와 하위 섹션 \@ref(shovel-1000-times)에서 가상 삽으로 사용했던 `rep_sample_n()` 함수를 사용하여 이를 어떻게 수행하는지 설명했습니다. 특히 `rep_sample_n()` 함수의 `replace = TRUE` 인수를 설정하여 복원 재추출을 통한 신뢰 구간을 구축했습니다.
+8장(@sec-bootstrap-process)에서는 신뢰 구간을 구축하는 방법을 보여드렸습니다. 먼저 `dplyr` 데이터 핸들링 함수와 하위 @sec-shovel-1000-times절에서 가상 삽으로 사용했던 `rep_sample_n()` 함수를 사용하여 이를 어떻게 수행하는지 설명했습니다. 특히 `rep_sample_n()` 함수의 `replace = TRUE` 인수를 설정하여 복원 재추출을 통한 신뢰 구간을 구축했습니다.
 
-그런 다음 `infer` 패키지 워크플로를 사용하여 동일한 작업을 수행하는 방법을 보여드렸습니다. 두 워크플로 모두 신뢰 구간을 구축할 수 있는 동일한 붓스트랩 분포를 생성하지만, `infer` 패키지 워크플로는 그림 \@ref(fig:infer-ci)와 같이 전체 프로세스의 각 단계를 강조합니다. 이는 동사로 직관적으로 이름 지어진 함수들을 사용합니다.
+그런 다음 `infer` 패키지 워크플로를 사용하여 동일한 작업을 수행하는 방법을 보여드렸습니다. 두 워크플로 모두 신뢰 구간을 구축할 수 있는 동일한 붓스트랩 분포를 생성하지만, `infer` 패키지 워크플로는 그림 @fig-infer-ci와 같이 전체 프로세스의 각 단계를 강조합니다. 이는 동사로 직관적으로 이름 지어진 함수들을 사용합니다.
 
 1. 데이터 프레임에서 관심 있는 변수를 지정(`specify`)합니다.
 2. 복원 재취출을 통해 붓스트랩 재표본의 복제본을 생성(`generate`)합니다.
@@ -537,7 +537,7 @@ v2 TODO: p-값 계산에 관찰된 검정 통계량 포함하기
 knitr::include_graphics("images/flowcharts/infer/visualize.png")
 ```
 
-이 섹션에서는 그림 \@ref(fig:inferht)에서 볼 수 있듯이, `specify()`와 `generate()` 단계 사이에 `hypothesize()` 단계를 추가함으로써 이전에 보았던 신뢰 구간 구축을 위한 `infer` 코드를 가설 검정 수행을 위해 매끄럽게 수정하는 방법을 보여드릴 것입니다. 워크플로의 기본 개요가 거의 동일하다는 것을 알 수 있습니다.
+이 섹션에서는 그림 @fig-inferht에서 볼 수 있듯이, `specify()`와 `generate()` 단계 사이에 `hypothesize()` 단계를 추가함으로써 이전에 보았던 신뢰 구간 구축을 위한 `infer` 코드를 가설 검정 수행을 위해 매끄럽게 수정하는 방법을 보여드릴 것입니다. 워크플로의 기본 개요가 거의 동일하다는 것을 알 수 있습니다.
 
 ```{r inferht, echo=FALSE, fig.cap="infer 패키지를 이용한 가설 검정 수행.", purl=FALSE, out.width="90%", out.height="90%"}
 knitr::include_graphics("images/flowcharts/infer/ht.png")
@@ -547,27 +547,27 @@ knitr::include_graphics("images/flowcharts/infer/ht.png")
 alpha <- 0.05
 ```
 
-또한, 이 가설 검정을 위해 사전에 지정된 유의 수준 $\alpha$ = `r alpha`를 사용할 것입니다. $\alpha$ 값 선택에 대한 논의는 나중에 섹션 \@ref(ht-interpretation)에서 다루기로 하겠습니다.
+또한, 이 가설 검정을 위해 사전에 지정된 유의 수준 $\alpha$ = `r alpha`를 사용할 것입니다. $\alpha$ 값 선택에 대한 논의는 나중에 @sec-ht-interpretation절에서 다루기로 하겠습니다.
 
 
 ### `infer` 패키지 워크플로 {#infer-workflow-ht}
 
-#### 1. 변수 지정(`specify`) {-}
+#### 1. 변수 지정(specify) {-}
 
 `specify()` \index{infer!specify()} 연산자를 사용하여 연구의 반응 변수와 필요한 경우 설명 변수를 지정한다는 점을 상기하십시오. 이 경우, 성별이 승진 결정에 미치는 잠재적 영향에 관심이 있으므로 `decision`을 반응 변수로, `gender`를 설명 변수로 설정합니다. 데이터 프레임에서 반응 변수의 이름이 `response`이고 설명 변수의 이름이 `explanatory`일 때 `formula = response ~ explanatory` 형식을 사용하여 이를 수행합니다. 따라서 우리 사례에서는 `decision ~ gender`가 됩니다.
 
-또한, 승진되지 않은(`not` promoted) 이력서의 비율이 아니라 승진된(`"promoted"`) 이력서의 비율에 관심이 있으므로 `success` 인수를 `"promoted"`로 설정합니다.
+또한, 승진되지 않은(`not` promoted 이력서의 비율이 아니라 승진된(`"promoted"` 이력서의 비율에 관심이 있으므로 `success` 인수를 `"promoted"`로 설정합니다.
 
 ```{r}
 promotions %>% 
-  specify(formula = decision ~ gender, success = "promoted") 
+  specify(formula = decision ~ gender, success = "promoted")
 ```
 
-다시 한번 말하지만, `promotions` 데이터 자체는 변하지 않고 `Response: decision (factor)` 및 `Explanatory: gender (factor)`와 같은 *메타데이터*만 변경된다는 점에 주목하십시오. 이는 섹션 \@ref(groupby)에서 보았듯이 `dplyr`의 `group_by()` 연산자가 데이터를 변경하지 않고 "그룹화" 메타데이터만 추가하는 방식과 유사합니다.
+다시 한번 말하지만, `promotions` 데이터 자체는 변하지 않고 `Response: decision (factor)` 및 `Explanatory: gender (factor)`와 같은 *메타데이터*만 변경된다는 점에 주목하십시오. 이는 @sec-groupby절에서 보았듯이 `dplyr`의 `group_by()` 연산자가 데이터를 변경하지 않고 "그룹화" 메타데이터만 추가하는 방식과 유사합니다.
 
-#### 2. 귀무 가설 설정(`hypothesize`) {-}
+#### 2. 귀무 가설 설정(hypothesize) {-}
 
-`infer` 워크플로를 사용하여 가설 검정을 수행하려면 신뢰 구간에는 없었던 새로운 단계인 `hypothesize()` \index{infer!hypothesize()} 단계가 필요합니다. 섹션 \@ref(understanding-ht)에서 우리의 가설 검정은 다음과 같았습니다.
+`infer` 워크플로를 사용하여 가설 검정을 수행하려면 신뢰 구간에는 없었던 새로운 단계인 `hypothesize()` \index{infer!hypothesize()} 단계가 필요합니다. @sec-understanding-ht절에서 우리의 가설 검정은 다음과 같았습니다.
 
 $$
 \begin{aligned}
@@ -591,7 +591,7 @@ promotions %>%
 
 다시 말하지만, 데이터는 아직 변경되지 않았습니다. 이는 곧 나올 `generate()` 단계에서 발생할 것이며, 지금은 단지 메타데이터만 설정하는 단계입니다.
 
-`"point"`와 `"independence"`라는 용어는 어디에서 왔을까요? 이들은 두 가지 전문 통계 용어입니다. `"point"`라는 용어는 단일 관찰 그룹에 대해 단일 지점(point)의 값을 테스트한다는 사실에서 유래했습니다. 8장(\@ref(confidence-intervals))의 페니 예시로 돌아가서, 모든 미국 페니의 평균 연도가 1993년인지 아닌지를 테스트하고 싶다고 가정해 봅시다. 우리는 다음과 같이 *모든* 미국 페니의 평균 연도인 "지점" $\mu$의 값을 테스트하게 될 것입니다.
+`"point"`와 `"independence"`라는 용어는 어디에서 왔을까요? 이들은 두 가지 전문 통계 용어입니다. `"point"`라는 용어는 단일 관찰 그룹에 대해 단일 지점(point)의 값을 테스트한다는 사실에서 유래했습니다. 8장(@sec-confidence-intervals)의 페니 예시로 돌아가서, 모든 미국 페니의 평균 연도가 1993년인지 아닌지를 테스트하고 싶다고 가정해 봅시다. 우리는 다음과 같이 *모든* 미국 페니의 평균 연도인 "지점" $\mu$의 값을 테스트하게 될 것입니다.
 
 $$
 \begin{aligned}
@@ -602,7 +602,7 @@ $$
 
 `"independence"`라는 용어는 두 관찰 그룹에 대해 반응 변수가 그룹을 할당하는 설명 변수와 *독립(independent)*인지 여부를 테스트한다는 사실과 관련이 있습니다. 우리 사례에서는 `decision` 반응 변수가 각 이력서를 두 그룹 중 하나로 할당하는 설명 변수인 `gender`와 "독립적"인지 테스트하고 있습니다.
 
-#### 3. 반복 복제본 생성(`generate`) {-}
+#### 3. 반복 복제본 생성(generate) {-}
 
 ```{r echo=FALSE, purl=FALSE}
 # 이 코드는 동적인 인라인 텍스트 출력 목적으로 사용됩니다.
@@ -610,7 +610,7 @@ n_reps <- 1000L
 ```
 
 
-귀무 가설을 설정(`hypothesize()`)한 후에는 귀무 가설이 참이라고 가정하고 "뒤섞인(shuffled)" 데이터셋의 반복 복제본을 생성(`generate()`)합니다. 섹션 \@ref(ht-activity)에서 수행했던 셔플링 활동을 여러 번 반복하여 이를 수행합니다. 친구들이 했던 것처럼 단지 `r n_shuffle`번만 하는 대신, 컴퓨터를 사용하여 `generate()` \index{infer!generate()} 함수에서 ``reps = `r n_reps` ``로 설정하여 `r n_reps`번 반복해 보겠습니다. 하지만 `type = "bootstrap"`(복원 재표본 추출)을 사용하여 반복 복제본을 생성했던 신뢰 구간 때와 달리, 이제는 `type = "permute"`로 설정하여 셔플/순열을 수행할 것입니다. 셔플/순열은 일종의 재표본 추출이지만, 붓스트랩 방법과 달리 **비복원(without replacement)** 재추출을 포함한다는 점을 기억하십시오.
+귀무 가설을 설정(`hypothesize()`)한 후에는 귀무 가설이 참이라고 가정하고 "뒤섞인(shuffled)" 데이터셋의 반복 복제본을 생성(`generate()`)합니다. @sec-ht-activity절에서 수행했던 셔플링 활동을 여러 번 반복하여 이를 수행합니다. 친구들이 했던 것처럼 단지 `r n_shuffle`번만 하는 대신, 컴퓨터를 사용하여 `generate()` \index{infer!generate()} 함수에서 ``reps = `r n_reps` ``로 설정하여 `r n_reps`번 반복해 보겠습니다. 하지만 `type = "bootstrap"`(복원 재표본 추출)을 사용하여 반복 복제본을 생성했던 신뢰 구간 때와 달리, 이제는 `type = "permute"`로 설정하여 셔플/순열을 수행할 것입니다. 셔플/순열은 일종의 재표본 추출이지만, 붓스트랩 방법과 달리 **비복원(without replacement)** 재추출을 포함한다는 점을 기억하십시오.
 
 ```{r eval=FALSE}
 promotions_generate <- promotions %>% 
@@ -636,16 +636,16 @@ nrow(promotions_generate)
 <!-- 
 v2 TODO: 고려사항:
 
-infer:::permute_once()는 x 대신 y 변수를 뒤섞습니다. 이는 결국 같은 결과가 되지만,
+`infer::permute_once()`는 x 대신 y 변수를 뒤섞습니다. 이는 결국 같은 결과가 되지만,
 이전에 설명했던 카드 교구 예시를 생각하면 그리 직관적이지는 않습니다. 
 여기서 `decision`이 셔플된 `promotions_generate`를 직접 보여주는 것은 피하는 것이 좋겠습니다.
 -->
 
 결과 데이터 프레임 행의 수가 `r (n_resumes*n_reps) %>% comma()`개임을 확인하십시오. 이는 `r n_resumes`개 행 각각에 대해 `r n_reps`번의 셔플/순열을 수행했기 때문이며, $`r (n_resumes*n_reps) %>% comma()` = `r n_reps` \cdot `r n_resumes`입니다. `View()`를 사용하여 `promotions_generate` 데이터 프레임을 탐색해 보면, `replicate` 변수가 각 행이 어느 재표본에 속하는지 나타내는 것을 볼 수 있습니다. 따라서 값이 `1`인 행이 `r n_resumes`개, `2`인 행이 `r n_resumes`개, 그리고 마지막으로 `` `r n_reps` ``인 행이 `r n_resumes`개 있습니다.
 
-#### 4. 요약 통계량 계산(`calculate`) {-}
+#### 4. 요약 통계량 계산(`calculate` {-}
 
-이제 귀무 가설이 참이라고 가정하고 `r n_reps`개의 "셔플" 반복 복제본을 생성했으므로, 각 `r n_reps`개의 셔플에 대해 적절한 요약 통계량을 계산(`calculate()`) \index{infer!calculate()}해 봅시다. 섹션 \@ref(understanding-ht)에서 가설 검정과 관련된 점 추정치는 **검정 통계량(test statistics)**이라는 특별한 명칭이 있다고 했습니다. 관심 있는 모집단 모수가 모집단 비율의 차이인 $p_{m} - p_{f}$이므로, 여기서 검정 통계량은 표본 비율의 차이인 $\widehat{p}_{m} - \widehat{p}_{f}$입니다.
+이제 귀무 가설이 참이라고 가정하고 `r n_reps`개의 "셔플" 반복 복제본을 생성했으므로, 각 `r n_reps`개의 셔플에 대해 적절한 요약 통계량을 계산(`calculate()` \index{infer!calculate()}해 봅시다. @sec-understanding-ht절에서 가설 검정과 관련된 점 추정치는 **검정 통계량(test statistics)**이라는 특별한 명칭이 있다고 했습니다. 관심 있는 모집단 모수가 모집단 비율의 차이인 $p_{m} - p_{f}$이므로, 여기서 검정 통계량은 표본 비율의 차이인 $\widehat{p}_{m} - \widehat{p}_{f}$입니다.
 
 `r n_reps`개의 각 셔플에 대해 `stat = "diff in props"`로 설정하여 이 검정 통계량을 계산할 수 있습니다. 또한, $\widehat{p}_{m} - \widehat{p}_{f}$에 관심이 있으므로 `order = c("male", "female")`로 설정합니다. 앞서 언급했듯이, 분석 내내 일관성을 유지하고 그에 맞춰 해석을 조정한다면 뺄셈의 순서는 중요하지 않습니다.
 
@@ -671,29 +671,28 @@ if (!file.exists("rds/null_distribution_promotions.rds")) {
 null_distribution
 ```
 
-성차별이 없는 가상 세계에서의 $\widehat{p}_{m} - \widehat{p}_{f}$의 각 인스턴스를 나타내는 `r n_reps`개의 `stat` 값이 있음을 확인하십시오. 또한 이 데이터 프레임의 이름을 `null_distribution`으로 신중하게 선택했음을 주목하십시오. 귀무 가설 $H_0$가 참이라고 가정할 때의 표본 분포는 **귀무 분포(null distribution)**라는 특별한 이름을 가진다는 점을 섹션 \@ref(understanding-ht)에서 다시 한번 떠올려 보십시오.
+성차별이 없는 가상 세계에서의 $\widehat{p}_{m} - \widehat{p}_{f}$의 각 인스턴스를 나타내는 `r n_reps`개의 `stat` 값이 있음을 확인하십시오. 또한 이 데이터 프레임의 이름을 `null_distribution`으로 신중하게 선택했음을 주목하십시오. 귀무 가설 $H_0$가 참이라고 가정할 때의 표본 분포는 **귀무 분포(null distribution)**라는 특별한 이름을 가진다는 점을 @sec-understanding-ht절에서 다시 한번 떠올려 보십시오.
 
-승진율의 *관찰된* 차이는 얼마였나요? 다시 말해, *관찰된 검정 통계량* $\widehat{p}_{m} - \widehat{p}_{f}$는 얼마였나요? 섹션 \@ref(ht-activity)에서 이 관찰된 차이를 직접 계산했을 때 `r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`%였습니다. 또한 `hypothesize()`와 `generate()` 단계를 제거한 이전 `infer` 코드를 사용하여 이 값을 계산할 수 있습니다. 이를 `obs_diff_prop`에 저장하겠습니다.
+승진율의 *관찰된* 차이는 얼마였나요? 다시 말해, *관찰된 검정 통계량* $\widehat{p}_{m} - \widehat{p}_{f}$는 얼마였나요? @sec-ht-activity절에서 이 관찰된 차이를 직접 계산했을 때 `r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`%였습니다. 또한 `hypothesize()`와 `generate()` 단계를 제거한 이전 `infer` 코드를 사용하여 이 값을 계산할 수 있습니다. 이를 `obs_diff_prop`에 저장하겠습니다.
 
 ```{r}
 obs_diff_prop <- promotions %>% 
   specify(decision ~ gender, success = "promoted") %>% 
   calculate(stat = "diff in props", order = c("male", "female"))
-```
 obs_diff_prop
 ```
 
-#### 5. p-값 시각화(`visualize`) {-}
+#### 5. p-값 시각화(visualize) {-}
 
 마지막 단계는 성차별이 없는 가상 우주에서 승진율 차이가 `r observed_test_statistic*100`%로 나타난 것에 대해 우리가 얼마나 놀랐는지 측정하는 것입니다. 만약 관찰된 차이인 `r observed_test_statistic`이 발생할 확률이 매우 낮다면, 우리는 가상 우주의 타당성을 기각하는 경향을 보일 것입니다.
 
-먼저 그림 \@ref(fig:null-distribution-infer)에서 `visualize()` \index{infer!visualize()}를 사용하여 $\widehat{p}_{m} - \widehat{p}_{f}$의 `r n_reps`개 값에 대한 **귀무 분포**를 시각화하는 것부터 시작합니다. 이 값들은 $H_0$가 참이라고 가정할 때의 승진율 차이임을 상기하십시오. 이는 성차별이 없는 가상의 우주에 있는 것에 해당합니다.
+먼저 그림 @fig-null-distribution-infer에서 `visualize()` \index{infer!visualize()}를 사용하여 $\widehat{p}_{m} - \widehat{p}_{f}$의 `r n_reps`개 값에 대한 **귀무 분포**를 시각화하는 것부터 시작합니다. 이 값들은 $H_0$가 참이라고 가정할 때의 승진율 차이임을 상기하십시오. 이는 성차별이 없는 가상의 우주에 있는 것에 해당합니다.
 
 ```{r null-distribution-infer, fig.show="hold", fig.cap="귀무 분포.", fig.height=1.8}
 visualize(null_distribution, bins = 10)
 ```
 
-이제 실제 생활에서 일어난 일인 `r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`%의 관찰된 승진율 차이를 그림 \@ref(fig:null-distribution-infer)에 추가해 보겠습니다. 하지만 단순히 `geom_vline()`을 사용하여 수직선을 추가하는 대신, `obs_stat`에 `obs_diff_prop`에 저장한 관찰된 검정 통계량 값을 설정하여 `shade_p_value()` \index{infer!shade\_p\_value()} 함수를 사용해 보겠습니다.
+이제 실제 생활에서 일어난 일인 `r p_men_promoted` - `r p_women_promoted` = `r observed_test_statistic` = `r observed_test_statistic*100`%의 관찰된 승진율 차이를 그림 @fig-null-distribution-infer에 추가해 보겠습니다. 하지만 단순히 `geom_vline()`을 사용하여 수직선을 추가하는 대신, `obs_stat`에 `obs_diff_prop`에 저장한 관찰된 검정 통계량 값을 설정하여 `shade_p_value()` \index{infer!shade\_p\_value()} 함수를 사용해 보겠습니다.
 
 또한, 대립 가설 $H_A: p_{m} - p_{f} > 0$을 반영하여 `direction = "right"`로 설정할 것입니다. 우리의 대립 가설 $H_A$는 $p_{m} - p_{f} > 0$이며, 이는 남성 이름의 이력서에 유리한 승진율 차이가 존재한다는 주장이었습니다. 여기서 "더 극단적(more extreme)"이라는 것은 차이가 "더 크거나", "더 양수이거나", "더 오른쪽"인 경우에 해당합니다. 따라서 `shade_p_value()`의 `direction` 인수를 `"right"`로 설정합니다.
 
@@ -704,11 +703,11 @@ visualize(null_distribution, bins = 10) +
   shade_p_value(obs_stat = obs_diff_prop, direction = "right")
 ```
 
-그 결과인 그림 \@ref(fig:null-distribution-infer-2)에서 짙은 실선은 `r observed_test_statistic` = `r observed_test_statistic*100`%를 나타냅니다. 그런데 음영 처리된 영역은 무엇에 해당할까요? 이것이 바로 **p-값(p-value)**입니다. 섹션 \@ref(understanding-ht)에서 보았던 p-값의 정의를 다시 떠올려 보십시오.
+그 결과인 그림 @fig-null-distribution-infer-2에서 짙은 실선은 `r observed_test_statistic` = `r observed_test_statistic*100`%를 나타냅니다. 그런데 음영 처리된 영역은 무엇에 해당할까요? 이것이 바로 **p-값(p-value)**입니다. @sec-understanding-ht절에서 보았던 p-값의 정의를 다시 떠올려 보십시오.
 
 > p-값은 **귀무 가설 $H_0$가 참이라고 가정할 때**, 관찰된 검정 통계량만큼이나 극단적이거나 그보다 더 극단적인 검정 통계량을 얻을 확률입니다.
 
-그림 \@ref(fig:null-distribution-infer-2)의 음영 처리된 영역으로 판단하건대, 성차별이 없는 가상 우주에서 `r observed_test_statistic` = `r observed_test_statistic*100`% 이상의 승진율 차이를 관찰하는 것은 다소 드문 일인 것 같습니다. 즉, p-값이 다소 작습니다. 따라서 우리는 이 가상 우주를 기각하거나, 통계 용어를 사용하여 "$H_0$를 기각"하는 경향을 갖게 될 것입니다.
+그림 @fig-null-distribution-infer-2의 음영 처리된 영역으로 판단하건대, 성차별이 없는 가상 우주에서 `r observed_test_statistic` = `r observed_test_statistic*100`% 이상의 승진율 차이를 관찰하는 것은 다소 드문 일인 것 같습니다. 즉, p-값이 다소 작습니다. 따라서 우리는 이 가상 우주를 기각하거나, 통계 용어를 사용하여 "$H_0$를 기각"하는 경향을 갖게 될 것입니다.
 
 귀무 분포의 어느 정도 분율이 음영 처리되었을까요? 다시 말해, p-값의 정확한 값은 얼마일까요? 이전의 `shade_p_value()` 코드와 동일한 인수를 사용하여 `get_p_value()` \index{infer!get\_p\_value()} 함수로 계산할 수 있습니다.
 
@@ -722,7 +721,7 @@ p_value <- null_distribution %>%
   mutate(p_value = round(p_value, 3))
 ```
 
-p-값의 정의를 염두에 둘 때, 귀무 분포에서 오직 표본 변동만으로 `r observed_test_statistic` = `r observed_test_statistic*100`%만큼 큰 승진율 차이를 관찰할 확률은 `r pull(p_value)` = `r pull(p_value) * 100`%입니다. 이 p-값이 사전에 지정된 유의 수준 $\alpha = `r alpha`$보다 작기 때문에, 우리는 귀무 가설 $H_0: p_{m} - p_{f} = 0$을 기각합니다. 다시 말해, 이 p-값은 성차별이 없는 우리의 가상 우주를 기각하기에 충분히 작습니다. 대신 우리는 성차별이 여기서 발생했을 가능성이 높다는 결론을 지지할 충분한 증거를 갖게 되었습니다. 귀무 가설 $H_0$를 기각하느냐 마느냐는 유의 수준 $\alpha$의 선택에 크게 좌우된다는 점에 주목하십시오. 이에 대해서는 하위 섹션 \@ref(choosing-alpha)에서 더 자세히 논의하겠습니다.
+p-값의 정의를 염두에 둘 때, 귀무 분포에서 오직 표본 변동만으로 `r observed_test_statistic` = `r observed_test_statistic*100`%만큼 큰 승진율 차이를 관찰할 확률은 `r pull(p_value)` = `r pull(p_value) * 100`%입니다. 이 p-값이 사전에 지정된 유의 수준 $\alpha = `r alpha`$보다 작기 때문에, 우리는 귀무 가설 $H_0: p_{m} - p_{f} = 0$을 기각합니다. 다시 말해, 이 p-값은 성차별이 없는 우리의 가상 우주를 기각하기에 충분히 작습니다. 대신 우리는 성차별이 여기서 발생했을 가능성이 높다는 결론을 지지할 충분한 증거를 갖게 되었습니다. 귀무 가설 $H_0$를 기각하느냐 마느냐는 유의 수준 $\alpha$의 선택에 크게 좌우된다는 점에 주목하십시오. 이에 대해서는 하위 @sec-choosing-alpha절에서 더 자세히 논의하겠습니다.
 
 
 ### 신뢰 구간과의 비교 {#comparing-infer-workflows}
@@ -767,7 +766,7 @@ if (!file.exists("rds/bootstrap_distribution_promotions.rds")) {
 }
 ```
 
-이 `bootstrap_distribution`을 사용하여, 먼저 섹션 \@ref(bootstrap-process)에서 했던 것처럼 백분위수 기반 신뢰 구간을 계산해 보겠습니다.
+이 `bootstrap_distribution`을 사용하여, 먼저 @sec-bootstrap-process절에서 했던 것처럼 백분위수 기반 신뢰 구간을 계산해 보겠습니다.
 
 ```{r}
 percentile_ci <- bootstrap_distribution %>% 
@@ -775,7 +774,7 @@ percentile_ci <- bootstrap_distribution %>%
 percentile_ci
 ```
 
-하위 섹션 \@ref(shorthand)의 95% 신뢰 구간에 대한 간략한 해석을 사용하면, 우리는 모비율의 실제 차이 $p_{m} - p_{f}$가 (`r percentile_ci[["lower_ci"]] %>% round(3)`, `r percentile_ci[["upper_ci"]] %>% round(3)`) 사이에 있다고 95% "확신"합니다. 그림 \@ref(fig:bootstrap-distribution-two-prop-percentile)에서 `bootstrap_distribution`과 $p_{m} - p_{f}$에 대한 백분위수 기반 95% 신뢰 구간을 시각화해 보겠습니다.
+하위 @sec-shorthand절의 95% 신뢰 구간에 대한 간략한 해석을 사용하면, 우리는 모비율의 실제 차이 $p_{m} - p_{f}$가 (`r percentile_ci$lower_ci  %>% round(3)`, `r percentile_ci$upper_ci  %>% round(3)` 사이에 있다고 95% "확신"합니다. 그림 @fig-bootstrap-distribution-two-prop-percentile에서 `bootstrap_distribution`과 $p_{m} - p_{f}$에 대한 백분위수 기반 95% 신뢰 구간을 시각화해 보겠습니다.
 
 ```{r eval=FALSE}
 visualize(bootstrap_distribution) + 
@@ -796,7 +795,7 @@ if (knitr::is_html_output()) {
 
 $p_{m} - p_{f}$에 대한 95% 신뢰 구간에 포함되지 않은 핵심 값인 0에 주목하십시오. 즉, 차이가 0이라는 값은 우리의 그물에 걸리지 않았으며, 이는 $p_{m}$과 $p_{f}$가 실제로 다르다는 것을 시사합니다! 또한 $p_{m} - p_{f}$에 대한 95% 신뢰 구간 전체가 0보다 위에 있는 것을 확인하십시오. 이는 이 차이가 남성에게 유리함을 시사합니다.
 
-붓스트랩 분포가 대략적으로 정규 분포 모양을 띠고 있으므로, 섹션 \@ref(bootstrap-process)에서 했던 것처럼 표준 오차 방법을 사용할 수도 있습니다. 이 경우, `obs_diff_prop`에 저장된 관찰된 승진율 차이인 `r observed_test_statistic` = `r observed_test_statistic*100`%를 `point_estimate` 인수로 지정해야 합니다. 이 값이 신뢰 구간의 중심 역할을 합니다.
+붓스트랩 분포가 대략적으로 정규 분포 모양을 띠고 있으므로, @sec-bootstrap-process절에서 했던 것처럼 표준 오차 방법을 사용할 수도 있습니다. 이 경우, `obs_diff_prop`에 저장된 관찰된 승진율 차이인 `r observed_test_statistic` = `r observed_test_statistic*100`%를 `point_estimate` 인수로 지정해야 합니다. 이 값이 신뢰 구간의 중심 역할을 합니다.
 
 ```{r}
 se_ci <- bootstrap_distribution %>% 
@@ -805,7 +804,7 @@ se_ci <- bootstrap_distribution %>%
 se_ci
 ```
 
-`bootstrap_distribution`을 다시 시각화하되, 이번에는 그림 \@ref(fig:bootstrap-distribution-two-prop-se)에서 $p_{m} - p_{f}$에 대한 표준 오차 기반 95% 신뢰 구간을 살펴보십시오. 다시 한번 값 0이 신뢰 구간에 포함되지 않았음을 확인하십시오. 이는 다시 한번 $p_{m}$과 $p_{f}$가 실제로 다르다는 것을 시사합니다!
+`bootstrap_distribution`을 다시 시각화하되, 이번에는 그림 @fig-bootstrap-distribution-two-prop-se에서 $p_{m} - p_{f}$에 대한 표준 오차 기반 95% 신뢰 구간을 살펴보십시오. 다시 한번 값 0이 신뢰 구간에 포함되지 않았음을 확인하십시오. 이는 다시 한번 $p_{m}$과 $p_{f}$가 실제로 다르다는 것을 시사합니다!
 
 ```{r eval=FALSE}
 visualize(bootstrap_distribution) + 
@@ -815,15 +814,13 @@ visualize(bootstrap_distribution) +
 # Will need to make a tweak to the {infer} package so that it doesn't always display "Null" here (added to `develop` branch on 2019-10-26)
 if (knitr::is_html_output()) {
   visualize(bootstrap_distribution) +
-    shade_confidence_interval(endpoints = se_ci) #+
-  #  ggtitle("Simulation-Based Bootstrap Distribution")
+    shade_confidence_interval(endpoints = se_ci)
 } else {
   visualize(bootstrap_distribution) +
     shade_confidence_interval(
       endpoints = se_ci,
       fill = "grey40", color = "grey30"
-    ) #+
-  #  ggtitle("Simulation-Based Bootstrap Distribution")
+    )
 }
 ```
 
@@ -857,7 +854,7 @@ null_distribution_mean <- promotions %>%
 
 ### "검정은 단 하나뿐이다" {#only-one-test}
 
-섹션 \@ref(understanding-ht)에서 보았던 표본 추출과 관련된 용어, 기호, 정의와 하위 섹션 \@ref(infer-workflow-ht)의 `infer` 워크플로를 사용하여 가설 검정을 수행하는 데 필요한 단계들을 요약해 보겠습니다.
+ @sec-understanding-ht절에서 보았던 표본 추출과 관련된 용어, 기호, 정의와 하위 @sec-infer-workflow-ht절의 `infer` 워크플로를 사용하여 가설 검정을 수행하는 데 필요한 단계들을 요약해 보겠습니다.
 
 1. 데이터 프레임에서 관심 있는 변수를 `specify()`(지정)합니다.
 2. 귀무 가설 $H_0$를 `hypothesize()`(설정)합니다. 즉, $H_0$가 참이라고 가정한 "우주에 대한 모델"을 설정합니다.
@@ -865,13 +862,13 @@ null_distribution_mean <- promotions %>%
 4. 관찰된 데이터와 **시뮬레이션된** 데이터 모두에 대해 관심 있는 **검정 통계량**을 `calculate()`(계산)합니다.
 5. 결과로 나온 **귀무 분포**를 `visualize()`(시각화)하고, 귀무 분포를 관찰된 검정 통계량과 비교하여 **p-값**을 계산합니다.
 
-가설 검정을 처음 접할 때는 소화해야 할 내용이 많지만, 좋은 점은 이 일반적인 프레임워크를 이해하고 나면 **어떤** 가설 검정도 이해할 수 있다는 것입니다. 컴퓨터 과학자 앨런 다우니(Allen Downey)는 유명한 블로그 포스트에서 이를 ["검정은 단 하나뿐이다(There is only one test)"](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html) 프레임워크라고 불렀으며, 그림 \@ref(fig:htdowney)에 표시된 순서도를 만들었습니다.
+가설 검정을 처음 접할 때는 소화해야 할 내용이 많지만, 좋은 점은 이 일반적인 프레임워크를 이해하고 나면 **어떤** 가설 검정도 이해할 수 있다는 것입니다. 컴퓨터 과학자 앨런 다우니(Allen Downey)는 유명한 블로그 포스트에서 이를 ["검정은 단 하나뿐이다(There is only one test)"](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html) 프레임워크라고 불렀으며, 그림 @fig-htdowney에 표시된 순서도를 만들었습니다.
 
 ```{r htdowney, echo=FALSE, fig.cap="앨런 다우니의 가설 검정 프레임워크.", purl=FALSE, out.width="110%"}
 knitr::include_graphics("images/copyright/there_is_only_one_test.png")
 ```
 
-그림 \@ref(fig:inferht)에서 보았던 "`infer`를 이용한 가설 검정" 다이어그램과의 유사점에 주목하십시오. 이는 `infer` 패키지가 "검정은 단 하나뿐이다" 프레임워크에 맞춰 명시적으로 설계되었기 때문입니다. 따라서 이 프레임워크를 이해한다면, 모든 가설 검정 시나리오에 대해 이러한 아이디어를 쉽게 일반화할 수 있습니다. 모비율 $p$, 모평균 $\mu$, 모비율의 차이 $p_1 - p_2$, 모평균의 차이 $\mu_1 - \mu_2$, 그리고 10장(\@ref(inference-for-regression)) 회귀 분석 추론에서 보게 될 모집단 회귀 기울기 $\beta_1$에 대해서도 마찬가지입니다. 사실, 이 프레임워크는 이러한 예시들보다 더 복잡한 가설 검정과 검정 통계량에도 더 일반적으로 적용됩니다.
+그림 @fig-inferht에서 보았던 "`infer`를 이용한 가설 검정" 다이어그램과의 유사점에 주목하십시오. 이는 `infer` 패키지가 "검정은 단 하나뿐이다" 프레임워크에 맞춰 명시적으로 설계되었기 때문입니다. 따라서 이 프레임워크를 이해한다면, 모든 가설 검정 시나리오에 대해 이러한 아이디어를 쉽게 일반화할 수 있습니다. 모비율 $p$, 모평균 $\mu$, 모비율의 차이 $p_1 - p_2$, 모평균의 차이 $\mu_1 - \mu_2$, 그리고 10장(@sec-inference-for-regression 회귀 분석 추론에서 보게 될 모집단 회귀 기울기 $\beta_1$에 대해서도 마찬가지입니다. 사실, 이 프레임워크는 이러한 예시들보다 더 복잡한 가설 검정과 검정 통계량에도 더 일반적으로 적용됩니다.
 
 ```{block lc-downey, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
@@ -897,7 +894,7 @@ knitr::include_graphics("images/copyright/there_is_only_one_test.png")
 
 ### 두 가지 가능한 결과 {#trial}
 
-섹션 \@ref(understanding-ht)에서 사전에 지정된 유의 수준 $\alpha$가 주어졌을 때 가설 검정에는 두 가지 가능한 결과가 있다고 언급했습니다.
+ @sec-understanding-ht절에서 사전에 지정된 유의 수준 $\alpha$가 주어졌을 때 가설 검정에는 두 가지 가능한 결과가 있다고 언급했습니다.
 
 * p-값이 $\alpha$보다 작으면, 귀무 가설 $H_0$를 **기각(reject)**하고 $H_A$를 지지합니다.
 * p-값이 $\alpha$보다 크거나 같으면, 귀무 가설 $H_0$를 **기각하지 못합니다(fail to reject)**.
@@ -920,7 +917,7 @@ knitr::include_graphics("images/copyright/there_is_only_one_test.png")
 
 따라서 직관적으로는 "$H_0$ 기각 실패"와 "$H_0$ 채택"이 같은 말처럼 느껴질 수 있지만, 실제로는 그렇지 않습니다. "$H_0$ 채택"은 피고인을 결백하다고 판단하는 것과 같습니다. 하지만 법원은 피고인을 "결백(innocent)"하다고 판결하지 않고 "유죄 아님(not guilty)"이라고 판결합니다. 달리 표현하자면, 변호인은 의뢰인의 결백을 증명할 필요가 없으며, 단지 의뢰인이 "합리적인 의심을 넘어 유죄"가 아님을 증명하기만 하면 됩니다.
 
-섹션 \@ref(ht-infer)의 이력서 활동으로 돌아가 보십시오. 우리의 가설 검정은 $H_0: p_{m} - p_{f} = 0$ 대 $H_A: p_{m} - p_{f} > 0$이었으며 사전에 지정된 유의 수준 $\alpha = `r alpha`$를 사용했습니다. 우리는 p-값으로 `r pull(p_value)`을 얻었습니다. p-값이 $\alpha = `r alpha`$보다 작았으므로 $H_0$를 기각했습니다. 즉, 우리는 이 특정 표본에서 유의 수준 $\alpha = `r alpha`$에서 $H_0$가 거짓이라고 말할 수 있는 수준의 증거를 발견했습니다. 또한 비통계적 언어로 이 결론을 다음과 같이 진술합니다. 즉, 우리는 이 데이터에서 성차별이 작용하고 있음을 암시하는 충분한 증거를 발견했습니다.
+ @sec-ht-infer절의 이력서 활동으로 돌아가 보십시오. 우리의 가설 검정은 $H_0: p_{m} - p_{f} = 0$ 대 $H_A: p_{m} - p_{f} > 0$이었으며 사전에 지정된 유의 수준 $\alpha = `r alpha`$를 사용했습니다. 우리는 p-값으로 `r pull(p_value)`을 얻었습니다. p-값이 $\alpha = `r alpha`$보다 작았으므로 $H_0$를 기각했습니다. 즉, 우리는 이 특정 표본에서 유의 수준 $\alpha = `r alpha`$에서 $H_0$가 거짓이라고 말할 수 있는 수준의 증거를 발견했습니다. 또한 비통계적 언어로 이 결론을 다음과 같이 진술합니다. 즉, 우리는 이 데이터에서 성차별이 작용하고 있음을 암시하는 충분한 증거를 발견했습니다.
 
 
 ### 오류의 종류
@@ -933,7 +930,7 @@ knitr::include_graphics("images/copyright/there_is_only_one_test.png")
 
 이러한 오류의 위험은 연구자가 전체 모집단에 대해 전수 조사를 수행하는 대신 표본에 기반해 추론을 수행할 때 지불해야 하는 대가입니다. 하지만 지금까지 수많은 예시와 활동에서 보았듯이 전수 조사는 비용이 매우 많이 들거나 불가능한 경우가 많으므로 연구자들은 표본을 사용할 수밖에 없습니다. 따라서 표본에 기반한 모든 가설 검정에서 우리는 제1종 오류가 발생할 가능성과 제2종 오류가 발생할 가능성을 어느 정도 감수할 수밖에 없습니다.
 
-제1종 오류와 제2종 오류의 개념을 이해하기 위해, 그림 \@ref(fig:trial-errors-table)에서 이러한 용어를 형사 재판 비유에 적용해 보았습니다.
+제1종 오류와 제2종 오류의 개념을 이해하기 위해, 그림 @fig-trial-errors-table에서 이러한 용어를 형사 재판 비유에 적용해 보았습니다.
 
 ```{r eval=FALSE, echo=FALSE, purl=FALSE}
 tibble(
@@ -957,7 +954,7 @@ tibble(
 knitr::include_graphics("images/gt_error_table.png")
 ```
 
-따라서 제1종 오류는 실제로는 무죄인 사람을 잘못해서 감옥에 보내는 것에 해당하고, 제2종 오류는 실제로 유죄인 사람을 풀어주는 것에 해당합니다. 가설 검정에 대한 대응 표를 그림 \@ref(fig:trial-errors-table-ht)에 나타냈습니다.
+따라서 제1종 오류는 실제로는 무죄인 사람을 잘못해서 감옥에 보내는 것에 해당하고, 제2종 오류는 실제로 유죄인 사람을 풀어주는 것에 해당합니다. 가설 검정에 대한 대응 표를 그림 @fig-trial-errors-table-ht에 나타냈습니다.
 
 ```{r hypo-test-errors, eval=FALSE, echo=FALSE, purl=FALSE}
 tibble(
@@ -986,7 +983,7 @@ knitr::include_graphics("images/gt_error_table_ht.png")
 
 표본을 사용하여 모집단에 대한 추론을 할 때, 우리는 오류를 범할 위험이 있습니다. 신뢰 구간의 경우 이에 대응하는 "오류"는 모집단 모수의 실제 값을 포함하지 않는 신뢰 구간을 구축하는 것입니다. 가설 검정의 경우 이는 제1종 오류나 제2종 오류를 범하는 것입니다. 당연히 우리는 두 오류의 확률을 최소화하고 싶습니다. 즉, 잘못된 결론을 내릴 확률이 낮기를 원합니다.
 
-- 제1종 오류가 발생할 확률은 $\alpha$로 표시합니다. $\alpha$ 값은 섹션 \@ref(understanding-ht)에서 정의한 가설 검정의 **유의 수준(significance level)**이라고 불립니다.
+- 제1종 오류가 발생할 확률은 $\alpha$로 표시합니다. $\alpha$ 값은 @sec-understanding-ht절에서 정의한 가설 검정의 **유의 수준(significance level)**이라고 불립니다.
 - 제2종 오류가 발생할 확률은 $\beta$로 표시합니다. $1-\beta$ 값은 가설 검정의 **검정력(power)**으로 알려져 있습니다.
 
 다시 말해, $\alpha$는 실제로 $H_0$가 참일 때 $H_0$를 잘못 기각할 확률에 해당합니다. 반면 $\beta$는 실제로 $H_0$가 거짓일 때 $H_0$를 잘못 기각하지 못할 확률에 해당합니다.
@@ -1050,7 +1047,7 @@ movies_sample
 
 변수에는 영화 제목(`title`)과 제작 연도(`year`)가 포함되어 있습니다. 또한 10개 별점 만점의 IMDb 평점인 수치형 변수 `rating`과, 영화가 액션(`Action`)인지 로맨스(`Romance`)인지를 나타내는 이진 범주형 변수 `genre`가 있습니다. 우리는 평균적으로 `Action` 영화와 `Romance` 영화 중 어느 쪽의 `rating`이 더 높은지에 관심이 있습니다.
 
-이 데이터에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 섹션 \@ref(geomboxplot)에서 보았듯이 박스플롯(boxplot)은 수치형 변수와 범주형 변수 사이의 관계를 보여주기 위해 사용할 수 있는 시각화 도구입니다. 섹션 \@ref(facets)에서 보았던 또 다른 옵션은 패싯 히스토그램(faceted histogram)을 사용하는 것입니다. 하지만 간결함을 위해 그림 \@ref(fig:action-romance-boxplot)에서는 박스플롯만 제시하겠습니다.
+이 데이터에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 @sec-geomboxplot절에서 보았듯이 박스플롯(boxplot)은 수치형 변수와 범주형 변수 사이의 관계를 보여주기 위해 사용할 수 있는 시각화 도구입니다. @sec-facets절에서 보았던 또 다른 옵션은 패싯 히스토그램(faceted histogram)을 사용하는 것입니다. 하지만 간결함을 위해 그림 @fig-action-romance-boxplot에서는 박스플롯만 제시하겠습니다.
 
 ```{r action-romance-boxplot, fig.cap="IMDb 평점 대 장르의 박스플롯.", fig.height=2.7}
 ggplot(data = movies_sample, aes(x = genre, y = rating)) +
@@ -1058,7 +1055,7 @@ ggplot(data = movies_sample, aes(x = genre, y = rating)) +
   labs(y = "IMDb 평점")
 ```
 
-그림 \@ref(fig:action-romance-boxplot)을 눈으로 확인해 보면, 로맨스 영화의 중앙값 평점이 더 높습니다. 하지만 액션 영화와 로맨스 영화의 평균 `rating` 사이에 **유의미한(significant)** 차이가 있다고 믿을 만한 이유가 있을까요? 단지 이 그래프만 보고 판단하기는 어렵습니다. 박스플롯은 표본 평점의 중앙값이 로맨스 영화에서 더 높다는 것을 보여줍니다.
+그림 @fig-action-romance-boxplot을 눈으로 확인해 보면, 로맨스 영화의 중앙값 평점이 더 높습니다. 하지만 액션 영화와 로맨스 영화의 평균 `rating` 사이에 **유의미한(significant)** 차이가 있다고 믿을 만한 이유가 있을까요? 단지 이 그래프만 보고 판단하기는 어렵습니다. 박스플롯은 표본 평점의 중앙값이 로맨스 영화에서 더 높다는 것을 보여줍니다.
 
 하지만 박스들 사이에 겹치는 영역이 상당히 많습니다. 또한 분포가 비대칭인지 여부에 따라 중앙값이 반드시 평균과 같지는 않다는 점을 상기하십시오.
 
@@ -1094,9 +1091,9 @@ n_romance <- movies_genre_summaries %>%
 
 ### 표본 추출 시나리오
 
-이제 하위 섹션 \@ref(terminology-and-notation)에서 공부한 표본 추출과 관련된 용어와 기호를 사용하여 이 연구를 다시 살펴보겠습니다. **연구 대상 모집단(study population)**은 액션 또는 로맨스 중 하나에만 해당하는 IMDb 데이터베이스의 모든 영화입니다. 이 모집단에서 가져온 **표본(sample)**은 `movies_sample` 데이터셋에 포함된 `r n_movies_sample`편의 영화입니다.
+이제 하위 @sec-terminology-and-notation절에서 공부한 표본 추출과 관련된 용어와 기호를 사용하여 이 연구를 다시 살펴보겠습니다. **연구 대상 모집단(study population)**은 액션 또는 로맨스 중 하나에만 해당하는 IMDb 데이터베이스의 모든 영화입니다. 이 모집단에서 가져온 **표본(sample)**은 `movies_sample` 데이터셋에 포함된 `r n_movies_sample`편의 영화입니다.
 
-이 표본은 모집단 `movies`에서 무작위로 추출되었으므로, IMDb에 있는 모든 로맨스 및 액션 영화를 대표합니다. 따라서 `movies_sample`에 기반한 모든 분석과 결과는 전체 모집단으로 일반화될 수 있습니다. 관련 **모집단 모수(population parameter)**와 **점 추정치(point estimates)**는 무엇일까요? 표 \@ref(tab:summarytable-ch10)에서 네 번째 표본 추출 시나리오를 소개합니다.
+이 표본은 모집단 `movies`에서 무작위로 추출되었으므로, IMDb에 있는 모든 로맨스 및 액션 영화를 대표합니다. 따라서 `movies_sample`에 기반한 모든 분석과 결과는 전체 모집단으로 일반화될 수 있습니다. 관련 **모집단 모수(population parameter)**와 **점 추정치(point estimates)**는 무엇일까요? 표 @tbl-summarytable-ch10에서 네 번째 표본 추출 시나리오를 소개합니다.
 
 ```{r summarytable-ch10, echo=FALSE, message=FALSE, purl=FALSE}
 # 다음 Google Doc은 CSV로 게시되어 read_csv()를 사용하여 로드됩니다:
@@ -1130,7 +1127,7 @@ sampling_scenarios %>%
   column_spec(5, width = "1in")
 ```
 
-섹션 \@ref(sampling-activity)의 표본 추출 그릇 활동이 **비율**에 관한 것이었고, 섹션 \@ref(resampling-tactile)의 페니 활동이 **평균**에 관한 것이었으며, 섹션 \@ref(case-study-two-prop-ci)의 하품이 전염되는지에 대한 사례 연구와 섹션 \@ref(ht-activity)의 승진 활동이 **비율의 차이**에 관한 것이었다면, 이제 우리는 **평균의 차이**에 주목합니다.
+ @sec-sampling-activity절의 표본 추출 그릇 활동이 **비율**에 관한 것이었고, @sec-resampling-tactile절의 페니 활동이 **평균**에 관한 것이었으며, @sec-case-study-two-prop-ci절의 하품이 전염되는지에 대한 사례 연구와 @sec-ht-activity절의 승진 활동이 **비율의 차이**에 관한 것이었다면, 이제 우리는 **평균의 차이**에 주목합니다.
 
 즉, 관심 있는 모집단 모수는 모집단 평균 평점의 차이인 $\mu_a - \mu_r$입니다. 여기서 $\mu_a$는 IMDb에 있는 모든 액션 영화의 평균 평점이고, $\mu_r$은 모든 로맨스 영화의 평균 평점입니다. 또한 관심 있는 점 추정치/표본 통계량은 표본 평균의 차이인 $\overline{x}_a - \overline{x}_r$입니다. 여기서 $\overline{x}_a$는 표본에 포함된 $n_a = `r n_action`$편의 영화의 평균 평점이고, $\overline{x}_r$은 표본에 포함된 $n_r = `r n_romance`$편의 평균 평점입니다. 앞서 수행한 탐색적 데이터 분석에 따르면, 우리의 추정치 $\overline{x}_a - \overline{x}_r$은 $`r x_bar_action %>% round(3)` - `r x_bar_romance %>% round(3)` = `r (x_bar_action - x_bar_romance) %>% round(3)`$입니다.
 
@@ -1151,7 +1148,7 @@ $$
 또한, 우리는 $\alpha = 0.001$이라는 매우 낮은 유의 수준을 미리 지정할 것입니다. 이 값을 낮게 설정하면 모든 조건이 동일할 때 p-값이 $\alpha$보다 작을 가능성이 낮아집니다. 따라서 대립 가설 $H_A$를 지지하여 귀무 가설 $H_0$를 기각할 가능성이 낮아집니다. 다시 말해, 우리는 꽤 강력한 증거가 있는 경우에만 모든 액션 영화와 로맨스 영화의 평균 평점에 차이가 없다는 가설을 기각할 것입니다. 이를 "보수적인" 가설 검정 절차라고 합니다.
 
 
-#### 1. 변수 `specify`(지정) {-}
+#### 1. 변수 지정(specify) {-}
 
 이제 `infer` 워크플로의 모든 단계를 수행해 보겠습니다. 먼저 `rating ~ genre` 공식을 사용하여 `movies_sample` 데이터 프레임에서 관심 변수를 `specify()`합니다. 이는 `infer`에 수치형 변수 `rating`이 결과 변수이고 이진 변수 `genre`가 설명 변수임을 알려줍니다. 이전에 비율에 관심이 있었을 때와 달리, 지금은 수치형 변수의 평균에 관심이 있으므로 `success` 인수를 설정할 필요가 없습니다.
 
@@ -1162,9 +1159,9 @@ movies_sample %>%
 
 이 시점에서 `movies_sample`의 데이터는 변하지 않았음을 확인하십시오. 지금까지의 유일한 변화는 새로 정의된 `Response: rating (numeric)`과 `Explanatory: genre (factor)`라는 **메타데이터(meta-data)**뿐입니다.
 
-#### 2. 귀무 가설 `hypothesize`(설정) {-}
+#### 2. 귀무 가설 설정(hypothesize) {-}
 
-`hypothesize()` 함수를 사용하여 귀무 가설 $H_0: \mu_a - \mu_r = 0$을 설정합니다. 액션 영화와 로맨스 영화라는 두 개의 표본이 있으므로, 섹션 \@ref(ht-infer)에서 설명한 대로 `null`을 `"independence"`(독립성)로 설정합니다.
+`hypothesize()` 함수를 사용하여 귀무 가설 $H_0: \mu_a - \mu_r = 0$을 설정합니다. 액션 영화와 로맨스 영화라는 두 개의 표본이 있으므로, @sec-ht-infer절에서 설명한 대로 `null`을 `"independence"`(독립성)로 설정합니다.
 
 ```{r}
 movies_sample %>% 
@@ -1172,9 +1169,9 @@ movies_sample %>%
   hypothesize(null = "independence")
 ```
 
-#### 3. 반복 복제본 `generate`(생성) {-}
+#### 3. 반복 복제본 생성(generate) {-}
 
-귀무 가설을 설정한 후, 섹션 \@ref(ht-activity)에서 수행했던 셔플링/순열 활동을 반복하여 귀무 가설이 참이라고 가정한 "셔플된" 반복 복제본을 생성합니다.
+귀무 가설을 설정한 후, @sec-ht-activity절에서 수행했던 셔플링/순열 활동을 반복하여 귀무 가설이 참이라고 가정한 "셔플된" 반복 복제본을 생성합니다.
 
 이 비복원 재표본 추출(`type = "permute"`)을 총 ``reps = `r n_reps` ``번 반복할 것입니다. 아래 코드를 실행하여 `generate()` 단계에서 무엇이 생성되는지 자유롭게 확인해 보십시오.
 
@@ -1199,9 +1196,9 @@ if (!file.exists("rds/movies_sample_generate.rds")) {
 }
 ```
 
-#### 4. 요약 통계량 `calculate`(계산) {-}
+#### 4. 요약 통계량 계산(calculate) {-}
 
-IMDb의 `Action` 영화와 `Romance` 영화가 평균적으로 같은 평점을 갖는다는 귀무 가설 $H_0$를 가정한 `r n_reps`개의 반복된 "셔플"을 생성했으므로, 이제 이 `r n_reps`개의 반복된 셔플에 대해 적절한 요약 통계량을 `calculate()`해 보겠습니다. 섹션 \@ref(understanding-ht)에서 보았듯이, 가설 검정과 관련된 요약 통계량은 **검정 통계량(test statistics)**이라는 특별한 명칭을 갖습니다. 관심 있는 미지의 모집단 모수가 모집단 평균의 차이인 $\mu_{a} - \mu_{r}$이므로, 여기서 관심 있는 검정 통계량은 표본 평균의 차이인 $\overline{x}_{a} - \overline{x}_{r}$입니다.
+IMDb의 `Action` 영화와 `Romance` 영화가 평균적으로 같은 평점을 갖는다는 귀무 가설 $H_0$를 가정한 `r n_reps`개의 반복된 "셔플"을 생성했으므로, 이제 이 `r n_reps`개의 반복된 셔플에 대해 적절한 요약 통계량을 `calculate()`해 보겠습니다. @sec-understanding-ht절에서 보았듯이, 가설 검정과 관련된 요약 통계량은 **검정 통계량(test statistics)**이라는 특별한 명칭을 갖습니다. 관심 있는 미지의 모집단 모수가 모집단 평균의 차이인 $\mu_{a} - \mu_{r}$이므로, 여기서 관심 있는 검정 통계량은 표본 평균의 차이인 $\overline{x}_{a} - \overline{x}_{r}$입니다.
 
 `r n_reps`개의 셔플 각각에 대해 `stat = "diff in means"`를 설정하여 이 검정 통계량을 계산할 수 있습니다. 또한 $\overline{x}_{a} - \overline{x}_{r}$에 관심이 있으므로 `order = c("Action", "Romance")`로 설정합니다. 결과는 `null_distribution_movies`라는 데이터 프레임에 저장하겠습니다.
 
@@ -1234,9 +1231,9 @@ obs_diff_means <- movies_sample %>%
 obs_diff_means
 ```
 
-#### 5. p-값 `visualize`(시각화) {-}
+#### 5. p-값 시각화(visualize) {-}
 
-마지막으로 p-값을 계산하기 위해, 관찰된 평균 차이인 `r obs_diff_means$stat %>% round(3)`가 얼마나 "극단적인지" 평가해야 합니다. 영화 평점에 진정한 차이가 없는 가상 우주에서 구성된 귀무 분포와 `r obs_diff_means$stat %>% round(3)`를 비교하여 이를 수행합니다. 그림 \@ref(fig:null-distribution-movies-2)에서 귀무 분포와 p-값을 시각화해 보겠습니다. 승진과 관련된 하위 섹션 \@ref(infer-workflow-ht)의 예시와 달리, 지금은 양측 대립 가설 $H_A: \mu_a - \mu_r \neq 0$를 가지고 있으므로 **더 극단적인** 두 가지 가능성을 모두 허용해야 합니다. 따라서 `direction = "both"`로 설정합니다.
+마지막으로 p-값을 계산하기 위해, 관찰된 평균 차이인 `r obs_diff_means$stat %>% round(3)`가 얼마나 "극단적인지" 평가해야 합니다. 영화 평점에 진정한 차이가 없는 가상 우주에서 구성된 귀무 분포와 `r obs_diff_means$stat %>% round(3)`를 비교하여 이를 수행합니다. 그림 @fig-null-distribution-movies-2에서 귀무 분포와 p-값을 시각화해 보겠습니다. 승진과 관련된 하위 @sec-infer-workflow-ht절의 예시와 달리, 지금은 양측 대립 가설 $H_A: \mu_a - \mu_r \neq 0$를 가지고 있으므로 **더 극단적인** 두 가지 가능성을 모두 허용해야 합니다. 따라서 `direction = "both"`로 설정합니다.
 
 ```{r eval=FALSE}
 visualize(null_distribution_movies, bins = 10) + 
@@ -1272,7 +1269,7 @@ p_value_movies <- null_distribution_movies %>%
 
 이 p-값 `r p_value_movies$p_value`는 매우 작습니다. 다시 말해, 장르 간 평점 차이가 실제로 없는 가상 우주에서 `r x_bar_action %>% round(3)` - `r x_bar_romance %>% round(3)` = `r (x_bar_action - x_bar_romance) %>% round(3)`와 같은 차이를 관찰할 확률은 매우 희박합니다.
 
-하지만 이 p-값은 우리가 미리 지정한 (심지어 더 작은) 유의 수준 $\alpha = 0.001$보다는 큽니다. 따라서 우리는 귀무 가설 $H_0: \mu_a - \mu_r = 0$을 기각하는 데 실패하게 됩니다. 비통계적 언어로 결론을 내리면 다음과 같습니다. 즉, 우리는 이 데이터 표본에서 로맨스 영화와 액션 영화 사이의 평균 IMDb 평점에 차이가 없다는 가설을 기각해야 한다고 제안할 만한 필요한 증거를 가지고 있지 않습니다. 따라서 우리는 모든 IMDb 영화에 대해 로맨스 영화와 액션 영화의 평점에 평균적으로 차이가 존재한다고 말할 수 없습니다.
+하지만 이 p-값은 우리가 미리 지정한 (심지어 더 작은 유의 수준 $\alpha = 0.001$보다는 큽니다. 따라서 우리는 귀무 가설 $H_0: \mu_a - \mu_r = 0$을 기각하는 데 실패하게 됩니다. 비통계적 언어로 결론을 내리면 다음과 같습니다. 즉, 우리는 이 데이터 표본에서 로맨스 영화와 액션 영화 사이의 평균 IMDb 평점에 차이가 없다는 가설을 기각해야 한다고 제안할 만한 필요한 증거를 가지고 있지 않습니다. 따라서 우리는 모든 IMDb 영화에 대해 로맨스 영화와 액션 영화의 평점에 평균적으로 차이가 존재한다고 말할 수 없습니다.
 
 ```{block lc7-3b, type="learncheck", purl=FALSE}
 \vspace{-0.15in}
@@ -1312,11 +1309,11 @@ p_value_movies <- null_distribution_movies %>%
 
 ### 이론 기반 가설 검정 {#theory-hypo}
 
-하위 섹션 \@ref(theory-se) 및 \@ref(theory-ci)에서 수학 공식을 사용하여 표준 오차를 계산하고 신뢰 구간을 구축하는 이론 기반 방법을 보여드렸던 것처럼, 이제 가설 검정을 수행하는 전통적인 이론 기반 방법의 예시를 제시하겠습니다. 이 방법은 확률 모델, 확률 분포 및 몇 가지 가정을 사용하여 귀무 분포를 구축합니다. 이는 귀무 분포를 구축하기 위해 컴퓨터 시뮬레이션에 의존했던 이 책 전체의 접근 방식과 대조됩니다.
+하위 @sec-theory-se절 및 @sec-theory-ci에서 수학 공식을 사용하여 표준 오차를 계산하고 신뢰 구간을 구축하는 이론 기반 방법을 보여드렸던 것처럼, 이제 가설 검정을 수행하는 전통적인 이론 기반 방법의 예시를 제시하겠습니다. 이 방법은 확률 모델, 확률 분포 및 몇 가지 가정을 사용하여 귀무 분포를 구축합니다. 이는 귀무 분포를 구축하기 위해 컴퓨터 시뮬레이션에 의존했던 이 책 전체의 접근 방식과 대조됩니다.
 
 이러한 전통적인 이론 기반 방법이 수십 년 동안 사용되어 온 주된 이유는 연구자들이 수천 번의 계산을 빠르고 효율적으로 실행할 수 있는 컴퓨터를 사용할 수 없었기 때문입니다. 이제 컴퓨팅 파워가 훨씬 저렴해지고 접근하기 쉬워졌으므로 시뮬레이션 기반 방법이 훨씬 더 실현 가능해졌습니다. 그러나 많은 분야의 연구자들은 여전히 이론 기반 방법을 계속 사용하고 있습니다. 따라서 여기서 예시를 포함하는 것을 중요하게 생각합니다.
 
-이 섹션에서 보여주겠지만, 모든 이론 기반 방법은 궁극적으로 시뮬레이션 기반 방법에 대한 근사치입니다. 우리가 집중할 이론 기반 방법은 표본 평균의 차이를 검정하기 위한 **이표본 t-검정(two-sample $t$-test)**으로 알려져 있습니다. 그러나 우리가 사용할 검정 통계량은 표본 평균의 차이인 $\overline{x}_1 - \overline{x}_2$가 아니라, 이와 관련된 **이표본 t-통계량(two-sample $t$-statistic)**입니다. 사용할 데이터는 섹션 \@ref(ht-case-study)의 액션 영화와 로맨스 영화에 대한 `movies_sample` 데이터를 다시 사용하겠습니다.
+이 섹션에서 보여주겠지만, 모든 이론 기반 방법은 궁극적으로 시뮬레이션 기반 방법에 대한 근사치입니다. 우리가 집중할 이론 기반 방법은 표본 평균의 차이를 검정하기 위한 **이표본 t-검정(two-sample $t$-test)**으로 알려져 있습니다. 그러나 우리가 사용할 검정 통계량은 표본 평균의 차이인 $\overline{x}_1 - \overline{x}_2$가 아니라, 이와 관련된 **이표본 t-통계량(two-sample $t$-statistic)**입니다. 사용할 데이터는 @sec-ht-case-study절의 액션 영화와 로맨스 영화에 대한 `movies_sample` 데이터를 다시 사용하겠습니다.
 
 #### 이표본 t-통계량 {-}
 
@@ -1326,7 +1323,7 @@ p_value_movies <- null_distribution_movies %>%
 
 $$z = \frac{x - \mu}{\sigma}$$
 
-여기서 $x$는 변수의 한 값, $\mu$는 그 변수의 평균, $\sigma$는 그 변수의 표준 편차를 나타냅니다. 먼저 각 $x$ 값에서 평균 $\mu$를 뺀 다음, $x - \mu$를 표준 편차 $\sigma$로 나눕니다. 이러한 연산은 변수의 중심을 0으로 다시 맞추고(**re-centering**), 변수 $x$의 척도를 조정하여(**re-scaling**) "표준 단위(standard units)"를 갖게 하는 효과가 있습니다. 따라서 변수가 가질 수 있는 모든 값에 대해, 해당 값이 평균 $\mu$로부터 표준 단위로 얼마나 떨어져 있는지를 나타내는 대응하는 z-점수가 존재합니다. z-점수는 평균이 0이고 표준 편차가 1인 정규 분포를 따릅니다. 이 곡선을 "z-분포" 또는 "표준 정규" 곡선이라고 하며, 부록 \@ref(appendix-normal-curve)에서 논의된 그림 \@ref(fig:zcurve)와 같은 일반적인 종 모양 패턴을 가집니다.
+여기서 $x$는 변수의 한 값, $\mu$는 그 변수의 평균, $\sigma$는 그 변수의 표준 편차를 나타냅니다. 먼저 각 $x$ 값에서 평균 $\mu$를 뺀 다음, $x - \mu$를 표준 편차 $\sigma$로 나눕니다. 이러한 연산은 변수의 중심을 0으로 다시 맞추고(**re-centering**), 변수 $x$의 척도를 조정하여(**re-scaling** "표준 단위(standard units)"를 갖게 하는 효과가 있습니다. 따라서 변수가 가질 수 있는 모든 값에 대해, 해당 값이 평균 $\mu$로부터 표준 단위로 얼마나 떨어져 있는지를 나타내는 대응하는 z-점수가 존재합니다. z-점수는 평균이 0이고 표준 편차가 1인 정규 분포를 따릅니다. 이 곡선을 "z-분포" 또는 "표준 정규" 곡선이라고 하며, 부록 @sec-appendix-normal-curve에서 논의된 그림 @fig-zcurve와 같은 일반적인 종 모양 패턴을 가집니다.
 
 ```{r zcurve, echo=FALSE, out.width="100%", fig.cap="표준 정규 z 곡선.", fig.height=1.3, purl=FALSE}
 ggplot(data.frame(x = c(-4, 4)), aes(x)) +
@@ -1341,19 +1338,19 @@ ggplot(data.frame(x = c(-4, 4)), aes(x)) +
   )
 ```
 
-이것을 다시 액션 영화 대 로맨스 영화의 표본 평균 평점 차이인 $\overline{x}_a - \overline{x}_r$로 가져와 보면, 어떻게 이 변수를 표준화할 수 있을까요? 다시 한번 평균을 빼고 표준 편차로 나누는 방식입니다. 하위 섹션 \@ref(moral-of-the-story)에서 두 가지 사실을 상기해 보십시오. 첫째, 표본 추출이 대표성 있게 수행되었다면, $\overline{x}_a - \overline{x}_r$의 표집 분포는 실제 모집단 모수인 $\mu_a - \mu_r$을 중심으로 형성될 것입니다. 둘째, $\overline{x}_a - \overline{x}_r$과 같은 점 추정치의 표준 편차에는 특별한 이름이 있는데, 바로 **표준 오차(standard error)**입니다.
+이것을 다시 액션 영화 대 로맨스 영화의 표본 평균 평점 차이인 $\overline{x}_a - \overline{x}_r$로 가져와 보면, 어떻게 이 변수를 표준화할 수 있을까요? 다시 한번 평균을 빼고 표준 편차로 나누는 방식입니다. 하위 @sec-moral-of-the-story절에서 두 가지 사실을 상기해 보십시오. 첫째, 표본 추출이 대표성 있게 수행되었다면, $\overline{x}_a - \overline{x}_r$의 표집 분포는 실제 모집단 모수인 $\mu_a - \mu_r$을 중심으로 형성될 것입니다. 둘째, $\overline{x}_a - \overline{x}_r$과 같은 점 추정치의 표준 편차에는 특별한 이름이 있는데, 바로 **표준 오차(standard error)**입니다.
 
 이러한 아이디어를 적용하여 **이표본 t-통계량(two-sample $t$-statistic)**\index{two-sample t-statistic}을 제시합니다.
 
 $$t = \dfrac{ (\bar{x}_a - \bar{x}_r) - (\mu_a - \mu_r)}{ \text{SE}_{\bar{x}_a - \bar{x}_r} } = \dfrac{ (\bar{x}_a - \bar{x}_r) - (\mu_a - \mu_r)}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  }$$
 
-우와! 여기서 풀어야 할 내용이 참 많네요! 천천히 살펴보겠습니다. 분자에서 $\bar{x}_a-\bar{x}_r$은 표본 평균의 차이이고, $\mu_a - \mu_r$은 모집단 평균의 차이입니다. 분모에서 $s_a$와 $s_r$은 표본 `movies_sample`에 포함된 액션 영화와 로맨스 영화의 **표본 표준 편차**입니다. 마지막으로 $n_a$와 $n_r$은 액션 영화와 로맨스 영화의 표본 크기입니다. 이것들을 제곱근(루트) 안에 모두 넣으면 표준 오차인 $\text{SE}_{\bar{x}_a - \bar{x}_r}$이 됩니다.
+우와! 여기서 풀어야 할 내용이 참 많네요! 천천히 살펴보겠습니다. 분자에서 $\bar{x}_a-\bar{x}_r$은 표본 평균의 차이이고, $\mu_a - \mu_r$은 모집단 평균의 차이입니다. 분모에서 $s_a$와 $s_r$은 표본 `movies_sample`에 포함된 액션 영화와 로맨스 영화의 **표본 표준 편차**입니다. 마지막으로 $n_a$와 $n_r$은 액션 영화와 로맨스 영화의 표본 크기입니다. 이것들을 제곱근(루트 안에 모두 넣으면 표준 오차인 $\text{SE}_{\bar{x}_a - \bar{x}_r}$이 됩니다.
 
-$\text{SE}_{\bar{x}_a - \bar{x}_r}$ 공식에 표본 크기 $n_a$와 $n_r$이 포함되어 있음을 확인하십시오. 따라서 표본 크기가 커질수록 표준 오차는 작아집니다. 우리는 이미 이 개념을 수차례 보았습니다. 특히 (1) 그림 \@ref(fig:comparing-sampling-distributions-3)에서 $n = 25, 50, 100$개의 칸이 있는 세 개의 가상 삽을 사용한 시뮬레이션에서, (2) 하위 섹션 \@ref(ci-width)에서 더 큰 표본 크기를 사용하는 것이 신뢰 구간의 폭에 미치는 영향을 공부할 때, 그리고 (3) 하위 섹션 \@ref(theory-se)에서 표본 비율 $\widehat{p}$의 표준 오차에 대한 공식 기반 근사치를 공부할 때 보았습니다.
+$\text{SE}_{\bar{x}_a - \bar{x}_r}$ 공식에 표본 크기 $n_a$와 $n_r$이 포함되어 있음을 확인하십시오. 따라서 표본 크기가 커질수록 표준 오차는 작아집니다. 우리는 이미 이 개념을 수차례 보았습니다. 특히 (1 그림 @fig-comparing-sampling-distributions-3에서 $n = 25, 50, 100$개의 칸이 있는 세 개의 가상 삽을 사용한 시뮬레이션에서, (2 하위 @sec-ci-width절에서 더 큰 표본 크기를 사용하는 것이 신뢰 구간의 폭에 미치는 영향을 공부할 때, 그리고 (3 하위 @sec-theory-se절에서 표본 비율 $\widehat{p}$의 표준 오차에 대한 공식 기반 근사치를 공부할 때 보았습니다.
 
 그렇다면 이표본 t-통계량을 가설 검정에서 검정 통계량으로 어떻게 사용할 수 있을까요? 첫째, 귀무 가설 $H_0: \mu_a - \mu_r = 0$이 참이라고 가정하면 분자의 오른쪽 항($-$ 기호 오른쪽), 즉 $\mu_a - \mu_r$은 0이 됩니다.
 
-둘째, 하위 섹션 \@ref(sampling-conclusion-central-limit-theorem)의 중심 극한 정리가 표본 평균이 정규 분포를 따른다고 설명하는 것과 유사하게, 이표본 t-통계량이 **자유도(degrees of freedom)**가 $df = n_a + n_r - 2$에 "대략적으로 같은" **t-분포**를 따른다는 것을 수학적으로 증명할 수 있습니다. 이 **자유도**라는 개념을 더 잘 이해하기 위해, 그림 \@ref(fig:t-distributions)에서 표준 정규 z 곡선과 함께 t-분포의 세 가지 예시를 보여드리겠습니다.
+둘째, 하위 @sec-sampling-conclusion-central-limit-theorem절의 중심 극한 정리가 표본 평균이 정규 분포를 따른다고 설명하는 것과 유사하게, 이표본 t-통계량이 **자유도(degrees of freedom)**가 $df = n_a + n_r - 2$에 "대략적으로 같은" **t-분포**를 따른다는 것을 수학적으로 증명할 수 있습니다. 이 **자유도**라는 개념을 더 잘 이해하기 위해, 그림 @fig-t-distributions에서 표준 정규 z 곡선과 함께 t-분포의 세 가지 예시를 보여드리겠습니다.
 
 ```{r t-distributions, echo=FALSE, fig.cap="t-분포와 z 곡선의 예시.", purl=FALSE, out.width="100%"}
 all_points <- tibble(
@@ -1401,9 +1398,9 @@ all_points %>%
 
 가로축의 0을 중심으로 그래프의 중앙을 먼저 보십시오. 0에서 위로 올라가면서 라벨을 따라가 보면, 맨 아래 곡선은 자유도가 1인 경우에 해당하고, 그 위 곡선은 자유도가 3인 경우, 그 위 곡선은 자유도가 10인 경우, 마지막으로 점선 곡선은 표준 정규 z 곡선임을 알 수 있습니다.
 
-네 가지 곡선 모두 종 모양이고 0을 중심으로 하며, 자유도가 증가할수록 t-분포가 표준 정규 z 곡선과 점점 더 닮아가는 것을 확인하십시오. "자유도(degrees of freedom)" \index{degrees of freedom}는 t-분포가 정규 분포와 얼마나 다른지를 측정하는 척도입니다. t-분포는 표준 정규 z 곡선보다 분포의 꼬리(tails) 부분에 더 많은 값을 갖는 경향이 있습니다(즉, 꼬리가 더 두껍습니다).
+네 가지 곡선 모두 종 모양이고 0을 중심으로 하며, 자유도가 증가할수록 t-분포가 표준 정규 z 곡선과 점점 더 닮아가는 것을 확인하십시오. "자유도(degrees of freedom)" \index{degrees of freedom}는 t-분포가 정규 분포와 얼마나 다른지를 측정하는 척도입니다. t-분포는 표준 정규 z 곡선보다 분포의 꼬리(tails 부분에 더 많은 값을 갖는 경향이 있습니다(즉, 꼬리가 더 두껍습니다).
 
-이 "대략적으로 같다"는 진술은 $df = n_a + n_r - 2$라는 식이 실제 자유도에 대한 "충분히 좋은" 근사치임을 나타냅니다. 실제 [공식](https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes,_unequal_variances)은 이 간단한 표현보다 다소 복잡하지만, 우리는 그 공식이 통계적 추론을 처음 접하는 사람들에게는 너무 어렵고 t-검정의 직관을 키우는 데는 큰 도움이 되지 않는다는 것을 알게 되었습니다.
+이 "대략적으로 같다"는 진술은 $df = n_a + n_r - 2$라는 식이 실제 자유도에 대한 "충분히 좋은" 근사치임을 나타냅니다. 실제 공식](https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes,_unequal_variances)은 이 간단한 표현보다 다소 복잡하지만, 우리는 그 공식이 통계적 추론을 처음 접하는 사람들에게는 너무 어렵고 t-검정의 직관을 키우는 데는 큰 도움이 되지 않는다는 것을 알게 되었습니다.
 
 여기서 기억해야 할 메시지는 표본 크기가 작으면 자유도가 작아지고, 따라서 표본 크기가 작으면 z 곡선과 다른 t-분포가 생성된다는 것입니다. 반면, 표본 크기가 크면 자유도가 커지며, 따라서 표준 정규 z 곡선과 밀접하게 일치하는 t-분포가 생성됩니다.
   
@@ -1411,7 +1408,7 @@ all_points %>%
 
 $$t = \dfrac{ (\bar{x}_a - \bar{x}_r) - 0}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  } = \dfrac{ \bar{x}_a - \bar{x}_r}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  }$$
 
-이 이표본 t-통계량에 필요한 값들을 계산해 보겠습니다. 섹션 \@ref(imdb-data)의 탐색적 데이터 분석 중에 계산했던 요약 통계량을 상기해 보십시오.
+이 이표본 t-통계량에 필요한 값들을 계산해 보겠습니다. @sec-imdb-data절의 탐색적 데이터 분석 중에 계산했던 요약 통계량을 상기해 보십시오.
 
 ```{r}
 movies_sample %>% 
@@ -1438,7 +1435,7 @@ $$
 
 #### 귀무 분포 {-}
   
-섹션 \@ref(ht-case-study)에서 구축했던 검정 통계량 $\bar{x}_a - \bar{x}_r$에 대한 귀무 분포를 다시 살펴보겠습니다. 이를 그림 \@ref(fig:comparing-diff-means-t-stat)의 왼쪽 그래프에서 시각화해 보겠습니다.
+ @sec-ht-case-study절에서 구축했던 검정 통계량 $\bar{x}_a - \bar{x}_r$에 대한 귀무 분포를 다시 살펴보겠습니다. 이를 그림 @fig-comparing-diff-means-t-stat의 왼쪽 그래프에서 시각화해 보겠습니다.
 
 ```{r, eval=FALSE}
 # xbar_a - xbar_r의 귀무 분포 구축:
@@ -1450,7 +1447,7 @@ null_distribution_movies <- movies_sample %>%
 visualize(null_distribution_movies, bins = 10)
 ```
 
-`infer` 패키지에는 몇 가지 내장된 이론 기반 검정 통계량도 포함되어 있습니다. 따라서 관심 있는 검정 통계량을 `"diff in means"`($\bar{x}_a - \bar{x}_r$)로 계산하는 대신, `stat = "t"`로 설정하여 정의된 이표본 t-통계량을 계산할 수 있습니다. 그림 \@ref(fig:comparing-diff-means-t-stat)의 오른쪽 그래프에서 이를 시각화해 보겠습니다.
+`infer` 패키지에는 몇 가지 내장된 이론 기반 검정 통계량도 포함되어 있습니다. 따라서 관심 있는 검정 통계량을 `"diff in means"`($\bar{x}_a - \bar{x}_r$)로 계산하는 대신, `stat = "t"`로 설정하여 정의된 이표본 t-통계량을 계산할 수 있습니다. 그림 @fig-comparing-diff-means-t-stat의 오른쪽 그래프에서 이를 시각화해 보겠습니다.
 
 ```{r eval=FALSE}
 # t의 귀무 분포 구축:
@@ -1526,7 +1523,7 @@ p-값이 매우 작으므로, 이러한 결과가 **표집 변동(sampling varia
 
 앞서 보았던 경고 메시지로 돌아가 보겠습니다. `이론적 방법의 조건이 충족되었는지 확인하십시오. {infer}는 현재 이를 자동으로 확인하지 않습니다.` t-검정 및 기타 이론 기반 방법을 사용하려면 항상 확인해야 할 몇 가지 조건이 있습니다. `infer` 패키지는 이러한 조건을 자동으로 확인하지 않으므로 우리가 받은 경고 메시지가 나타난 것입니다. 이러한 조건은 근간이 되는 수학적 이론이 성립하기 위해 필요합니다. 이표본 t-검정 결과가 유효하려면 다음 세 가지 조건이 충족되어야 합니다.
 
-1. 거의 **정규 분포**를 따르는 모집단이거나 **큰 표본 크기**를 가져야 합니다. 많은 상황에서(전부는 아니지만) 적용되는 일반적인 경험 법칙(rule of thumb)은 표본 크기 $n$이 30보다 커야 한다는 것입니다.
+1. 거의 **정규 분포**를 따르는 모집단이거나 **큰 표본 크기**를 가져야 합니다. 많은 상황에서(전부는 아니지만 적용되는 일반적인 경험 법칙(rule of thumb)은 표본 크기 $n$이 30보다 커야 한다는 것입니다.
 2. 두 표본은 서로 **독립적으로** 선택되어야 합니다.
 3. 모든 관측치는 서로 **독립적**이어야 합니다.
 
@@ -1545,7 +1542,7 @@ p-값이 매우 작으므로, 이러한 결과가 **표집 변동(sampling varia
 
 지금까지 신뢰 구간 구축과 가설 검정 수행이라는 `infer` 패키지 사용법의 여러 예시를 살펴보았습니다. 각 예시에서 우리는 항상 탐색적 데이터 분석(EDA)을 먼저 수행하는 것을 원칙으로 했습니다. 구체적으로 원시 데이터 값을 살펴보고, `ggplot2`를 사용한 데이터 시각화와 `dplyr`을 사용한 데이터 전처리를 사전에 수행했습니다. 여러분도 항상 그렇게 하시기를 **강력히** 권장합니다. 통계학 입문자에게 EDA는 신뢰 구간이나 가설 검정과 같은 통계적 방법이 우리에게 무엇을 말해줄 수 있는지에 대한 직관을 기르는 데 도움이 됩니다. 숙련된 통계 전문가에게도 EDA는 통계적 조사의 방향을 잡는 데 도움이 됩니다. 특히, "통계적 추론이 정말 필요한가?"라는 질문에 답하는 데 유용합니다.
 
-한 가지 예를 들어보겠습니다. 뉴욕시 공항에서 출발하는 **모든** 항공편 중에서 하와이안 항공(Hawaiian Airlines)의 비행 시간이 알래스카 항공(Alaska Airlines)보다 더 긴가요? 또한 2013년 항공편이 이러한 모든 항공편의 대표 표본이라고 가정해 봅시다. 그러면 섹션 \@ref(nycflights13)에서 소개한 `nycflights13` \index{R packages!nycflights13} 패키지의 `flights` 데이터 프레임을 사용하여 이 질문에 답할 수 있습니다. `carrier` 코드인 `HA`(하와이안)와 `AS`(알래스카)를 사용하여 하와이안 항공과 알래스카 항공만 포함하도록 이 데이터 프레임을 필터링해 보겠습니다.
+한 가지 예를 들어보겠습니다. 뉴욕시 공항에서 출발하는 **모든** 항공편 중에서 하와이안 항공(Hawaiian Airlines)의 비행 시간이 알래스카 항공(Alaska Airlines)보다 더 긴가요? 또한 2013년 항공편이 이러한 모든 항공편의 대표 표본이라고 가정해 봅시다. 그러면 @sec-nycflights13절에서 소개한 `nycflights13` \index{R packages!nycflights13} 패키지의 `flights` 데이터 프레임을 사용하여 이 질문에 답할 수 있습니다. `carrier` 코드인 `HA`(하와이안)와 `AS`(알래스카)를 사용하여 하와이안 항공과 알래스카 항공만 포함하도록 이 데이터 프레임을 필터링해 보겠습니다.
 
 ```{r}
 flights_sample <- flights %>% 
@@ -1554,7 +1551,7 @@ flights_sample <- flights %>%
 
 이러한 질문에 답하기 위해 사용할 수 있는 두 가지 통계적 추론 방법이 있습니다. 첫째, 모집단 평균의 차이인 $\mu_{HA} - \mu_{AS}$에 대한 95% 신뢰 구간을 구축할 수 있습니다. 여기서 $\mu_{HA}$는 모든 하와이안 항공 항공편의 평균 비행 시간이고, $\mu_{AS}$는 모든 알래스카 항공 항공편의 평균 비행 시간입니다. 그런 다음 구간 전체가 0보다 큰지 확인하여 $\mu_{HA} - \mu_{AS} > 0$, 즉 $\mu_{HA} > \mu_{AS}$임을 시사하는지 확인할 수 있습니다. 둘째, 귀무 가설 $H_0: \mu_{HA} - \mu_{AS} = 0$ 대 대립 가설 $H_A: \mu_{HA} - \mu_{AS} > 0$에 대한 가설 검정을 수행할 수 있습니다.
 
-하지만 먼저 앞서 제안한 대로 탐색적 시각화를 구축해 보겠습니다. `air_time`은 수치형이고 `carrier`는 범주형이므로 박스플롯을 통해 이 두 변수 사이의 관계를 나타낼 수 있습니다. 이를 그림 \@ref(fig:ha-as-flights-boxplot)에 표시했습니다.
+하지만 먼저 앞서 제안한 대로 탐색적 시각화를 구축해 보겠습니다. `air_time`은 수치형이고 `carrier`는 범주형이므로 박스플롯을 통해 이 두 변수 사이의 관계를 나타낼 수 있습니다. 이를 그림 @fig-ha-as-flights-boxplot에 표시했습니다.
 
 ```{r ha-as-flights-boxplot, fig.cap="2013년 NYC에서 출발하는 하와이안 항공과 알래스카 항공의 비행 시간.", fig.height=2.8}
 ggplot(data = flights_sample, mapping = aes(x = carrier, y = air_time)) +
@@ -1562,7 +1559,7 @@ ggplot(data = flights_sample, mapping = aes(x = carrier, y = air_time)) +
   labs(x = "공보사(Carrier)", y = "비행 시간(Air Time)")
 ```
 
-이것이 바로 우리가 소위 "통계학 박사 학위가 필요 없는" 순간이라고 부르는 것입니다. 알래스카 항공과 하와이안 항공의 비행 시간이 **유의미하게** 다르다는 것을 알기 위해 통계 전문가가 될 필요는 없습니다. 두 박스플롯은 전혀 겹치지조차 않습니다! 솔직히 말해서 신뢰 구간을 구축하거나 가설 검정을 수행하는 것이 그림 \@ref(fig:ha-as-flights-boxplot)보다 더 많은 통찰력을 제공하지는 못할 것입니다.
+이것이 바로 우리가 소위 "통계학 박사 학위가 필요 없는" 순간이라고 부르는 것입니다. 알래스카 항공과 하와이안 항공의 비행 시간이 **유의미하게** 다르다는 것을 알기 위해 통계 전문가가 될 필요는 없습니다. 두 박스플롯은 전혀 겹치지조차 않습니다! 솔직히 말해서 신뢰 구간을 구축하거나 가설 검정을 수행하는 것이 그림 @fig-ha-as-flights-boxplot보다 더 많은 통찰력을 제공하지는 못할 것입니다.
 
 데이터 전처리를 사용하여 왜 이 두 항공사 사이에 이렇게 명확한 차이가 관찰되는지 조사해 보겠습니다. 먼저 `flights_sample`의 행을 `carrier`뿐만 아니라 목적지인 `dest`로도 그룹화해 보겠습니다. 그 후 `n()`을 사용한 관측치 수와 평균 비행 시간을 계산합니다.
 
@@ -1579,7 +1576,7 @@ flights_sample %>%
 
 ### p-값의 문제점
 
-섹션 \@ref(ht-interpretation)에서 나열한 가설 검정과 p-값에 대한 많은 일반적인 오해 외에도, p-값과 가설 검정의 사용이 확대되면서 나타난 또 다른 불행한 결과는 **p-해킹(p-hacking)**\index{p-hacking}으로 알려진 현상입니다. p-해킹은 과학적 아이디어를 희생시키더라도 통계적으로 유의미한 결과만 선택적으로 골라내고(**cherry-picking**) 유의미하지 않은 결과는 무시하는 행위를 말합니다. 최근 p-값의 오해와 문제점에 관한 많은 기사가 작성되었습니다. 그중 몇 가지를 확인해 보시기 바랍니다.
+ @sec-ht-interpretation절에서 나열한 가설 검정과 p-값에 대한 많은 일반적인 오해 외에도, p-값과 가설 검정의 사용이 확대되면서 나타난 또 다른 불행한 결과는 **p-해킹(p-hacking)**\index{p-hacking}으로 알려진 현상입니다. p-해킹은 과학적 아이디어를 희생시키더라도 통계적으로 유의미한 결과만 선택적으로 골라내고(**cherry-picking** 유의미하지 않은 결과는 무시하는 행위를 말합니다. 최근 p-값의 오해와 문제점에 관한 많은 기사가 작성되었습니다. 그중 몇 가지를 확인해 보시기 바랍니다.
 
 1. [p-값에 대한 오해(영문)](https://en.wikipedia.org/wiki/Misunderstandings_of_p-values)
 2. [p-값에 대한 논쟁이 과학에 대해 보여주는 것 - 그리고 이를 해결하는 방법(영문)](https://www.vox.com/science-and-health/2017/7/31/16021654/p-values-statistical-significance-redefine-0005)
@@ -1609,15 +1606,15 @@ generate_r_file_link("09-hypothesis-testing.R")
 
 ### 향후 계획
 
-그림 \@ref(fig:infer-workflow-ht)에서 가설 검정을 위한 `infer` 파이프라인을 보여주며 결론을 맺습니다.
+그림 @fig-infer-workflow-ht에서 가설 검정을 위한 `infer` 파이프라인을 보여주며 결론을 맺습니다.
 
 ```{r infer-workflow-ht, out.width="100%", out.height="100%", echo=FALSE, fig.cap="가설 검정을 위한 infer 패키지 워크플로.", purl=FALSE}
 knitr::include_graphics("images/flowcharts/infer/ht_diagram_trimmed.png")
 ```
 
-이제 챕터 \@ref(confidence-intervals)에서 신뢰 구간을, 이번 챕터에서 가설 검정에 대한 이해를 갖추었으므로, 이제 다가올 챕터 \@ref(inference-for-regression)에서 회귀 분석을 위한 추론(inference for regression)을 공부하겠습니다.
+이제 @sec-confidence-intervals에서 신뢰 구간을, 이번 챕터에서 가설 검정에 대한 이해를 갖추었으므로, 이제 다가올 @sec-inference-for-regression에서 회귀 분석을 위한 추론(inference for regression)을 공부하겠습니다.
 
-기초 회귀 분석을 다룬 챕터 \@ref(regression)와 다중 회귀 분석을 다룬 챕터 \@ref(multiple-regression)에서 공부했던 회귀 모델을 다시 살펴보겠습니다. 예를 들어, 강사의 "외모(beauty)" 점수에 따른 강의 점수에 대한 회귀 모델에 해당하는 표 \@ref(tab:regtable)(여기 표 \@ref(tab:regression-table-inference)에서 다시 표시함)를 상기해 보십시오.
+기초 회귀 분석을 다룬 @sec-regression와 다중 회귀 분석을 다룬 @sec-multiple-regression에서 공부했던 회귀 모델을 다시 살펴보겠습니다. 예를 들어, 강사의 "외모(beauty)" 점수에 따른 강의 점수에 대한 회귀 모델에 해당하는 표 @tbl-regtable(여기 표 @tbl-regression-table-inference에서 다시 표시함)를 상기해 보십시오.
 
 ```{r, eval=FALSE}
 # 회귀 모델 적합:
@@ -1644,4 +1641,4 @@ get_regression_table(score_model) %>%
   )
 ```
 
-우리는 이전에 하위 섹션 \@ref(model1table)에서 `estimate` 열의 값이 적합된 절편 $b_0$와 "외모" 점수에 대해 적합된 기울기 $b_1$임을 보았습니다. 챕터 \@ref(inference-for-regression)에서는 나머지 열들도 살펴볼 것입니다. 즉, 표준 오차인 `std_error`, `p_value`를 계산하기 위한 관찰된 **표준화된** 검정 통계량인 `statistic`, 그리고 `lower_ci`와 `upper_ci`로 주어지는 95% 신뢰 구간입니다.
+우리는 이전에 하위 @sec-model1table절에서 `estimate` 열의 값이 적합된 절편 $b_0$와 "외모" 점수에 대해 적합된 기울기 $b_1$임을 보았습니다. @sec-inference-for-regression에서는 나머지 열들도 살펴볼 것입니다. 즉, 표준 오차인 `std_error`, `p_value`를 계산하기 위한 관찰된 **표준화된** 검정 통계량인 `statistic`, 그리고 `lower_ci`와 `upper_ci`로 주어지는 95% 신뢰 구간입니다.

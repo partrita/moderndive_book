@@ -6,7 +6,7 @@ source("_common.R")
 
 ```{r echo=FALSE, results='asis'}
 if(!knitr::is_latex_output()){
-  cat("# (APPENDIX) Appendix {-}")
+  cat("# (APPENDIX Appendix {-}")
 } else {
   cat("\\appendix")
 }
@@ -75,7 +75,7 @@ $$variance = sd^2 = \frac{(x_1 - Mean)^2 + (x_2 - Mean)^2 + \cdots + (x_n - Mean
 
 ### 다섯 수치 요약 (Five-number summary)
 
-*다섯 수치 요약(five-number summary)*은 다섯 개의 요약 통계량으로 구성됩니다: 최솟값, 제1사분위수(25백분위수), 제2사분위수(중앙값 또는 50백분위수), 제3사분위수(75백분위수), 그리고 최댓값입니다. 변수의 다섯 수치 요약은 2.7.1절(\@ref(boxplots))에서 본 것처럼 박스 그래프를 그릴 때 사용됩니다.
+*다섯 수치 요약(five-number summary)*은 다섯 개의 요약 통계량으로 구성됩니다: 최솟값, 제1사분위수(25백분위수), 제2사분위수(중앙값 또는 50백분위수), 제3사분위수(75백분위수), 그리고 최댓값입니다. 변수의 다섯 수치 요약은 2.7.1절(@sec-boxplots)에서 본 것처럼 박스 그래프를 그릴 때 사용됩니다.
 
 사분위수는 다음과 같이 계산됩니다:
 
@@ -84,14 +84,14 @@ $$variance = sd^2 = \frac{(x_1 - Mean)^2 + (x_2 - Mean)^2 + \cdots + (x_n - Mean
 
 *사분위수 범위(interquartile range, IQR)*\index{interquartile range (IQR)}는 $Q_3 - Q_1$로 정의되며, 중앙 50%의 값이 얼마나 퍼져 있는지를 나타내는 척도입니다. IQR은 박스 그래프에서 상자의 길이에 해당합니다.
 
-중앙값과 IQR은 평균 및 표준 편차와 달리 이상치(outliers)의 영향을 크게 받지 않습니다. 따라서 비대칭(skewed) 데이터셋에는 이들을 사용하는 것이 권장됩니다. 이 경우 중앙값과 IQR이 이상치에 더 *강건하다(robust to outliers)*고 말합니다.
+중앙값과 IQR은 평균 및 표준 편차와 달리 이상치(outliers)의 영향을 크게 받지 않습니다. 따라서 비대칭(skewed 데이터셋에는 이들을 사용하는 것이 권장됩니다. 이 경우 중앙값과 IQR이 이상치에 더 *강건하다(robust to outliers)*고 말합니다.
 
 
 ### 분포 (Distribution)
 
 변수의 *분포(distribution)*는 변수의 서로 다른 값들이 얼마나 자주 나타나는지를 보여줍니다. 분포 시각화를 통해 값들이 어디에 집중되어 있는지, 어떻게 변하는지, 그리고 전형적인 값이 어디쯤일지에 대한 정보를 얻을 수 있습니다. 또한 이상치의 존재를 알려주기도 합니다.
 
-2장(\@ref(viz))에서 배운 것처럼, 히스토그램에서 구간 나누기(binning)를 사용하여 수치형 변수의 분포를 시각화할 수 있고, 막대 그래프를 사용하여 범주형 변수의 분포를 시각화할 수 있음을 상기하세요.
+2장(@sec-viz)에서 배운 것처럼, 히스토그램에서 구간 나누기(binning)를 사용하여 수치형 변수의 분포를 시각화할 수 있고, 막대 그래프를 사용하여 범주형 변수의 분포를 시각화할 수 있음을 상기하세요.
 
 
 ### 이상치 (Outliers)
@@ -104,7 +104,7 @@ $$variance = sd^2 = \frac{(x_1 - Mean)^2 + (x_2 - Mean)^2 + \cdots + (x_n - Mean
 
 ## 정규 분포 {#appendix-normal-curve}
 
-이제 특별한 종류의 분포인 \index{distribution!normal} *정규 분포(normal distributions)*에 대해 논의해 보겠습니다. 이러한 종 모양의 분포는 두 가지 값에 의해 정의됩니다: (1) 분포의 중심을 위치시키는 *평균* $\mu$ ("mu")와 (2) 분포의 변동(variation)을 결정하는 *표준 편차* $\sigma$ ("sigma")입니다. 그림 \@ref(fig:normal-curves)에는 다음 세 가지 정규 분포를 그렸습니다:
+이제 특별한 종류의 분포인 \index{distribution!normal} *정규 분포(normal distributions)*에 대해 논의해 보겠습니다. 이러한 종 모양의 분포는 두 가지 값에 의해 정의됩니다: (1 분포의 중심을 위치시키는 *평균* $\mu$ ("mu")와 (2 분포의 변동(variation)을 결정하는 *표준 편차* $\sigma$ ("sigma")입니다. 그림 @fig-normal-curves에는 다음 세 가지 정규 분포를 그렸습니다:
 
 1. 실선 정규 곡선: 평균 $\mu = 5$, 표준 편차 $\sigma = 2$.
 1. 점선 정규 곡선: 평균 $\mu = 5$, 표준 편차 $\sigma = 5$.
@@ -116,8 +116,8 @@ all_points <- tibble(
   `mu = 5, sigma = 2` = dnorm(x = domain, mean = 5, sd = 2),
   `mu = 5, sigma = 5` = dnorm(x = domain, mean = 5, sd = 5),
   `mu = 15, sigma = 2` = dnorm(x = domain, mean = 15, sd = 2)
-)  %>% 
-  gather(key = "Distribution", value = "value", - domain) %>% 
+) %>% 
+  gather(key = "Distribution", value = "value", -domain) %>% 
   mutate(
     Distribution = factor(
       Distribution, 
@@ -128,9 +128,11 @@ all_points <- tibble(
   )
 
 for_labels <- all_points %>% 
-  filter(between(domain, 3.795, 3.805) & Distribution == "mu = 5, sigma = 2" |
-           between(domain, 0.005, 0.0105) & Distribution == "mu = 5, sigma = 5" |
-           between(domain, 16.005, 16.015) & Distribution == "mu = 15, sigma = 2")
+  filter(
+    (between(domain, 3.795, 3.805) & Distribution == "mu = 5, sigma = 2") |
+    (between(domain, 1.005, 1.050) & Distribution == "mu = 5, sigma = 5") |
+    (between(domain, 16.005, 16.015) & Distribution == "mu = 15, sigma = 2")
+  )
 
 all_points %>% 
   ggplot(aes(x = domain, y = value, linetype = Distribution)) +
@@ -158,7 +160,7 @@ all_points %>%
 1. 값의 95%는 평균의 $\pm$ 1.96 $\approx$ 2 표준 편차 범위 내에 있습니다.
 1. 값의 99.7%는 평균의 $\pm$ 3 표준 편차 범위 내에 있습니다.
 
-이를 그림 \@ref(fig:normal-rule-of-thumb)의 표준 정규 곡선에서 설명해 보겠습니다. 파선은 -3, -1.96, -1, 0, 1, 1.96, 3 지점에 있습니다. 이 7개의 선은 x축을 8개의 구간으로 나눕니다. 각 8개 구간에 대한 정규 곡선 아래 면적이 표시되어 있으며, 이를 모두 더하면 100%가 됩니다. 예를 들어:
+이를 그림 @fig-normal-rule-of-thumb의 표준 정규 곡선에서 설명해 보겠습니다. 파선은 -3, -1.96, -1, 0, 1, 1.96, 3 지점에 있습니다. 이 7개의 선은 x축을 8개의 구간으로 나눕니다. 각 8개 구간에 대한 정규 곡선 아래 면적이 표시되어 있으며, 이를 모두 더하면 100%가 됩니다. 예를 들어:
 
 1. 중간 두 구간은 -1에서 1 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 34% + 34% = 68%를 나타냅니다. 즉, 값의 68%에 해당합니다.
 1. 중간 네 구간은 -1.96에서 1.96 사이의 구간을 나타냅니다. 이 구간 위의 음영 처리된 면적은 13.5% + 34% + 34% + 13.5% = 95%를 나타냅니다. 즉, 값의 95%에 해당합니다.
@@ -193,13 +195,10 @@ ggplot(data = tibble(x = c(-4, 4)), aes(x)) +
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), n = 1000) + 
   # Shade and delineate +/- 3 SD
   stat_function(fun = shade_3_sd, geom = "area", fill = "black", alpha = 0.25, n = 1000) +
-  # annotate(geom = "segment", x = c(3, -3), xend = c(3, -3), y = 0, yend = dnorm(3, mean = 0, sd = 1)) +
   # Shade and delineate +/- 2 SD
   stat_function(fun = shade_2_sd, geom = "area", fill = "black", alpha = 0.25, n = 1000) +
-  # annotate(geom = "segment", x = c(1.96, -1.96), xend = c(1.96, -1.96), y = 0, yend = dnorm(1.96, mean = 0, sd = 1)) +
   # Shade and delineate +/- 1 SD
   stat_function(fun = shade_1_sd, geom = "area", fill = "black", alpha = 0.25, n = 1000) +
-  # annotate(geom = "segment", x = c(1, -1), xend = c(1, -1), y = 0, yend = dnorm(1, mean = 0, sd = 1)) + 
   geom_vline(xintercept = c(-3, -1.96, -1, 0, 1, 1.96, 3), linetype = "dashed", alpha = 0.5) +
   # Axes
   scale_x_continuous(breaks = seq(from = -3, to = 3, by = 1)) +
@@ -238,9 +237,9 @@ v2 TODO: 이후에 다음을 사용한 LC를 고려해 보세요: <https://galle
 
 ## log10 변환 {#appendix-log10-transformations}
 
-가장 간단하게 말해서, log10 변환은 밑이 10인 *로그(logarithms)*를 반환합니다. 예를 들어 $1000 = 10^3$이므로, R에서 `log10(1000)`을 실행하면 `3`이 반환됩니다. log10 변환을 되돌리려면 10을 이 값만큼 거듭제곱합니다. 예를 들어, 이전의 log10 변환을 되돌려 원래 값인 1000을 얻으려면 R에서 `10^(3) = 1000`을 실행하여 10의 3승을 계산합니다. \index{log transformations}
+가장 간단하게 말해서, log10 변환은 밑이 10인 *로그(logarithms)*를 반환합니다. 예를 들어 $1000 = 10^3$이므로, R에서 `log10(1000)`을 실행하면 `3`이 반환됩니다. log10 변환을 되돌리려면 10을 이 값만큼 거듭제곱합니다. 예를 들어, 이전의 log10 변환을 되돌려 원래 값인 1000을 얻으려면 R에서 `10^3 = 1000`을 실행하여 10의 3승을 계산합니다. \index{log transformations}
 
-로그 변환을 사용하면 *규모의 차수(orders of magnitude)*의 변화에 집중할 수 있습니다. 즉, *가산적 변화(additive changes)* 대신 *승법적 변화(multiplicative changes)*에 집중할 수 있게 해줍니다. 이 아이디어를 2019년 미국 달러 기준 소비재 가격 예시와 함께 표 \@ref(tab:logten)에서 설명해 보겠습니다.
+로그 변환을 사용하면 *규모의 차수(orders of magnitude)*의 변화에 집중할 수 있습니다. 즉, *가산적 변화(additive changes)* 대신 *승법적 변화(multiplicative changes)*에 집중할 수 있게 해줍니다. 이 아이디어를 2019년 미국 달러 기준 소비재 가격 예시와 함께 표 @tbl-logten에서 설명해 보겠습니다.
 
 <!--
 v2 TODO: 다음과 같은 텍스트 추가:
@@ -265,9 +264,8 @@ tibble(Price = c(1,10,100,1000,10000,100000,1000000)) %>%
                 latex_options = c("hold_position"))
 ```
 
-표 \@ref(tab:logten)을 바탕으로 log10 변환에 대해 몇 가지 언급해 보겠습니다:
+표 @tbl-logten을 바탕으로 log10 변환에 대해 몇 가지 언급해 보겠습니다:
 
-1. 커피 한 잔을 살 때 우리는 보통 \$2나 \$3와 같이 일 달러 단위의 가격을 생각합니다. 하지만 휴대전화를 살 때는 \$313나 \$727와 같이 일 달러 단위로 가격을 생각하지 않습니다. 대신 \$300나 \$700와 같은 백 달러 단위로 가격을 생각하는 경향이 있습니다. 따라서 커피 한 잔과 휴대전화는 가격의 *규모의 차수(orders of magnitude)*가 다릅니다.
 1. \$76의 log10 변환된 값을 알고 싶다고 합시다. 계산기 없이는 정확히 계산하기 어렵습니다. 하지만 \$76은 \$10와 \$100 사이에 있고 log10(10) = 1, log10(100) = 2이므로, log10(76)은 1과 2 사이에 있음을 알 수 있습니다. 실제로 log10(76)은 1.880814입니다.
 1. log10 변환은 *단조적(monotonic)*입니다. 즉, 순서를 보존합니다. 따라서 가격 A가 가격 B보다 낮다면, log10(가격 A) 역시 log10(가격 B)보다 낮을 것입니다.
 1. 가장 중요한 점은, log10 스케일에서 1의 증가는 원래 스케일에서 *절대적인 가산적 변화*가 아니라 *상대적인 승법적 변화*에 대응한다는 것입니다. 예를 들어 log10(가격)이 3에서 4로 증가하는 것은 10배의 승법적 증가(\$100에서 \$1000로)에 대응합니다.

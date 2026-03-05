@@ -19,26 +19,34 @@ book:
   date: "July 2, 2020"
   chapters:
     - index.qmd
-    - 00-foreword.qmd
-    - 00-preface.qmd
     - 01-getting-started.qmd
-    - 02-visualization.qmd
-    - 03-wrangling.qmd
-    - 04-tidy.qmd
-    - 05-regression.qmd
-    - 06-multiple-regression.qmd
-    - 07-sampling.qmd
-    - 08-confidence-intervals.qmd
-    - 09-hypothesis-testing.qmd
-    - 10-inference-for-regression.qmd
+    - part: "데이터 과학"
+      chapters:
+        - 02-visualization.qmd
+        - 03-wrangling.qmd
+        - 04-tidy.qmd
+    - part: "데이터 모델링"
+      chapters:
+        - 05-regression.qmd
+        - 06-multiple-regression.qmd
+    - part: "통계적 추론"
+      chapters:
+        - 07-sampling.qmd
+        - 08-confidence-intervals.qmd
+        - 09-hypothesis-testing.qmd
+    - part: "데이터 모델링(심화)"
+      chapters:
+        - 10-inference-for-regression.qmd
     - 11-tell-your-story-with-data.qmd
-    - 91-appendixA.qmd
-    - 92-appendixB.qmd
-    - 93-appendixC.qmd
-    - 94-appendixD.qmd
-    - 95-appendixE.qmd
-    - 99-references.qmd
-    - NEWS.md
+    - part: "부록"
+      chapters:
+        - 91-appendixA.qmd
+        - 92-appendixB.qmd
+        - 93-appendixC.qmd
+        - 94-appendixD.qmd
+        - 95-appendixE.qmd
+        - NEWS.md
+        - 99-references.qmd
 
 bibliography: 
   - bib/books.bib
@@ -49,3 +57,4 @@ format:
   html:
     theme:
       - cosmo
+    number-sections: false

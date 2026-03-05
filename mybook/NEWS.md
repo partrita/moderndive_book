@@ -1,11 +1,15 @@
+---
+title: 업데이트 내용
+---
+
 # ModernDive 1.1.0.9000
 
 * 제2장 데이터 시각화: 독자들에게 혼란을 주었던 `%>%` 연산자에 대한 약식 소개(제3장 데이터 전처리에서 다룸)를 제거했습니다.
 대신 이제 `moderndive` 버전 0.5.3의 미리 준비된 `alaska_flights` 및 `early_january_weather` 데이터 프레임을 사용합니다.
-* 제6장 다중 회귀: @kmkinnaird의 제안에 따라 "6.3.1 시각화를 이용한 모델 선택"을 다음과 같이 나누었습니다.
+* 제6장 다중 회귀: `@kmkinnaird` 의 제안에 따라 "6.3.1 시각화를 이용한 모델 선택"을 다음과 같이 나누었습니다.
     + "6.3.1 시각화를 이용한 모델 선택"
     + "6.3.2 R-제곱을 이용한 모델 선택" 추가
-* 제7장 표집(Sampling): @kmkinnaird의 제안에 따라 다음과 같이 개편했습니다.
+* 제7장 표집(Sampling): `@kmkinnaird` 의 제안에 따라 다음과 같이 개편했습니다.
     + "7.3.1 용어 및 표기법": 정의를 주제별로 묶고 표집 실습과 다시 연결했습니다.
     + "7.3.2 통계적 정의"
     + "7.5.2 중심 극한 정리"를 별도 섹션으로 이동하여 사후 고려 사항이 아닌 보다 두드러지게 만들었습니다.
@@ -16,10 +20,10 @@
 # ModernDive 1.1.0
 
 * 오타 수정 및 명확한 문구 조정
-* @mariumtapal의 큰 도움으로 미래의 bookdown 사용자들이 이해하기 쉽도록 모든 R Markdown 코드를 정리하고 개편했습니다. 단, 인쇄본 독자들이 보는 모든 코드는 그대로 유지되었습니다.
+* `@mariumtapal` 의 큰 도움으로 미래의 bookdown 사용자들이 이해하기 쉽도록 모든 R Markdown 코드를 정리하고 개편했습니다. 단, 인쇄본 독자들이 보는 모든 코드는 그대로 유지되었습니다.
 * 부록 C (온라인 전용):
     + "Reach for the Stars"에서 "Tips and Tricks"(팁과 요령)로 이름을 변경했습니다.
-    + @smetzer180이 주로 작성한, 우리가 경험한 가장 일반적인 데이터 전처리 질문에 대한 C.1 섹션을 추가했습니다.
+    + `@smetzer180` 이 주로 작성한, 우리가 경험한 가장 일반적인 데이터 전처리 질문에 대한 C.1 섹션을 추가했습니다.
 
 ***
 
@@ -27,7 +31,7 @@
 
 * 버전 1.0.0은 우리의 [CRC Press 인쇄본](https://www.crcpress.com/Statistical-Inference-via-Data-Science-A-ModernDive-into-R-and-the-Tidyverse/Ismay-Kim/p/book/9780367409821)에 해당합니다.
 * 헥스 스티커와의 일관성을 위해 책 제목의 단어를 "moderndive"에서 "ModernDive"로 변경했습니다.
-* Kelly S. McConville의 서문을 추가했습니다. 감사합니다, @mcconvil!
+* Kelly S. McConville의 서문을 추가했습니다. 감사합니다, `@mcconvil` !
 * 책 전체의 다양한 오타를 수정하고 언어를 일관되게 만들었습니다. 예를 들어, "datasets"나 "data-sets" 대신 "data sets"를 사용했습니다.
 * [이 tidyverse 기사](https://tidyr.tidyverse.org/dev/articles/pivot.html)를 따라 `tidyr`의 `gather()` 및 `spread()`를 `pivot_long()` 및 `pivot_wide()`로 전환했습니다.
 * `ggplot2`에 사용자 정의 geom 확장인 `geom_parallel_slopes()`를 추가했습니다.
@@ -90,7 +94,7 @@ CRC Press의 인쇄본에 해당하는 v1.0.0까지 화장품 같은 몇 가지 
     + 기존: "Statistical Inference via Data Science in R"
     + 변경: "Statistical Inference via Data Science: A moderndive into R and the tidyverse"
 * 제2장 - 시작하기
-    + @andrewheiss가 작성한 하위 섹션 2.2.3 "오류, 경고 및 메시지" 추가
+    + `@andrewheiss` 가 작성한 하위 섹션 2.2.3 "오류, 경고 및 메시지" 추가
 * 제3장 - 데이터 시각화:
     + 더 간단한 입문용 `geom_histogram()` 및 `geom_boxplot()` 예제 추가
     + 이 장에 포함된 데이터 전처리 미리보기 양, 특히 `join`을 줄이기 시작했습니다.
