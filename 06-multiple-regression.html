@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; 다중 회귀 분석 – ModernDive: Statistical Inference via Data Science</title>
+<title>다중 회귀 분석 – ModernDive: Statistical Inference via Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -169,7 +169,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-multiple-regression.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-regression.html">데이터 모델링</a></li><li class="breadcrumb-item"><a href="./06-multiple-regression.html"><span class="chapter-title">다중 회귀 분석</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -196,130 +196,155 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>r ifelse(knitr::is_latex_output(), 'Statistical Inference via Data Science:  A ModernDive into R and the Tidyverse', 'Statistical Inference via Data Science')</code></span></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">머리말</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">00-foreword.html</span></span></a>
+  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R 데이터 시작하기</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 과학</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 시각화</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 전처리</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 모델링</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">기초 회귀 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">다중 회귀 분석</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">통계적 추론</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">표본 추출</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">붓스트랩과 신뢰 구간</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">가설 검정</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 모델링(심화)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">회귀 분석을 위한 추론</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00-preface.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">머리말</span></a>
+  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터로 이야기 들려주기</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">부록</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span></a>
+  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">통계적 배경</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></span></a>
+  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">추론 예제</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터 전처리</span></span></a>
+  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">팁과 요령</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></a>
+  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">학습 확인 문제 풀이</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">기초 회귀 분석</span></span></a>
+  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">사용된 R 패키지 버전</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></span></a>
+  <a href="./NEWS.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">업데이트 내용</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">표본 추출</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bootstrapping and Confidence Intervals</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART) 결론</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">통계적 배경</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">추론 예제</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">팁과 요령</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Learning Check Solutions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">사용된 R 패키지 버전</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">참고 문헌</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./NEWS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ModernDive 1.1.0.9000</span></span></a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -331,30 +356,30 @@ window.Quarto = {
    
   <ul>
   <li><a href="#mult-reg-packages" id="toc-mult-reg-packages" class="nav-link active" data-scroll-target="#mult-reg-packages">필요한 패키지</a></li>
-  <li><a href="#model4" id="toc-model4" class="nav-link" data-scroll-target="#model4"><span class="header-section-number">8.1</span> 수치형 설명 변수 하나와 범주형 설명 변수 하나</a>
+  <li><a href="#model4" id="toc-model4" class="nav-link" data-scroll-target="#model4">수치형 설명 변수 하나와 범주형 설명 변수 하나</a>
   <ul class="collapse">
-  <li><a href="#model4EDA" id="toc-model4EDA" class="nav-link" data-scroll-target="#model4EDA"><span class="header-section-number">8.1.1</span> 탐색적 데이터 분석</a></li>
-  <li><a href="#model4interactiontable" id="toc-model4interactiontable" class="nav-link" data-scroll-target="#model4interactiontable"><span class="header-section-number">8.1.2</span> 상호작용 모델</a></li>
-  <li><a href="#model4table" id="toc-model4table" class="nav-link" data-scroll-target="#model4table"><span class="header-section-number">8.1.3</span> 평행 직선 모델</a></li>
-  <li><a href="#model4points" id="toc-model4points" class="nav-link" data-scroll-target="#model4points"><span class="header-section-number">8.1.4</span> 관측값/적합값 및 잔차</a></li>
+  <li><a href="#model4EDA" id="toc-model4EDA" class="nav-link" data-scroll-target="#model4EDA">탐색적 데이터 분석</a></li>
+  <li><a href="#model4interactiontable" id="toc-model4interactiontable" class="nav-link" data-scroll-target="#model4interactiontable">상호작용 모델</a></li>
+  <li><a href="#model4table" id="toc-model4table" class="nav-link" data-scroll-target="#model4table">평행 직선 모델</a></li>
+  <li><a href="#model4points" id="toc-model4points" class="nav-link" data-scroll-target="#model4points">관측값/적합값 및 잔차</a></li>
   </ul></li>
-  <li><a href="#model3" id="toc-model3" class="nav-link" data-scroll-target="#model3"><span class="header-section-number">8.2</span> 두 수치형 설명 변수</a>
+  <li><a href="#model3" id="toc-model3" class="nav-link" data-scroll-target="#model3">두 수치형 설명 변수</a>
   <ul class="collapse">
-  <li><a href="#model3EDA" id="toc-model3EDA" class="nav-link" data-scroll-target="#model3EDA"><span class="header-section-number">8.2.1</span> 탐색적 데이터 분석</a></li>
-  <li><a href="#model3table" id="toc-model3table" class="nav-link" data-scroll-target="#model3table"><span class="header-section-number">8.2.2</span> 회귀 평면</a></li>
-  <li><a href="#model3points" id="toc-model3points" class="nav-link" data-scroll-target="#model3points"><span class="header-section-number">8.2.3</span> 관측값/적합값 및 잔차</a></li>
+  <li><a href="#model3EDA" id="toc-model3EDA" class="nav-link" data-scroll-target="#model3EDA">탐색적 데이터 분석</a></li>
+  <li><a href="#model3table" id="toc-model3table" class="nav-link" data-scroll-target="#model3table">회귀 평면</a></li>
+  <li><a href="#model3points" id="toc-model3points" class="nav-link" data-scroll-target="#model3points">관측값/적합값 및 잔차</a></li>
   </ul></li>
-  <li><a href="#mult-reg-related-topics" id="toc-mult-reg-related-topics" class="nav-link" data-scroll-target="#mult-reg-related-topics"><span class="header-section-number">8.3</span> Related topics</a>
+  <li><a href="#mult-reg-related-topics" id="toc-mult-reg-related-topics" class="nav-link" data-scroll-target="#mult-reg-related-topics">Related topics</a>
   <ul class="collapse">
-  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection"><span class="header-section-number">8.3.1</span> Model selection using visualizations</a></li>
-  <li><a href="#rsquared" id="toc-rsquared" class="nav-link" data-scroll-target="#rsquared"><span class="header-section-number">8.3.2</span> R-제곱을 사용한 모델 선택</a></li>
-  <li><a href="#correlationcoefficient2" id="toc-correlationcoefficient2" class="nav-link" data-scroll-target="#correlationcoefficient2"><span class="header-section-number">8.3.3</span> 상관 계수</a></li>
-  <li><a href="#simpsonsparadox" id="toc-simpsonsparadox" class="nav-link" data-scroll-target="#simpsonsparadox"><span class="header-section-number">8.3.4</span> 심슨의 역설</a></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model selection using visualizations</a></li>
+  <li><a href="#rsquared" id="toc-rsquared" class="nav-link" data-scroll-target="#rsquared">R-제곱을 사용한 모델 선택</a></li>
+  <li><a href="#correlationcoefficient2" id="toc-correlationcoefficient2" class="nav-link" data-scroll-target="#correlationcoefficient2">상관 계수</a></li>
+  <li><a href="#simpsonsparadox" id="toc-simpsonsparadox" class="nav-link" data-scroll-target="#simpsonsparadox">심슨의 역설</a></li>
   </ul></li>
-  <li><a href="#mult-reg-conclusion" id="toc-mult-reg-conclusion" class="nav-link" data-scroll-target="#mult-reg-conclusion"><span class="header-section-number">8.4</span> 결론</a>
+  <li><a href="#mult-reg-conclusion" id="toc-mult-reg-conclusion" class="nav-link" data-scroll-target="#mult-reg-conclusion">결론</a>
   <ul class="collapse">
-  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료"><span class="header-section-number">8.4.1</span> 추가 자료</a></li>
-  <li><a href="#앞으로-배울-내용" id="toc-앞으로-배울-내용" class="nav-link" data-scroll-target="#앞으로-배울-내용"><span class="header-section-number">8.4.2</span> 앞으로 배울 내용</a></li>
+  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료">추가 자료</a></li>
+  <li><a href="#앞으로-배울-내용" id="toc-앞으로-배울-내용" class="nav-link" data-scroll-target="#앞으로-배울-내용">앞으로 배울 내용</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -362,9 +387,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-regression.html">데이터 모델링</a></li><li class="breadcrumb-item"><a href="./06-multiple-regression.html"><span class="chapter-title">다중 회귀 분석</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="multiple-regression" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></span></h1>
+<h1 class="title"><span id="multiple-regression" class="quarto-section-identifier"><span class="chapter-title">다중 회귀 분석</span></span></h1>
 </div>
 
 
@@ -381,12 +406,12 @@ window.Quarto = {
 </header>
 
 
-<p>제@ref(regression)장에서는 설명을 위한 모델링과 관련된 개념들, 특히 모델링의 목표가 결과 변수 <span class="math inline">\(y\)</span>와 설명 변수 <span class="math inline">\(x\)</span> 사이의 관계를 명확히 하는 것임을 소개했습니다. 모델링에는 많은 접근 방식이 있지만, 우리는 가장 흔히 사용되고 이해하기 쉬운 기법 중 하나인 <em>선형 회귀(linear regression)</em>에 집중했습니다. 또한 내용을 단순하게 유지하기 위해, 섹션 @ref(model1)에서 다룬 수치형 <span class="math inline">\(x\)</span> 변수나 섹션 @ref(model2)에서 다룬 범주형 <span class="math inline">\(x\)</span> 변수와 같이 단 하나의 설명 변수만을 갖는 모델을 고려했습니다.</p>
-<p>다중 회귀 분석을 다루는 이번 장에서는 두 개 이상의 설명 변수 <span class="math inline">\(x\)</span>를 포함하는 모델을 살펴보기 시작할 것입니다. 섹션 @ref(model1)의 강의 평가 점수나 섹션 @ref(model2)의 기대 수명과 같은 특정 결과 변수를 모델링할 때, 단 하나 이상의 설명 변수 정보를 포함하는 것이 유용할 것임을 짐작할 수 있습니다.</p>
+<p><span class="quarto-unresolved-ref">?sec-regression장에서는</span> 설명을 위한 모델링과 관련된 개념들, 특히 모델링의 목표가 결과 변수 <span class="math inline">\(y\)</span>와 설명 변수 <span class="math inline">\(x\)</span> 사이의 관계를 명확히 하는 것임을 소개했습니다. 모델링에는 많은 접근 방식이 있지만, 우리는 가장 흔히 사용되고 이해하기 쉬운 기법 중 하나인 <em>선형 회귀(linear regression)</em>에 집중했습니다. 또한 내용을 단순하게 유지하기 위해, <span class="quarto-unresolved-ref">?sec-model1절에서</span> 다룬 수치형 <span class="math inline">\(x\)</span> 변수나 <span class="quarto-unresolved-ref">?sec-model2절에서</span> 다룬 범주형 <span class="math inline">\(x\)</span> 변수와 같이 단 하나의 설명 변수만을 갖는 모델을 고려했습니다.</p>
+<p>다중 회귀 분석을 다루는 이번 장에서는 두 개 이상의 설명 변수 <span class="math inline">\(x\)</span>를 포함하는 모델을 살펴보기 시작할 것입니다. <span class="quarto-unresolved-ref">?sec-model1절의</span> 강의 평가 점수나 <span class="quarto-unresolved-ref">?sec-model2절의</span> 기대 수명과 같은 특정 결과 변수를 모델링할 때, 단 하나 이상의 설명 변수 정보를 포함하는 것이 유용할 것임을 짐작할 수 있습니다.</p>
 <p>이제 회귀 모델이 두 개 이상의 설명 변수를 고려하게 되므로, 임의의 한 설명 변수가 결과 변수에 미치는 연관된 효과에 대한 해석은 모델에 포함된 다른 설명 변수들과 연계하여 이루어져야 합니다. 그럼 시작해 봅시다!</p>
 <section id="mult-reg-packages" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="mult-reg-packages">필요한 패키지</h3>
-<p>이번 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). 섹션 @ref(tidyverse-package)에서 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 로드하면 다음과 같이 자주 사용되는 데이터 과학 패키지들을 한꺼번에 로드합니다.</p>
+<p>이번 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). <span class="quarto-unresolved-ref">?sec-tidyverse-package절에서</span> 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 로드하면 다음과 같이 자주 사용되는 데이터 과학 패키지들을 한꺼번에 로드합니다.</p>
 <ul>
 <li>데이터 시각화를 위한 <code>ggplot2</code></li>
 <li>데이터 전처리를 위한 <code>dplyr</code></li>
@@ -394,7 +419,7 @@ window.Quarto = {
 <li>스프레드시트 데이터를 R로 불러오기 위한 <code>readr</code></li>
 <li>그 외 심화 패키지인 <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code></li>
 </ul>
-<p>필요하다면 섹션 @ref(packages)를 참고하여 R 패키지를 설치하고 로드하는 방법을 다시 확인하세요.</p>
+<p>필요하다면 <span class="quarto-unresolved-ref">?sec-packages절을</span> 참고하여 R 패키지를 설치하고 로드하는 방법을 다시 확인하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span>
@@ -402,10 +427,10 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="model4" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="model4"><span class="header-section-number">8.1</span> 수치형 설명 변수 하나와 범주형 설명 변수 하나</h2>
-<p>섹션 @ref(model1)에서 소개한 텍사스 대학교 오스틴 캠퍼스(UT Austin)의 강의 평가 데이터를 다시 살펴보겠습니다. 우리는 학생들의 강의 평가 점수와 “미모(beauty)” 점수 사이의 관계를 연구했습니다. 강의 평가 점수인 <code>score</code>는 수치형 결과 변수 <span class="math inline">\(y\)</span>였고, 미모 점수인 <code>bty_avg</code>는 수치형 설명 변수 <span class="math inline">\(x\)</span>였습니다.</p>
-<p>이 섹션에서는 다른 모델을 고려해 보겠습니다. 결과 변수는 여전히 강의 평가 점수이지만, 이제는 연령(age)과 (이분법적) 성별(gender)이라는 두 가지 다른 설명 변수를 포함할 것입니다. 나이가 많은 강사가 학생들로부터 더 좋은 강의 평가를 받을까요? 아니면 젊은 강사가 더 좋은 평가를 받을까요? 성별에 따라 학생들이 부여하는 강의 평가 점수에 차이가 있을까요? 우리는 다음과 같은 변수들을 사용하여 <em>다중 회귀 분석(multiple regression)</em> 으로 이들 변수 사이의 관계를 모델링함으로써 질문에 답할 것입니다.</p>
+<section id="model4" class="level2">
+<h2 class="anchored" data-anchor-id="model4">수치형 설명 변수 하나와 범주형 설명 변수 하나</h2>
+<p><span class="quarto-unresolved-ref">?sec-model1절에서</span> 소개한 텍사스 대학교 오스틴 캠퍼스(UT Austin)의 강의 평가 데이터를 다시 살펴보겠습니다. 우리는 학생들의 강의 평가 점수와 “미모(beauty)” 점수 사이의 관계를 연구했습니다. 강의 평가 점수인 <code>score</code>는 수치형 결과 변수 <span class="math inline">\(y\)</span>였고, 미모 점수인 <code>bty_avg</code>는 수치형 설명 변수 <span class="math inline">\(x\)</span>였습니다.</p>
+<p>이 섹션에서는 다른 모델을 고려해 보겠습니다. 결과 변수는 여전히 강의 평가 점수이지만, 수치형 결과 변수 <span class="math inline">\(y\)</span>는 강사의 강의 평가 점수입니다. 두 개의 설명 변수인 수치형 설명 변수 <span class="math inline">\(x_1\)</span> (강사의 연령)과 범주형 설명 변수 <span class="math inline">\(x_2\)</span> (강사의 이분법적 성별)이라는 두 가지 다른 설명 변수를 포함할 것입니다. 나이가 많은 강사가 학생들로부터 더 좋은 강의 평가를 받을까요? 아니면 젊은 강사가 더 좋은 평가를 받을까요? 성별에 따라 학생들이 부여하는 강의 평가 점수에 차이가 있을까요? 우리는 다음과 같은 변수들을 사용하여 <em>다중 회귀 분석(multiple regression)</em> 으로 이들 변수 사이의 관계를 모델링함으로써 질문에 답할 것입니다.</p>
 <ol type="1">
 <li>수치형 결과 변수 <span class="math inline">\(y\)</span>: 강사의 강의 평가 점수.</li>
 <li>두 개의 설명 변수:
@@ -415,14 +440,14 @@ window.Quarto = {
 </ol></li>
 </ol>
 <p>이 연구가 수행된 당시에는 성별에 대한 통념으로 인해 이 변수가 이분법적 변수로 기록되었다는 점에 유의해야 합니다. 성별을 이처럼 단순화한 모델의 결과가 완벽하지 않을 수 있지만, 우리는 그 결과가 오늘날에도 여전히 유의미하고 관련이 있다고 생각합니다.</p>
-<section id="model4EDA" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="model4EDA"><span class="header-section-number">8.1.1</span> 탐색적 데이터 분석</h3>
-<p>UT 오스틴의 463개 강의에 대한 데이터는 <code>moderndive</code> 패키지에 포함된 <code>evals</code> 데이터 프레임에서 찾을 수 있습니다. 하지만 내용을 단순하게 유지하기 위해, 이번 장에서 고려할 변수들만 <code>select()</code>하여 <code>evals_ch6</code>라는 새로운 데이터 프레임에 저장해 보겠습니다. 이 변수들은 제@ref(regression)장에서 선택했던 변수들과는 다릅니다.</p>
+<section id="model4EDA" class="level3">
+<h3 class="anchored" data-anchor-id="model4EDA">탐색적 데이터 분석</h3>
+<p>UT 오스틴의 463개 강의에 대한 데이터는 <code>moderndive</code> 패키지에 포함된 <code>evals</code> 데이터 프레임에서 찾을 수 있습니다. 하지만 내용을 단순하게 유지하기 위해, 이번 장에서 고려할 변수들만 <code>select()</code>하여 <code>evals_ch6</code>라는 새로운 데이터 프레임에 저장해 보겠습니다. 이 변수들은 <span class="quarto-unresolved-ref">?sec-regression장에서</span> 선택했던 변수들과는 다릅니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>evals_ch6 <span class="ot">&lt;-</span> evals <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ID, score, age, gender)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>소섹션 @ref(model1EDA)에서 보았던 탐색적 데이터 분석의 세 가지 공통 단계를 떠올려 보세요.</p>
+<p><span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> 보았던 탐색적 데이터 분석의 세 가지 공통 단계를 떠올려 보세요.</p>
 <ol type="1">
 <li>원 데이터 값 살펴보기.</li>
 <li>요약 통계량 계산하기.</li>
@@ -440,7 +465,7 @@ $ age    &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40,
 $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, male, f…</code></pre>
 </div>
 </div>
-<p>또한 표 @ref(tab:model4-data-preview)에서 서로 다른 강의에 해당하는 463개 행 중 무작위로 추출한 5개 행을 표시해 보겠습니다. 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개 행을 보게 될 것입니다.</p>
+<p>또한 표 <span class="quarto-unresolved-ref">?tbl-model4-data-preview에서</span> 서로 다른 강의에 해당하는 463개 행 중 무작위로 추출한 5개 행을 표시해 보겠습니다. 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개 행을 보게 될 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>evals_ch6 <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -491,7 +516,7 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
 </table>
 </div>
 </div>
-<p><code>evals_ch6</code> 데이터 프레임의 원 데이터 값을 살펴보고 데이터에 대한 감을 잡았으니, 이제 요약 통계량을 계산해 보겠습니다. 이전 장의 섹션 @ref(model1EDA)와 @ref(model2EDA)에서 수행했던 탐색적 데이터 분석과 마찬가지로, 모델에서 관심 있는 변수들만 <code>select()</code>하여 <code>skimr</code> 패키지의 <code>skim()</code> 함수를 사용해 봅시다. </p>
+<p><code>evals_ch6</code> 데이터 프레임의 원 데이터 값을 살펴보고 데이터에 대한 감을 잡았으니, 이제 요약 통계량을 계산해 보겠습니다. 이전 장의 <span class="quarto-unresolved-ref">?sec-model1EDA절와</span> <span class="quarto-unresolved-ref">?sec-model2EDA에서</span> 수행했던 탐색적 데이터 분석과 마찬가지로, 모델에서 관심 있는 변수들만 <code>select()</code>하여 <code>skimr</code> 패키지의 <code>skim()</code> 함수를 사용해 봅시다. </p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>evals_ch6 <span class="sc">%&gt;%</span> <span class="fu">select</span>(score, age, gender) <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -511,7 +536,7 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
   variable missing complete   n mean   sd  p0 p25 p50 p75 p100
      score       0      463 463 4.17 0.54 2.3 3.8 4.3 4.6    5</code></pre>
 <p>결측 데이터가 없으며, 남성 강사가 가르치는 강의는 268개, 여성 강사가 가르치는 강의는 195개임을 알 수 있습니다. 또한 강사의 평균 연령은 48.37세입니다. 각 행은 특정 강의를 나타내며 동일한 강사가 흔히 하나 이상의 강의를 가르친다는 점을 떠올려 보세요. 따라서 고유한 강사들의 평균 연령은 다를 수 있습니다.</p>
-<p>나아가 두 수치형 변수인 <code>score</code>와 <code>age</code> 사이의 상관 계수를 계산해 보겠습니다. 소섹션 @ref(model1EDA)에서 상관 계수는 수치형 변수 사이에서만 존재한다고 했던 것을 떠올려 보세요. 이들은 “약하게 음의(weakly negatively)” 상관 관계를 보입니다.</p>
+<p>나아가 두 수치형 변수인 <code>score</code>와 <code>age</code> 사이의 상관 계수를 계산해 보겠습니다. <span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> 상관 계수는 수치형 변수 사이에서만 존재한다고 했던 것을 떠올려 보세요. 이들은 “약하게 음의(weakly negatively)” 상관 관계를 보입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>evals_ch6 <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_correlation</span>(<span class="at">formula =</span> score <span class="sc">~</span> age)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -522,7 +547,7 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
 1 -0.107</code></pre>
 </div>
 </div>
-<p>이제 탐색적 데이터 분석의 세 가지 공통 단계 중 마지막 단계인 데이터 시각화를 수행해 보겠습니다. 결과 변수 <code>score</code>와 설명 변수 <code>age</code>가 모두 수치형이므로 산점도를 사용하여 그 관계를 표시하겠습니다. 그런데 범주형 변수인 <code>gender</code>는 어떻게 포함할 수 있을까요? <code>gender</code> 변수를 <code>color</code> 에스테틱에 매핑(mapping)함으로써 <em>유색</em> 산점도를 생성하면 됩니다. 다음 코드는 그림 @ref(fig:numxplot1)에서 “미모” 점수에 따른 강의 평가 점수의 산점도를 생성했던 코드와 비슷하지만, <code>aes()</code> 매핑에 <code>color = gender</code>가 추가되었습니다.</p>
+<p>이제 탐색적 데이터 분석의 세 가지 공통 단계 중 마지막 단계인 데이터 시각화를 수행해 보겠습니다. 결과 변수 <code>score</code>와 설명 변수 <code>age</code>가 모두 수치형이므로 산점도를 사용하여 그 관계를 표시하겠습니다. 그런데 범주형 변수인 <code>gender</code>는 어떻게 포함할 수 있을까요? <code>gender</code> 변수를 <code>color</code> 에스테틱에 매핑(mapping)함으로써 <em>유색</em> 산점도를 생성하면 됩니다. 다음 코드는 그림 <span class="quarto-unresolved-ref">?fig-numxplot1에서</span> “미모” 점수에 따른 강의 평가 점수의 산점도를 생성했던 코드와 비슷하지만, <code>aes()</code> 매핑에 <code>color = gender</code>가 추가되었습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals_ch6, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> score, <span class="at">color =</span> gender)) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -539,14 +564,14 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
 </div>
 </div>
 </div>
-<p>생성된 그림 @ref(fig:numxcatxplot1)에서 <code>ggplot()</code>이 <code>gender</code>의 두 레벨인 <code>female</code>과 <code>male</code>에 해당하는 점들과 선들에 기본 빨간색/파란색 색상 스키마를 할당했음을 확인하세요. 또한 <code>geom_smooth(method = "lm", se = FALSE)</code> 레이어는 각 그룹에 대해 서로 다른 회귀 직선을 자동으로 적합시킵니다.</p>
+<p>생성된 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서</span> <code>ggplot()</code>이 <code>gender</code>의 두 레벨인 <code>female</code>과 <code>male</code>에 해당하는 점들과 선들에 기본 빨간색/파란색 색상 스키마를 할당했음을 확인하세요. 또한 <code>geom_smooth(method = "lm", se = FALSE)</code> 레이어는 각 그룹에 대해 서로 다른 회귀 직선을 자동으로 적합시킵니다.</p>
 <p>몇 가지 흥미로운 추세를 발견할 수 있습니다. 첫째, <span class="math inline">\(x\)</span> = 60 이상에 빨간색 점이 없는 것으로 보아 60세 이상의 여성 교수는 거의 없습니다. 둘째, 두 회귀 직선 모두 연령에 따라 음의 기울기를 가지지만(즉, 나이가 많은 강사가 낮은 점수를 받는 경향이 있음), 여성 강사의 연령에 따른 기울기가 <em>더</em> 가파른 음수입니다. 다시 말해, 여성 강사가 남성 강사보다 고령인 점에 대해 더 가혹한 불이익을 받고 있습니다.</p>
 </section>
-<section id="model4interactiontable" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="model4interactiontable"><span class="header-section-number">8.1.2</span> 상호작용 모델</h3>
+<section id="model4interactiontable" class="level3">
+<h3 class="anchored" data-anchor-id="model4interactiontable">상호작용 모델</h3>
 <p>이제 <em>상호작용 모델(interaction model)</em> 로 알려진 다중 회귀 모델의 한 유형을 사용하여 결과 변수 <span class="math inline">\(y\)</span>와 두 설명 변수 사이의 관계를 정량화해 보겠습니다. 섹션 끝부분에서 “상호작용”이라는 용어가 어디에서 유래했는지 설명하겠습니다.</p>
-<p>특히, 회귀 표의 수치들을 사용하여 그림 @ref(fig:numxcatxplot1)의 두 회귀 직선 방정식을 작성해 보겠습니다. 그전에 범주형 설명 변수 <span class="math inline">\(x\)</span>가 포함된 회귀 분석에 대해 간단히 복습해 보겠습니다.</p>
-<p>소섹션 @ref(model2table)에서 우리는 국가가 속한 대륙의 함수로서 국가별 기대 수명에 대한 회귀 모델을 적합시켰습니다. 다시 말해, 수치형 결과 변수 <span class="math inline">\(y\)</span> = <code>lifeExp</code>와 5개의 레벨(<code>Africa</code>, <code>Americas</code>, <code>Asia</code>, <code>Europe</code>, <code>Oceania</code>)을 가진 범주형 설명 변수 <span class="math inline">\(x\)</span> = <code>continent</code>를 사용했습니다. 표 @ref(tab:catxplot4b)에서 보았던 회귀 표를 다시 표시해 보겠습니다.</p>
+<p>특히, 회귀 표의 수치들을 사용하여 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1의</span> 두 회귀 직선 방정식을 작성해 보겠습니다. 그전에 범주형 설명 변수 <span class="math inline">\(x\)</span>가 포함된 회귀 분석에 대해 간단히 복습해 보겠습니다.</p>
+<p><span class="quarto-unresolved-ref">?sec-model2table절에서</span> 우리는 국가가 속한 대륙의 함수로서 국가별 기대 수명에 대한 회귀 모델을 적합시켰습니다. 다시 말해, 수치형 결과 변수 <span class="math inline">\(y\)</span> = <code>lifeExp</code>와 5개의 레벨(<code>Africa</code>, <code>Americas</code>, <code>Asia</code>, <code>Europe</code>, <code>Oceania</code>)을 가진 범주형 설명 변수 <span class="math inline">\(x\)</span> = <code>continent</code>를 사용했습니다. 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b에서</span> 보았던 회귀 표를 다시 표시해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -613,7 +638,7 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
 </div>
 </div>
 <p><code>estimate</code> 열에 대한 해석을 떠올려 보세요. <code>Africa</code>가 “비교를 위한 기준(baseline for comparison)” 그룹이었으므로, <code>intercept</code> 항은 아프리카 모든 국가의 평균 기대 수명인 54.8년에 해당합니다. 나머지 4개의 <code>estimate</code> 값은 기준 그룹에 대한 “오프셋(offsets)”에 해당합니다. 예를 들어, 아메리카에 해당하는 “오프셋”은 기준 그룹인 아프리카와 비교했을 때 +18.8입니다. 다시 말해, 아메리카 국가들의 평균 기대 수명은 아프리카보다 18.8년 <em>더 높습니다</em>. 따라서 아메리카 모든 국가의 평균 기대 수명은 54.8 + 18.8 = 73.6입니다. 아시아, 유럽, 오세아니아에 대해서도 동일한 해석이 적용됩니다.</p>
-<p>그림 @ref(fig:numxcatxplot1)의 <code>age</code>와 <code>gender</code>를 사용한 강의 평가 <code>score</code> 다중 회귀 모델로 돌아가서, 제@ref(regression)장의 2단계 접근 방식을 사용하여 회귀 표를 생성해 보겠습니다. 먼저 <code>lm()</code> “선형 모델” 함수를 사용하여 모델을 “적합”시킨 다음 <code>get_regression_table()</code> 함수를 적용합니다. 이번에는 모델 공식이 <code>y ~ x</code> 형식이 아니라 <code>y ~ x1 * x2</code> 형식이 됩니다. 즉, 두 설명 변수 <code>x1</code>과 <code>x2</code>가 <code>*</code> 기호로 구분됩니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1의</span> <code>age</code>와 <code>gender</code>를 사용한 강의 평가 <code>score</code> 다중 회귀 모델로 돌아가서, <span class="quarto-unresolved-ref">?sec-regression장의</span> 2단계 접근 방식을 사용하여 회귀 표를 생성해 보겠습니다. 먼저 <code>lm()</code> “선형 모델” 함수를 사용하여 모델을 “적합”시킨 다음 <code>get_regression_table()</code> 함수를 적용합니다. 이번에는 모델 공식이 <code>y ~ x</code> 형식이 아니라 <code>y ~ x1 * x2</code> 형식이 됩니다. 즉, 두 설명 변수 <code>x1</code>과 <code>x2</code>가 <code>*</code> 기호로 구분됩니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>score_model_interaction <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> age <span class="sc">*</span> gender, <span class="at">data =</span> evals_ch6)</span>
@@ -677,11 +702,11 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
 </table>
 </div>
 </div>
-<p>표 @ref(tab:regtable-interaction)의 회귀 표 출력 결과를 보면 <code>estimate</code> 열에 4개 행의 값이 있습니다. 즉시 명확하게 드러나지는 않지만, 이 4개의 값을 사용하여 그림 @ref(fig:numxcatxplot1)의 두 직선 방정식을 작성할 수 있습니다. 먼저 <code>female</code>이라는 단어가 알파벳순으로 <code>male</code>보다 먼저 오기 때문에 여성 강사가 “비교를 위한 기준” 그룹이 됩니다. 따라서 <code>intercept</code>는 <em>오직 여성 강사만을 위한</em> 절편입니다.</p>
-<p>이는 <code>age</code>에 대해서도 마찬가지입니다. 이는 <em>오직 여성 강사만을 위한</em> 연령에 따른 기울기입니다. 따라서 그림 @ref(fig:numxcatxplot1)에서 빨간색 회귀 직선은 4.883의 절편과 -0.018의 연령에 따른 기울기를 가집니다. 이 데이터에서 절편은 수학적 해석은 가능하지만 강사의 나이가 0세일 수는 없으므로 <em>실질적인</em> 해석은 불가능하다는 점을 기억하세요.</p>
-<p>그림 @ref(fig:numxcatxplot1)의 파란색 직선인 남성 강사의 절편과 연령에 따른 기울기는 어떨까요? 여기서 다시 한번 “오프셋”이라는 개념이 등장합니다.</p>
-<p><code>gender: male</code> 값인 -0.446은 남성 강사의 절편이 아니라, 여성 강사에 대한 남성 강사 절편의 <em>오프셋(offset)</em> 입니다. 따라서 남성 강사의 절편은 <code>intercept + gender: male</code> = 4.883 + (-0.446) = 4.883 - 0.446 = 4.437입니다.</p>
-<p>마찬가지로 <code>age:gendermale</code> = 0.014은 남성 강사의 연령에 따른 기울기가 아니라, 남성 강사 기울기의 <em>오프셋</em>입니다. 그러므로 남성 강사의 연령에 따른 기울기는 <code>age + age:gendermale</code> $= -0.018 + 0.014 = -0.004입니다. 따라서 그림 @ref(fig:numxcatxplot1)에서 파란색 회귀 직선은 4.437의 절편과 -0.004의 연령에 따른 기울기를 가집니다. 이 값들을 표 @ref(tab:interaction-summary)에 정리하고 두 연령별 기울기에 집중해 보겠습니다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction의</span> 회귀 표 출력 결과를 보면 <code>estimate</code> 열에 4개 행의 값이 있습니다. 즉시 명확하게 드러나지는 않지만, 이 4개의 값을 사용하여 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1의</span> 두 직선 방정식을 작성할 수 있습니다. 먼저 <code>female</code>이라는 단어가 알파벳순으로 <code>male</code>보다 먼저 오기 때문에 여성 강사가 “비교를 위한 기준” 그룹이 됩니다. 따라서 <code>intercept</code>는 <em>오직 여성 강사만을 위한</em> 절편입니다.</p>
+<p>이는 <code>age</code>에 대해서도 마찬가지입니다. 이는 <em>오직 여성 강사만을 위한</em> 연령에 따른 기울기입니다. 따라서 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서</span> 빨간색 회귀 직선은 4.883의 절편과 -0.018의 연령에 따른 기울기를 가집니다. 이 데이터에서 절편은 수학적 해석은 가능하지만 강사의 나이가 0세일 수는 없으므로 <em>실질적인</em> 해석은 불가능하다는 점을 기억하세요.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1의</span> 파란색 직선인 남성 강사의 절편과 연령에 따른 기울기는 어떨까요? 여기서 다시 한번 “오프셋”이라는 개념이 등장합니다.</p>
+<p><code>gender: male</code> 값인 -0.446은 남성 강사의 절편이 아니라, 여성 강사에 대한 남성 강사 절편의 <em>오프셋(offset)</em> 입니다. 따라서 남성 강사의 절편은 <code>intercept + gender: male</code> = 4.883 + (-0.446 = 4.883 - 0.446 = 4.437입니다.</p>
+<p>마찬가지로 <code>age:gendermale</code> = 0.014은 남성 강사의 연령에 따른 기울기가 아니라, 남성 강사 기울기의 <em>오프셋</em>입니다. 그러므로 남성 강사의 연령에 따른 기울기는 <code>age + age:gendermale</code> $= -0.018 + 0.014 = -0.004입니다. 따라서 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서</span> 파란색 회귀 직선은 4.437의 절편과 -0.004의 연령에 따른 기울기를 가집니다. 이 값들을 표 <span class="quarto-unresolved-ref">?tbl-interaction-summary에</span> 정리하고 두 연령별 기울기에 집중해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -708,7 +733,7 @@ $ gender &lt;fct&gt; female, female, female, female, male, male, male, male, mal
 </table>
 </div>
 </div>
-<p>여성 강사의 연령별 기울기가 -0.018이었으므로, 이는 평균적으로 한 살 더 많은 여성 강사의 강의 평가 점수가 0.018단위만큼 <strong>더 낮음</strong>을 의미합니다. 그러나 남성 강사의 경우 그에 상응하는 연관된 감소 폭은 평균적으로 0.004단위뿐입니다. 두 연령별 기울기 모두 음수이지만, 여성 강사의 기울기가 <em>더 큰 음수</em>입니다. 이는 그림 @ref(fig:numxcatxplot1)에서의 관찰 결과와 일치하며, 이 모델은 연령이 남성 강사보다 여성 강사의 강의 평가 점수에 더 큰 영향을 미친다는 점을 시사합니다.</p>
+<p>여성 강사의 연령별 기울기가 -0.018이었으므로, 이는 평균적으로 한 살 더 많은 여성 강사의 강의 평가 점수가 0.018단위만큼 <strong>더 낮음</strong>을 의미합니다. 그러나 남성 강사의 경우 그에 상응하는 연관된 감소 폭은 평균적으로 0.004단위뿐입니다. 두 연령별 기울기 모두 음수이지만, 여성 강사의 기울기가 <em>더 큰 음수</em>입니다. 이는 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서의</span> 관찰 결과와 일치하며, 이 모델은 연령이 남성 강사보다 여성 강사의 강의 평가 점수에 더 큰 영향을 미친다는 점을 시사합니다.</p>
 <p>이제 회귀 직선의 방정식을 작성해 보겠습니다. 이 방정식은 적합값 <span class="math inline">\(\widehat{y} = \widehat{\text{score}}\)</span>를 계산하는 데 사용할 수 있습니다.</p>
 <!--
 주: 아래 LaTeX의 마크다운 미리보기가 깨져 보일 수 있지만, 
@@ -720,7 +745,7 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 &amp;= 4.883 -0.018 \cdot \text{age} - 0.446 \cdot \mathbb{1}_{\text{is male}}(x) + 0.014 \cdot \text{age} \cdot \mathbb{1}_{\text{is male}}(x)
 \end{aligned}
 \]</span></p>
-<p>와! 소섹션 @ref(model2table)에서 보았던 대륙의 함수로서 기대 수명 방정식보다 더 위협적으로 보이네요! 하지만 “지시 함수(indicator function)”가 무엇을 하는지 기억한다면 방정식은 크게 단순화됩니다. 위 방정식에는 우리가 관심을 갖는 지시 함수가 하나 있습니다.</p>
+<p>와! <span class="quarto-unresolved-ref">?sec-model2table절에서</span> 보았던 대륙의 함수로서 기대 수명 방정식보다 더 위협적으로 보이네요! 하지만 “지시 함수(indicator function)”가 무엇을 하는지 기억한다면 방정식은 크게 단순화됩니다. 위 방정식에는 우리가 관심을 갖는 지시 함수가 하나 있습니다.</p>
 <p><span class="math display">\[
 \mathbb{1}_{\text{is male}}(x) = \left\{
 \begin{array}{ll}
@@ -728,7 +753,7 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 0 &amp; \text{그 외의 경우}\end{array}
 \right.
 \]</span></p>
-<p>둘째, 위 방정식의 계수들과 표 @ref(tab:regtable-interaction)에 있는 회귀 표의 <code>estimate</code> 열 값을 매칭해 봅시다.</p>
+<p>둘째, 위 방정식의 계수들과 표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction에</span> 있는 회귀 표의 <code>estimate</code> 열 값을 매칭해 봅시다.</p>
 <ol type="1">
 <li><span class="math inline">\(b_0\)</span>는 여성 강사의 <code>intercept</code> = 4.883입니다.</li>
 <li><span class="math inline">\(b_{\text{age}}\)</span>는 여성 강사의 <code>age</code>에 대한 기울기 = -0.018입니다.</li>
@@ -743,24 +768,24 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 &amp;= 4.883 - 0.018 \cdot \text{age}\\
 \end{aligned}
 \]</span></p>
-<p>이는 그림 @ref(fig:numxcatxplot1)에서 여성 강사에 해당하는 빨간색 회귀 직선 방정식이며 표 @ref(tab:interaction-summary)의 내용과 일치합니다. 마찬가지로 남성 강사의 경우 <span class="math inline">\(\mathbb{1}_{\text{is male}}(x)\)</span> = 1이므로 이전 방정식은 다음과 같이 됩니다.</p>
+<p>이는 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서</span> 여성 강사에 해당하는 빨간색 회귀 직선 방정식이며 표 <span class="quarto-unresolved-ref">?tbl-interaction-summary의</span> 내용과 일치합니다. 마찬가지로 남성 강사의 경우 <span class="math inline">\(\mathbb{1}_{\text{is male}}(x)\)</span> = 1이므로 이전 방정식은 다음과 같이 됩니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 \widehat{y} = \widehat{\text{score}} &amp;= 4.883 - 0.018 \cdot \text{age} - 0.446 + 0.014 \cdot \text{age}\\
-&amp;= (4.883 - 0.446) + (- 0.018 + 0.014) * \text{age}\\
+&amp;= (4.883 - 0.446) + (- 0.018 + 0.014) \cdot \text{age}\\
 &amp;= 4.437 - 0.004 \cdot \text{age}\\
 \end{aligned}
 \]</span></p>
-<p>이는 그림 @ref(fig:numxcatxplot1)에서 남성 강사에 해당하는 파란색 회귀 직선 방정식이며 표 @ref(tab:interaction-summary)의 내용과 일치합니다.</p>
-<p>휴! 산술 계산이 꽤 많았네요! 하지만 걱정하지 마세요. 이 책에서 다루는 모델링 중 가장 어려운 수준입니다. 지시 함수를 사용하거나 회귀 모델에서 범주형 설명 변수를 사용하는 것이 여전히 조금 불확실하다면, 소섹션 @ref(model2table)를 다시 읽어보시기를 <em>강력히</em> 권장합니다. 그곳은 단 하나의 범주형 설명 변수만 다루므로 훨씬 단순합니다.</p>
-<p>이 섹션을 마치기 전에 왜 이런 유형의 모델을 “상호작용 모델”이라고 부르는지 설명하겠습니다. 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span> 방정식에 있는 <span class="math inline">\(b_{\text{age,male}}\)</span> 항은 통계 모델링에서 “상호작용 효과(interaction effect)”라고 알려진 것입니다. 상호작용 항은 표 @ref(tab:regtable-interaction)의 회귀 표 마지막 행에 있는 <code>age:gendermale</code> = 0.014에 해당합니다.</p>
+<p>이는 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서</span> 남성 강사에 해당하는 파란색 회귀 직선 방정식이며 표 <span class="quarto-unresolved-ref">?tbl-interaction-summary의</span> 내용과 일치합니다.</p>
+<p>휴! 산술 계산이 꽤 많았네요! 하지만 걱정하지 마세요. 이 책에서 다루는 모델링 중 가장 어려운 수준입니다. 지시 함수를 사용하거나 회귀 모델에서 범주형 설명 변수를 사용하는 것이 여전히 조금 불확실하다면, <span class="quarto-unresolved-ref">?sec-model2table절을</span> 다시 읽어보시기를 <em>강력히</em> 권장합니다. 그곳은 단 하나의 범주형 설명 변수만 다루므로 훨씬 단순합니다.</p>
+<p>이 섹션을 마치기 전에 왜 이런 유형의 모델을 “상호작용 모델”이라고 부르는지 설명하겠습니다. 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span> 방정식에 있는 <span class="math inline">\(b_{\text{age,male}}\)</span> 항은 통계 모델링에서 “상호작용 효과(interaction effect)”라고 알려진 것입니다. 상호작용 항은 표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction의</span> 회귀 표 마지막 행에 있는 <code>age:gendermale</code> = 0.014에 해당합니다.</p>
 <p>한 변수의 연관된 효과가 <em>다른 변수의 값에 따라 달라질 때</em> 상호작용 효과가 있다고 말합니다. 즉, 두 변수가 서로 “상호작용”하고 있는 것입니다. 여기에서 나이 변수의 연관된 효과는 다른 변수인 성별의 값에 <em>따라 달라집니다</em>. 여성 강사 대비 남성 강사의 연령별 기울기 차이가 +0.014이라는 사실이 이를 보여줍니다. </p>
 <p>강의 평가 점수에 대한 상호작용 효과를 생각하는 또 다른 방법은 다음과 같습니다. UT 오스틴의 특정 강사에 대해 연령 <em>그 자체</em>에 따른 연관된 효과가 있을 수 있고 성별 <em>그 자체</em>에 따른 연관된 효과가 있을 수 있지만, 연령과 성별이 <em>함께</em> 고려될 때 두 개별 효과 이상의 <em>추가적인 효과</em>가 있을 수 있습니다.</p>
 </section>
-<section id="model4table" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="model4table"><span class="header-section-number">8.1.3</span> 평행 직선 모델</h3>
+<section id="model4table" class="level3">
+<h3 class="anchored" data-anchor-id="model4table">평행 직선 모델</h3>
 <p>수치형 설명 변수 하나와 범주형 설명 변수 하나를 사용하는 회귀 모델을 만들 때, 방금 살펴본 상호작용 모델만 가능한 것은 아닙니다. 우리가 사용할 수 있는 또 다른 유형의 모델은 <em>평행 직선(parallel slopes)</em> 모델이라고 알려져 있습니다. 회귀 직선들이 서로 다른 절편과 서로 다른 기울기를 가질 수 있는 상호작용 모델과 달리, 평행 직선 모델은 서로 다른 절편은 허용하지만 모든 직선이 동일한 기울기를 갖도록 <em>강제</em>합니다. 따라서 결과적으로 나타나는 회귀 직선들은 평행합니다. <code>evals_ch6</code>에 대해 가장 잘 맞는 평행 직선 모델을 시각화해 보겠습니다.</p>
-<p>안타깝게도 <code>ggplot2</code> 패키지의 <code>geom_smooth()</code> 함수에는 평행 직선 모델을 그리는 편리한 방법이 없습니다. 그래서 Evgeni Chasnovski는 <code>moderndive</code> 패키지에 포함된 <code>geom_parallel_slopes()</code> 라는 특수 목적 함수를 만들었습니다. <code>geom_parallel_slopes()</code>는 <code>ggplot2</code> 패키지가 아니라 <code>moderndive</code> 패키지에서 찾을 수 있습니다. 따라서 이 함수를 사용하려면 <code>ggplot2</code>와 <code>moderndive</code> 패키지를 모두 로드해야 합니다. 이 함수를 사용하여 강의 평가 점수에 대한 평행 직선 모델을 그려보겠습니다. 코드가 그림 @ref(fig:numxcatxplot1)에서 상호작용 모델의 시각화를 생성한 코드와 거의 동일하지만, <code>geom_smooth(method = "lm", se = FALSE)</code> 레이어가 <code>geom_parallel_slopes(se = FALSE)</code>로 바뀌었다는 점에 주목하세요.</p>
+<p>안타깝게도 <code>ggplot2</code> 패키지의 <code>geom_smooth()</code> 함수에는 평행 직선 모델을 그리는 편리한 방법이 없습니다. 그래서 Evgeni Chasnovski는 <code>moderndive</code> 패키지에 포함된 <code>geom_parallel_slopes()</code> 라는 특수 목적 함수를 만들었습니다. <code>geom_parallel_slopes()</code>는 <code>ggplot2</code> 패키지가 아니라 <code>moderndive</code> 패키지에서 찾을 수 있습니다. 따라서 이 함수를 사용하려면 <code>ggplot2</code>와 <code>moderndive</code> 패키지를 모두 로드해야 합니다. 이 함수를 사용하여 강의 평가 점수에 대한 평행 직선 모델을 그려보겠습니다. 코드가 그림 <span class="quarto-unresolved-ref">?fig-numxcatxplot1에서</span> 상호작용 모델의 시각화를 생성한 코드와 거의 동일하지만, <code>geom_smooth(method = "lm", se = FALSE)</code> 레이어가 <code>geom_parallel_slopes(se = FALSE)</code>로 바뀌었다는 점에 주목하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals_ch6, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> score, <span class="at">color =</span> gender)) <span class="sc">+</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -777,8 +802,8 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 </div>
 </div>
 </div>
-<p>그림 @ref(fig:numxcatx-parallel)에서 여성 강사와 남성 강사에 각각 대응하는 평행한 직선들을 볼 수 있습니다. 여기서는 동일한 음의 기울기를 가집니다. 이는 나이가 많은 강사가 젊은 강사보다 낮은 강의 평가 점수를 받는 경향이 있음을 말해줍니다. 또한 직선이 평행하므로 고령에 따른 연관된 불이익은 여성 강사와 남성 강사 모두에게 동일하다고 가정됩니다.</p>
-<p>그러나 그림 @ref(fig:numxcatx-parallel)에서 남성 강사에 해당하는 파란색 직선이 여성 강사에 해당하는 빨간색 직선보다 더 높다는 사실에서 알 수 있듯이, 이 두 직선은 서로 다른 절편을 가집니다. 이는 연령에 관계없이 여성 강사가 남성 강사보다 더 낮은 강의 평가 점수를 받는 경향이 있음을 말해줍니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-numxcatx-parallel에서</span> 여성 강사와 남성 강사에 각각 대응하는 평행한 직선들을 볼 수 있습니다. 여기서는 동일한 음의 기울기를 가집니다. 이는 나이가 많은 강사가 젊은 강사보다 낮은 강의 평가 점수를 받는 경향이 있음을 말해줍니다. 또한 직선이 평행하므로 고령에 따른 연관된 불이익은 여성 강사와 남성 강사 모두에게 동일하다고 가정됩니다.</p>
+<p>그러나 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-parallel에서</span> 남성 강사에 해당하는 파란색 직선이 여성 강사에 해당하는 빨간색 직선보다 더 높다는 사실에서 알 수 있듯이, 이 두 직선은 서로 다른 절편을 가집니다. 이는 연령에 관계없이 여성 강사가 남성 강사보다 더 낮은 강의 평가 점수를 받는 경향이 있음을 말해줍니다.</p>
 <p>두 개의 절편과 하나의 공통 기울기에 대한 정확한 수치를 얻기 위해, 다시 한번 <code>lm()</code> “선형 모델” 함수를 사용하여 모델을 “적합”시킨 다음 <code>get_regression_table()</code> 함수를 적용해 보겠습니다. 하지만 모델 공식이 <code>y ~ x1 * x2</code> 형식이었던 상호작용 모델과 달리, 이제 모델 공식은 <code>y ~ x1 + x2</code> 형식이 됩니다. 즉, 두 설명 변수 <code>x1</code>과 <code>x2</code>가 <code>+</code> 기호로 구분됩니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
@@ -833,9 +858,9 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 </table>
 </div>
 </div>
-<p>표 @ref(tab:regtable-interaction)의 상호작용 모델 회귀 표와 마찬가지로, “비교를 위한 기준”인 여성 강사 그룹의 절편에 해당하는 <code>intercept</code> 항과 여성 강사 대비 남성 강사의 절편 <em>오프셋</em>에 해당하는 <code>gender: male</code> 항이 있습니다. 다시 말해, 그림 @ref(fig:numxcatx-parallel)에서 여성 강사에 해당하는 빨간색 회귀 직선은 4.484의 절편을 가지는 반면, 남성 강사에 해당하는 파란색 회귀 직선은 4.484 + 0.191 = 4.675의 절편을 가집니다. 다시 한번 말씀드리자면, 나이가 0세인 강사는 없으므로 이 절편들은 수학적 해석만 가능할 뿐 실질적인 해석은 불가능합니다.</p>
-<p>그러나 표 @ref(tab:regtable-interaction)와 달리 이제 연령에 대한 기울기는 -0.009 하나뿐입니다. 이는 모델이 여성 강사와 남성 강사 모두 동일한 연령별 기울기를 갖도록 규정하고 있기 때문입니다. 이는 다른 강사보다 한 살 더 많은 강사가 평균적으로 0.009단위만큼 <em>더 낮은</em> 강의 평가 점수를 받았음을 말해줍니다. 이러한 고령에 따른 불이익은 여성 강사와 남성 강사 모두에게 동일하게 적용됩니다.</p>
-<p>이 값들을 표 @ref(tab:parallel-slopes-summary)에 정리해 보겠습니다. 절편은 다르지만 기울기는 공통이라는 점에 주목하세요.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction의</span> 상호작용 모델 회귀 표와 마찬가지로, “비교를 위한 기준”인 여성 강사 그룹의 절편에 해당하는 <code>intercept</code> 항과 여성 강사 대비 남성 강사의 절편 <em>오프셋</em>에 해당하는 <code>gender: male</code> 항이 있습니다. 다시 말해, 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-parallel에서</span> 여성 강사에 해당하는 빨간색 회귀 직선은 4.484의 절편을 가지는 반면, 남성 강사에 해당하는 파란색 회귀 직선은 4.484 + 0.191 = 4.675의 절편을 가집니다. 다시 한번 말씀드리자면, 나이가 0세인 강사는 없으므로 이 절편들은 수학적 해석만 가능할 뿐 실질적인 해석은 불가능합니다.</p>
+<p>그러나 표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction와</span> 달리 이제 연령에 대한 기울기는 -0.009 하나뿐입니다. 이는 모델이 여성 강사와 남성 강사 모두 동일한 연령별 기울기를 갖도록 규정하고 있기 때문입니다. 이는 다른 강사보다 한 살 더 많은 강사가 평균적으로 0.009단위만큼 <em>더 낮은</em> 강의 평가 점수를 받았음을 말해줍니다. 이러한 고령에 따른 불이익은 여성 강사와 남성 강사 모두에게 동일하게 적용됩니다.</p>
+<p>이 값들을 표 <span class="quarto-unresolved-ref">?tbl-parallel-slopes-summary에</span> 정리해 보겠습니다. 절편은 다르지만 기울기는 공통이라는 점에 주목하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -880,16 +905,16 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 &amp;= 4.484 -0.009 \cdot \text{age}
 \end{aligned}
 \]</span></p>
-<p>이는 그림 @ref(fig:numxcatx-parallel)에서 여성 강사에 해당하는 빨간색 회귀 직선 방정식입니다. 마찬가지로 남성 강사의 경우 지시 함수 <span class="math inline">\(\mathbb{1}_{\text{is male}}(x)\)</span> = 1이므로 이전 방정식은 다음과 같이 됩니다.</p>
+<p>이는 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-parallel에서</span> 여성 강사에 해당하는 빨간색 회귀 직선 방정식입니다. 마찬가지로 남성 강사의 경우 지시 함수 <span class="math inline">\(\mathbb{1}_{\text{is male}}(x)\)</span> = 1이므로 이전 방정식은 다음과 같이 됩니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 \widehat{y} = \widehat{\text{score}} &amp;= 4.484 -0.009 \cdot \text{age} + 0.191 \cdot 1\\
-&amp;= (4.484 + 0.191) - 0.009 \cdot \text{age}\\
+&amp;= (4.484 + 0.191) -0.009 \cdot \text{age}\\
 &amp;= 4.675 -0.009 \cdot \text{age}
 \end{aligned}
 \]</span></p>
-<p>이는 그림 @ref(fig:numxcatx-parallel)에서 남성 강사에 해당하는 파란색 회귀 직선 방정식입니다.</p>
-<p>좋습니다! 우리는 데이터에 대해 상호작용 모델과 평행 직선 모델을 모두 고려해 보았습니다. 그림 @ref(fig:numxcatx-comparison)에서 두 모델의 시각화 결과를 나란히 비교해 보겠습니다.</p>
+<p>이는 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-parallel에서</span> 남성 강사에 해당하는 파란색 회귀 직선 방정식입니다.</p>
+<p>좋습니다! 우리는 데이터에 대해 상호작용 모델과 평행 직선 모델을 모두 고려해 보았습니다. 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison에서</span> 두 모델의 시각화 결과를 나란히 비교해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -900,13 +925,13 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 </div>
 </div>
 </div>
-<p>이 시점에서 여러분은 스스로에게 이렇게 물을지도 모릅니다. “평행 직선 모델을 도대체 왜 사용하나요?” 그림 @ref(fig:numxcatx-comparison)의 왼쪽 그래프를 보면 두 직선은 분명히 평행해 보이지 않는데, 왜 굳이 평행하게 <em>강제</em>하느냐는 것이죠. 이 데이터에 대해서는 저희도 동의합니다! 왼쪽의 상호작용 모델이 더 적절하다고 쉽게 주장할 수 있습니다. 하지만 이어지는 소섹션 @ref(model-selection) 모델 선택 파트에서 평행 직선 모델이 더 강력한 설득력을 갖는 사례를 제시할 것입니다.</p>
+<p>이 시점에서 여러분은 스스로에게 이렇게 물을지도 모릅니다. “평행 직선 모델을 도대체 왜 사용하나요?” 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison의</span> 왼쪽 그래프를 보면 두 직선은 분명히 평행해 보이지 않는데, 왜 굳이 평행하게 <em>강제</em>하느냐는 것이죠. 이 데이터에 대해서는 저희도 동의합니다! 왼쪽의 상호작용 모델이 더 적절하다고 쉽게 주장할 수 있습니다. 하지만 이어지는 <span class="quarto-unresolved-ref">?sec-model-selection절</span> 모델 선택 파트에서 평행 직선 모델이 더 강력한 설득력을 갖는 사례를 제시할 것입니다.</p>
 </section>
-<section id="model4points" class="level3" data-number="8.1.4">
-<h3 data-number="8.1.4" class="anchored" data-anchor-id="model4points"><span class="header-section-number">8.1.4</span> 관측값/적합값 및 잔차</h3>
+<section id="model4points" class="level3">
+<h3 class="anchored" data-anchor-id="model4points">관측값/적합값 및 잔차</h3>
 <p>간결성을 위해, 이 섹션에서는 <code>score_model_interaction</code>에 저장된 상호작용 모델에 대해서만 관측값, 적합값 및 잔차를 계산하겠습니다. 평행 직선 모델에 대한 해당 값들은 이어지는 <em>학습 확인(Learning check)</em>에서 살펴볼 기회가 있을 것입니다.</p>
 <p>예를 들어, 여성이고 36세인 강사가 있다고 가정해 봅시다. 우리 모델은 어떤 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span>를 산출할까요? 또한 남성이고 59세인 다른 강사가 있다고 가정해 봅시다. 그들의 적합값 <span class="math inline">\(\widehat{y}\)</span>는 얼마일까요?</p>
-<p>먼저 여성 강사의 경우, 그림 @ref(fig:fitted-values)에서 <span class="math inline">\(x\)</span> = 연령 = 36인 수직선과 빨간색 회귀 직선의 교차점을 찾아 시각적으로 답할 수 있습니다. 이 값을 그림 @ref(fig:fitted-values)에 커다란 빨간색 점으로 표시했습니다. 마찬가지로 남성 강사의 경우, 그림 @ref(fig:fitted-values)에서 <span class="math inline">\(x\)</span> = 연령 = 59인 수직선과 파란색 회귀 직선의 교차점을 찾아 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span>를 식별할 수 있습니다. 이 값을 그림 @ref(fig:fitted-values)에 커다란 파란색 점으로 표시했습니다.</p>
+<p>먼저 여성 강사의 경우, 그림 <span class="quarto-unresolved-ref">?fig-fitted-values에서</span> <span class="math inline">\(x\)</span> = 연령 = 36인 수직선과 빨간색 회귀 직선의 교차점을 찾아 시각적으로 답할 수 있습니다. 이 값을 그림 <span class="quarto-unresolved-ref">?fig-fitted-values에</span> 커다란 빨간색 점으로 표시했습니다. 마찬가지로 남성 강사의 경우, 그림 <span class="quarto-unresolved-ref">?fig-fitted-values에서</span> <span class="math inline">\(x\)</span> = 연령 = 59인 수직선과 파란색 회귀 직선의 교차점을 찾아 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span>를 식별할 수 있습니다. 이 값을 그림 <span class="quarto-unresolved-ref">?fig-fitted-values에</span> 커다란 파란색 점으로 표시했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -917,13 +942,13 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 </div>
 </div>
 </div>
-<p>이 두 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span> 값은 정확히 얼마일까요? 소섹션 @ref(model4interactiontable)에서 계산했던 두 회귀 직선의 방정식을 사용할 수 있으며, 이 방정식은 표 @ref(tab:regtable-interaction)의 회귀 표 값을 기반으로 합니다.</p>
+<p>이 두 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span> 값은 정확히 얼마일까요? <span class="quarto-unresolved-ref">?sec-model4interactiontable절에서</span> 계산했던 두 회귀 직선의 방정식을 사용할 수 있으며, 이 방정식은 표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction의</span> 회귀 표 값을 기반으로 합니다.</p>
 <ul>
 <li>모든 여성 강사: <span class="math inline">\(\widehat{y} = \widehat{\text{score}} = 4.883 - 0.018 \cdot \text{연령}\)</span></li>
 <li>모든 남성 강사: <span class="math inline">\(\widehat{y} = \widehat{\text{score}} = 4.437 - 0.004 \cdot \text{연령}\)</span></li>
 </ul>
-<p>따라서 우리의 적합값은 각각 <span class="math inline">\(4.883 - 0.018 \cdot 36 = 4.24\)</span>와 <span class="math inline">\(4.437 - 0.004 \cdot 59 = 4.20\)</span>가 됩니다.</p>
-<p>이제 이 두 명의 강사뿐만 아니라 <code>evals_ch6</code> 데이터 프레임에 포함된 모든 463개 강의의 강사들에 대한 적합값을 원한다면 어떻게 해야 할까요? 이를 수작업으로 하는 것은 지루하고 오래 걸리는 일일 것입니다! 여기서 <code>moderndive</code> 패키지의 <code>get_regression_points()</code> 함수가 도움이 될 수 있습니다. 이 함수는 모든 463개 강의에 대해 위의 계산을 빠르게 자동화해 줍니다. 표 @ref(tab:model4-points-table)에 463개 중 처음 10개 행의 미리보기를 제시합니다.</p>
+<p>따라서 우리의 적합값은 각각 <span class="math inline">\(4.883 - 0.018 \cdot 36 = 4.24\)</span>와 <span class="math inline">\(4.437 - 0.004 \cdot 59 = 4.2\)</span>가 됩니다.</p>
+<p>이제 이 두 명의 강사뿐만 아니라 <code>evals_ch6</code> 데이터 프레임에 포함된 모든 463개 강의의 강사들에 대한 적합값을 원한다면 어떻게 해야 할까요? 이를 수작업으로 하는 것은 지루하고 오래 걸리는 일일 것입니다! 여기서 <code>moderndive</code> 패키지의 <code>get_regression_points()</code> 함수가 도움이 될 수 있습니다. 이 함수는 모든 463개 강의에 대해 위의 계산을 빠르게 자동화해 줍니다. 표 <span class="quarto-unresolved-ref">?tbl-model4-points-table에</span> 463개 중 처음 10개 행의 미리보기를 제시합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>regression_points <span class="ot">&lt;-</span> <span class="fu">get_regression_points</span>(score_model_interaction)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>regression_points</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1043,9 +1068,9 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 </div>
 </section>
 </section>
-<section id="model3" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="model3"><span class="header-section-number">8.2</span> 두 수치형 설명 변수</h2>
-<p>이제 주제를 바꿔서 수치형 설명 변수 하나와 범주형 설명 변수 하나 대신, 두 개의 수치형 설명 변수를 사용하는 다중 회귀 모델을 고려해 보겠습니다. 우리가 사용할 데이터 세트는 통계 및 머신러닝에 관한 중급 수준의 교과서인 <a href="https://www.statlearning.com/"><em>An Introduction to Statistical Learning with Applications in R (ISLR)</em></a> <span class="citation" data-cites="islr2017">(<a href="#ref-islr2017" role="doc-biblioref">James et al. 2017</a>)</span>에서 가져왔습니다. 동반된 <code>ISLR</code> R 패키지에는 저자들이 다양한 머신러닝 방법을 적용한 데이터 세트들이 포함되어 있습니다.</p>
+<section id="model3" class="level2">
+<h2 class="anchored" data-anchor-id="model3">두 수치형 설명 변수</h2>
+<p>이제 주제를 바꿔서 수치형 설명 변수 하나와 범주형 설명 변수 하나 대신, 두 개의 수치형 설명 변수를 사용하는 다중 회귀 모델을 고려해 보겠습니다. 우리가 사용할 데이터 세트는 통계 및 머신러닝에 관한 중급 수준의 교과서인 [<em>An Introduction to Statistical Learning with Applications in R (ISLR)</em>](https://www.statlearning.com/ <span class="citation" data-cites="islr2017">(<a href="#ref-islr2017" role="doc-biblioref">James et al. 2017</a>)</span>에서 가져왔습니다. 동반된 <code>ISLR</code> R 패키지에는 저자들이 다양한 머신러닝 방법을 적용한 데이터 세트들이 포함되어 있습니다.</p>
 <p>이 책에서 자주 사용되는 데이터 세트 중 하나은 <code>Credit</code> 데이터 세트로, 관심 있는 결과 변수는 400명의 개인별 신용카드 부채(debt)입니다. 수입, 신용 한도, 신용 등급, 연령과 같은 다른 변수들도 포함되어 있습니다. <code>Credit</code> 데이터는 실제 개인의 금융 정보를 바탕으로 한 것이 아니라 교육 목적으로 사용되는 시뮬레이션 데이터 세트라는 점에 유의하세요.</p>
 <p>이 섹션에서는 다음과 같은 변수들을 사용하여 회귀 모델을 적합시킬 것입니다.</p>
 <ol type="1">
@@ -1056,9 +1081,9 @@ HTML 출력물에서는 정상적으로 표시됩니다.
 <li>또 다른 수치형 설명 변수 <span class="math inline">\(x_2\)</span>: 카드 소지자의 수입(income, 단위: 1,000달러).</li>
 </ol></li>
 </ol>
-<section id="model3EDA" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="model3EDA"><span class="header-section-number">8.2.1</span> 탐색적 데이터 분석</h3>
-<p><code>Credit</code> 데이터 세트를 로드해 보겠습니다. 내용을 단순하게 유지하기 위해 이번 장에서 고려할 변수들만 <code>select()</code>하여 <code>credit_ch6</code>라는 새로운 데이터 프레임에 저장하겠습니다. 소섹션 @ref(select)에서 소개했던 것과는 약간 다른 방식으로 <code>select()</code> 동사를 사용하는 점에 주목하세요. 예를 들어, <code>Credit</code>의 <code>Balance</code> 변수를 선택한 다음 이를 <code>debt</code>라는 새로운 변수 이름으로 저장할 것입니다. 이는 여기에서 “debt(부채)”라는 용어가 “balance(잔액)”보다 해석하기 더 쉽기 때문입니다.</p>
+<section id="model3EDA" class="level3">
+<h3 class="anchored" data-anchor-id="model3EDA">탐색적 데이터 분석</h3>
+<p><code>Credit</code> 데이터 세트를 로드해 보겠습니다. 내용을 단순하게 유지하기 위해 이번 장에서 고려할 변수들만 <code>select()</code>하여 <code>credit_ch6</code>라는 새로운 데이터 프레임에 저장하겠습니다. <span class="quarto-unresolved-ref">?sec-select절에서</span> 소개했던 것과는 약간 다른 방식으로 <code>select()</code> 동사를 사용하는 점에 주목하세요. 예를 들어, <code>Credit</code>의 <code>Balance</code> 변수를 선택한 다음 이를 <code>debt</code>라는 새로운 변수 이름으로 저장할 것입니다. 이는 여기에서 “debt(부채)”라는 용어가 “balance(잔액)”보다 해석하기 더 쉽기 때문입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="ot">&lt;-</span> Credit <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
@@ -1079,7 +1104,7 @@ $ credit_rating &lt;int&gt; 283, 483, 514, 681, 357, 569, 259, 512, 266, 491, 58
 $ age           &lt;int&gt; 34, 82, 71, 36, 68, 77, 37, 87, 66, 41, 30, 64, 57, 49, …</code></pre>
 </div>
 </div>
-<p>또한 표 @ref(tab:model3-data-preview)에서 400명의 신용카드 소지자 중 무작위로 추출한 5명의 샘플을 살펴보겠습니다. 다시 한번 말씀드리지만, 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개 행을 보게 될 것입니다.</p>
+<p>또한 표 <span class="quarto-unresolved-ref">?tbl-model3-data-preview에서</span> 400명의 신용카드 소지자 중 무작위로 추출한 5명의 샘플을 살펴보겠습니다. 다시 한번 말씀드리지만, 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개 행을 보게 될 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1159,15 +1184,15 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
  variable missing complete   n  mean    sd    p0   p25   p50   p75   p100
    income       0      400 400 45.22 35.24 10.35 21.01 33.12 57.47 186.63</code></pre>
 <p>결과 변수 <code>debt</code>의 요약 통계량을 확인해 보세요. 신용카드 부채의 평균과 중앙값은 각각 $520.01와 $459.50이며, 카드 소지자의 25%는 부채가 $68.75 이하입니다. 이제 설명 변수 중 하나인 <code>credit_limit</code>를 살펴보면, 신용 한도의 평균과 중앙값은 각각 $4735.6와 $4622.50이며, 카드 소지자의 75%는 수입이 $57,470 이하입니다.</p>
-<p>결과 변수 <code>debt</code>와 설명 변수 <code>credit_limit</code>, <code>income</code>이 모두 수치형이므로, 이들 변수 사이의 서로 다른 가능한 모든 쌍에 대해 상관 계수를 계산할 수 있습니다. 먼저 소섹션 @ref(model1EDA)에서 보았던 <code>get_correlation()</code> 명령을 각 설명 변수에 대해 한 번씩, 총 두 번 실행할 수 있습니다.</p>
+<p>결과 변수 <code>debt</code>와 설명 변수 <code>credit_limit</code>, <code>income</code>이 모두 수치형이므로, 이들 변수 사이의 서로 다른 가능한 모든 쌍에 대해 상관 계수를 계산할 수 있습니다. 먼저 <span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> 보았던 <code>get_correlation()</code> 명령을 각 설명 변수에 대해 한 번씩, 총 두 번 실행할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="sc">%&gt;%</span> <span class="fu">get_correlation</span>(debt <span class="sc">~</span> credit_limit)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="sc">%&gt;%</span> <span class="fu">get_correlation</span>(debt <span class="sc">~</span> income)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>또는 표 @ref(tab:model3-correlation)에 표시된 것처럼 <em>상관 행렬(correlation matrix)</em> 을 반환하여 동시에 계산할 수 있습니다. 적절한 행/열 조합에서 관심 있는 변수 쌍의 상관 계수를 확인할 수 있습니다.</p>
+<p>또는 표 <span class="quarto-unresolved-ref">?tbl-model3-correlation에</span> 표시된 것처럼 <em>상관 행렬(correlation matrix)</em> 을 반환하여 동시에 계산할 수 있습니다. 적절한 행/열 조합에서 관심 있는 변수 쌍의 상관 계수를 확인할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(debt, credit_limit, income) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(debt, credit_limit, income) <span class="sc">%&gt;%</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
@@ -1214,7 +1239,7 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 </ol>
 <p>우리는 <code>credit_limit</code>와 <code>income</code> 설명 변수 사이에 높은 수준의 <em>공선성(collinearity)</em> 이 있다고 말합니다. 공선성(또는 다중공선성)은 다중 회귀 모델에서 하나의 설명 변수가 다른 설명 변수와 높은 상관 관계를 갖는 현상을 말합니다.</p>
 <p>따라서 우리의 경우 <code>credit_limit</code>와 <code>income</code>이 높은 상관 관계를 가지므로, 누군가의 <code>credit_limit</code>를 안다면 그 사람의 <code>income</code>에 대해서도 꽤 잘 추측할 수 있습니다. 즉, 이 두 변수는 어느 정도 중복된 정보를 제공합니다. 하지만 공선성이 있는 설명 변수를 다루는 방법에 대한 논의는 회귀 모델링에 관한 좀 더 중급 수준의 도서에 맡기겠습니다.</p>
-<p>그림 @ref(fig:2numxplot1)의 두 개의 별도 그래프를 통해 결과 변수와 각 두 설명 변수 사이의 관계를 시각화해 보겠습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-2numxplot1의</span> 두 개의 별도 그래프를 통해 결과 변수와 각 두 설명 변수 사이의 관계를 시각화해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(credit_ch6, <span class="fu">aes</span>(<span class="at">x =</span> credit_limit, <span class="at">y =</span> debt)) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1239,7 +1264,7 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 </div>
 </div>
 <p>신용 한도와 신용카드 부채 사이에 양의 관계가 있음을 확인하세요. 신용 한도가 증가함에 따라 신용카드 부채도 함께 증가합니다. 이는 앞서 계산한 0.862라는 강한 양의 상관 계수와 일치합니다. 수입의 경우, 약한 양의 상관 계수인 0.464를 감안하면 양의 관계가 그리 강해 보이지 않습니다.</p>
-<p>그러나 그림 @ref(fig:2numxplot1)의 두 그래프는 결과 변수와 각 두 설명 변수 사이의 관계를 <em>개별적으로</em> 보여줄 뿐입니다. 세 변수 모두의 <em>결합된(joint)</em> 관계를 동시에 시각화하려면 그림 @ref(fig:3D-scatterplot)과 같은 3차원(3D) 산점도가 필요합니다. <code>credit_ch6</code> 데이터 프레임의 400개 관측치 각각은 다음과 같은 파란색 점으로 표시됩니다.</p>
+<p>그러나 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1의</span> 두 그래프는 결과 변수와 각 두 설명 변수 사이의 관계를 <em>개별적으로</em> 보여줄 뿐입니다. 세 변수 모두의 <em>결합된(joint)</em> 관계를 동시에 시각화하려면 그림 <span class="quarto-unresolved-ref">?fig-3D-scatterplot과</span> 같은 3차원(3D 산점도가 필요합니다. <code>credit_ch6</code> 데이터 프레임의 400개 관측치 각각은 다음과 같은 파란색 점으로 표시됩니다.</p>
 <ol type="1">
 <li>수치형 결과 변수 <span class="math inline">\(y\)</span>인 <code>debt</code>가 수직 축에 있습니다.</li>
 <li>두 수치형 설명 변수 <span class="math inline">\(x_1\)</span>인 <code>income</code>과 <span class="math inline">\(x_2\)</span>인 <code>credit_limit</code>가 바닥 평면을 형성하는 두 축에 있습니다.</li>
@@ -1254,7 +1279,7 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 </div>
 </div>
 </div>
-<p>또한 <em>회귀 평면(regression plane)</em> 도 포함되어 있습니다. 소섹션 @ref(leastsquares)에서 회귀 직선은 점들의 구름을 통과하는 수많은 가능한 직선 중 <em>잔차 제곱합(sum of squared residuals)</em> 을 최소화한다는 의미에서 “가장 잘 맞는(best-fitting)” 선임을 떠올려 보세요. 이 개념은 두 개의 수치형 설명 변수를 사용하는 모델로도 확장됩니다. 차이점은 이제 “가장 잘 맞는” 직선 대신, 잔차 제곱합을 마찬가지로 최소화하는 “가장 잘 맞는” 평면을 갖게 된다는 것입니다. 브라우저에서 이 그래프의 인터랙티브 버전을 열어보려면 <a href="https://moderndive.com/regression-plane">이 웹사이트</a>를 방문하세요.</p>
+<p>또한 <em>회귀 평면(regression plane)</em> 도 포함되어 있습니다. <span class="quarto-unresolved-ref">?sec-leastsquares절에서</span> 회귀 직선은 점들의 구름을 통과하는 수많은 가능한 직선 중 <em>잔차 제곱합(sum of squared residuals)</em> 을 최소화한다는 의미에서 “가장 잘 맞는(best-fitting)” 선임을 떠올려 보세요. 이 개념은 두 개의 수치형 설명 변수를 사용하는 모델로도 확장됩니다. 차이점은 이제 “가장 잘 맞는” 직선 대신, 잔차 제곱합을 마찬가지로 최소화하는 “가장 잘 맞는” 평면을 갖게 된다는 것입니다. 브라우저에서 이 그래프의 인터랙티브 버전을 열어보려면 <a href="https://moderndive.com/regression-plane">이 웹사이트</a>를 방문하세요.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1269,9 +1294,9 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 </div>
 </div>
 </section>
-<section id="model3table" class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="model3table"><span class="header-section-number">8.2.2</span> 회귀 평면</h3>
-<p>이제 회귀 모델을 적합시키고 그림 @ref(fig:3D-scatterplot)의 회귀 평면에 해당하는 회귀 표를 얻어보겠습니다. 이 소섹션은 간결하게 하기 위해 소섹션 @ref(model4interactiontable)에서 <code>score ~ age * gender</code>라는 모델 공식을 사용하여 수행했던 것처럼 <code>income</code>과 <code>credit_limit</code> 두 수치형 설명 변수에 대한 상호작용 모델은 고려하지 않겠습니다. 대신 <code>y ~ x1 + x2</code> 형태의 공식으로 모델 적합만 고려할 것입니다. 하지만 다소 혼란스럽게도 이제 여러 직선 대신 하나의 회귀 평면을 갖게 되므로, 두 개의 수치형 설명 변수가 있을 때는 “평행 직선(parallel slopes)”이라는 라벨이 적용되지 않습니다. 8장과 이번 장에서 여러 번 수행했던 것처럼, 2단계 프로세스를 사용한 이 모델의 회귀 표는 표 @ref(tab:model3-table-output)에 제시되어 있습니다.</p>
+<section id="model3table" class="level3">
+<h3 class="anchored" data-anchor-id="model3table">회귀 평면</h3>
+<p>이제 회귀 모델을 적합시키고 그림 <span class="quarto-unresolved-ref">?fig-3D-scatterplot의</span> 회귀 평면에 해당하는 회귀 표를 얻어보겠습니다. 이 소섹션은 간결하게 하기 위해 <span class="quarto-unresolved-ref">?sec-model4interactiontable절에서</span> <code>score ~ age * gender</code>라는 모델 공식을 사용하여 수행했던 것처럼 <code>income</code>과 <code>credit_limit</code> 두 수치형 설명 변수에 대한 상호작용 모델은 고려하지 않겠습니다. 대신 <code>y ~ x1 + x2</code> 형태의 공식으로 모델 적합만 고려할 것입니다. 하지만 다소 혼란스럽게도 이제 여러 직선 대신 하나의 회귀 평면을 갖게 되므로, 두 개의 수치형 설명 변수가 있을 때는 “평행 직선(parallel slopes)”이라는 라벨이 적용되지 않습니다. 8장과 이번 장에서 여러 번 수행했던 것처럼, 2단계 프로세스를 사용한 이 모델의 회귀 표는 표 <span class="quarto-unresolved-ref">?tbl-model3-table-output에</span> 제시되어 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>debt_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(debt <span class="sc">~</span> credit_limit <span class="sc">+</span> income, <span class="at">data =</span> credit_ch6)</span>
@@ -1330,9 +1355,9 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 <li><code>moderndive</code> 패키지의 <code>get_regression_table()</code> 함수를 <code>debt_model</code>에 적용하여 회귀 표를 얻습니다.</li>
 </ol>
 <p><code>estimate</code> 열의 세 값을 해석해 보겠습니다. 첫째, <code>intercept</code> 값은 -$385.179입니다. 이 절편은 <code>credit_limit</code>가 $0이고 <code>income</code>이 $0인 개인의 신용카드 부채를 나타냅니다. 그러나 우리 데이터에서는 <code>credit_limit</code>나 <code>income</code> 값이 $0인 개인이 없으므로 절편은 실제적인 해석 의미가 없습니다. 대신 절편은 3D 공간에서 회귀 평면의 위치를 정하는 데 사용됩니다.</p>
-<p>둘째, <code>credit_limit</code> 값은 $0.264입니다. 모델의 다른 모든 설명 변수를 고려할 때, <code>credit_limit</code>가 1달러 증가할 때마다 신용카드 부채는 평균적으로 $0.26만큼 증가하는 경향이 있습니다. 소섹션 @ref(model1table)에서 했던 것처럼, 소섹션 @ref(correlation-is-not-causation)에서 “상관관계가 반드시 인과관계는 아니다”라는 것을 보았듯이 인과관계를 함축하지 않도록 주의합니다. 우리는 단지 <em>연관된(associated)</em> 증가가 있었다고 말할 뿐입니다.</p>
+<p>둘째, <code>credit_limit</code> 값은 $0.264입니다. 모델의 다른 모든 설명 변수를 고려할 때, <code>credit_limit</code>가 1달러 증가할 때마다 신용카드 부채는 평균적으로 $0.26만큼 증가하는 경향이 있습니다. <span class="quarto-unresolved-ref">?sec-model1table절에서</span> 했던 것처럼, <span class="quarto-unresolved-ref">?sec-correlation-is-not-causation절에서</span> “상관관계가 반드시 인과관계는 아니다”라는 것을 보았듯이 인과관계를 함축하지 않도록 주의합니다. 우리는 단지 <em>연관된(associated)</em> 증가가 있었다고 말할 뿐입니다.</p>
 <p>또한 해석 앞에 “모델의 다른 모든 설명 변수를 고려할 때”라는 문구를 덧붙입니다. 여기서 다른 모든 설명 변수란 <code>income</code>을 의미합니다. 이는 우리가 이제 동일한 모델에서 여러 설명 변수의 연관된 효과를 동시에 공동으로 해석하고 있음을 강조하기 위한 것입니다.</p>
-<p>셋째, <code>income</code> = -$7.66입니다. 모델의 다른 모든 설명 변수를 고려할 때, <code>income</code>이 1단위($1,000) 증가할 때마다 신용카드 부채는 평균적으로 $7.66만큼 감소하는 경향이 있습니다.</p>
+<p>셋째, <code>income</code> = -$7.66입니다. 모델의 다른 모든 설명 변수를 고려할 때, <code>income</code>이 1단위($1,000 증가할 때마다 신용카드 부채는 평균적으로 $7.66만큼 감소하는 경향이 있습니다.</p>
 <p>이 결과들을 종합하면, 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{debt}}\)</span>를 제공하는 회귀 평면의 방정식은 다음과 같습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1341,7 +1366,7 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 &amp;= -385.179 + 0.263 \cdot\text{limit} - 7.663 \cdot\text{income}
 \end{aligned}
 \]</span></p>
-<p>그러나 그림 @ref(fig:2numxplot1)의 오른쪽 그래프에서 <code>debt</code>와 <code>income</code>의 관계를 격리하여 그렸을 때는 <em>양의</em> 관계가 있는 것처럼 보였습니다. 하지만 마지막에 논의한 다중 회귀에서 <code>debt</code>, <code>credit_limit</code>, <code>income</code> 사이의 관계를 <em>공동으로</em> 모델링했을 때는 <code>income</code>의 음의 기울기인 -$7.663에서 알 수 있듯이 <code>debt</code>와 <code>income</code> 사이에 <em>음의</em> 관계가 있는 것으로 나타납니다. 이러한 모순된 결과를 무엇이 설명할까요? 집계된 데이터에서 존재하는 전체적인 추세가 데이터를 그룹으로 나누었을 때 사라지거나 뒤바뀌는 현상인 <em>심슨의 역설(Simpson’s Paradox)</em> 때문입니다. 소섹션 @ref(simpsonsparadox)에서 <code>credit_limit</code>와 신용카드 <code>debt</code> 사이의 관계를 서로 다른 <code>income</code> 구간별로 나누어 살펴봄으로써 이 아이디어를 자세히 설명하겠습니다.</p>
+<p>그러나 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1의</span> 오른쪽 그래프에서 <code>debt</code>와 <code>income</code>의 관계를 격리하여 그렸을 때는 <em>양의</em> 관계가 있는 것처럼 보였습니다. 하지만 마지막에 논의한 다중 회귀에서 <code>debt</code>, <code>credit_limit</code>, <code>income</code> 사이의 관계를 <em>공동으로</em> 모델링했을 때는 <code>income</code>의 음의 기울기인 -$7.663에서 알 수 있듯이 <code>debt</code>와 <code>income</code> 사이에 <em>음의</em> 관계가 있는 것으로 나타납니다. 이러한 모순된 결과를 무엇이 설명할까요? 집계된 데이터에서 존재하는 전체적인 추세가 데이터를 그룹으로 나누었을 때 사라지거나 뒤바뀌는 현상인 <em>심슨의 역설(Simpson’s Paradox)</em> 때문입니다. <span class="quarto-unresolved-ref">?sec-simpsonsparadox절에서</span> <code>credit_limit</code>와 신용카드 <code>debt</code> 사이의 관계를 서로 다른 <code>income</code> 구간별로 나누어 살펴봄으로써 이 아이디어를 자세히 설명하겠습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1356,9 +1381,9 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 </div>
 </div>
 </section>
-<section id="model3points" class="level3" data-number="8.2.3">
-<h3 data-number="8.2.3" class="anchored" data-anchor-id="model3points"><span class="header-section-number">8.2.3</span> 관측값/적합값 및 잔차</h3>
-<p><code>get_regression_points()</code> 함수를 사용하여 회귀 모델의 모든 적합값과 잔차를 계산하고, 표 @ref(tab:model3-points-table)에 처음 10개 행만 제시하겠습니다. 그림 @ref(fig:3D-scatterplot)의 3D 산점도에 표시된 각 파란색 점의 좌표는 <code>income</code>, <code>credit_limit</code>, <code>debt</code> 열에서 찾을 수 있음을 기억하세요. 회귀 평면 위의 적합값은 <code>debt_hat</code> 열에 있으며, 이전 섹션의 회귀 평면 방정식을 사용하여 계산됩니다.</p>
+<section id="model3points" class="level3">
+<h3 class="anchored" data-anchor-id="model3points">관측값/적합값 및 잔차</h3>
+<p><code>get_regression_points()</code> 함수를 사용하여 회귀 모델의 모든 적합값과 잔차를 계산하고, 표 <span class="quarto-unresolved-ref">?tbl-model3-points-table에</span> 처음 10개 행만 제시하겠습니다. 그림 <span class="quarto-unresolved-ref">?fig-3D-scatterplot의</span> 3D 산점도에 표시된 각 파란색 점의 좌표는 <code>income</code>, <code>credit_limit</code>, <code>debt</code> 열에서 찾을 수 있음을 기억하세요. 회귀 평면 위의 적합값은 <code>debt_hat</code> 열에 있으며, 이전 섹션의 회귀 평면 방정식을 사용하여 계산됩니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 \widehat{y} = \widehat{\text{debt}} &amp;= -385.179 + 0.263 \cdot \text{limit} - 7.663 \cdot \text{income}
@@ -1468,11 +1493,11 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 </div>
 </section>
 </section>
-<section id="mult-reg-related-topics" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="mult-reg-related-topics"><span class="header-section-number">8.3</span> Related topics</h2>
-<section id="model-selection" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="model-selection"><span class="header-section-number">8.3.1</span> Model selection using visualizations</h3>
-<p>When should we use an interaction model versus a parallel slopes model? Recall in Sections @ref(model4interactiontable) and @ref(model4table) we fit both interaction and parallel slopes models for the outcome variable <span class="math inline">\(y\)</span> (teaching score) using a numerical explanatory variable <span class="math inline">\(x_1\)</span> (age) and a categorical explanatory variable <span class="math inline">\(x_2\)</span> (gender recorded as a binary variable). We compared these models in Figure @ref(fig:numxcatx-comparison), which we display again now.</p>
+<section id="mult-reg-related-topics" class="level2">
+<h2 class="anchored" data-anchor-id="mult-reg-related-topics">Related topics</h2>
+<section id="model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-selection">Model selection using visualizations</h3>
+<p>When should we use an interaction model versus a parallel slopes model? Recall in Sections <span class="quarto-unresolved-ref">?sec-model4interactiontable</span> and <span class="quarto-unresolved-ref">?sec-model4table</span> we fit both interaction and parallel slopes models for the outcome variable <span class="math inline">\(y\)</span> (teaching score) using a numerical explanatory variable <span class="math inline">\(x_1\)</span> (age) and a categorical explanatory variable <span class="math inline">\(x_2\)</span> (gender recorded as a binary variable). We compared these models in Figure <span class="quarto-unresolved-ref">?fig-numxcatx-comparison</span>, which we display again now.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1489,19 +1514,19 @@ credit_limit     0      400 400 4735.6  2308.2  855 3088    4622.5 5872.75 13913
 $$
 <span class="math display">\[\begin{aligned}
 \text{Interaction} &amp;: \widehat{y} = \widehat{\text{score}} = b_0 + b_{\text{age}} \cdot \text{age} + b_{\text{male}} \cdot \mathbb{1}_{\text{is male}}(x) + \\
-&amp; \qquad b_{\text{age,male}} \cdot \text{age} \cdot \mathbb{1}_{\text{is male}}\\
+&amp; \qquad b_{\text{age,male}} \cdot \text{age} \cdot \mathbb{1}_{\text{is male}}(x)\\
 
 \text{평행 직선} &amp;: \widehat{y} = \widehat{\text{score}} = b_0 + b_{\text{연령}} \cdot \text{연령} + b_{\text{남성}} \cdot \mathbb{1}_{\text{남성}}(x)
 \end{aligned}\]</span>
 <p>$$</p>
-<p>상호작용 모델은 평행 직선 모델에는 없는 추가적인 <span class="math inline">\(b_{\text{연령,남성}} \cdot \text{연령} \cdot \mathbb{1}_{\text{남성}}\)</span> 상호작용 항이 방정식에 포함되어 있다는 점에서 “더 복잡”합니다. 또는 표 @ref(tab:regtable-interaction)의 상호작용 모델 회귀 표는 <em>4개</em>의 행을 갖는 반면, 표 @ref(tab:regtable-parallel-slopes)의 평행 직선 모델 회귀 표는 <em>3개</em>의 행을 갖는 것으로 볼 수도 있습니다. 질문은 이와 같습니다. “이 추가적인 복잡성이 정당화되는가?” 이 경우에는 그림 @ref(fig:recall-parallel-vs-interaction)의 왼쪽 그래프에서 두 회귀 직선의 명확한 X자형 패턴으로 입증되듯이, 이 추가적인 복잡성이 정당화된다고 주장할 수 있습니다.</p>
+<p>상호작용 모델은 평행 직선 모델에는 없는 추가적인 <span class="math inline">\(b_{\text{연령,남성}} \cdot \text{연령} \cdot \mathbb{1}_{\text{남성}}\)</span> 상호작용 항이 방정식에 포함되어 있다는 점에서 “더 복잡”합니다. 또는 표 <span class="quarto-unresolved-ref">?tbl-regtable-interaction의</span> 상호작용 모델 회귀 표는 <em>4개</em>의 행을 갖는 반면, 표 <span class="quarto-unresolved-ref">?tbl-regtable-parallel-slopes의</span> 평행 직선 모델 회귀 표는 <em>3개</em>의 행을 갖는 것으로 볼 수도 있습니다. 질문은 이와 같습니다. “이 추가적인 복잡성이 정당화되는가?” 이 경우에는 그림 <span class="quarto-unresolved-ref">?fig-recall-parallel-vs-interaction의</span> 왼쪽 그래프에서 두 회귀 직선의 명확한 X자형 패턴으로 입증되듯이, 이 추가적인 복잡성이 정당화된다고 주장할 수 있습니다.</p>
 <p>하지만 추가적인 복잡성이 정당화되지 <em>않을</em> 수도 있는 예를 생각해 봅시다. <code>moderndive</code> 패키지에 포함된 <code>MA_schools</code> 데이터를 살펴보겠습니다. 이 데이터는 매사추세츠주 교육부에서 제공한 2017년 매사추세츠주 공립 고등학교 데이터를 담고 있습니다. 더 자세한 내용은 콘솔에서 <code>?MA_schools</code>를 실행하여 도움말 파일을 읽어보세요.</p>
 <p>주어진 고등학교의 평균 SAT 수학 점수인 수치형 결과 변수 <span class="math inline">\(y\)</span>를 다음 두 설명 변수의 함수로 모델링해 보겠습니다.</p>
 <ol type="1">
 <li>수치형 설명 변수 <span class="math inline">\(x_1\)</span>: 해당 고등학교 학생 중 경제적으로 취약한 학생의 비율(<code>perc_disadvan</code>).</li>
 <li>범주형 설명 변수 <span class="math inline">\(x_2\)</span>: 등록 학생 수로 측정한 학교 규모(<code>size</code>). 소형(13-341명), 중형(342-541명), 대형(542-4264명)으로 나뉩니다.</li>
 </ol>
-<p>다시 한번 상호작용 모델과 평행 직선 모델의 시각화를 만들어 그림 @ref(fig:numxcatx-comparison-2)에 출력해 보겠습니다. 소섹션 @ref(model4table)에서 언급했듯이, <code>ggplot2</code> 패키지의 <code>geom_smooth()</code> 메서드는 평행 직선 모델을 그리는 편리한 방법이 없기 때문에 <code>geom_parallel_slopes()</code> 함수는 <code>moderndive</code> 패키지에 포함된 특수 목적 함수입니다.</p>
+<p>다시 한번 상호작용 모델과 평행 직선 모델의 시각화를 만들어 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison-2에</span> 출력해 보겠습니다. <span class="quarto-unresolved-ref">?sec-model4table절에서</span> 언급했듯이, <code>ggplot2</code> 패키지의 <code>geom_smooth()</code> 메서드는 평행 직선 모델을 그리는 편리한 방법이 없기 때문에 <code>geom_parallel_slopes()</code> 함수는 <code>moderndive</code> 패키지에 포함된 특수 목적 함수입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 상호작용 모델</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MA_schools, </span>
@@ -1530,7 +1555,7 @@ $$
 </div>
 </div>
 </div>
-<p>상호작용 모델에 해당하는 그림 @ref(fig:numxcatx-comparison-2)의 왼쪽 그래프를 자세히 살펴보세요. 기울기가 실제로 다르긴 하지만, 그 차이가 <em>크지 않고</em> 거의 동일합니다. 이제 왼쪽 그래프를 평행 직선 모델에 해당하는 오른쪽 그래프와 비교해 보세요. 두 모델이 그리 달라 보이지 않습니다. 따라서 이 경우에는 상호작용 모델의 추가적인 복잡성이 <em>정당화되지 않는다</em>고 주장할 수 있습니다. 따라서 오컴의 면도날에 따라 우리는 “더 단순한” 평행 직선 모델을 선호해야 합니다. 이 경우 “더 단순하다”는 것이 무엇을 의미하는지 명확히 정의해 보겠습니다. 표 @ref(tab:model2-interaction)와 @ref(tab:model2-parallel-slopes)에서 상호작용 모델과 평행 직선 모델의 회귀 표를 비교해 봅시다.</p>
+<p>상호작용 모델에 해당하는 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison-2의</span> 왼쪽 그래프를 자세히 살펴보세요. 기울기가 실제로 다르긴 하지만, 그 차이가 <em>크지 않고</em> 거의 동일합니다. 이제 왼쪽 그래프를 평행 직선 모델에 해당하는 오른쪽 그래프와 비교해 보세요. 두 모델이 그리 달라 보이지 않습니다. 따라서 이 경우에는 상호작용 모델의 추가적인 복잡성이 <em>정당화되지 않는다</em>고 주장할 수 있습니다. 따라서 오컴의 면도날에 따라 우리는 “더 단순한” 평행 직선 모델을 선호해야 합니다. 이 경우 “더 단순하다”는 것이 무엇을 의미하는지 명확히 정의해 보겠습니다. 표 <span class="quarto-unresolved-ref">?tbl-model2-interaction와</span> <span class="quarto-unresolved-ref">?tbl-model2-parallel-slopes에서</span> 상호작용 모델과 평행 직선 모델의 회귀 표를 비교해 봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model_2_interaction <span class="ot">&lt;-</span> <span class="fu">lm</span>(average_sat_math <span class="sc">~</span> perc_disadvan <span class="sc">*</span> size, </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> MA_schools)</span>
@@ -1672,24 +1697,22 @@ $$
 </div>
 </div>
 <p>상호작용 모델의 회귀 표가 2개 더 많은 행(4개 대비 6개)을 가지고 있는 점에 주목하세요. 이는 평행 직선 모델에 비해 상호작용 모델이 갖는 추가적인 “복잡성”을 반영합니다.</p>
-<p>또한 표 @ref(tab:model2-interaction)에서 <em>기울기의 오프셋</em>인 <code>perc_disadvan:sizemedium</code>이 0.146이고 <code>perc_disadvan:sizelarge</code>가 0.189인 것이 소형 학교라는 <em>기준 그룹의 기울기</em>인 -2.932에 비해 얼마나 작은지 확인해 보세요. 즉, 세 기울기 모두 비슷하게 음수입니다. 소형 학교는 -2.932, 중형 학교는 -2.786 <span class="math inline">\((= -2.932 + 0.146)\)</span>, 대형 학교는 -2.743 <span class="math inline">\((= -2.932 + 0.189)\)</span>입니다. 이러한 결과는 학교 규모에 관계없이 평균 SAT 수학 점수와 경제적 취약 학생 비율 사이의 관계가 유사하며, 아쉽게도 상당히 부정적임을 시사합니다.</p>
-<p>방금 여러분이 수행한 것이 기초적인 <em>모델 선택(model selection)</em> 입니다. 즉, 여러 후보 모델 중에서 데이터를 가장 잘 설명하는 모델을 선택하는 것입니다. 우리가 수행한 모델 선택은 시각화를 정성적으로 보고 모델을 선택하는 “눈대중 테스트(eyeball test)”를 사용했습니다. 다음 소섹션에서는 동일한 모델 선택을 다시 수행하되, 이번에는 <span class="math inline">\(R^2\)</span> (“R-제곱”이라고 읽음) 값을 통한 수치적 접근 방식을 사용하겠습니다.</p>
+<p>또한 표 <span class="quarto-unresolved-ref">?tbl-model2-interaction에서</span> <em>기울기의 오프셋</em>인 <code>perc_disadvan:sizemedium</code>이 0.146이고 <code>perc_disadvan:sizelarge</code>가 0.189인 것이 소형 학교라는 <em>기준 그룹의 기울기</em>인 -2.932에 비해 얼마나 작은지 확인해 보세요. 즉, 세 기울기 모두 비슷하게 음수입니다. 소형 학교는 -2.932, 중형 학교는 -2.786 <span class="math inline">\((= -2.932 + 0.146)\)</span>, 대형 학교는 -2.743 <span class="math inline">\((= -2.932 + 0.189)\)</span>입니다. 이러한 결과는 학교 규모에 관계없이 평균 SAT 수학 점수와 경제적 취약 학생 비율 사이의 관계가 유사하며, 아쉽게도 상당히 부정적임을 시사합니다.</p>
+<p>방금 여러분이 수행한 것이 기초적인 <em>모델 선택(model selection)</em> 입니다. 즉, 여러 후보 모델 중에서 데이터를 가장 잘 설명하는 모델을 선택하는 것입니다. 우리가 수행한 모델 선택은 시각화를 정성적으로 보고 모델을 선택하는 “눈대중 테스트(eyeball test)”를 사용했습니다. 다음 소섹션에서는 동일한 모델 선택을 다시 수행하되, 이번에는 <span class="math inline">\(R^2\)</span> (“R-제곱”이라고 읽음 값을 통한 수치적 접근 방식을 사용하겠습니다.</p>
 <!--
 TODO: Make this into a learning check
-Given that intercepts in the parallel slopes model in the right-hand plot of Figure \@ref(fig:numxcatx-comparison-2) are also similar as well, it can be argued that an even better model is one without the categorical variable school size. 
+Given that intercepts in the parallel slopes model in the right-hand plot of Figure @fig-numxcatx-comparison-2 are also similar as well, it can be argued that an even better model is one without the categorical variable school size. 
 -->
 </section>
-<section id="rsquared" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="rsquared"><span class="header-section-number">8.3.2</span> R-제곱을 사용한 모델 선택</h3>
-<p>이전 섹션의 끝부분인 그림 @ref(fig:numxcatx-comparison-2)에서 여러분은 상호작용 모델과 평행 직선 모델을 비교했습니다. 두 모델 모두 매사추세츠주의 다양한 고등학교에 대한 <span class="math inline">\(y\)</span> = 평균 SAT 수학 점수를 설명하려고 시도했습니다. 표 @ref(tab:model2-interaction)와 @ref(tab:model2-parallel-slopes)에서 상호작용 모델의 회귀 표는 6개 행인 반면 평행 직선 모델은 4개 행으로, 상호작용 모델이 “더 복잡함”을 확인했습니다.</p>
-<p>하지만 무엇보다도 그림 @ref(fig:numxcatx-comparison-2)의 왼쪽과 오른쪽 그래프를 비교했을 때, 소형, 중형, 대형 고등학교에 해당하는 세 직선이 그리 다르지 않다는 것을 관찰했습니다. 이러한 유사성을 바탕으로 우리는 “더 단순한” 평행 직선 모델을 선호해야 한다고 주장할 수 있다고 언급했습니다.</p>
+<section id="rsquared" class="level3">
+<h3 class="anchored" data-anchor-id="rsquared">R-제곱을 사용한 모델 선택</h3>
+<p>이전 섹션의 끝부분인 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison-2에서</span> 여러분은 상호작용 모델과 평행 직선 모델을 비교했습니다. 두 모델 모두 매사추세츠주의 다양한 고등학교에 대한 <span class="math inline">\(y\)</span> = 평균 SAT 수학 점수를 설명하려고 시도했습니다. 표 <span class="quarto-unresolved-ref">?tbl-model2-interaction와</span> <span class="quarto-unresolved-ref">?tbl-model2-parallel-slopes에서</span> 상호작용 모델의 회귀 표는 6개 행인 반면 평행 직선 모델은 4개 행으로, 상호작용 모델이 “더 복잡함”을 확인했습니다.</p>
+<p>하지만 무엇보다도 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison-2의</span> 왼쪽과 오른쪽 그래프를 비교했을 때, 소형, 중형, 대형 고등학교에 해당하는 세 직선이 그리 다르지 않다는 것을 관찰했습니다. 이러한 유사성을 바탕으로 우리는 “더 단순한” 평행 직선 모델을 선호해야 한다고 주장할 수 있다고 언급했습니다.</p>
 <p>이 소섹션에서는 방금 정성적인 “눈대중 테스트”를 사용하여 수행한 모델 선택을 모방하되, 이번에는 수치적이고 정량적인 접근 방식을 사용하겠습니다. 구체적으로 “결정 계수”라고도 불리는 <span class="math inline">\(R^2\)</span> 요약 통계량(“R-제곱”이라고 읽음)을 사용할 것입니다. 하지만 그전에 먼저 한 가지 새로운 개념인 수치형 변수의 <em>분산(variance)</em>을 도입해야 합니다.</p>
-<p>우리는 이전에 수치형 변수의 <em>퍼짐</em>(또는 <em>변동</em>)에 대한 두 가지 요약 통계량을 공부했습니다. @ref(appendix-normal-curve)에서 정규 분포를 공부할 때의 표준 편차와 섹션 @ref(geomboxplot)에서 상자 그림을 공부할 때의 사분위수 범위(IQR)입니다. 이제 퍼짐에 대한 세 번째 요약 통계량인 <em>분산</em>을 소개합니다. 분산은 단순히 표준 편차를 제곱한 것이며, R에서는 <code>summarize()</code> 내에서 <code>var()</code> 요약 함수를 사용하여 계산할 수 있습니다. 공식이 궁금하시다면 @ref(appendix-sd-variance)를 참조하세요.</p>
-<ol type="1">
-<li>관측값 <span class="math inline">\(y\)</span>, 2) 회귀 모델에서의 적합값 <span class="math inline">\(\widehat{y}\)</span>, 3) 그 결과생긴 잔차 <span class="math inline">\(y - \widehat{y}\)</span>를 얻으려면 저장된 모델(이 경우 <code>model_2_interaction</code>)에 <code>get_regression_points()</code> 함수를 적용할 수 있다는 점을 떠올려 보세요.</li>
-</ol>
+<p>우리는 이전에 수치형 변수의 <em>퍼짐</em>(또는 <em>변동</em>)에 대한 두 가지 요약 통계량을 공부했습니다. <span class="quarto-unresolved-ref">?sec-appendix-normal-curve에서</span> 정규 분포를 공부할 때의 표준 편차와 <span class="quarto-unresolved-ref">?sec-geomboxplot절에서</span> 상자 그림을 공부할 때의 사분위수 범위(IQR)입니다. 이제 퍼짐에 대한 세 번째 요약 통계량인 <em>분산</em>을 소개합니다. 분산은 단순히 표준 편차를 제곱한 것이며, R에서는 <code>summarize()</code> 내에서 <code>var()</code> 요약 함수를 사용하여 계산할 수 있습니다. 공식이 궁금하시다면 <span class="quarto-unresolved-ref">?sec-appendix-sd-variance를</span> 참조하세요.</p>
+<p>1 관측값 <span class="math inline">\(y\)</span>, 2 회귀 모델에서의 적합값 <span class="math inline">\(\widehat{y}\)</span>, 3 그 결과생긴 잔차 <span class="math inline">\(y - \widehat{y}\)</span>를 얻으려면 저장된 모델(이 경우 <code>model_2_interaction</code>)에 <code>get_regression_points()</code> 함수를 적용할 수 있다는 점을 떠올려 보세요.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_regression_points</span>(model_2_interaction) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_regression_points</span>(model_2_interaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 332 × 6
       ID average_sat_math perc_disadvan size   average_sat_math_hat residual
@@ -1711,8 +1734,8 @@ Given that intercepts in the parallel slopes model in the right-hand plot of Fig
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_regression_points</span>(model_2_interaction) <span class="sc">%&gt;%</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">var_y =</span> <span class="fu">var</span>(average_sat_math), </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">var_y_hat =</span> <span class="fu">var</span>(average_sat_math_hat), </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">var_residual =</span> <span class="fu">var</span>(residual))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_y_hat =</span> <span class="fu">var</span>(average_sat_math_hat), </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_residual =</span> <span class="fu">var</span>(residual))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   var_y var_y_hat var_residual
@@ -1723,7 +1746,7 @@ Given that intercepts in the parallel slopes model in the right-hand plot of Fig
 <p><span class="math inline">\(y\)</span>의 분산이 <span class="math inline">\(\widehat{y}\)</span>의 분산과 잔차의 분산의 합과 같다는 것을 관찰하세요. 그런데 이 세 용어는 각각 우리에게 무엇을 말해줄까요?</p>
 <p>첫째, <span class="math inline">\(y\)</span>의 분산(<span class="math inline">\(var(y)\)</span>로 표기)은 매사추세츠주 고등학교들이 평균 SAT 수학 점수에서 얼마나 차이가 나는지를 알려줍니다. 회귀 모델링의 목표는 이러한 변동을 <em>설명</em>할 수 있기를 바라는 모델을 적합시키는 것입니다. 즉, 왜 특정 학교는 수학 SAT 점수가 높고 다른 학교는 점수가 낮은지 설명하는 요인이 무엇인지 이해하고 싶은 것입니다. 이것은 모델과는 무관하며 단지 데이터일 뿐입니다. 다시 말해, 상호작용 모델을 적합시키든 평행 직선 모델을 적합시키든 <span class="math inline">\(var(y)\)</span>는 동일하게 유지됩니다.</p>
 <p>둘째, <span class="math inline">\(\widehat{y}\)</span>의 분산(<span class="math inline">\(var(\widehat{y})\)</span>로 표기)은 상호작용 모델에서의 적합값이 얼마나 변하는지를 알려줍니다. 즉, 상호작용 모델에서 (1) 사회경제적으로 취약한 학생의 비율과 (2) 학교 규모를 고려한 후, 우리 모델의 평균 SAT 수학 점수에 대한 설명이 얼마나 변하는가 하는 것입니다.</p>
-<p>셋째, 잔차의 분산은 모델에서의 “남은 것들”이 얼마나 변하는지를 알려줍니다. 그림 @ref(fig:numxcatx-comparison-2)의 왼쪽 그래프에서 점들이 세 직선 주위에 어떻게 흩어져 있는지 보세요. 만약 모든 점이 세 직선 중 하나 위에 <em>정확히</em> 떨어진다고 가정해 봅시다. 그러면 모든 잔차는 0이 되고 따라서 잔차의 분산도 0이 될 것입니다.</p>
+<p>셋째, 잔차의 분산은 모델에서의 “남은 것들”이 얼마나 변하는지를 알려줍니다. 그림 <span class="quarto-unresolved-ref">?fig-numxcatx-comparison-2의</span> 왼쪽 그래프에서 점들이 세 직선 주위에 어떻게 흩어져 있는지 보세요. 만약 모든 점이 세 직선 중 하나 위에 <em>정확히</em> 떨어진다고 가정해 봅시다. 그러면 모든 잔차는 0이 되고 따라서 잔차의 분산도 0이 될 것입니다.</p>
 <p>이제 <span class="math inline">\(R^2\)</span>를 소개할 준비가 되었습니다.</p>
 <p><span class="math display">\[
 R^2 = \frac{var(\widehat{y})}{var(y)}
@@ -1738,7 +1761,7 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 <li><span class="math inline">\(R^2\)</span> 값이 1이면 우리 모델이 <span class="math inline">\(y\)</span> 변동의 100%를 설명한다는 것을 알려줍니다. 매사추세츠주 고등학교 데이터에 모델을 적합시켜 <span class="math inline">\(R^2 = 1\)</span>을 얻었다고 가정해 봅시다. 이는 우리가 사용한 설명 변수 <span class="math inline">\(x\)</span>의 조합과 우리가 선택한 모델 형태가 평균 SAT 수학 점수에 대해 <em>우리가 알아야 할 모든 것</em>을 알려준다는 것을 의미합니다.</li>
 </ol>
 <p>그러나 실제로는 <span class="math inline">\(R^2\)</span> 값이 1이 되는 경우는 거의 발생하지 않습니다. 매사추세츠주 고등학교의 맥락에서 생각해 보세요. 특정 고등학교가 평균적으로 SAT 성적이 좋은 반면 다른 학교는 그렇지 않은 이유에 영향을 미치는 요인은 무수히 많습니다. 인간이 설계한 통계 모델이 매사추세츠주 모든 고등학교 학생들의 모든 이질성을 포착할 수 있다는 생각은 오만에 가깝습니다. 하지만 그런 모델이 완벽하지 않더라도 교육 정책을 결정하는 데 여전히 유용할 수 있습니다. 우리가 명심해야 할 모델링의 일반적인 원칙은 저명한 통계학자 조지 박스(George Box)의 유명한 문구입니다. <a href="https://jamesclear.com/all-models-are-wrong">“모든 모델은 틀렸지만, 일부는 유용하다.”</a></p>
-<p>위의 계산을 평행 직선 모델에 대해 반복하고 표 @ref(tab:model2-r-squared)에서 비교해 보겠습니다.</p>
+<p>위의 계산을 평행 직선 모델에 대해 반복하고 표 <span class="quarto-unresolved-ref">?tbl-model2-r-squared에서</span> 비교해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -1772,7 +1795,7 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 </div>
 </div>
 <p><span class="math inline">\(R^2\)</span> 값이 약 0.699 = 69.9%로 거의 동일한 것을 관찰하세요. 즉, 상호작용 모델의 <em>추가적인 복잡성</em>은 우리 <span class="math inline">\(R^2\)</span> 값을 거의 0에 가까운 양만큼만 개선할 뿐입니다. 따라서 우리는 “더 단순한” 평행 직선 모델을 선호하게 됩니다.</p>
-<p>이제 그림 @ref(fig:recall-parallel-vs-interaction)에서 시각적으로 비교했던 텍사스 대학교 오스틴 캠퍼스(UT Austin) 교수들의 <span class="math inline">\(y\)</span> = 강의 평가 점수 모델에 대해 상호작용 모델과 평행 직선 모델 간의 <span class="math inline">\(R^2\)</span> 비교를 반복해 보겠습니다. 표 @ref(tab:model1-r-squared)에서 이 값들을 비교합니다.</p>
+<p>이제 그림 <span class="quarto-unresolved-ref">?fig-recall-parallel-vs-interaction에서</span> 시각적으로 비교했던 텍사스 대학교 오스틴 캠퍼스(UT Austin 교수들의 <span class="math inline">\(y\)</span> = 강의 평가 점수 모델에 대해 상호작용 모델과 평행 직선 모델 간의 <span class="math inline">\(R^2\)</span> 비교를 반복해 보겠습니다. 표 <span class="quarto-unresolved-ref">?tbl-model1-r-squared에서</span> 이 값들을 비교합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -1826,9 +1849,9 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 </div>
 </div>
 </section>
-<section id="correlationcoefficient2" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="correlationcoefficient2"><span class="header-section-number">8.3.3</span> 상관 계수</h3>
-<p>표 @ref(tab:model3-correlation)에서 1,000달러 단위의 <code>income</code>과 신용카드 <code>debt</code> 사이의 상관 계수가 0.464였음을 떠올려 보세요. 만약 수입이 1,000달러 단위가 아니라 달러 단위인 <code>income</code>과 신용카드 <code>debt</code> 사이의 상관 계수를 살펴보면 어떨까요? 이는 <code>income</code>에 1,000을 곱하여 계산할 수 있습니다.</p>
+<section id="correlationcoefficient2" class="level3">
+<h3 class="anchored" data-anchor-id="correlationcoefficient2">상관 계수</h3>
+<p>표 <span class="quarto-unresolved-ref">?tbl-model3-correlation에서</span> 1,000달러 단위의 <code>income</code>과 신용카드 <code>debt</code> 사이의 상관 계수가 0.464였음을 떠올려 보세요. 만약 수입이 1,000달러 단위가 아니라 달러 단위인 <code>income</code>과 신용카드 <code>debt</code> 사이의 상관 계수를 살펴보면 어떨까요? 이는 <code>income</code>에 1,000을 곱하여 계산할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>credit_ch6 <span class="sc">%&gt;%</span> <span class="fu">select</span>(debt, income) <span class="sc">%&gt;%</span> </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income =</span> income <span class="sc">*</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
@@ -1862,9 +1885,9 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 </div>
 <p>상관 계수가 같음을 알 수 있습니다! 우리는 상관 계수가 <em>선형 변환에 대해 불변(invariant to linear transformations)</em>이라고 말합니다. <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이의 상관 관계는 어떤 수치형 값 <span class="math inline">\(a\)</span>와 <span class="math inline">\(b\)</span>에 대해서도 <span class="math inline">\(a\cdot x + b\)</span>와 <span class="math inline">\(y\)</span> 사이의 상관 관계와 같습니다.</p>
 </section>
-<section id="simpsonsparadox" class="level3" data-number="8.3.4">
-<h3 data-number="8.3.4" class="anchored" data-anchor-id="simpsonsparadox"><span class="header-section-number">8.3.4</span> 심슨의 역설</h3>
-<p>섹션 @ref(model3)에서 신용카드 <code>debt</code>와 <code>income</code> 사이의 관계를 연구할 때 겉보기에 모순되는 두 가지 결과를 보았습니다. 한편으로 그림 @ref(fig:2numxplot1)의 오른쪽 그래프는 신용카드 <code>debt</code>와 <code>income</code> 사이의 관계가 <em>양수</em>임을 시사했습니다. 이 내용을 그림 @ref(fig:2numxplot1-repeat)에 다시 표시합니다.</p>
+<section id="simpsonsparadox" class="level3">
+<h3 class="anchored" data-anchor-id="simpsonsparadox">심슨의 역설</h3>
+<p><span class="quarto-unresolved-ref">?sec-model3절에서</span> 신용카드 <code>debt</code>와 <code>income</code> 사이의 관계를 연구할 때 겉보기에 모순되는 두 가지 결과를 보았습니다. 한편으로 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1의</span> 오른쪽 그래프는 신용카드 <code>debt</code>와 <code>income</code> 사이의 관계가 <em>양수</em>임을 시사했습니다. 이 내용을 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1-repeat에</span> 다시 표시합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1875,7 +1898,7 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 </div>
 </div>
 </div>
-<p>반면 표 @ref(tab:model3-table-output)의 다중 회귀 결과는 <code>debt</code>와 <code>income</code> 사이의 관계가 <em>음수</em>임을 시사했습니다. 이 정보를 표 @ref(tab:model3-table-output-repeat)에 다시 표시합니다.</p>
+<p>반면 표 <span class="quarto-unresolved-ref">?tbl-model3-table-output의</span> 다중 회귀 결과는 <code>debt</code>와 <code>income</code> 사이의 관계가 <em>음수</em>임을 시사했습니다. 이 정보를 표 <span class="quarto-unresolved-ref">?tbl-model3-table-output-repeat에</span> 다시 표시합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -1923,9 +1946,9 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 </table>
 </div>
 </div>
-<p><code>income</code>의 기울기가 -7.663이며, 현재 가장 중요한 것은 이 값이 음수라는 점에 주목하세요. 이는 관계가 양수라는 그림 @ref(fig:2numxplot1-repeat)에서의 관찰과 모순됩니다. 어떻게 이런 일이 가능할까요? 다중 회귀 모델의 맥락에서 <code>income</code> 기울기의 해석을 떠올려 보세요. <em>모델의 다른 모든 설명 변수를 고려할 때</em>, <code>income</code>이 1단위($1,000) 증가할 때마다 <code>debt</code>는 평균 $7.663만큼 감소합니다.</p>
+<p><code>income</code>의 기울기가 -7.663이며, 현재 가장 중요한 것은 이 값이 음수라는 점에 주목하세요. 이는 관계가 양수라는 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1-repeat에서의</span> 관찰과 모순됩니다. 어떻게 이런 일이 가능할까요? 다중 회귀 모델의 맥락에서 <code>income</code> 기울기의 해석을 떠올려 보세요. <em>모델의 다른 모든 설명 변수를 고려할 때</em>, <code>income</code>이 1단위($1,000 증가할 때마다 <code>debt</code>는 평균 $7.663만큼 감소합니다.</p>
 <p>즉, <em>개별적으로</em> 볼 때 <code>debt</code>와 <code>income</code> 사이의 관계는 양수일 수 있지만, <code>credit_limit</code>까지 고려하면 이 관계는 음수가 됩니다. 이 겉보기에 역설적인 결과는 <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox"><em>심슨의 역설(Simpson’s Paradox)</em></a> 이라고 불리는 현상 때문입니다. 심슨의 역설은 전체 데이터에 존재하는 추세가 데이터를 그룹으로 나누었을 때 사라지거나 반전될 때 발생합니다.</p>
-<p><code>credit_ch6</code> 데이터에서 심슨의 역설이 어떻게 나타나는지 보여드리겠습니다. 먼저 그림 @ref(fig:credit-limit-quartiles)의 히스토그램을 통해 수치형 설명 변수인 <code>credit_limit</code>의 분포를 시각화해 보겠습니다.</p>
+<p><code>credit_ch6</code> 데이터에서 심슨의 역설이 어떻게 나타나는지 보여드리겠습니다. 먼저 그림 <span class="quarto-unresolved-ref">?fig-credit-limit-quartiles의</span> 히스토그램을 통해 수치형 설명 변수인 <code>credit_limit</code>의 분포를 시각화해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1943,10 +1966,10 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 <li>신용 한도의 25%가 $4,622에서 $5,873 사이였습니다. 이 100명을 “중상(medium-high)” <code>credit_limit</code> 구간에 할당합니다.</li>
 <li>신용 한도의 25%가 $5,873 이상이었습니다. 이 100명을 “높음(high)” <code>credit_limit</code> 구간에 할당합니다.</li>
 </ol>
-<p>이제 그림 @ref(fig:2numxplot4)에서 그림 @ref(fig:2numxplot1-repeat)의 <code>debt</code>와 <code>income</code> 산점도의 두 버전을 다시 보여주되, 약간의 변화를 주겠습니다.</p>
+<p>이제 그림 <span class="quarto-unresolved-ref">?fig-2numxplot4에서</span> 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1-repeat의</span> <code>debt</code>와 <code>income</code> 산점도의 두 버전을 다시 보여주되, 약간의 변화를 주겠습니다.</p>
 <ol type="1">
-<li>왼쪽 그래프는 그림 @ref(fig:2numxplot1-repeat)에서 본 것처럼 일반적인 산점도와 단일 회귀 직선을 보여줍니다.</li>
-<li>오른쪽 그래프는 색상(color) 에스테틱이 “<code>credit_limit</code> 구간”에 매핑된 <em>색상 산점도</em>를 보여줍니다. 또한 이제 4개의 별도 회귀 직선이 있습니다.</li>
+<li>왼쪽 그래프는 그림 <span class="quarto-unresolved-ref">?fig-2numxplot1-repeat에서</span> 본 것처럼 일반적인 산점도와 단일 회귀 직선을 보여줍니다.</li>
+<li>오른쪽 그래프는 색상(color 에스테틱이 “<code>credit_limit</code> 구간”에 매핑된 <em>색상 산점도</em>를 보여줍니다. 또한 이제 4개의 별도 회귀 직선이 있습니다.</li>
 </ol>
 <p>즉, 400개 점의 위치는 두 산점도에서 동일하지만, 오른쪽 그래프는 <code>credit_limit</code> 구간이라는 추가 변수 정보를 보여줍니다.</p>
 <div class="cell" data-layout-align="center">
@@ -1959,27 +1982,27 @@ R^2 = \frac{var(\widehat{y})}{var(y)}
 </div>
 </div>
 </div>
-<p>그림 @ref(fig:2numxplot4)의 왼쪽 그래프는 <em>전체적인(aggregate)</em> <code>debt</code>와 <code>income</code> 사이의 관계에 초점을 맞춥니다. 이는 전반적으로 <code>debt</code>와 <code>income</code> 사이에 양의 관계가 존재함을 시사합니다. 그러나 그림 @ref(fig:2numxplot4)의 오른쪽 그래프는 <em><code>credit_limit</code> 구간별로 나뉘어 분석한</em> <code>debt</code>와 <code>income</code> 사이의 관계에 초점들 맞춥니다. 즉, 우리는 “낮음” 구간에 대한 관계, “중하” 구간에 대한 관계 등 네 가지 <em>별도의</em> 관계에 집중합니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-2numxplot4의</span> 왼쪽 그래프는 <em>전체적인(aggregate)</em> <code>debt</code>와 <code>income</code> 사이의 관계에 초점을 맞춥니다. 이는 전반적으로 <code>debt</code>와 <code>income</code> 사이에 양의 관계가 존재함을 시사합니다. 그러나 그림 <span class="quarto-unresolved-ref">?fig-2numxplot4의</span> 오른쪽 그래프는 <em><code>credit_limit</code> 구간별로 나뉘어 분석한</em> <code>debt</code>와 <code>income</code> 사이의 관계에 초점들 맞춥니다. 즉, 우리는 “낮음” 구간에 대한 관계, “중하” 구간에 대한 관계 등 네 가지 <em>별도의</em> 관계에 집중합니다.</p>
 <p>오른쪽 그래프에서 “중하” 및 “중상” 구간의 경우 <code>debt</code>와 <code>income</code> 사이의 관계가 분명히 음수이며, “낮음” 구간의 경우 관계가 어느 정도 평평함을 관찰하세요. 관계가 양수로 유지되는 유일한 구간은 “높음” 구간입니다. 그러나 이 관계조차도 왼쪽 그래프의 회귀 직선 기울기보다 완만하기 때문에 전체적인 관계보다는 덜 양수입니다.</p>
-<p>심슨의 역설의 이 예에서 <code>credit_limit</code>는 소섹션 @ref(correlation-is-not-causation)에서 정의한 것처럼 신용카드 <code>debt</code>와 <code>income</code> 사이 관계의 <em>교란 변수(confounding variable)</em> 입니다. 따라서 <code>debt</code>와 <code>income</code> 사이의 관계를 나타내는 모든 적절한 모델에서는 <code>credit_limit</code>를 고려해야 합니다.</p>
+<p>심슨의 역설의 이 예에서 <code>credit_limit</code>는 <span class="quarto-unresolved-ref">?sec-correlation-is-not-causation절에서</span> 정의한 것처럼 신용카드 <code>debt</code>와 <code>income</code> 사이 관계의 <em>교란 변수(confounding variable)</em> 입니다. 따라서 <code>debt</code>와 <code>income</code> 사이의 관계를 나타내는 모든 적절한 모델에서는 <code>credit_limit</code>를 고려해야 합니다.</p>
 </section>
 </section>
-<section id="mult-reg-conclusion" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="mult-reg-conclusion"><span class="header-section-number">8.4</span> 결론</h2>
-<section id="추가-자료" class="level3" data-number="8.4.1">
-<h3 data-number="8.4.1" class="anchored" data-anchor-id="추가-자료"><span class="header-section-number">8.4.1</span> 추가 자료</h3>
+<section id="mult-reg-conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="mult-reg-conclusion">결론</h2>
+<section id="추가-자료" class="level3">
+<h3 class="anchored" data-anchor-id="추가-자료">추가 자료</h3>
 <div class="cell" data-layout-align="center">
 <p>모든 <em>학습 확인(Learning checks)</em>에 대한 해답은 온라인 <a href="https://moderndive.com/D-appendixD.html">부록 D</a>에서 찾을 수 있습니다.</p>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 코드 파일 링크 생성 예시 (필요시)</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># generate_r_file_link("06-multiple-regression.R")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="앞으로-배울-내용" class="level3" data-number="8.4.2">
-<h3 data-number="8.4.2" class="anchored" data-anchor-id="앞으로-배울-내용"><span class="header-section-number">8.4.2</span> 앞으로 배울 내용</h3>
+<section id="앞으로-배울-내용" class="level3">
+<h3 class="anchored" data-anchor-id="앞으로-배울-내용">앞으로 배울 내용</h3>
 <p>축하합니다! 이제 이 책의 “모던다이브를 활용한 데이터 모델링” 부분을 마쳤습니다. 이제 이 책의 제3부인 “<code>infer</code>를 활용한 통계적 추론”으로 넘어갈 준비가 되었습니다. 통계적 추론은 표본 추출을 사용하여 알 수 없는 양에 대해 추론하는 과학입니다.</p>
 <p>추출의 가장 잘 알려진 사례는 <em>여론조사</em>입니다. 전체 인구에게 의견을 묻는 것은 길고 힘든 작업이기 때문에, 여론조사원들은 종종 인구를 대표할 수 있기를 바라는 작은 표본을 추출합니다. 이 표본의 결과에 근거하여, 조사원들은 전체 인구에 대해 주장할 수 있기를 원합니다.</p>
 <p>7장의 표본 추출(<code>sampling</code>), 8장의 신뢰 구간(<code>confidence intervals</code>), 9장의 가설 검정(<code>hypothesis testing</code>)을 다루고 나면, 10장의 회귀 추론(<code>inference for regression</code>)에서 5장과 6장에서 공부했던 회귀 모델을 다시 살펴보겠습니다. 지금까지 우리는 회귀 표의 <code>estimate</code> 열만 공부했습니다. 다음 네 장에서는 나머지 열이 무엇을 의미하는지에 초점을 맞출 것입니다. 표준 오차(<code>std_error</code>), 검정 통계량(<code>statistic</code>), <code>p_value</code>, 그리고 신뢰 구간의 하한 및 상한(<code>lower_ci</code>, <code>upper_ci</code>)입니다.</p>
-<p>또한 10장에서는 잔차 <span class="math inline">\(y - \widehat{y}\)</span>의 개념을 다시 살펴보고 회귀 모델의 결과를 해석할 때 잔차의 중요성에 대해 논의할 것입니다. 모든 <code>get_regression_points()</code> 출력의 <code>residual</code> 변수에 대해 <em>잔차 분석(residual analysis)</em>이라고 알려진 작업을 수행할 것입니다. 잔차 분석을 통해 <em>회귀 추론을 위한 조건</em>이라고 알려진 것들을 확인할 수 있습니다. 이제 그림 @ref(fig:part3)에 표시된 제3부의 7장 표본 추출로 넘어가 봅시다!</p>
+<p>또한 10장에서는 잔차 <span class="math inline">\(y - \widehat{y}\)</span>의 개념을 다시 살펴보고 회귀 모델의 결과를 해석할 때 잔차의 중요성에 대해 논의할 것입니다. 모든 <code>get_regression_points()</code> 출력의 <code>residual</code> 변수에 대해 <em>잔차 분석(residual analysis)</em>이라고 알려진 작업을 수행할 것입니다. 잔차 분석을 통해 <em>회귀 추론을 위한 조건</em>이라고 알려진 것들을 확인할 수 있습니다. 이제 그림 <span class="quarto-unresolved-ref">?fig-part3에</span> 표시된 제3부의 7장 표본 추출로 넘어가 봅시다!</p>
 <p>(ref:flowchart-partiii) <em>모던다이브</em> 플로우차트 - 제3부로 넘어가 봅시다!</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2405,12 +2428,12 @@ James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2017. <em>A
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./05-regression.html" class="pagination-link" aria-label="기초 회귀 분석">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">기초 회귀 분석</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">기초 회귀 분석</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./07-sampling.html" class="pagination-link" aria-label="표본 추출">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">표본 추출</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">표본 추출</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

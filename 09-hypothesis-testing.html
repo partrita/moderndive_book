@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; 가설 검정 – ModernDive: Statistical Inference via Data Science</title>
+<title>가설 검정 – ModernDive: Statistical Inference via Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -149,7 +149,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-hypothesis-testing.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-sampling.html">통계적 추론</a></li><li class="breadcrumb-item"><a href="./09-hypothesis-testing.html"><span class="chapter-title">가설 검정</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -176,130 +176,155 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>r ifelse(knitr::is_latex_output(), 'Statistical Inference via Data Science:  A ModernDive into R and the Tidyverse', 'Statistical Inference via Data Science')</code></span></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">머리말</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">00-foreword.html</span></span></a>
+  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">R 데이터 시작하기</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 과학</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 시각화</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 전처리</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 모델링</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">기초 회귀 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">다중 회귀 분석</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">통계적 추론</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">표본 추출</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">붓스트랩과 신뢰 구간</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">가설 검정</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 모델링(심화)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">회귀 분석을 위한 추론</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00-preface.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">머리말</span></a>
+  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터로 이야기 들려주기</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">부록</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span></a>
+  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">통계적 배경</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></span></a>
+  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">추론 예제</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터 전처리</span></span></a>
+  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">팁과 요령</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></a>
+  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">학습 확인 문제 풀이</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">기초 회귀 분석</span></span></a>
+  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">사용된 R 패키지 버전</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></span></a>
+  <a href="./NEWS.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">업데이트 내용</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">표본 추출</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bootstrapping and Confidence Intervals</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART) 결론</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">통계적 배경</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">추론 예제</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">팁과 요령</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Learning Check Solutions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">사용된 R 패키지 버전</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">참고 문헌</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./NEWS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ModernDive 1.1.0.9000</span></span></a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -311,39 +336,39 @@ window.Quarto = {
    
   <ul>
   <li><a href="#nhst-packages" id="toc-nhst-packages" class="nav-link active" data-scroll-target="#nhst-packages">필요한 패키지</a></li>
-  <li><a href="#ht-activity" id="toc-ht-activity" class="nav-link" data-scroll-target="#ht-activity"><span class="header-section-number">11.1</span> 승진 활동</a>
+  <li><a href="#ht-activity" id="toc-ht-activity" class="nav-link" data-scroll-target="#ht-activity">승진 활동</a>
   <ul class="collapse">
-  <li><a href="#성별이-은행에서의-승진에-영향을-미치는가" id="toc-성별이-은행에서의-승진에-영향을-미치는가" class="nav-link" data-scroll-target="#성별이-은행에서의-승진에-영향을-미치는가"><span class="header-section-number">11.1.1</span> 성별이 은행에서의 승진에 영향을 미치는가?</a></li>
-  <li><a href="#한-번-뒤섞기-shuffling-once" id="toc-한-번-뒤섞기-shuffling-once" class="nav-link" data-scroll-target="#한-번-뒤섞기-shuffling-once"><span class="header-section-number">11.1.2</span> 한 번 뒤섞기 (Shuffling once)</a></li>
-  <li><a href="#번-뒤섞기-shuffling-16-times" id="toc-번-뒤섞기-shuffling-16-times" class="nav-link" data-scroll-target="#번-뒤섞기-shuffling-16-times"><span class="header-section-number">11.1.3</span> 16번 뒤섞기 (Shuffling 16 times)</a></li>
-  <li><a href="#ht-what-did-we-just-do" id="toc-ht-what-did-we-just-do" class="nav-link" data-scroll-target="#ht-what-did-we-just-do"><span class="header-section-number">11.1.4</span> 방금 우리가 한 일은 무엇인가요?</a></li>
+  <li><a href="#성별이-은행에서의-승진에-영향을-미치는가" id="toc-성별이-은행에서의-승진에-영향을-미치는가" class="nav-link" data-scroll-target="#성별이-은행에서의-승진에-영향을-미치는가">성별이 은행에서의 승진에 영향을 미치는가?</a></li>
+  <li><a href="#한-번-뒤섞기-shuffling-once" id="toc-한-번-뒤섞기-shuffling-once" class="nav-link" data-scroll-target="#한-번-뒤섞기-shuffling-once">한 번 뒤섞기 (Shuffling once)</a></li>
+  <li><a href="#번-뒤섞기-shuffling-16-times" id="toc-번-뒤섞기-shuffling-16-times" class="nav-link" data-scroll-target="#번-뒤섞기-shuffling-16-times">16번 뒤섞기 (Shuffling 16 times)</a></li>
+  <li><a href="#ht-what-did-we-just-do" id="toc-ht-what-did-we-just-do" class="nav-link" data-scroll-target="#ht-what-did-we-just-do">방금 우리가 한 일은 무엇인가요?</a></li>
   </ul></li>
-  <li><a href="#understanding-ht" id="toc-understanding-ht" class="nav-link" data-scroll-target="#understanding-ht"><span class="header-section-number">11.2</span> 가설 검정의 이해</a></li>
-  <li><a href="#ht-infer" id="toc-ht-infer" class="nav-link" data-scroll-target="#ht-infer"><span class="header-section-number">11.3</span> 가설 검정 수행</a>
+  <li><a href="#understanding-ht" id="toc-understanding-ht" class="nav-link" data-scroll-target="#understanding-ht">가설 검정의 이해</a></li>
+  <li><a href="#ht-infer" id="toc-ht-infer" class="nav-link" data-scroll-target="#ht-infer">가설 검정 수행</a>
   <ul class="collapse">
-  <li><a href="#infer-workflow-ht" id="toc-infer-workflow-ht" class="nav-link" data-scroll-target="#infer-workflow-ht"><span class="header-section-number">11.3.1</span> <code>infer</code> 패키지 워크플로</a></li>
-  <li><a href="#comparing-infer-workflows" id="toc-comparing-infer-workflows" class="nav-link" data-scroll-target="#comparing-infer-workflows"><span class="header-section-number">11.3.2</span> 신뢰 구간과의 비교</a></li>
-  <li><a href="#only-one-test" id="toc-only-one-test" class="nav-link" data-scroll-target="#only-one-test"><span class="header-section-number">11.3.3</span> “검정은 단 하나뿐이다”</a></li>
+  <li><a href="#infer-workflow-ht" id="toc-infer-workflow-ht" class="nav-link" data-scroll-target="#infer-workflow-ht"><code>infer</code> 패키지 워크플로</a></li>
+  <li><a href="#comparing-infer-workflows" id="toc-comparing-infer-workflows" class="nav-link" data-scroll-target="#comparing-infer-workflows">신뢰 구간과의 비교</a></li>
+  <li><a href="#only-one-test" id="toc-only-one-test" class="nav-link" data-scroll-target="#only-one-test">“검정은 단 하나뿐이다”</a></li>
   </ul></li>
-  <li><a href="#ht-interpretation" id="toc-ht-interpretation" class="nav-link" data-scroll-target="#ht-interpretation"><span class="header-section-number">11.4</span> 가설 검정 해석하기</a>
+  <li><a href="#ht-interpretation" id="toc-ht-interpretation" class="nav-link" data-scroll-target="#ht-interpretation">가설 검정 해석하기</a>
   <ul class="collapse">
-  <li><a href="#trial" id="toc-trial" class="nav-link" data-scroll-target="#trial"><span class="header-section-number">11.4.1</span> 두 가지 가능한 결과</a></li>
-  <li><a href="#오류의-종류" id="toc-오류의-종류" class="nav-link" data-scroll-target="#오류의-종류"><span class="header-section-number">11.4.2</span> 오류의 종류</a></li>
-  <li><a href="#choosing-alpha" id="toc-choosing-alpha" class="nav-link" data-scroll-target="#choosing-alpha"><span class="header-section-number">11.4.3</span> 알파(<span class="math inline">\(\alpha\)</span>)를 어떻게 선택하나요?</a></li>
+  <li><a href="#trial" id="toc-trial" class="nav-link" data-scroll-target="#trial">두 가지 가능한 결과</a></li>
+  <li><a href="#오류의-종류" id="toc-오류의-종류" class="nav-link" data-scroll-target="#오류의-종류">오류의 종류</a></li>
+  <li><a href="#choosing-alpha" id="toc-choosing-alpha" class="nav-link" data-scroll-target="#choosing-alpha">알파(<span class="math inline">\(\alpha\)</span>)를 어떻게 선택하나요?</a></li>
   </ul></li>
-  <li><a href="#ht-case-study" id="toc-ht-case-study" class="nav-link" data-scroll-target="#ht-case-study"><span class="header-section-number">11.5</span> 사례 연구: 액션 영화와 로맨스 영화 중 어느 쪽의 평점이 더 높을까요?</a>
+  <li><a href="#ht-case-study" id="toc-ht-case-study" class="nav-link" data-scroll-target="#ht-case-study">사례 연구: 액션 영화와 로맨스 영화 중 어느 쪽의 평점이 더 높을까요?</a>
   <ul class="collapse">
-  <li><a href="#imdb-data" id="toc-imdb-data" class="nav-link" data-scroll-target="#imdb-data"><span class="header-section-number">11.5.1</span> IMDb 평점 데이터</a></li>
-  <li><a href="#표본-추출-시나리오" id="toc-표본-추출-시나리오" class="nav-link" data-scroll-target="#표본-추출-시나리오"><span class="header-section-number">11.5.2</span> 표본 추출 시나리오</a></li>
-  <li><a href="#가설-검정-수행하기" id="toc-가설-검정-수행하기" class="nav-link" data-scroll-target="#가설-검정-수행하기"><span class="header-section-number">11.5.3</span> 가설 검정 수행하기</a></li>
+  <li><a href="#imdb-data" id="toc-imdb-data" class="nav-link" data-scroll-target="#imdb-data">IMDb 평점 데이터</a></li>
+  <li><a href="#표본-추출-시나리오" id="toc-표본-추출-시나리오" class="nav-link" data-scroll-target="#표본-추출-시나리오">표본 추출 시나리오</a></li>
+  <li><a href="#가설-검정-수행하기" id="toc-가설-검정-수행하기" class="nav-link" data-scroll-target="#가설-검정-수행하기">가설 검정 수행하기</a></li>
   </ul></li>
-  <li><a href="#nhst-conclusion" id="toc-nhst-conclusion" class="nav-link" data-scroll-target="#nhst-conclusion"><span class="header-section-number">11.6</span> 결론</a>
+  <li><a href="#nhst-conclusion" id="toc-nhst-conclusion" class="nav-link" data-scroll-target="#nhst-conclusion">결론</a>
   <ul class="collapse">
-  <li><a href="#theory-hypo" id="toc-theory-hypo" class="nav-link" data-scroll-target="#theory-hypo"><span class="header-section-number">11.6.1</span> 이론 기반 가설 검정</a></li>
-  <li><a href="#추론이-필요하지-않은-경우" id="toc-추론이-필요하지-않은-경우" class="nav-link" data-scroll-target="#추론이-필요하지-않은-경우"><span class="header-section-number">11.6.2</span> 추론이 필요하지 않은 경우</a></li>
-  <li><a href="#p-값의-문제점" id="toc-p-값의-문제점" class="nav-link" data-scroll-target="#p-값의-문제점"><span class="header-section-number">11.6.3</span> p-값의 문제점</a></li>
-  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료"><span class="header-section-number">11.6.4</span> 추가 자료</a></li>
-  <li><a href="#향후-계획" id="toc-향후-계획" class="nav-link" data-scroll-target="#향후-계획"><span class="header-section-number">11.6.5</span> 향후 계획</a></li>
+  <li><a href="#theory-hypo" id="toc-theory-hypo" class="nav-link" data-scroll-target="#theory-hypo">이론 기반 가설 검정</a></li>
+  <li><a href="#추론이-필요하지-않은-경우" id="toc-추론이-필요하지-않은-경우" class="nav-link" data-scroll-target="#추론이-필요하지-않은-경우">추론이 필요하지 않은 경우</a></li>
+  <li><a href="#p-값의-문제점" id="toc-p-값의-문제점" class="nav-link" data-scroll-target="#p-값의-문제점">p-값의 문제점</a></li>
+  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료">추가 자료</a></li>
+  <li><a href="#향후-계획" id="toc-향후-계획" class="nav-link" data-scroll-target="#향후-계획">향후 계획</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -351,9 +376,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-sampling.html">통계적 추론</a></li><li class="breadcrumb-item"><a href="./09-hypothesis-testing.html"><span class="chapter-title">가설 검정</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="hypothesis-testing" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></span></h1>
+<h1 class="title"><span id="hypothesis-testing" class="quarto-section-identifier"><span class="chapter-title">가설 검정</span></span></h1>
 </div>
 
 
@@ -370,8 +395,8 @@ window.Quarto = {
 </header>
 
 
-<p>8장(@ref(confidence-intervals))에서 신뢰 구간을 공부했으므로, 이제 또 다른 흔히 사용되는 통계적 추론 방법인 <strong>가설 검정(hypothesis testing)</strong>에 대해 알아보겠습니다. 가설 검정을 통해 우리는 모집단으로부터 데이터 표본을 추출하고, 서로 경쟁하는 가설들의 타당성에 대해 추론할 수 있습니다. 예를 들어, 섹션 @ref(ht-activity)에서 다룰 “승진” 활동에서는 1970년대에 수행된 심리학 연구 데이터를 연구하여, 당시 은행 산업에서 승진율에 성별에 따른 차별이 존재했는지 조사할 것입니다.</p>
-<p>좋은 소식은 7장(@ref(sampling))과 8장(@ref(confidence-intervals))에서 가설 검정을 이해하는 데 필요한 많은 개념을 이미 다루었다는 것입니다. 우리는 여기서 이러한 아이디어들을 더욱 확장하고 가설 검정을 이해하기 위한 일반적인 틀(framework)을 제공할 것입니다. 이 일반적인 틀을 이해함으로써, 여러분은 이를 다양한 시나리오에 맞게 조정할 수 있을 것입니다.</p>
+<p>8장(<span class="quarto-unresolved-ref">?sec-confidence-intervals</span>)에서 신뢰 구간을 공부했으므로, 이제 또 다른 흔히 사용되는 통계적 추론 방법인 <strong>가설 검정(hypothesis testing)</strong>에 대해 알아보겠습니다. 가설 검정을 통해 우리는 모집단으로부터 데이터 표본을 추출하고, 서로 경쟁하는 가설들의 타당성에 대해 추론할 수 있습니다. 예를 들어, <span class="quarto-unresolved-ref">?sec-ht-activity절에서</span> 다룰 “승진” 활동에서는 1970년대에 수행된 심리학 연구 데이터를 연구하여, 당시 은행 산업에서 승진율에 성별에 따른 차별이 존재했는지 조사할 것입니다.</p>
+<p>좋은 소식은 7장(<span class="quarto-unresolved-ref">?sec-sampling</span>)과 8장(<span class="quarto-unresolved-ref">?sec-confidence-intervals</span>)에서 가설 검정을 이해하는 데 필요한 많은 개념을 이미 다루었다는 것입니다. 우리는 여기서 이러한 아이디어들을 더욱 확장하고 가설 검정을 이해하기 위한 일반적인 틀(framework)을 제공할 것입니다. 이 일반적인 틀을 이해함으로써, 여러분은 이를 다양한 시나리오에 맞게 조정할 수 있을 것입니다.</p>
 <p>신뢰 구간에 대해서도 마찬가지입니다. <em>모든</em> 신뢰 구간에 적용되는 하나의 일반적인 틀이 있었고, <code>infer</code> 패키지는 이 틀을 중심으로 설계되었습니다. 구체적인 내용은 신뢰 구간의 유형에 따라 약간씩 다를 수 있지만, 일반적인 틀은 동일하게 유지됩니다.</p>
 <p>우리는 이러한 접근 방식이 이론 기반 접근 방식을 사용하여 특정 신뢰 구간에 대한 세부 사항에 집중하는 것보다 장기적인 학습에 훨씬 더 좋다고 믿습니다. 이제 보시겠지만, 우리는 가설 검정에 대해서도 이 일반적인 틀을 선호합니다.</p>
 <div class="cell" data-layout-align="center">
@@ -379,7 +404,7 @@ window.Quarto = {
 </div>
 <section id="nhst-packages" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="nhst-packages">필요한 패키지</h3>
-<p>이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). 섹션 @ref(tidyverse-package)에서의 논의를 상기해 보면, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 불러오면 다음과 같이 흔히 사용되는 데이터 과학 패키지들이 한꺼번에 로드됩니다.</p>
+<p>이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). <span class="quarto-unresolved-ref">?sec-tidyverse-package절에서의</span> 논의를 상기해 보면, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 불러오면 다음과 같이 흔히 사용되는 데이터 과학 패키지들이 한꺼번에 로드됩니다.</p>
 <ul>
 <li>데이터 시각화를 위한 <code>ggplot2</code></li>
 <li>데이터 핸들링(wrangling)을 위한 <code>dplyr</code></li>
@@ -387,7 +412,7 @@ window.Quarto = {
 <li>스프레드시트 데이터를 R로 가져오기 위한 <code>readr</code></li>
 <li>그리고 더 고급 패키지인 <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code> 패키지들</li>
 </ul>
-<p>필요하다면 R 패키지를 설치하고 불러오는 방법에 대한 정보는 섹션 @ref(packages)를 참고하십시오.</p>
+<p>필요하다면 R 패키지를 설치하고 불러오는 방법에 대한 정보는 <span class="quarto-unresolved-ref">?sec-packages절을</span> 참고하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
@@ -396,11 +421,11 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2movies)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="ht-activity" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="ht-activity"><span class="header-section-number">11.1</span> 승진 활동</h2>
+<section id="ht-activity" class="level2">
+<h2 class="anchored" data-anchor-id="ht-activity">승진 활동</h2>
 <p>어느 은행에서의 성별이 승진에 미치는 영향을 연구하는 활동으로 시작하겠습니다.</p>
-<section id="성별이-은행에서의-승진에-영향을-미치는가" class="level3" data-number="11.1.1">
-<h3 data-number="11.1.1" class="anchored" data-anchor-id="성별이-은행에서의-승진에-영향을-미치는가"><span class="header-section-number">11.1.1</span> 성별이 은행에서의 승진에 영향을 미치는가?</h3>
+<section id="성별이-은행에서의-승진에-영향을-미치는가" class="level3">
+<h3 class="anchored" data-anchor-id="성별이-은행에서의-승진에-영향을-미치는가">성별이 은행에서의 승진에 영향을 미치는가?</h3>
 <p>여러분이 1970년대에 은행에서 일하고 있고 승진을 위해 이력서를 제출한다고 가정해 봅시다. 여러분의 성별이 승진 가능성에 영향을 미칠까요? 이 질문에 답하기 위해, 우리는 1974년 _Journal of Applied Psychology_에 발표된 연구 데이터를 살펴보겠습니다. 이 데이터는 <a href="https://www.openintro.org/"><em>OpenIntro</em></a> 통계학 교과서 시리즈에서도 사용됩니다.</p>
 <p>연구를 시작하기 위해, 48명의 은행 관리자들에게 여러 지점을 가진 은행의 가상 이사가 되었다고 가정해 달라고 요청했습니다. 모든 은행 관리자에게는 이력서가 주어졌고, 이력서의 후보자가 지점 중 한 곳의 새로운 직책으로 승진하기에 적합한지 여부를 질문했습니다.</p>
 <p>하지만 이 48개의 이력서는 한 가지를 제외하고 모든 면에서 동일했습니다. 바로 이력서 상단에 적힌 지원자의 이름이었습니다. 관리자들 중 24명에게는 전형적인 “남성” 이름이 적힌 이력서가 무작위로 주어졌고, 나머지 24명에게는 전형적인 “여성” 이름이 적힌 이력서가 무작위로 주어졌습니다. 이력서마다 오직 (이진 방식의) 성별만 달랐기 때문에, 연구자들은 승진율에서 이 변수의 효과를 고립시켜 확인할 수 있었습니다.</p>
@@ -423,7 +448,7 @@ window.Quarto = {
 </div>
 </div>
 <p>변수 <code>id</code>는 모든 48개 행에 대한 식별 변수 역할을 하며, <code>decision</code> 변수는 지원자가 승진 대상으로 선택되었는지 여부를 나타내고, <code>gender</code> 변수는 이력서에 사용된 이름의 성별을 나타냅니다. 이 데이터가 실제 24명의 남성과 24명의 여성이 아니라, 48개의 동일한 이력서 중 전형적인 “남성” 이름이 할당된 24개와 전형적인 “여성” 이름이 할당된 24개에 관한 것임을 기억하십시오.</p>
-<p>두 범주형 변수인 <code>decision</code>과 <code>gender</code> 사이의 관계에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 섹션 @ref(two-categ-barplot)에서 이러한 관계를 시각화하는 방법 중 하나로 누적 막대 그래프(stacked barplot)를 보았던 것을 상기하십시오.</p>
+<p>두 범주형 변수인 <code>decision</code>과 <code>gender</code> 사이의 관계에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 <span class="quarto-unresolved-ref">?sec-two-categ-barplot절에서</span> 이러한 관계를 시각화하는 방법 중 하나로 누적 막대 그래프(stacked barplot)를 보았던 것을 상기하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(promotions, <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> decision)) <span class="sc">+</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
@@ -439,7 +464,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>그림 @ref(fig:promotions-barplot)를 보면 여성 이름이 적힌 이력서의 승진 결정 확률이 훨씬 낮은 것처럼 보입니다. 데이터 핸들링을 위한 <code>dplyr</code> 패키지를 사용하여 각 그룹에 대해 승진이 수락된 이력서의 비율을 계산하여 이러한 승진율을 수치화해 봅시다. 여기서 개수를 세기 위해 <code>summarize(n = n())</code>의 지름길인 <code>tally()</code> 함수를 사용함에 유의하십시오.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-promotions-barplot를</span> 보면 여성 이름이 적힌 이력서의 승진 결정 확률이 훨씬 낮은 것처럼 보입니다. 데이터 핸들링을 위한 <code>dplyr</code> 패키지를 사용하여 각 그룹에 대해 승진이 수락된 이력서의 비율을 계산하여 이러한 승진율을 수치화해 봅시다. 여기서 개수를 세기 위해 <code>summarize(n = n())</code>의 지름길인 <code>tally()</code> 함수를 사용함에 유의하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>promotions <span class="sc">%&gt;%</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, decision) <span class="sc">%&gt;%</span> </span>
@@ -458,10 +483,10 @@ window.Quarto = {
 <p>따라서 남성 이름이 적힌 24개의 이력서 중 21개가 승진 대상으로 선택되어, 그 비율은 21/24 = 0.875 = 87.5%입니다. 반면, 여성 이름이 적힌 24개의 이력서 중 14개가 승진 대상으로 선택되어, 그 비율은 14/24 = 0.583 = 58.3%입니다. 이 두 승진율을 비교해 보면, 남성 이름의 이력서가 여성 이름의 이력서보다 0.875 - 0.583 = 0.292 = 29.2% 더 높은 비율로 승진 대상으로 선택된 것으로 보입니다. 이는 남성 이름이 적힌 이력서에 유리한 점이 있음을 시사합니다.</p>
 <p>하지만 질문은 이것이 은행 승진에 성차별이 존재한다는 <strong>결정적인(conclusive)</strong> 증거를 제공하느냐는 것입니다. 성별에 따른 차별이 존재하지 않는 가상의 세계에서도 승진율 차이가 29.2%만큼 발생할 수 있을까요? 다시 말해, 이 가상 세계에서 <strong>표본 변동(sampling variation)</strong>의 역할은 무엇일까요? 이 질문에 답하기 위해, 우리는 다시 한번 컴퓨터를 이용한 <strong>시뮬레이션</strong>에 의존할 것입니다.</p>
 </section>
-<section id="한-번-뒤섞기-shuffling-once" class="level3" data-number="11.1.2">
-<h3 data-number="11.1.2" class="anchored" data-anchor-id="한-번-뒤섞기-shuffling-once"><span class="header-section-number">11.1.2</span> 한 번 뒤섞기 (Shuffling once)</h3>
+<section id="한-번-뒤섞기-shuffling-once" class="level3">
+<h3 class="anchored" data-anchor-id="한-번-뒤섞기-shuffling-once">한 번 뒤섞기 (Shuffling once)</h3>
 <p>먼저, 승진에 성차별이 존재하지 않는 가상의 우주를 상상해 보십시오. 그러한 가상의 우주에서는 지원자의 성별이 승진 가능성에 아무런 영향을 미치지 않을 것입니다. 이를 우리의 <code>promotions</code> 데이터 프레임으로 가져와 생각해보면, <code>gender</code> 변수는 아무런 의미가 없는 라벨일 뿐입니다. 만약 이러한 <code>gender</code> 라벨이 무의미하다면, 우리는 이를 아무런 영향 없이 “뒤섞어서(shuffling)” 무작위로 재할당할 수 있을 것입니다!</p>
-<p>이 아이디어를 설명하기 위해, 표 @ref(tab:compare-six)에 있는 48개의 이력서 중 임의로 선택된 6개에 집중해봅시다. <code>decision</code> 열은 3개의 이력서가 승진했고 3개는 그렇지 않았음을 보여줍니다. <code>gender</code> 열은 원래 이력서 이름의 성별을 보여줍니다.</p>
+<p>이 아이디어를 설명하기 위해, 표 <span class="quarto-unresolved-ref">?tbl-compare-six에</span> 있는 48개의 이력서 중 임의로 선택된 6개에 집중해봅시다. <code>decision</code> 열은 3개의 이력서가 승진했고 3개는 그렇지 않았음을 보여줍니다. <code>gender</code> 열은 원래 이력서 이름의 성별을 보여줍니다.</p>
 <p>하지만 성차별이 없는 가상 세계에서 성별은 무의미하므로, <code>gender</code> 값을 무작위로 “뒤섞는” 것은 아무런 문제가 되지 않습니다. <code>shuffled_gender</code> 열은 그러한 가능한 무작위 셔플링 결과 중 하나를 보여줍니다. 네 번째 열에서 남성 이름과 여성 이름의 수가 각각 3개로 동일하게 유지되지만, 이제는 서로 다른 순서로 나열되어 있음을 확인하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -516,7 +541,7 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p>다시 말하지만, 이러한 성별 라벨의 무작위 셔플링은 성차별이 없는 가상의 우주에서만 의미가 있습니다. 이러한 성별 변수의 셔플링을 모든 48개의 이력서에 대해 손으로 직접 확장하려면 어떻게 해야 할까요? 한 가지 방법은 그림 @ref(fig:deck-of-cards)에 표시된 표준 52장짜리 카드 덱을 사용하는 것입니다.</p>
+<p>다시 말하지만, 이러한 성별 라벨의 무작위 셔플링은 성차별이 없는 가상의 우주에서만 의미가 있습니다. 이러한 성별 변수의 셔플링을 모든 48개의 이력서에 대해 손으로 직접 확장하려면 어떻게 해야 할까요? 한 가지 방법은 그림 <span class="quarto-unresolved-ref">?fig-deck-of-cards에</span> 표시된 표준 52장짜리 카드 덱을 사용하는 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -527,7 +552,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>카드의 절반은 빨간색(다이아몬드와 하트)이고 나머지 절반은 검은색(스페이드와 클로버)이므로, 빨간색 카드 두 장과 검은색 카드 두 장을 제거하면 빨간색 카드 24장과 검은색 카드 24장이 남게 됩니다. 그림 @ref(fig:shuffling)에서 보는 것처럼 이 48장의 카드를 섞은 후, 카드를 하나씩 뒤집으면서 빨간색 카드에는 “남성”을, 검은색 카드에는 “여성”을 할당할 수 있습니다.</p>
+<p>카드의 절반은 빨간색(다이아몬드와 하트)이고 나머지 절반은 검은색(스페이드와 클로버)이므로, 빨간색 카드 두 장과 검은색 카드 두 장을 제거하면 빨간색 카드 24장과 검은색 카드 24장이 남게 됩니다. 그림 <span class="quarto-unresolved-ref">?fig-shuffling에서</span> 보는 것처럼 이 48장의 카드를 섞은 후, 카드를 하나씩 뒤집으면서 빨간색 카드에는 “남성”을, 검은색 카드에는 “여성”을 할당할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -539,7 +564,7 @@ window.Quarto = {
 </div>
 </div>
 <p>우리는 그러한 셔플링 결과 하나를 <code>moderndive</code> 패키지의 <code>promotions_shuffled</code> 데이터 프레임에 저장해 두었습니다. 원래의 <code>promotions</code>와 셔플된 <code>promotions_shuffled</code> 데이터 프레임을 비교해보면, <code>decision</code> 변수는 동일하지만 <code>gender</code> 변수가 변경된 것을 볼 수 있습니다.</p>
-<p>원래의 <code>promotions</code> 데이터에 대해 수행했던 것과 동일한 탐색적 데이터 분석을 우리의 <code>promotions_shuffled</code> 데이터 프레임에 대해서도 반복해 봅시다. <code>decision</code>과 새로 셔플된 <code>gender</code> 변수 사이의 관계를 시각화하는 막대 그래프를 만들고, 이를 그림 @ref(fig:promotions-barplot-permuted)에서 원래의 셔플되지 않은 버전과 비교해 봅시다.</p>
+<p>원래의 <code>promotions</code> 데이터에 대해 수행했던 것과 동일한 탐색적 데이터 분석을 우리의 <code>promotions_shuffled</code> 데이터 프레임에 대해서도 반복해 봅시다. <code>decision</code>과 새로 셔플된 <code>gender</code> 변수 사이의 관계를 시각화하는 막대 그래프를 만들고, 이를 그림 <span class="quarto-unresolved-ref">?fig-promotions-barplot-permuted에서</span> 원래의 셔플되지 않은 버전과 비교해 봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(promotions_shuffled, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> decision)) <span class="sc">+</span></span>
@@ -586,9 +611,9 @@ window.Quarto = {
 <p>다음으로 이 두 값을 비교해 봅시다. 전형적으로 남성적인 이름의 이력서가 여성적인 이름의 이력서보다 <span class="math inline">\(0.75 - 0.708 = 0.042 = 4.2\%\)</span> 다른 비율로 승진 대상으로 선택된 것으로 나타났습니다.</p>
 <p>이 비율의 차이가 원래 관찰했던 0.292 = 29.2%의 차이와는 다르다는 점에 주목하십시오. 이는 다시 한번 <strong>표본 변동(sampling variation)</strong> 때문입니다. 이 표본 변동의 효과를 어떻게 더 잘 이해할 수 있을까요? 이 셔플링 작업을 여러 번 반복하는 것입니다!</p>
 </section>
-<section id="번-뒤섞기-shuffling-16-times" class="level3" data-number="11.1.3">
-<h3 data-number="11.1.3" class="anchored" data-anchor-id="번-뒤섞기-shuffling-16-times"><span class="header-section-number">11.1.3</span> 16번 뒤섞기 (Shuffling 16 times)</h3>
-<p>우리는 이 셔플링 활동을 반복하기 위해 16개 팀의 친구들을 모집했습니다. 그들은 이 값들을 <a href="https://docs.google.com/spreadsheets/d/1Q-ENy3o5IrpJshJ7gn3hJ5A0TOWV2AZrKNHMsshQtiE/">공유 스프레드시트</a>에 기록했습니다. 그림 @ref(fig:tactile-shuffling)에 처음 10개 행과 5개 열의 스냅샷을 표시합니다.</p>
+<section id="번-뒤섞기-shuffling-16-times" class="level3">
+<h3 class="anchored" data-anchor-id="번-뒤섞기-shuffling-16-times">16번 뒤섞기 (Shuffling 16 times)</h3>
+<p>우리는 이 셔플링 활동을 반복하기 위해 16개 팀의 친구들을 모집했습니다. 그들은 이 값들을 <a href="https://docs.google.com/spreadsheets/d/1Q-ENy3o5IrpJshJ7gn3hJ5A0TOWV2AZrKNHMsshQtiE/">공유 스프레드시트</a>에 기록했습니다. 그림 <span class="quarto-unresolved-ref">?fig-tactile-shuffling에</span> 처음 10개 행과 5개 열의 스냅샷을 표시합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -599,7 +624,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>이러한 16개의 <em>셔플(shuffles)</em> 열 각각에 대해 승진율의 차이를 계산했고, 그림 @ref(fig:null-distribution-1)에 히스토그램으로 분포를 표시했습니다. 또한 실제 생활에서 발생한 관찰된 승진율 차이인 0.292 = 29.2%를 어두운 선으로 표시했습니다.</p>
+<p>이러한 16개의 <em>셔플(shuffles)</em> 열 각각에 대해 승진율의 차이를 계산했고, 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-1에</span> 히스토그램으로 분포를 표시했습니다. 또한 실제 생활에서 발생한 관찰된 승진율 차이인 0.292 = 29.2%를 어두운 선으로 표시했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -612,7 +637,7 @@ window.Quarto = {
 </div>
 <p>히스토그램의 분포를 논의하기 전에, 기억해야 할 핵심 사항을 강조합니다. 이 히스토그램은 성차별이 존재하지 않는 우리의 <strong>가설 우주(hypothesized universe)</strong>에서 관찰하게 될 승진율 차이를 나타냅니다.</p>
 <p>먼저 히스토그램이 대략 0을 중심으로 한다는 점에 주목하십시오. 승진율의 차이가 0이라는 것은 양쪽 성별의 승진율이 같았다는 것과 같습니다. 다시 말해, 이 16개 값의 중심은 우리가 성차별이 없는 가상 우주에서 기대하는 것과 일치합니다.</p>
-<p>하지만 값들이 0을 중심으로 모여 있긴 하지만, 0 주변에 변동이 존재합니다. 이는 성차별이 없는 가상 우주라 하더라도 우연한 <strong>표본 변동(sampling variation)</strong> 때문에 여전히 작은 승진율 차이를 관찰할 가능성이 높기 때문입니다. 그림 @ref(fig:null-distribution-1)의 히스토그램을 보면, 그러한 차이는 심지어 -0.292나 0.208만큼 극단적일 수도 있습니다.</p>
+<p>하지만 값들이 0을 중심으로 모여 있긴 하지만, 0 주변에 변동이 존재합니다. 이는 성차별이 없는 가상 우주라 하더라도 우연한 <strong>표본 변동(sampling variation)</strong> 때문에 여전히 작은 승진율 차이를 관찰할 가능성이 높기 때문입니다. 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-1의</span> 히스토그램을 보면, 그러한 차이는 심지어 -0.292나 0.208만큼 극단적일 수도 있습니다.</p>
 <p>이제 우리가 실제 생활에서 관찰한 것에 관심을 돌려봅시다. 0.292 = 29.2%의 차이가 수직선으로 표시되어 있습니다. 스스로에게 질문해 보십시오. 성차별이 없는 가상의 세계에서, 우리가 이 정도의 차이를 관찰할 가능성이 얼마나 될까요? 의견은 다를 수 있겠지만, 저희 생각에는 자주 일어나지는 않을 것 같습니다! 이제 다시 물어보십시오. 이 결과가 우리의 성차별 없는 가상 우주에 대해 무엇을 말해주고 있나요?</p>
 <!--
 v2 TODO: 추가 고려사항;
@@ -651,16 +676,16 @@ obs_diff_prop
 :::
 
 
-우리가 선택한 33개의 표본 중 오직 하나만이 우리가 관찰한 것만큼 극단적인 것을 볼 수 있습니다. 따라서 우리는 성차별이 작용하고 있을지도 모른다는 것을 암시하는 데이터가 보이기 시작한다고 추측할 수 있습니다. 계산된 통계량의 상당수는 0에 가깝고, 나머지는 -0.1과 0.1의 차이 주변에 나타납니다. 그렇다면 이 암시를 조금 더 명확하게 하기 위해 어떤 추가 증거가 필요할까요? 더 많은 시뮬레이션입니다! 7장(\@ref(sampling))과 8장(\@ref(confidence-intervals))에서 했던 것처럼, 우리는 이러한 순열과 계산을 여러 번 시뮬레이션하기 위해 컴퓨터를 사용할 것입니다. 다음 섹션에서 `infer` 패키지를 사용하여 바로 그렇게 해보겠습니다.
+우리가 선택한 33개의 표본 중 오직 하나만이 우리가 관찰한 것만큼 극단적인 것을 볼 수 있습니다. 따라서 우리는 성차별이 작용하고 있을지도 모른다는 것을 암시하는 데이터가 보이기 시작한다고 추측할 수 있습니다. 계산된 통계량의 상당수는 0에 가깝고, 나머지는 -0.1과 0.1의 차이 주변에 나타납니다. 그렇다면 이 암시를 조금 더 명확하게 하기 위해 어떤 추가 증거가 필요할까요? 더 많은 시뮬레이션입니다! 7장(@sec-sampling)과 8장(@sec-confidence-intervals)에서 했던 것처럼, 우리는 이러한 순열과 계산을 여러 번 시뮬레이션하기 위해 컴퓨터를 사용할 것입니다. 다음 섹션에서 `infer` 패키지를 사용하여 바로 그렇게 해보겠습니다.
 -->
 </section>
-<section id="ht-what-did-we-just-do" class="level3" data-number="11.1.4">
-<h3 data-number="11.1.4" class="anchored" data-anchor-id="ht-what-did-we-just-do"><span class="header-section-number">11.1.4</span> 방금 우리가 한 일은 무엇인가요?</h3>
+<section id="ht-what-did-we-just-do" class="level3">
+<h3 class="anchored" data-anchor-id="ht-what-did-we-just-do">방금 우리가 한 일은 무엇인가요?</h3>
 <p>이 활동에서 우리가 방금 시연한 것은 <strong>순열 검정(permutation test)</strong>을 이용한 <strong>가설 검정(hypothesis testing)</strong>이라는 통계적 절차입니다. “순열(permutation)” 이라는 용어는 “셔플링(뒤섞기)”에 대한 수학적 용어입니다. 즉, 일련의 값을 가져와 여러분이 플레잉 카드로 했던 것처럼 무작위로 재정렬하는 것입니다.</p>
-<p>사실 순열은 8장(@ref(confidence-intervals))에서 수행했던 붓스트랩 방법과 같은 <strong>재표본 추출(resampling)</strong>의 또 다른 형태입니다. 붓스트랩 방법은 <strong>복원(with replacement)</strong> 재추출을 포함하는 반면, 순열 방법은 <strong>비복원(without replacement)</strong> 재추출을 포함합니다.</p>
-<p>섹션 @ref(resampling-tactile)에서 페니를 나타내는 종이 조각과 모자를 사용했던 활동을 생각해 보십시오. 페니를 뽑은 후 모자에 다시 넣었습니다. 이제 우리의 카드 덱을 생각해 보십시오. 카드를 뽑은 후 여러분 앞에 펼쳐 놓고 색깔을 기록한 다음, 카드 덱에 다시 넣지 <strong>않았습니다</strong>.</p>
+<p>사실 순열은 8장(<span class="quarto-unresolved-ref">?sec-confidence-intervals</span>)에서 수행했던 붓스트랩 방법과 같은 <strong>재표본 추출(resampling)</strong>의 또 다른 형태입니다. 붓스트랩 방법은 <strong>복원(with replacement)</strong> 재추출을 포함하는 반면, 순열 방법은 <strong>비복원(without replacement)</strong> 재추출을 포함합니다.</p>
+<p><span class="quarto-unresolved-ref">?sec-resampling-tactile절에서</span> 페니를 나타내는 종이 조각과 모자를 사용했던 활동을 생각해 보십시오. 페니를 뽑은 후 모자에 다시 넣었습니다. 이제 우리의 카드 덱을 생각해 보십시오. 카드를 뽑은 후 여러분 앞에 펼쳐 놓고 색깔을 기록한 다음, 카드 덱에 다시 넣지 <strong>않았습니다</strong>.</p>
 <p>이전 예시에서 우리는 성차별이 없다는 가상의 우주의 타당성을 검정했습니다. 48개의 이력서로 구성된 관찰된 표본에 포함된 증거는 우리의 가상 우주와 다소 일치하지 않았습니다. 따라서 우리는 이 가상 우주를 <strong>기각(reject)</strong>하고 성차별이 존재한다는 것을 증거가 암시한다고 선언하고 싶을 것입니다.</p>
-<p>섹션 @ref(case-study-two-prop-ci)에서 다뤘던 하품이 전염되는지에 대한 사례 연구를 기억해 보십시오. 이전 예시 역시 알려지지 않은 모집단 비율 차이에 대한 추론을 포함합니다. 이번에는 <span class="math inline">\(p_{m} - p_{f}\)</span>가 될 것인데, 여기서 <span class="math inline">\(p_{m}\)</span>은 승진 후보로 추천되는 남성 이름 이력서의 모집단 비율이고, <span class="math inline">\(p_{f}\)</span>는 여성 이름 이력서에 대한 동일한 모집단 비율입니다. 표 @ref(tab:table-diff-prop)에서 지금까지 보았던 추론 시나리오 중 하나임을 상기하십시오.</p>
+<p><span class="quarto-unresolved-ref">?sec-case-study-two-prop-ci절에서</span> 다뤘던 하품이 전염되는지에 대한 사례 연구를 기억해 보십시오. 이전 예시 역시 알려지지 않은 모집단 비율 차이에 대한 추론을 포함합니다. 이번에는 <span class="math inline">\(p_{m} - p_{f}\)</span>가 될 것인데, 여기서 <span class="math inline">\(p_{m}\)</span>은 승진 후보로 추천되는 남성 이름 이력서의 모집단 비율이고, <span class="math inline">\(p_{f}\)</span>는 여성 이름 이력서에 대한 동일한 모집단 비율입니다. 표 <span class="quarto-unresolved-ref">?tbl-table-diff-prop에서</span> 지금까지 보았던 추론 시나리오 중 하나임을 상기하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -704,12 +729,12 @@ obs_diff_prop
 <p>하지만 우리가 스스로에게 던졌던 질문은 “이 차이가 유의미하게 0보다 큰가?”였습니다. 다시 말해, 그 차이가 실제 차별을 나타내는 것인지, 아니면 단지 <strong>표본 변동(sampling variation)</strong> 때문으로 돌릴 수 있는 것인지에 대한 것입니다. 가설 검정은 이러한 구분을 가능하게 해줍니다.</p>
 </section>
 </section>
-<section id="understanding-ht" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="understanding-ht"><span class="header-section-number">11.2</span> 가설 검정의 이해</h2>
-<p>섹션 @ref(sampling-framework)에서 보았던 표본 추출과 관련된 용어, 기법, 정의들과 마찬가지로 가설 검정과 관련된 용어, 기법, 정의들도 매우 많습니다. 이들을 배우는 것이 처음에는 매우 벅찬 일처럼 느껴질 수 있습니다. 하지만 연습하고 또 연습하다 보면 누구나 마스터할 수 있습니다.</p>
-<p>첫째, <strong>가설(hypothesis)</strong> 은 알려지지 않은 모집단 모수의 값에 대한 진술입니다. 우리의 이력서 활동에서 관심 있는 모집단 모수는 모집단 비율의 차이인 <span class="math inline">\(p_{m} - p_{f}\)</span>입니다. 가설 검정은 이 책에서 다룰 다섯 가지 추론 시나리오의 표 @ref(tab:table-ch8)에 있는 모든 모집단 모수를 포함할 수 있으며, 여기서는 다루지 않는 더 고급 유형들도 포함할 수 있습니다.</p>
+<section id="understanding-ht" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-ht">가설 검정의 이해</h2>
+<p><span class="quarto-unresolved-ref">?sec-sampling-framework절에서</span> 보았던 표본 추출과 관련된 용어, 기법, 정의들과 마찬가지로 가설 검정과 관련된 용어, 기법, 정의들도 매우 많습니다. 이들을 배우는 것이 처음에는 매우 벅찬 일처럼 느껴질 수 있습니다. 하지만 연습하고 또 연습하다 보면 누구나 마스터할 수 있습니다.</p>
+<p>첫째, <strong>가설(hypothesis)</strong> 은 알려지지 않은 모집단 모수의 값에 대한 진술입니다. 우리의 이력서 활동에서 관심 있는 모집단 모수는 모집단 비율의 차이인 <span class="math inline">\(p_{m} - p_{f}\)</span>입니다. 가설 검정은 이 책에서 다룰 다섯 가지 추론 시나리오의 표 <span class="quarto-unresolved-ref">?tbl-table-ch8에</span> 있는 모든 모집단 모수를 포함할 수 있으며, 여기서는 다루지 않는 더 고급 유형들도 포함할 수 있습니다.</p>
 <p>둘째, <strong>가설 검정(hypothesis test)</strong> 은 서로 경쟁하는 두 가설 사이의 검정으로 구성됩니다. (1) <strong>귀무 가설(null hypothesis)</strong> <span class="math inline">\(H_0\)</span> (“H-제로” 또는 “H-낫”이라고 읽음)과 (2) <strong>대립 가설(alternative hypothesis)</strong> <span class="math inline">\(H_A\)</span> (<span class="math inline">\(H_1\)</span>으로도 표시함) 사이의 대결입니다.</p>
-<p>일반적으로 귀무 가설 은 “효과가 없다”거나 “관심 있는 차이가 없다”는 주장입니다. 많은 경우 귀무 가설은 현재 상태(status quo) 또는 아무런 흥미로운 일이 일어나지 않는 상황을 나타냅니다. 또한 일반적으로 대립 가설 은 실험자나 연구자가 입증하고 싶거나 증거를 찾아 지원하고 싶은 주장입니다. 이는 귀무 가설 <span class="math inline">\(H_0\)</span>에 대한 “도전자” 가설로 간주됩니다. 우리의 이력서 활동에서 적절한 가설 검정은 다음과 같습니다.</p>
+<p>일반적으로 귀무 가설 은 “효과가 없다”거나 “관심 있는 차이가 없다”는 주장입니다. 많은 경우 귀무 가설은 현재 상태(status quo 또는 아무런 흥미로운 일이 일어나지 않는 상황을 나타냅니다. 또한 일반적으로 대립 가설 은 실험자나 연구자가 입증하고 싶거나 증거를 찾아 지원하고 싶은 주장입니다. 이는 귀무 가설 <span class="math inline">\(H_0\)</span>에 대한 “도전자” 가설로 간주됩니다. 우리의 이력서 활동에서 적절한 가설 검정은 다음과 같습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 H_0 &amp;: \text{남성과 여성이 동일한 비율로 승진한다}\\
@@ -724,11 +749,11 @@ H_0 &amp;: p_{m} - p_{f} = 0\\
 \text{대 } H_A&amp;: p_{m} - p_{f} &gt; 0
 \end{aligned}
 \]</span></p>
-<p>대립 가설 <span class="math inline">\(H_A\)</span>가 <span class="math inline">\(p_{m} - p_{f} &gt; 0\)</span>으로 단측 가설임을 확인하십시오. 만약 양측 대립 가설을 선택했다면 <span class="math inline">\(p_{m} - p_{f} \neq 0\)</span>으로 설정했을 것입니다. 지금은 단순함을 유지하기 위해 더 간단한 단측 대립 가설을 고수하겠습니다. 섹션 @ref(ht-case-study)에서 양측 대립 가설의 예시를 제시할 것입니다.</p>
-<p>셋째, <strong>검정 통계량(test statistic)</strong> 은 가설 검정에 사용되는 <strong>점 추정치/표본 통계량</strong> 공식입니다. 여기서 표본 통계량은 단지 관찰된 표본을 기반으로 한 요약 통계량일 뿐입니다. 섹션 @ref(summarize)에서 요약 통계량은 많은 값을 받아 하나의 값만 반환한다는 것을 보았습니다. 여기서 표본은 남성 이름의 이력서 <span class="math inline">\(n_m\)</span> = 24개와 여성 이름의 이력서 <span class="math inline">\(n_f\)</span> = 24개가 될 것입니다. 따라서 관심 있는 점 추정치는 표본 비율의 차이인 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>입니다.</p>
+<p>대립 가설 <span class="math inline">\(H_A\)</span>가 <span class="math inline">\(p_{m} - p_{f} &gt; 0\)</span>으로 단측 가설임을 확인하십시오. 만약 양측 대립 가설을 선택했다면 <span class="math inline">\(p_{m} - p_{f} \neq 0\)</span>으로 설정했을 것입니다. 지금은 단순함을 유지하기 위해 더 간단한 단측 대립 가설을 고수하겠습니다. <span class="quarto-unresolved-ref">?sec-ht-case-study절에서</span> 양측 대립 가설의 예시를 제시할 것입니다.</p>
+<p>셋째, <strong>검정 통계량(test statistic)</strong> 은 가설 검정에 사용되는 <strong>점 추정치/표본 통계량</strong> 공식입니다. 여기서 표본 통계량은 단지 관찰된 표본을 기반으로 한 요약 통계량일 뿐입니다. <span class="quarto-unresolved-ref">?sec-summarize절에서</span> 요약 통계량은 많은 값을 받아 하나의 값만 반환한다는 것을 보았습니다. 여기서 표본은 남성 이름의 이력서 <span class="math inline">\(n_m\)</span> = 24개와 여성 이름의 이력서 <span class="math inline">\(n_f\)</span> = 24개가 될 것입니다. 따라서 관심 있는 점 추정치는 표본 비율의 차이인 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>입니다.</p>
 <p>넷째, <strong>관찰된 검정 통계량(observed test statistic)</strong> 은 우리가 실제 생활에서 관찰한 검정 통계량의 값입니다. 우리의 경우, <code>promotions</code> 데이터 프레임에 저장된 데이터를 사용하여 이 값을 계산했습니다. 관찰된 차이는 남성 이름의 이력서에 유리한 <span class="math inline">\(\widehat{p}_{m} -\widehat{p}_{f} = 0.875 - 0.583 = 0.292 = 29.2\%\)</span>였습니다.</p>
-<p>다섯째, <strong>귀무 분포(null distribution)</strong> 는 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong> 검정 통계량의 표본 분포입니다. 오! 꽤 긴 정의군요! 천천히 하나씩 풀어봅시다. 귀무 분포를 이해하는 핵심은 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 <strong>가정된다</strong>는 점입니다. 우리가 지금 단계에서 <span class="math inline">\(H_0\)</span>가 참이라고 말하는 것이 아니라, 단지 가설 검정 목적으로 그것이 참이라고 가정하는 것뿐입니다. 우리의 경우, 이는 승진율에 성차별이 존재하지 않는 가상의 우주에 해당합니다. 귀무 가설 <span class="math inline">\(H_0\)</span>를 가정할 때(또는 “<span class="math inline">\(H_0\)</span> 하에서”라고 표현함), 표본 변동으로 인해 검정 통계량은 어떻게 변할까요? 우리의 경우, <span class="math inline">\(H_0\)</span> 하에서 표본 추출로 인해 표본 비율의 차이인 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>는 어떻게 달라질까요? 하위 섹션 @ref(sampling-definitions)에서 점 추정치가 표본 변동으로 인해 어떻게 변하는지 보여주는 분포를 <strong>표본 분포(sampling distributions)</strong>라고 불렀던 것을 상기하십시오. 귀무 분포에 대해 기억해야 할 유일한 추가 사항은 그것이 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong>의 표본 분포라는 점입니다.</p>
-<p>우리의 경우, 이전에 그림 @ref(fig:null-distribution-1)에서 귀무 분포를 시각화했으며, 이를 새로운 표기법과 용어를 사용하여 그림 @ref(fig:null-distribution-2)에 다시 표시합니다. 이는 성차별이 없는 가상의 우주를 <strong>가정</strong>하고 우리 친구들이 계산한 16개의 표본 비율 차이의 분포입니다. 또한 관찰된 검정 통계량인 0.292의 값을 수직선으로 표시했습니다.</p>
+<p>다섯째, <strong>귀무 분포(null distribution)</strong> 는 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong> 검정 통계량의 표본 분포입니다. 오! 꽤 긴 정의군요! 천천히 하나씩 풀어봅시다. 귀무 분포를 이해하는 핵심은 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 <strong>가정된다</strong>는 점입니다. 우리가 지금 단계에서 <span class="math inline">\(H_0\)</span>가 참이라고 말하는 것이 아니라, 단지 가설 검정 목적으로 그것이 참이라고 가정하는 것뿐입니다. 우리의 경우, 이는 승진율에 성차별이 존재하지 않는 가상의 우주에 해당합니다. 귀무 가설 <span class="math inline">\(H_0\)</span>를 가정할 때(또는 “<span class="math inline">\(H_0\)</span> 하에서”라고 표현함), 표본 변동으로 인해 검정 통계량은 어떻게 변할까요? 우리의 경우, <span class="math inline">\(H_0\)</span> 하에서 표본 추출로 인해 표본 비율의 차이인 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>는 어떻게 달라질까요? 하위 <span class="quarto-unresolved-ref">?sec-sampling-definitions절에서</span> 점 추정치가 표본 변동으로 인해 어떻게 변하는지 보여주는 분포를 <strong>표본 분포(sampling distributions)</strong>라고 불렀던 것을 상기하십시오. 귀무 분포에 대해 기억해야 할 유일한 추가 사항은 그것이 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong>의 표본 분포라는 점입니다.</p>
+<p>우리의 경우, 이전에 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-1에서</span> 귀무 분포를 시각화했으며, 이를 새로운 표기법과 용어를 사용하여 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-2에</span> 다시 표시합니다. 이는 성차별이 없는 가상의 우주를 <strong>가정</strong>하고 우리 친구들이 계산한 16개의 표본 비율 차이의 분포입니다. 또한 관찰된 검정 통계량인 0.292의 값을 수직선으로 표시했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -740,22 +765,22 @@ H_0 &amp;: p_{m} - p_{f} = 0\\
 </div>
 </div>
 <p>여섯째, <strong>p-값(p-value)</strong> 또는 <strong>유의 확률</strong>은 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong>, 관찰된 검정 통계량만큼이나 극단적이거나 그보다 더 극단적인 검정 통계량을 얻을 확률입니다. 다시 한번 오! 이것도 천천히 풀어보겠습니다. p-값을 “놀라움(surprise)”의 수량화로 생각할 수 있습니다. <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때, 우리가 관찰한 것에 대해 얼마나 놀랐을까요? 우리의 경우, 성차별이 없는 가상 우주에서 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때 우리가 수집한 표본으로부터 승진율 차이인 0.292을 관찰했다면 얼마나 놀랄까요? 매우 놀랄까요? 약간 놀랄까요?</p>
-<p>p-값은 이 확률을 수치화합니다. 그림 @ref(fig:null-distribution-2)에 있는 16개의 표본 비율 차이의 경우, 어느 정도의 비율이 더 “극단적인” 결과를 가졌을까요? 여기서 극단적이라는 것은 “남성” 지원자가 “여성” 지원자보다 높은 비율로 승진한다는 대립 가설 <span class="math inline">\(H_A\)</span>의 관점에서 정의됩니다. 다시 말해, 남성에게 유리한 차별이 <span class="math inline">\(0.875 - 0.583 = 0.292 = 29.2\%\)</span>보다 <strong>더욱</strong> 뚜렷하게 나타난 경우가 얼마나 자주 있었을까요?</p>
-<p>이 경우, 16번 중 0번 관찰된 차이인 0.292 = 29.2%보다 크거나 같은 비율 차이를 얻었습니다. 매우 드문(사실은 발생하지 않은) 결과입니다! 성차별이 없는 가상 우주에서 이렇게 뚜렷한 승진율 차이가 발생할 확률이 매우 희박하다는 점을 감안할 때, 우리는 가상 우주를 <strong>기각(reject)</strong> 하려는 경향이 생깁니다. 대신 “남성” 지원자에게 유리한 차별이 존재한다는 가설을 지지하게 됩니다. 다시 말해, 우리는 <span class="math inline">\(H_A\)</span>를 위해 <span class="math inline">\(H_0\)</span>를 기각합니다.</p>
+<p>p-값은 이 확률을 수치화합니다. 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-2에</span> 있는 16개의 표본 비율 차이의 경우, 어느 정도의 비율이 더 “극단적인” 결과를 가졌을까요? 여기서 극단적이라는 것은 “남성” 지원자가 “여성” 지원자보다 높은 비율로 승진한다는 대립 가설 <span class="math inline">\(H_A\)</span>의 관점에서 정의됩니다. 다시 말해, 남성에게 유리한 차별이 <span class="math inline">\(0.875 - 0.583 = 0.292 = 29.2\%\)</span>보다 <strong>더욱</strong> 뚜렷하게 나타난 경우가 얼마나 자주 있었을까요?</p>
+<p>이 경우, 16번 중 0번 관찰된 차이인 0.292 = 29.2%보다 크거나 같은 비율 차이를 얻었습니다. 매우 드문(사실은 발생하지 않은 결과입니다! 성차별이 없는 가상 우주에서 이렇게 뚜렷한 승진율 차이가 발생할 확률이 매우 희박하다는 점을 감안할 때, 우리는 가상 우주를 <strong>기각(reject)</strong> 하려는 경향이 생깁니다. 대신 “남성” 지원자에게 유리한 차별이 존재한다는 가설을 지지하게 됩니다. 다시 말해, 우리는 <span class="math inline">\(H_A\)</span>를 위해 <span class="math inline">\(H_0\)</span>를 기각합니다.</p>
 <!--
 v2 TODO: p-값 계산에 관찰된 검정 통계량 포함하기
 
 나중에 보겠지만 p-값은 정확히 1/16이 아니라,
 계산에 관찰된 검정 통계량을 포함해야 하므로 (0 + 1)/(16 + 1) = 1/17 = 0.059이 됩니다.
 -->
-<p>일곱째이자 마지막으로, 많은 가설 검정 절차에서 검정의 <strong>유의 수준(significance level)</strong> 을 사전에 설정하는 것이 권장됩니다. 이는 그리스 문자 <span class="math inline">\(\alpha\)</span> (“알파”라고 읽음)로 표시됩니다. 이 값은 p-값에 대한 컷오프(기준점) 역할을 하며, p-값이 <span class="math inline">\(\alpha\)</span>보다 작으면 “귀무 가설 <span class="math inline">\(H_0\)</span>를 기각”하게 됩니다.</p>
-<p>반대로 p-값이 <span class="math inline">\(\alpha\)</span>보다 작지 않으면 ” <span class="math inline">\(H_0\)</span>를 기각하지 못한다”라고 말합니다. 후자의 진술이 ” <span class="math inline">\(H_0\)</span>를 수용한다”는 말과는 다르다는 점에 유의하십시오. 이 차이는 다소 미묘하며 즉각적으로 명확하지 않을 수 있습니다. 이에 대해서는 나중에 섹션 @ref(ht-interpretation)에서 다시 다루겠습니다.</p>
-<p>연구 분야에 따라 서로 다른 <span class="math inline">\(\alpha\)</span> 값을 사용하는 경향이 있지만, 흔히 사용되는 <span class="math inline">\(\alpha\)</span> 값은 0.1, 0.01, 0.05이며, 명확한 이유 없이 0.05를 선택하는 경우가 많습니다. 유의 수준 <span class="math inline">\(\alpha\)</span>에 대해서는 섹션 @ref(ht-interpretation)에서 더 자세히 이야기하겠지만, 우선 <code>infer</code> 패키지를 사용하여 승진 활동에 해당하는 가설 검정을 본격적으로 수행해 봅시다.</p>
+<p>일곱째이자 마지막으로, 많은 가설 검정 절차에서 검정의 <strong>유의 수준(significance level)</strong> 을 사전에 설정하는 것이 권장됩니다. 이는 그리스 문자 <span class="math inline">\(\alpha\)</span> (“알파”라고 읽음)로 표시됩니다. 이 값은 p-값에 대한 컷오프(기준점 역할을 하며, p-값이 <span class="math inline">\(\alpha\)</span>보다 작으면 “귀무 가설 <span class="math inline">\(H_0\)</span>를 기각”하게 됩니다.</p>
+<p>반대로 p-값이 <span class="math inline">\(\alpha\)</span>보다 작지 않으면 ” <span class="math inline">\(H_0\)</span>를 기각하지 못한다”라고 말합니다. 후자의 진술이 ” <span class="math inline">\(H_0\)</span>를 수용한다”는 말과는 다르다는 점에 유의하십시오. 이 차이는 다소 미묘하며 즉각적으로 명확하지 않을 수 있습니다. 이에 대해서는 나중에 <span class="quarto-unresolved-ref">?sec-ht-interpretation절에서</span> 다시 다루겠습니다.</p>
+<p>연구 분야에 따라 서로 다른 <span class="math inline">\(\alpha\)</span> 값을 사용하는 경향이 있지만, 흔히 사용되는 <span class="math inline">\(\alpha\)</span> 값은 0.1, 0.01, 0.05이며, 명확한 이유 없이 0.05를 선택하는 경우가 많습니다. 유의 수준 <span class="math inline">\(\alpha\)</span>에 대해서는 <span class="quarto-unresolved-ref">?sec-ht-interpretation절에서</span> 더 자세히 이야기하겠지만, 우선 <code>infer</code> 패키지를 사용하여 승진 활동에 해당하는 가설 검정을 본격적으로 수행해 봅시다.</p>
 </section>
-<section id="ht-infer" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="ht-infer"><span class="header-section-number">11.3</span> 가설 검정 수행</h2>
-<p>8장(@ref(bootstrap-process))에서는 신뢰 구간을 구축하는 방법을 보여드렸습니다. 먼저 <code>dplyr</code> 데이터 핸들링 함수와 하위 섹션 @ref(shovel-1000-times)에서 가상 삽으로 사용했던 <code>rep_sample_n()</code> 함수를 사용하여 이를 어떻게 수행하는지 설명했습니다. 특히 <code>rep_sample_n()</code> 함수의 <code>replace = TRUE</code> 인수를 설정하여 복원 재추출을 통한 신뢰 구간을 구축했습니다.</p>
-<p>그런 다음 <code>infer</code> 패키지 워크플로를 사용하여 동일한 작업을 수행하는 방법을 보여드렸습니다. 두 워크플로 모두 신뢰 구간을 구축할 수 있는 동일한 붓스트랩 분포를 생성하지만, <code>infer</code> 패키지 워크플로는 그림 @ref(fig:infer-ci)와 같이 전체 프로세스의 각 단계를 강조합니다. 이는 동사로 직관적으로 이름 지어진 함수들을 사용합니다.</p>
+<section id="ht-infer" class="level2">
+<h2 class="anchored" data-anchor-id="ht-infer">가설 검정 수행</h2>
+<p>8장(<span class="quarto-unresolved-ref">?sec-bootstrap-process</span>)에서는 신뢰 구간을 구축하는 방법을 보여드렸습니다. 먼저 <code>dplyr</code> 데이터 핸들링 함수와 하위 <span class="quarto-unresolved-ref">?sec-shovel-1000-times절에서</span> 가상 삽으로 사용했던 <code>rep_sample_n()</code> 함수를 사용하여 이를 어떻게 수행하는지 설명했습니다. 특히 <code>rep_sample_n()</code> 함수의 <code>replace = TRUE</code> 인수를 설정하여 복원 재추출을 통한 신뢰 구간을 구축했습니다.</p>
+<p>그런 다음 <code>infer</code> 패키지 워크플로를 사용하여 동일한 작업을 수행하는 방법을 보여드렸습니다. 두 워크플로 모두 신뢰 구간을 구축할 수 있는 동일한 붓스트랩 분포를 생성하지만, <code>infer</code> 패키지 워크플로는 그림 <span class="quarto-unresolved-ref">?fig-infer-ci와</span> 같이 전체 프로세스의 각 단계를 강조합니다. 이는 동사로 직관적으로 이름 지어진 함수들을 사용합니다.</p>
 <ol type="1">
 <li>데이터 프레임에서 관심 있는 변수를 지정(<code>specify</code>)합니다.</li>
 <li>복원 재취출을 통해 붓스트랩 재표본의 복제본을 생성(<code>generate</code>)합니다.</li>
@@ -772,7 +797,7 @@ v2 TODO: p-값 계산에 관찰된 검정 통계량 포함하기
 </div>
 </div>
 </div>
-<p>이 섹션에서는 그림 @ref(fig:inferht)에서 볼 수 있듯이, <code>specify()</code>와 <code>generate()</code> 단계 사이에 <code>hypothesize()</code> 단계를 추가함으로써 이전에 보았던 신뢰 구간 구축을 위한 <code>infer</code> 코드를 가설 검정 수행을 위해 매끄럽게 수정하는 방법을 보여드릴 것입니다. 워크플로의 기본 개요가 거의 동일하다는 것을 알 수 있습니다.</p>
+<p>이 섹션에서는 그림 <span class="quarto-unresolved-ref">?fig-inferht에서</span> 볼 수 있듯이, <code>specify()</code>와 <code>generate()</code> 단계 사이에 <code>hypothesize()</code> 단계를 추가함으로써 이전에 보았던 신뢰 구간 구축을 위한 <code>infer</code> 코드를 가설 검정 수행을 위해 매끄럽게 수정하는 방법을 보여드릴 것입니다. 워크플로의 기본 개요가 거의 동일하다는 것을 알 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -783,16 +808,16 @@ v2 TODO: p-값 계산에 관찰된 검정 통계량 포함하기
 </div>
 </div>
 </div>
-<p>또한, 이 가설 검정을 위해 사전에 지정된 유의 수준 <span class="math inline">\(\alpha\)</span> = 0.05를 사용할 것입니다. <span class="math inline">\(\alpha\)</span> 값 선택에 대한 논의는 나중에 섹션 @ref(ht-interpretation)에서 다루기로 하겠습니다.</p>
-<section id="infer-workflow-ht" class="level3" data-number="11.3.1">
-<h3 data-number="11.3.1" class="anchored" data-anchor-id="infer-workflow-ht"><span class="header-section-number">11.3.1</span> <code>infer</code> 패키지 워크플로</h3>
+<p>또한, 이 가설 검정을 위해 사전에 지정된 유의 수준 <span class="math inline">\(\alpha\)</span> = 0.05를 사용할 것입니다. <span class="math inline">\(\alpha\)</span> 값 선택에 대한 논의는 나중에 <span class="quarto-unresolved-ref">?sec-ht-interpretation절에서</span> 다루기로 하겠습니다.</p>
+<section id="infer-workflow-ht" class="level3">
+<h3 class="anchored" data-anchor-id="infer-workflow-ht"><code>infer</code> 패키지 워크플로</h3>
 <section id="변수-지정specify" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="변수-지정specify">1. 변수 지정(<code>specify</code>)</h4>
+<h4 class="unnumbered anchored" data-anchor-id="변수-지정specify">1. 변수 지정(specify)</h4>
 <p><code>specify()</code> 연산자를 사용하여 연구의 반응 변수와 필요한 경우 설명 변수를 지정한다는 점을 상기하십시오. 이 경우, 성별이 승진 결정에 미치는 잠재적 영향에 관심이 있으므로 <code>decision</code>을 반응 변수로, <code>gender</code>를 설명 변수로 설정합니다. 데이터 프레임에서 반응 변수의 이름이 <code>response</code>이고 설명 변수의 이름이 <code>explanatory</code>일 때 <code>formula = response ~ explanatory</code> 형식을 사용하여 이를 수행합니다. 따라서 우리 사례에서는 <code>decision ~ gender</code>가 됩니다.</p>
-<p>또한, 승진되지 않은(<code>not</code> promoted) 이력서의 비율이 아니라 승진된(<code>"promoted"</code>) 이력서의 비율에 관심이 있으므로 <code>success</code> 인수를 <code>"promoted"</code>로 설정합니다.</p>
+<p>또한, 승진되지 않은(<code>not</code> promoted 이력서의 비율이 아니라 승진된(<code>"promoted"</code> 이력서의 비율에 관심이 있으므로 <code>success</code> 인수를 <code>"promoted"</code>로 설정합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>promotions <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: decision (factor)
 Explanatory: gender (factor)
@@ -812,11 +837,11 @@ Explanatory: gender (factor)
 # ℹ 38 more rows</code></pre>
 </div>
 </div>
-<p>다시 한번 말하지만, <code>promotions</code> 데이터 자체는 변하지 않고 <code>Response: decision (factor)</code> 및 <code>Explanatory: gender (factor)</code>와 같은 <em>메타데이터</em>만 변경된다는 점에 주목하십시오. 이는 섹션 @ref(groupby)에서 보았듯이 <code>dplyr</code>의 <code>group_by()</code> 연산자가 데이터를 변경하지 않고 “그룹화” 메타데이터만 추가하는 방식과 유사합니다.</p>
+<p>다시 한번 말하지만, <code>promotions</code> 데이터 자체는 변하지 않고 <code>Response: decision (factor)</code> 및 <code>Explanatory: gender (factor)</code>와 같은 <em>메타데이터</em>만 변경된다는 점에 주목하십시오. 이는 <span class="quarto-unresolved-ref">?sec-groupby절에서</span> 보았듯이 <code>dplyr</code>의 <code>group_by()</code> 연산자가 데이터를 변경하지 않고 “그룹화” 메타데이터만 추가하는 방식과 유사합니다.</p>
 </section>
 <section id="귀무-가설-설정hypothesize" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="귀무-가설-설정hypothesize">2. 귀무 가설 설정(<code>hypothesize</code>)</h4>
-<p><code>infer</code> 워크플로를 사용하여 가설 검정을 수행하려면 신뢰 구간에는 없었던 새로운 단계인 <code>hypothesize()</code> 단계가 필요합니다. 섹션 @ref(understanding-ht)에서 우리의 가설 검정은 다음과 같았습니다.</p>
+<h4 class="unnumbered anchored" data-anchor-id="귀무-가설-설정hypothesize">2. 귀무 가설 설정(hypothesize)</h4>
+<p><code>infer</code> 워크플로를 사용하여 가설 검정을 수행하려면 신뢰 구간에는 없었던 새로운 단계인 <code>hypothesize()</code> 단계가 필요합니다. <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 우리의 가설 검정은 다음과 같았습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 H_0 &amp;: p_{m} - p_{f} = 0\\
@@ -854,7 +879,7 @@ Null Hypothesis: ind...
 </div>
 </div>
 <p>다시 말하지만, 데이터는 아직 변경되지 않았습니다. 이는 곧 나올 <code>generate()</code> 단계에서 발생할 것이며, 지금은 단지 메타데이터만 설정하는 단계입니다.</p>
-<p><code>"point"</code>와 <code>"independence"</code>라는 용어는 어디에서 왔을까요? 이들은 두 가지 전문 통계 용어입니다. <code>"point"</code>라는 용어는 단일 관찰 그룹에 대해 단일 지점(point)의 값을 테스트한다는 사실에서 유래했습니다. 8장(@ref(confidence-intervals))의 페니 예시로 돌아가서, 모든 미국 페니의 평균 연도가 1993년인지 아닌지를 테스트하고 싶다고 가정해 봅시다. 우리는 다음과 같이 <em>모든</em> 미국 페니의 평균 연도인 “지점” <span class="math inline">\(\mu\)</span>의 값을 테스트하게 될 것입니다.</p>
+<p><code>"point"</code>와 <code>"independence"</code>라는 용어는 어디에서 왔을까요? 이들은 두 가지 전문 통계 용어입니다. <code>"point"</code>라는 용어는 단일 관찰 그룹에 대해 단일 지점(point)의 값을 테스트한다는 사실에서 유래했습니다. 8장(<span class="quarto-unresolved-ref">?sec-confidence-intervals</span>)의 페니 예시로 돌아가서, 모든 미국 페니의 평균 연도가 1993년인지 아닌지를 테스트하고 싶다고 가정해 봅시다. 우리는 다음과 같이 <em>모든</em> 미국 페니의 평균 연도인 “지점” <span class="math inline">\(\mu\)</span>의 값을 테스트하게 될 것입니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 H_0 &amp;: \mu = 1993\\
@@ -864,8 +889,8 @@ H_0 &amp;: \mu = 1993\\
 <p><code>"independence"</code>라는 용어는 두 관찰 그룹에 대해 반응 변수가 그룹을 할당하는 설명 변수와 <em>독립(independent)</em>인지 여부를 테스트한다는 사실과 관련이 있습니다. 우리 사례에서는 <code>decision</code> 반응 변수가 각 이력서를 두 그룹 중 하나로 할당하는 설명 변수인 <code>gender</code>와 “독립적”인지 테스트하고 있습니다.</p>
 </section>
 <section id="반복-복제본-생성generate" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="반복-복제본-생성generate">3. 반복 복제본 생성(<code>generate</code>)</h4>
-<p>귀무 가설을 설정(<code>hypothesize()</code>)한 후에는 귀무 가설이 참이라고 가정하고 “뒤섞인(shuffled)” 데이터셋의 반복 복제본을 생성(<code>generate()</code>)합니다. 섹션 @ref(ht-activity)에서 수행했던 셔플링 활동을 여러 번 반복하여 이를 수행합니다. 친구들이 했던 것처럼 단지 16번만 하는 대신, 컴퓨터를 사용하여 <code>generate()</code> 함수에서 <code>reps = 1000</code>로 설정하여 1000번 반복해 보겠습니다. 하지만 <code>type = "bootstrap"</code>(복원 재표본 추출)을 사용하여 반복 복제본을 생성했던 신뢰 구간 때와 달리, 이제는 <code>type = "permute"</code>로 설정하여 셔플/순열을 수행할 것입니다. 셔플/순열은 일종의 재표본 추출이지만, 붓스트랩 방법과 달리 <strong>비복원(without replacement)</strong> 재추출을 포함한다는 점을 기억하십시오.</p>
+<h4 class="unnumbered anchored" data-anchor-id="반복-복제본-생성generate">3. 반복 복제본 생성(generate)</h4>
+<p>귀무 가설을 설정(<code>hypothesize()</code>)한 후에는 귀무 가설이 참이라고 가정하고 “뒤섞인(shuffled)” 데이터셋의 반복 복제본을 생성(<code>generate()</code>)합니다. <span class="quarto-unresolved-ref">?sec-ht-activity절에서</span> 수행했던 셔플링 활동을 여러 번 반복하여 이를 수행합니다. 친구들이 했던 것처럼 단지 16번만 하는 대신, 컴퓨터를 사용하여 <code>generate()</code> 함수에서 <code>reps = 1000</code>로 설정하여 1000번 반복해 보겠습니다. 하지만 <code>type = "bootstrap"</code>(복원 재표본 추출)을 사용하여 반복 복제본을 생성했던 신뢰 구간 때와 달리, 이제는 <code>type = "permute"</code>로 설정하여 셔플/순열을 수행할 것입니다. 셔플/순열은 일종의 재표본 추출이지만, 붓스트랩 방법과 달리 <strong>비복원(without replacement)</strong> 재추출을 포함한다는 점을 기억하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>promotions_generate <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
@@ -881,15 +906,15 @@ H_0 &amp;: \mu = 1993\\
 <!-- 
 v2 TODO: 고려사항:
 
-infer:::permute_once()는 x 대신 y 변수를 뒤섞습니다. 이는 결국 같은 결과가 되지만,
+`infer::permute_once()`는 x 대신 y 변수를 뒤섞습니다. 이는 결국 같은 결과가 되지만,
 이전에 설명했던 카드 교구 예시를 생각하면 그리 직관적이지는 않습니다. 
 여기서 `decision`이 셔플된 `promotions_generate`를 직접 보여주는 것은 피하는 것이 좋겠습니다.
 -->
 <p>결과 데이터 프레임 행의 수가 48,000개임을 확인하십시오. 이는 48개 행 각각에 대해 1000번의 셔플/순열을 수행했기 때문이며, $48,000 = 1000 48입니다. <code>View()</code>를 사용하여 <code>promotions_generate</code> 데이터 프레임을 탐색해 보면, <code>replicate</code> 변수가 각 행이 어느 재표본에 속하는지 나타내는 것을 볼 수 있습니다. 따라서 값이 <code>1</code>인 행이 48개, <code>2</code>인 행이 48개, 그리고 마지막으로 <code>1000</code>인 행이 48개 있습니다.</p>
 </section>
 <section id="요약-통계량-계산calculate" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="요약-통계량-계산calculate">4. 요약 통계량 계산(<code>calculate</code>)</h4>
-<p>이제 귀무 가설이 참이라고 가정하고 1000개의 “셔플” 반복 복제본을 생성했으므로, 각 1000개의 셔플에 대해 적절한 요약 통계량을 계산(<code>calculate()</code>) 해 봅시다. 섹션 @ref(understanding-ht)에서 가설 검정과 관련된 점 추정치는 <strong>검정 통계량(test statistics)</strong>이라는 특별한 명칭이 있다고 했습니다. 관심 있는 모집단 모수가 모집단 비율의 차이인 <span class="math inline">\(p_{m} - p_{f}\)</span>이므로, 여기서 검정 통계량은 표본 비율의 차이인 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>입니다.</p>
+<h4 class="unnumbered anchored" data-anchor-id="요약-통계량-계산calculate">4. 요약 통계량 계산(<code>calculate</code></h4>
+<p>이제 귀무 가설이 참이라고 가정하고 1000개의 “셔플” 반복 복제본을 생성했으므로, 각 1000개의 셔플에 대해 적절한 요약 통계량을 계산(<code>calculate()</code> 해 봅시다. <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 가설 검정과 관련된 점 추정치는 <strong>검정 통계량(test statistics)</strong>이라는 특별한 명칭이 있다고 했습니다. 관심 있는 모집단 모수가 모집단 비율의 차이인 <span class="math inline">\(p_{m} - p_{f}\)</span>이므로, 여기서 검정 통계량은 표본 비율의 차이인 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>입니다.</p>
 <p>1000개의 각 셔플에 대해 <code>stat = "diff in props"</code>로 설정하여 이 검정 통계량을 계산할 수 있습니다. 또한, <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>에 관심이 있으므로 <code>order = c("male", "female")</code>로 설정합니다. 앞서 언급했듯이, 분석 내내 일관성을 유지하고 그에 맞춰 해석을 조정한다면 뺄셈의 순서는 중요하지 않습니다.</p>
 <p>결과를 <code>null_distribution</code>이라는 데이터 프레임에 저장하겠습니다.</p>
 <div class="cell" data-layout-align="center">
@@ -918,26 +943,29 @@ infer:::permute_once()는 x 대신 y 변수를 뒤섞습니다. 이는 결국 �
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
-<p>성차별이 없는 가상 세계에서의 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>의 각 인스턴스를 나타내는 1000개의 <code>stat</code> 값이 있음을 확인하십시오. 또한 이 데이터 프레임의 이름을 <code>null_distribution</code>으로 신중하게 선택했음을 주목하십시오. 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때의 표본 분포는 <strong>귀무 분포(null distribution)</strong>라는 특별한 이름을 가진다는 점을 섹션 @ref(understanding-ht)에서 다시 한번 떠올려 보십시오.</p>
-<p>승진율의 <em>관찰된</em> 차이는 얼마였나요? 다시 말해, <em>관찰된 검정 통계량</em> <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>는 얼마였나요? 섹션 @ref(ht-activity)에서 이 관찰된 차이를 직접 계산했을 때 0.875 - 0.583 = 0.292 = 29.2%였습니다. 또한 <code>hypothesize()</code>와 <code>generate()</code> 단계를 제거한 이전 <code>infer</code> 코드를 사용하여 이 값을 계산할 수 있습니다. 이를 <code>obs_diff_prop</code>에 저장하겠습니다.</p>
+<p>성차별이 없는 가상 세계에서의 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>의 각 인스턴스를 나타내는 1000개의 <code>stat</code> 값이 있음을 확인하십시오. 또한 이 데이터 프레임의 이름을 <code>null_distribution</code>으로 신중하게 선택했음을 주목하십시오. 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때의 표본 분포는 <strong>귀무 분포(null distribution)</strong>라는 특별한 이름을 가진다는 점을 <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 다시 한번 떠올려 보십시오.</p>
+<p>승진율의 <em>관찰된</em> 차이는 얼마였나요? 다시 말해, <em>관찰된 검정 통계량</em> <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>는 얼마였나요? <span class="quarto-unresolved-ref">?sec-ht-activity절에서</span> 이 관찰된 차이를 직접 계산했을 때 0.875 - 0.583 = 0.292 = 29.2%였습니다. 또한 <code>hypothesize()</code>와 <code>generate()</code> 단계를 제거한 이전 <code>infer</code> 코드를 사용하여 이 값을 계산할 수 있습니다. 이를 <code>obs_diff_prop</code>에 저장하겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>obs_diff_prop <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>obs_diff_prop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: decision (factor)
+Explanatory: gender (factor)
+# A tibble: 1 × 1
+   stat
+  &lt;dbl&gt;
+1 0.292</code></pre>
 </div>
-<p>obs_diff_prop</p>
-<pre><code>
-#### 5. p-값 시각화(`visualize`) {-}
-
-마지막 단계는 성차별이 없는 가상 우주에서 승진율 차이가 29.2%로 나타난 것에 대해 우리가 얼마나 놀랐는지 측정하는 것입니다. 만약 관찰된 차이인 0.292이 발생할 확률이 매우 낮다면, 우리는 가상 우주의 타당성을 기각하는 경향을 보일 것입니다.
-
-먼저 그림 \@ref(fig:null-distribution-infer)에서 `visualize()` \index{infer!visualize()}를 사용하여 $\widehat{p}_{m} - \widehat{p}_{f}$의 1000개 값에 대한 **귀무 분포**를 시각화하는 것부터 시작합니다. 이 값들은 $H_0$가 참이라고 가정할 때의 승진율 차이임을 상기하십시오. 이는 성차별이 없는 가상의 우주에 있는 것에 해당합니다.
-
-
-::: {.cell layout-align="center"}
-
-```{.r .cell-code}
-visualize(null_distribution, bins = 10)</code></pre>
+</div>
+</section>
+<section id="p-값-시각화visualize" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="p-값-시각화visualize">5. p-값 시각화(visualize)</h4>
+<p>마지막 단계는 성차별이 없는 가상 우주에서 승진율 차이가 29.2%로 나타난 것에 대해 우리가 얼마나 놀랐는지 측정하는 것입니다. 만약 관찰된 차이인 0.292이 발생할 확률이 매우 낮다면, 우리는 가상 우주의 타당성을 기각하는 경향을 보일 것입니다.</p>
+<p>먼저 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-infer에서</span> <code>visualize()</code> 를 사용하여 <span class="math inline">\(\widehat{p}_{m} - \widehat{p}_{f}\)</span>의 1000개 값에 대한 <strong>귀무 분포</strong>를 시각화하는 것부터 시작합니다. 이 값들은 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때의 승진율 차이임을 상기하십시오. 이는 성차별이 없는 가상의 우주에 있는 것에 해당합니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution, <span class="at">bins =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -946,13 +974,13 @@ visualize(null_distribution, bins = 10)</code></pre>
 </figure>
 </div>
 </div>
-<p>:::</p>
-<p>이제 실제 생활에서 일어난 일인 0.875 - 0.583 = 0.292 = 29.2%의 관찰된 승진율 차이를 그림 @ref(fig:null-distribution-infer)에 추가해 보겠습니다. 하지만 단순히 <code>geom_vline()</code>을 사용하여 수직선을 추가하는 대신, <code>obs_stat</code>에 <code>obs_diff_prop</code>에 저장한 관찰된 검정 통계량 값을 설정하여 <code>shade_p_value()</code> 함수를 사용해 보겠습니다.</p>
+</div>
+<p>이제 실제 생활에서 일어난 일인 0.875 - 0.583 = 0.292 = 29.2%의 관찰된 승진율 차이를 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-infer에</span> 추가해 보겠습니다. 하지만 단순히 <code>geom_vline()</code>을 사용하여 수직선을 추가하는 대신, <code>obs_stat</code>에 <code>obs_diff_prop</code>에 저장한 관찰된 검정 통계량 값을 설정하여 <code>shade_p_value()</code> 함수를 사용해 보겠습니다.</p>
 <p>또한, 대립 가설 <span class="math inline">\(H_A: p_{m} - p_{f} &gt; 0\)</span>을 반영하여 <code>direction = "right"</code>로 설정할 것입니다. 우리의 대립 가설 <span class="math inline">\(H_A\)</span>는 <span class="math inline">\(p_{m} - p_{f} &gt; 0\)</span>이며, 이는 남성 이름의 이력서에 유리한 승진율 차이가 존재한다는 주장이었습니다. 여기서 “더 극단적(more extreme)”이라는 것은 차이가 “더 크거나”, “더 양수이거나”, “더 오른쪽”인 경우에 해당합니다. 따라서 <code>shade_p_value()</code>의 <code>direction</code> 인수를 <code>"right"</code>로 설정합니다.</p>
 <p>반면에 대립 가설 <span class="math inline">\(H_A\)</span>가 여성 이름의 이력서에 유리한 차별을 암시하는 다른 가능한 단측 대립 가설인 <span class="math inline">\(p_{m} - p_{f} &lt; 0\)</span>이었다면 <code>direction = "left"</code>로 설정했을 것입니다. 만약 대립 가설 <span class="math inline">\(H_A\)</span>가 어느 방향으로든 차별이 있음을 암시하는 양측 가설인 <span class="math inline">\(p_{m} - p_{f} \neq 0\)</span>이었다면 <code>direction = "both"</code>로 설정했을 것입니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution, <span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span> </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_diff_prop, <span class="at">direction =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution, <span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_diff_prop, <span class="at">direction =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -962,15 +990,15 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 </div>
-<p>그 결과인 그림 @ref(fig:null-distribution-infer-2)에서 짙은 실선은 0.292 = 29.2%를 나타냅니다. 그런데 음영 처리된 영역은 무엇에 해당할까요? 이것이 바로 <strong>p-값(p-value)</strong>입니다. 섹션 @ref(understanding-ht)에서 보았던 p-값의 정의를 다시 떠올려 보십시오.</p>
+<p>그 결과인 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-infer-2에서</span> 짙은 실선은 0.292 = 29.2%를 나타냅니다. 그런데 음영 처리된 영역은 무엇에 해당할까요? 이것이 바로 <strong>p-값(p-value)</strong>입니다. <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 보았던 p-값의 정의를 다시 떠올려 보십시오.</p>
 <blockquote class="blockquote">
 <p>p-값은 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong>, 관찰된 검정 통계량만큼이나 극단적이거나 그보다 더 극단적인 검정 통계량을 얻을 확률입니다.</p>
 </blockquote>
-<p>그림 @ref(fig:null-distribution-infer-2)의 음영 처리된 영역으로 판단하건대, 성차별이 없는 가상 우주에서 0.292 = 29.2% 이상의 승진율 차이를 관찰하는 것은 다소 드문 일인 것 같습니다. 즉, p-값이 다소 작습니다. 따라서 우리는 이 가상 우주를 기각하거나, 통계 용어를 사용하여 “<span class="math inline">\(H_0\)</span>를 기각”하는 경향을 갖게 될 것입니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-null-distribution-infer-2의</span> 음영 처리된 영역으로 판단하건대, 성차별이 없는 가상 우주에서 0.292 = 29.2% 이상의 승진율 차이를 관찰하는 것은 다소 드문 일인 것 같습니다. 즉, p-값이 다소 작습니다. 따라서 우리는 이 가상 우주를 기각하거나, 통계 용어를 사용하여 “<span class="math inline">\(H_0\)</span>를 기각”하는 경향을 갖게 될 것입니다.</p>
 <p>귀무 분포의 어느 정도 분율이 음영 처리되었을까요? 다시 말해, p-값의 정확한 값은 얼마일까요? 이전의 <code>shade_p_value()</code> 코드와 동일한 인수를 사용하여 <code>get_p_value()</code> 함수로 계산할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>null_distribution <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_diff_prop, <span class="at">direction =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>null_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_diff_prop, <span class="at">direction =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p_value
@@ -978,34 +1006,34 @@ visualize(null_distribution, bins = 10)</code></pre>
 1   0.027</code></pre>
 </div>
 </div>
-<p>p-값의 정의를 염두에 둘 때, 귀무 분포에서 오직 표본 변동만으로 0.292 = 29.2%만큼 큰 승진율 차이를 관찰할 확률은 0.027 = 2.7%입니다. 이 p-값이 사전에 지정된 유의 수준 <span class="math inline">\(\alpha = 0.05\)</span>보다 작기 때문에, 우리는 귀무 가설 <span class="math inline">\(H_0: p_{m} - p_{f} = 0\)</span>을 기각합니다. 다시 말해, 이 p-값은 성차별이 없는 우리의 가상 우주를 기각하기에 충분히 작습니다. 대신 우리는 성차별이 여기서 발생했을 가능성이 높다는 결론을 지지할 충분한 증거를 갖게 되었습니다. 귀무 가설 <span class="math inline">\(H_0\)</span>를 기각하느냐 마느냐는 유의 수준 <span class="math inline">\(\alpha\)</span>의 선택에 크게 좌우된다는 점에 주목하십시오. 이에 대해서는 하위 섹션 @ref(choosing-alpha)에서 더 자세히 논의하겠습니다.</p>
+<p>p-값의 정의를 염두에 둘 때, 귀무 분포에서 오직 표본 변동만으로 0.292 = 29.2%만큼 큰 승진율 차이를 관찰할 확률은 0.027 = 2.7%입니다. 이 p-값이 사전에 지정된 유의 수준 <span class="math inline">\(\alpha = 0.05\)</span>보다 작기 때문에, 우리는 귀무 가설 <span class="math inline">\(H_0: p_{m} - p_{f} = 0\)</span>을 기각합니다. 다시 말해, 이 p-값은 성차별이 없는 우리의 가상 우주를 기각하기에 충분히 작습니다. 대신 우리는 성차별이 여기서 발생했을 가능성이 높다는 결론을 지지할 충분한 증거를 갖게 되었습니다. 귀무 가설 <span class="math inline">\(H_0\)</span>를 기각하느냐 마느냐는 유의 수준 <span class="math inline">\(\alpha\)</span>의 선택에 크게 좌우된다는 점에 주목하십시오. 이에 대해서는 하위 <span class="quarto-unresolved-ref">?sec-choosing-alpha절에서</span> 더 자세히 논의하겠습니다.</p>
 </section>
 </section>
-<section id="comparing-infer-workflows" class="level3" data-number="11.3.2">
-<h3 data-number="11.3.2" class="anchored" data-anchor-id="comparing-infer-workflows"><span class="header-section-number">11.3.2</span> 신뢰 구간과의 비교</h3>
+<section id="comparing-infer-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-infer-workflows">신뢰 구간과의 비교</h3>
 <p><code>infer</code> 패키지의 장점 중 하나는 최소한의 변경만으로 가설 검정과 신뢰 구간 구축 사이를 매끄럽게 오갈 수 있다는 점입니다! p-값을 계산하는 데 필요한 귀무 분포를 생성하는 이전 섹션의 코드를 떠올려 보십시오.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>null_distribution <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>null_distribution <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>이에 대응하는 <span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 95% 신뢰 구간을 구축하는 데 필요한 붓스트랩 분포를 생성하려면 단 두 가지만 변경하면 됩니다. 첫째, 더 이상 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정하지 않으므로 <code>hypothesize()</code> 단계를 제거합니다. <code>hypothesize()</code> 코드 줄을 삭제하거나 주석 처리하여 이를 수행할 수 있습니다. 둘째, <code>generate()</code> 단계에서 재표본 추출의 <code>type</code>을 <code>"permute"</code> 대신 <code>"bootstrap"</code>으로 전환합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>bootstrap_distribution <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 변경 1 - hypothesize() 제거:</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># hypothesize(null = "independence") %&gt;% </span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 변경 2 - type을 "permute"에서 "bootstrap"으로 변경:</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bootstrap_distribution <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 변경 1 - hypothesize() 제거:</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># hypothesize(null = "independence") %&gt;% </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 변경 2 - type을 "permute"에서 "bootstrap"으로 변경:</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>이 <code>bootstrap_distribution</code>을 사용하여, 먼저 섹션 @ref(bootstrap-process)에서 했던 것처럼 백분위수 기반 신뢰 구간을 계산해 보겠습니다.</p>
+<p>이 <code>bootstrap_distribution</code>을 사용하여, 먼저 <span class="quarto-unresolved-ref">?sec-bootstrap-process절에서</span> 했던 것처럼 백분위수 기반 신뢰 구간을 계산해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>percentile_ci <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_confidence_interval</span>(<span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="st">"percentile"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>percentile_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>percentile_ci <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_confidence_interval</span>(<span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="st">"percentile"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>percentile_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   lower_ci upper_ci
@@ -1013,10 +1041,10 @@ visualize(null_distribution, bins = 10)</code></pre>
 1   0.0444    0.539</code></pre>
 </div>
 </div>
-<p>하위 섹션 @ref(shorthand)의 95% 신뢰 구간에 대한 간략한 해석을 사용하면, 우리는 모비율의 실제 차이 <span class="math inline">\(p_{m} - p_{f}\)</span>가 (0.044, 0.539) 사이에 있다고 95% “확신”합니다. 그림 @ref(fig:bootstrap-distribution-two-prop-percentile)에서 <code>bootstrap_distribution</code>과 <span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 백분위수 기반 95% 신뢰 구간을 시각화해 보겠습니다.</p>
+<p>하위 <span class="quarto-unresolved-ref">?sec-shorthand절의</span> 95% 신뢰 구간에 대한 간략한 해석을 사용하면, 우리는 모비율의 실제 차이 <span class="math inline">\(p_{m} - p_{f}\)</span>가 (0.044, 0.539 사이에 있다고 95% “확신”합니다. 그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-two-prop-percentile에서</span> <code>bootstrap_distribution</code>과 <span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 백분위수 기반 95% 신뢰 구간을 시각화해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(bootstrap_distribution) <span class="sc">+</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="at">endpoints =</span> percentile_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(bootstrap_distribution) <span class="sc">+</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="at">endpoints =</span> percentile_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1029,12 +1057,12 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 <p><span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 95% 신뢰 구간에 포함되지 않은 핵심 값인 0에 주목하십시오. 즉, 차이가 0이라는 값은 우리의 그물에 걸리지 않았으며, 이는 <span class="math inline">\(p_{m}\)</span>과 <span class="math inline">\(p_{f}\)</span>가 실제로 다르다는 것을 시사합니다! 또한 <span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 95% 신뢰 구간 전체가 0보다 위에 있는 것을 확인하십시오. 이는 이 차이가 남성에게 유리함을 시사합니다.</p>
-<p>붓스트랩 분포가 대략적으로 정규 분포 모양을 띠고 있으므로, 섹션 @ref(bootstrap-process)에서 했던 것처럼 표준 오차 방법을 사용할 수도 있습니다. 이 경우, <code>obs_diff_prop</code>에 저장된 관찰된 승진율 차이인 0.292 = 29.2%를 <code>point_estimate</code> 인수로 지정해야 합니다. 이 값이 신뢰 구간의 중심 역할을 합니다.</p>
+<p>붓스트랩 분포가 대략적으로 정규 분포 모양을 띠고 있으므로, <span class="quarto-unresolved-ref">?sec-bootstrap-process절에서</span> 했던 것처럼 표준 오차 방법을 사용할 수도 있습니다. 이 경우, <code>obs_diff_prop</code>에 저장된 관찰된 승진율 차이인 0.292 = 29.2%를 <code>point_estimate</code> 인수로 지정해야 합니다. 이 값이 신뢰 구간의 중심 역할을 합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>se_ci <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_confidence_interval</span>(<span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="st">"se"</span>, </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">point_estimate =</span> obs_diff_prop)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>se_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>se_ci <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_confidence_interval</span>(<span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="st">"se"</span>, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">point_estimate =</span> obs_diff_prop)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>se_ci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   lower_ci upper_ci
@@ -1042,10 +1070,10 @@ visualize(null_distribution, bins = 10)</code></pre>
 1   0.0514    0.532</code></pre>
 </div>
 </div>
-<p><code>bootstrap_distribution</code>을 다시 시각화하되, 이번에는 그림 @ref(fig:bootstrap-distribution-two-prop-se)에서 <span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 표준 오차 기반 95% 신뢰 구간을 살펴보십시오. 다시 한번 값 0이 신뢰 구간에 포함되지 않았음을 확인하십시오. 이는 다시 한번 <span class="math inline">\(p_{m}\)</span>과 <span class="math inline">\(p_{f}\)</span>가 실제로 다르다는 것을 시사합니다!</p>
+<p><code>bootstrap_distribution</code>을 다시 시각화하되, 이번에는 그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-two-prop-se에서</span> <span class="math inline">\(p_{m} - p_{f}\)</span>에 대한 표준 오차 기반 95% 신뢰 구간을 살펴보십시오. 다시 한번 값 0이 신뢰 구간에 포함되지 않았음을 확인하십시오. 이는 다시 한번 <span class="math inline">\(p_{m}\)</span>과 <span class="math inline">\(p_{f}\)</span>가 실제로 다르다는 것을 시사합니다!</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(bootstrap_distribution) <span class="sc">+</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="at">endpoints =</span> se_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(bootstrap_distribution) <span class="sc">+</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="at">endpoints =</span> se_ci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1066,13 +1094,13 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 <p><strong>(LC9.1)</strong> 다음 코드는 왜 오류를 발생시키나요? 다시 말해, 반응 변수와 설명 변수의 어떤 특징 때문에 <code>infer</code> 패키지에서 이 계산이 불가능한 것일까요?</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>null_distribution_mean <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>null_distribution_mean <span class="ot">&lt;-</span> promotions <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> decision <span class="sc">~</span> gender, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>(LC9.2)</strong> 두 성별의 승진 비율에 대한 모집단 분포에 대해, 표본 비율의 분포가 좋은 근사치가 될 것이라고 상대적으로 확신하는 이유는 무엇인가요?</p>
 <p><strong>(LC9.3)</strong> _p-값_의 정의를 사용하여, 남성과 여성의 승진율을 비교하는 가설 검정에서 p-값이 무엇을 나타내는지 글로 써 보십시오.</p>
@@ -1082,9 +1110,9 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 </section>
-<section id="only-one-test" class="level3" data-number="11.3.3">
-<h3 data-number="11.3.3" class="anchored" data-anchor-id="only-one-test"><span class="header-section-number">11.3.3</span> “검정은 단 하나뿐이다”</h3>
-<p>섹션 @ref(understanding-ht)에서 보았던 표본 추출과 관련된 용어, 기호, 정의와 하위 섹션 @ref(infer-workflow-ht)의 <code>infer</code> 워크플로를 사용하여 가설 검정을 수행하는 데 필요한 단계들을 요약해 보겠습니다.</p>
+<section id="only-one-test" class="level3">
+<h3 class="anchored" data-anchor-id="only-one-test">“검정은 단 하나뿐이다”</h3>
+<p><span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 보았던 표본 추출과 관련된 용어, 기호, 정의와 하위 <span class="quarto-unresolved-ref">?sec-infer-workflow-ht절의</span> <code>infer</code> 워크플로를 사용하여 가설 검정을 수행하는 데 필요한 단계들을 요약해 보겠습니다.</p>
 <ol type="1">
 <li>데이터 프레임에서 관심 있는 변수를 <code>specify()</code>(지정)합니다.</li>
 <li>귀무 가설 <span class="math inline">\(H_0\)</span>를 <code>hypothesize()</code>(설정)합니다. 즉, <span class="math inline">\(H_0\)</span>가 참이라고 가정한 “우주에 대한 모델”을 설정합니다.</li>
@@ -1092,7 +1120,7 @@ visualize(null_distribution, bins = 10)</code></pre>
 <li>관찰된 데이터와 <strong>시뮬레이션된</strong> 데이터 모두에 대해 관심 있는 <strong>검정 통계량</strong>을 <code>calculate()</code>(계산)합니다.</li>
 <li>결과로 나온 <strong>귀무 분포</strong>를 <code>visualize()</code>(시각화)하고, 귀무 분포를 관찰된 검정 통계량과 비교하여 <strong>p-값</strong>을 계산합니다.</li>
 </ol>
-<p>가설 검정을 처음 접할 때는 소화해야 할 내용이 많지만, 좋은 점은 이 일반적인 프레임워크를 이해하고 나면 <strong>어떤</strong> 가설 검정도 이해할 수 있다는 것입니다. 컴퓨터 과학자 앨런 다우니(Allen Downey)는 유명한 블로그 포스트에서 이를 <a href="http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html">“검정은 단 하나뿐이다(There is only one test)”</a> 프레임워크라고 불렀으며, 그림 @ref(fig:htdowney)에 표시된 순서도를 만들었습니다.</p>
+<p>가설 검정을 처음 접할 때는 소화해야 할 내용이 많지만, 좋은 점은 이 일반적인 프레임워크를 이해하고 나면 <strong>어떤</strong> 가설 검정도 이해할 수 있다는 것입니다. 컴퓨터 과학자 앨런 다우니(Allen Downey)는 유명한 블로그 포스트에서 이를 <a href="http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html">“검정은 단 하나뿐이다(There is only one test)”</a> 프레임워크라고 불렀으며, 그림 <span class="quarto-unresolved-ref">?fig-htdowney에</span> 표시된 순서도를 만들었습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1103,7 +1131,7 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 </div>
-<p>그림 @ref(fig:inferht)에서 보았던 “<code>infer</code>를 이용한 가설 검정” 다이어그램과의 유사점에 주목하십시오. 이는 <code>infer</code> 패키지가 “검정은 단 하나뿐이다” 프레임워크에 맞춰 명시적으로 설계되었기 때문입니다. 따라서 이 프레임워크를 이해한다면, 모든 가설 검정 시나리오에 대해 이러한 아이디어를 쉽게 일반화할 수 있습니다. 모비율 <span class="math inline">\(p\)</span>, 모평균 <span class="math inline">\(\mu\)</span>, 모비율의 차이 <span class="math inline">\(p_1 - p_2\)</span>, 모평균의 차이 <span class="math inline">\(\mu_1 - \mu_2\)</span>, 그리고 10장(@ref(inference-for-regression)) 회귀 분석 추론에서 보게 될 모집단 회귀 기울기 <span class="math inline">\(\beta_1\)</span>에 대해서도 마찬가지입니다. 사실, 이 프레임워크는 이러한 예시들보다 더 복잡한 가설 검정과 검정 통계량에도 더 일반적으로 적용됩니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-inferht에서</span> 보았던 “<code>infer</code>를 이용한 가설 검정” 다이어그램과의 유사점에 주목하십시오. 이는 <code>infer</code> 패키지가 “검정은 단 하나뿐이다” 프레임워크에 맞춰 명시적으로 설계되었기 때문입니다. 따라서 이 프레임워크를 이해한다면, 모든 가설 검정 시나리오에 대해 이러한 아이디어를 쉽게 일반화할 수 있습니다. 모비율 <span class="math inline">\(p\)</span>, 모평균 <span class="math inline">\(\mu\)</span>, 모비율의 차이 <span class="math inline">\(p_1 - p_2\)</span>, 모평균의 차이 <span class="math inline">\(\mu_1 - \mu_2\)</span>, 그리고 10장(<span class="quarto-unresolved-ref">?sec-inference-for-regression</span> 회귀 분석 추론에서 보게 될 모집단 회귀 기울기 <span class="math inline">\(\beta_1\)</span>에 대해서도 마찬가지입니다. 사실, 이 프레임워크는 이러한 예시들보다 더 복잡한 가설 검정과 검정 통계량에도 더 일반적으로 적용됩니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1119,12 +1147,12 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </section>
 </section>
-<section id="ht-interpretation" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="ht-interpretation"><span class="header-section-number">11.4</span> 가설 검정 해석하기</h2>
+<section id="ht-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="ht-interpretation">가설 검정 해석하기</h2>
 <p>가설 검정의 결과를 해석하는 것은 통계적 추론 방법 중에서도 다소 까다로운 측면 중 하나입니다. 이 섹션에서는 가설 검정 과정을 해독하는 데 도움이 되는 방법들에 초점을 맞추고, 몇 가지 흔한 오해들을 다룰 것입니다.</p>
-<section id="trial" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="trial"><span class="header-section-number">11.4.1</span> 두 가지 가능한 결과</h3>
-<p>섹션 @ref(understanding-ht)에서 사전에 지정된 유의 수준 <span class="math inline">\(\alpha\)</span>가 주어졌을 때 가설 검정에는 두 가지 가능한 결과가 있다고 언급했습니다.</p>
+<section id="trial" class="level3">
+<h3 class="anchored" data-anchor-id="trial">두 가지 가능한 결과</h3>
+<p><span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 사전에 지정된 유의 수준 <span class="math inline">\(\alpha\)</span>가 주어졌을 때 가설 검정에는 두 가지 가능한 결과가 있다고 언급했습니다.</p>
 <ul>
 <li>p-값이 <span class="math inline">\(\alpha\)</span>보다 작으면, 귀무 가설 <span class="math inline">\(H_0\)</span>를 <strong>기각(reject)</strong>하고 <span class="math inline">\(H_A\)</span>를 지지합니다.</li>
 <li>p-값이 <span class="math inline">\(\alpha\)</span>보다 크거나 같으면, 귀무 가설 <span class="math inline">\(H_0\)</span>를 <strong>기각하지 못합니다(fail to reject)</strong>.</li>
@@ -1145,15 +1173,15 @@ visualize(null_distribution, bins = 10)</code></pre>
 <li>우리는 최종적으로 “<span class="math inline">\(H_0\)</span> 기각 실패” 또는 “<span class="math inline">\(H_0\)</span> 기각” 중 하나를 결정합니다.</li>
 </ol>
 <p>따라서 직관적으로는 “<span class="math inline">\(H_0\)</span> 기각 실패”와 “<span class="math inline">\(H_0\)</span> 채택”이 같은 말처럼 느껴질 수 있지만, 실제로는 그렇지 않습니다. “<span class="math inline">\(H_0\)</span> 채택”은 피고인을 결백하다고 판단하는 것과 같습니다. 하지만 법원은 피고인을 “결백(innocent)”하다고 판결하지 않고 “유죄 아님(not guilty)”이라고 판결합니다. 달리 표현하자면, 변호인은 의뢰인의 결백을 증명할 필요가 없으며, 단지 의뢰인이 “합리적인 의심을 넘어 유죄”가 아님을 증명하기만 하면 됩니다.</p>
-<p>섹션 @ref(ht-infer)의 이력서 활동으로 돌아가 보십시오. 우리의 가설 검정은 <span class="math inline">\(H_0: p_{m} - p_{f} = 0\)</span> 대 <span class="math inline">\(H_A: p_{m} - p_{f} &gt; 0\)</span>이었으며 사전에 지정된 유의 수준 <span class="math inline">\(\alpha = 0.05\)</span>를 사용했습니다. 우리는 p-값으로 0.027을 얻었습니다. p-값이 <span class="math inline">\(\alpha = 0.05\)</span>보다 작았으므로 <span class="math inline">\(H_0\)</span>를 기각했습니다. 즉, 우리는 이 특정 표본에서 유의 수준 <span class="math inline">\(\alpha = 0.05\)</span>에서 <span class="math inline">\(H_0\)</span>가 거짓이라고 말할 수 있는 수준의 증거를 발견했습니다. 또한 비통계적 언어로 이 결론을 다음과 같이 진술합니다. 즉, 우리는 이 데이터에서 성차별이 작용하고 있음을 암시하는 충분한 증거를 발견했습니다.</p>
+<p><span class="quarto-unresolved-ref">?sec-ht-infer절의</span> 이력서 활동으로 돌아가 보십시오. 우리의 가설 검정은 <span class="math inline">\(H_0: p_{m} - p_{f} = 0\)</span> 대 <span class="math inline">\(H_A: p_{m} - p_{f} &gt; 0\)</span>이었으며 사전에 지정된 유의 수준 <span class="math inline">\(\alpha = 0.05\)</span>를 사용했습니다. 우리는 p-값으로 0.027을 얻었습니다. p-값이 <span class="math inline">\(\alpha = 0.05\)</span>보다 작았으므로 <span class="math inline">\(H_0\)</span>를 기각했습니다. 즉, 우리는 이 특정 표본에서 유의 수준 <span class="math inline">\(\alpha = 0.05\)</span>에서 <span class="math inline">\(H_0\)</span>가 거짓이라고 말할 수 있는 수준의 증거를 발견했습니다. 또한 비통계적 언어로 이 결론을 다음과 같이 진술합니다. 즉, 우리는 이 데이터에서 성차별이 작용하고 있음을 암시하는 충분한 증거를 발견했습니다.</p>
 </section>
-<section id="오류의-종류" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="오류의-종류"><span class="header-section-number">11.4.2</span> 오류의 종류</h3>
+<section id="오류의-종류" class="level3">
+<h3 class="anchored" data-anchor-id="오류의-종류">오류의 종류</h3>
 <p>안타깝게도 배심원이나 판사가 잘못된 판결을 내려 형사 재판에서 잘못된 결정을 내릴 가능성이 있습니다. 예를 들어, 정말로 결백한 피고인에게 “유죄” 판결을 내리거나, 반대로 정말로 유죄인 피고인에게 “무죄” 판결을 내리는 경우가 그렇습니다. 이는 종종 검사가 모든 관련 증거에 접근할 수 있는 것이 아니라 경찰이 찾을 수 있는 증거로만 제한되기 때문에 발생할 수 있습니다.</p>
 <p>가설 검정도 마찬가지입니다. 우리는 모집단의 데이터 중 표본만 가지고 있기 때문에 모수에 대해 잘못된 결정을 내릴 수 있으며, 따라서 표본 변동으로 인해 잘못된 결론에 도달할 수 있습니다.</p>
 <p>형사 재판에는 두 가지 가능한 잘못된 결론이 있습니다. (1) 정말로 결백한 사람이 유죄 판결을 받는 것, 또는 (2) 정말로 유죄인 사람이 무죄 판결을 받는 것입니다. 마찬가지로 가설 검정에서도 두 가지 가능한 오류가 있습니다. (1) 실제로 <span class="math inline">\(H_0\)</span>가 참인데 <span class="math inline">\(H_0\)</span>를 기각하는 것으로, 이를 <strong>제1종 오류(Type I error)</strong> 라고 합니다. 또는 (2) 실제로 <span class="math inline">\(H_0\)</span>가 거짓인데 <span class="math inline">\(H_0\)</span>를 기각하지 못하는 것으로, 이를 <strong>제2종 오류(Type II error)</strong>라고 합니다. “제1종 오류”를 가리키는 또 다른 용어는 “위양성(false positive)”이며, “제2종 오류”를 가리키는 또 다른 용어는 “위음성(false negative)”입니다.</p>
 <p>이러한 오류의 위험은 연구자가 전체 모집단에 대해 전수 조사를 수행하는 대신 표본에 기반해 추론을 수행할 때 지불해야 하는 대가입니다. 하지만 지금까지 수많은 예시와 활동에서 보았듯이 전수 조사는 비용이 매우 많이 들거나 불가능한 경우가 많으므로 연구자들은 표본을 사용할 수밖에 없습니다. 따라서 표본에 기반한 모든 가설 검정에서 우리는 제1종 오류가 발생할 가능성과 제2종 오류가 발생할 가능성을 어느 정도 감수할 수밖에 없습니다.</p>
-<p>제1종 오류와 제2종 오류의 개념을 이해하기 위해, 그림 @ref(fig:trial-errors-table)에서 이러한 용어를 형사 재판 비유에 적용해 보았습니다.</p>
+<p>제1종 오류와 제2종 오류의 개념을 이해하기 위해, 그림 <span class="quarto-unresolved-ref">?fig-trial-errors-table에서</span> 이러한 용어를 형사 재판 비유에 적용해 보았습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1164,7 +1192,7 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 </div>
-<p>따라서 제1종 오류는 실제로는 무죄인 사람을 잘못해서 감옥에 보내는 것에 해당하고, 제2종 오류는 실제로 유죄인 사람을 풀어주는 것에 해당합니다. 가설 검정에 대한 대응 표를 그림 @ref(fig:trial-errors-table-ht)에 나타냈습니다.</p>
+<p>따라서 제1종 오류는 실제로는 무죄인 사람을 잘못해서 감옥에 보내는 것에 해당하고, 제2종 오류는 실제로 유죄인 사람을 풀어주는 것에 해당합니다. 가설 검정에 대한 대응 표를 그림 <span class="quarto-unresolved-ref">?fig-trial-errors-table-ht에</span> 나타냈습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1176,11 +1204,11 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 </section>
-<section id="choosing-alpha" class="level3" data-number="11.4.3">
-<h3 data-number="11.4.3" class="anchored" data-anchor-id="choosing-alpha"><span class="header-section-number">11.4.3</span> 알파(<span class="math inline">\(\alpha\)</span>)를 어떻게 선택하나요?</h3>
+<section id="choosing-alpha" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-alpha">알파(<span class="math inline">\(\alpha\)</span>)를 어떻게 선택하나요?</h3>
 <p>표본을 사용하여 모집단에 대한 추론을 할 때, 우리는 오류를 범할 위험이 있습니다. 신뢰 구간의 경우 이에 대응하는 “오류”는 모집단 모수의 실제 값을 포함하지 않는 신뢰 구간을 구축하는 것입니다. 가설 검정의 경우 이는 제1종 오류나 제2종 오류를 범하는 것입니다. 당연히 우리는 두 오류의 확률을 최소화하고 싶습니다. 즉, 잘못된 결론을 내릴 확률이 낮기를 원합니다.</p>
 <ul>
-<li>제1종 오류가 발생할 확률은 <span class="math inline">\(\alpha\)</span>로 표시합니다. <span class="math inline">\(\alpha\)</span> 값은 섹션 @ref(understanding-ht)에서 정의한 가설 검정의 <strong>유의 수준(significance level)</strong>이라고 불립니다.</li>
+<li>제1종 오류가 발생할 확률은 <span class="math inline">\(\alpha\)</span>로 표시합니다. <span class="math inline">\(\alpha\)</span> 값은 <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 정의한 가설 검정의 <strong>유의 수준(significance level)</strong>이라고 불립니다.</li>
 <li>제2종 오류가 발생할 확률은 <span class="math inline">\(\beta\)</span>로 표시합니다. <span class="math inline">\(1-\beta\)</span> 값은 가설 검정의 <strong>검정력(power)</strong>으로 알려져 있습니다.</li>
 </ul>
 <p>다시 말해, <span class="math inline">\(\alpha\)</span>는 실제로 <span class="math inline">\(H_0\)</span>가 참일 때 <span class="math inline">\(H_0\)</span>를 잘못 기각할 확률에 해당합니다. 반면 <span class="math inline">\(\beta\)</span>는 실제로 <span class="math inline">\(H_0\)</span>가 거짓일 때 <span class="math inline">\(H_0\)</span>를 잘못 기각하지 못할 확률에 해당합니다.</p>
@@ -1207,14 +1235,14 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </section>
 </section>
-<section id="ht-case-study" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="ht-case-study"><span class="header-section-number">11.5</span> 사례 연구: 액션 영화와 로맨스 영화 중 어느 쪽의 평점이 더 높을까요?</h2>
+<section id="ht-case-study" class="level2">
+<h2 class="anchored" data-anchor-id="ht-case-study">사례 연구: 액션 영화와 로맨스 영화 중 어느 쪽의 평점이 더 높을까요?</h2>
 <p>가설 검정 지식을 활용하여 “IMDb에서 액션 영화와 로맨스 영화 중 어느 쪽의 평점이 더 높을까요?”라는 질문에 답해 보겠습니다. <a href="https://www.imdb.com/">IMDb</a>는 영화 및 TV 프로그램의 출연진, 줄거리 요약, 트리비아, 평점 정보를 제공하는 인터넷 데이터베이스입니다. 우리는 IMDb에서 액션 영화와 로맨스 영화 중 어느 쪽의 평균 평점이 더 높은지 조사해 볼 것입니다.</p>
-<section id="imdb-data" class="level3" data-number="11.5.1">
-<h3 data-number="11.5.1" class="anchored" data-anchor-id="imdb-data"><span class="header-section-number">11.5.1</span> IMDb 평점 데이터</h3>
+<section id="imdb-data" class="level3">
+<h3 class="anchored" data-anchor-id="imdb-data">IMDb 평점 데이터</h3>
 <p><code>ggplot2movies</code> 패키지의 <code>movies</code> 데이터셋에는 IMDb.com 사용자들이 평가한 58,788편의 영화 정보가 담겨 있습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>movies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>movies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 58,788 × 24
    title     year length budget rating votes    r1    r2    r3    r4    r5    r6
@@ -1237,7 +1265,7 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 <p>우리는 “액션(action)” 또는 “로맨스(romance)” 중 하나로 분류되지만 두 장르 모두에 해당하지는 않는 68편의 영화 무작위 표본에 집중할 것입니다. 모든 68편의 영화를 두 카테고리 중 하나로 할당할 수 있도록 두 장르 모두에 해당하는 영화는 제외합니다. 또한 원본 <code>movies</code> 데이터셋이 다소 복잡했기 때문에, <code>moderndive</code> 패키지에 포함된 <code>movies_sample</code> 데이터 프레임에 미리 전처리된 버전의 데이터를 제공합니다. 궁금하시다면 <a href="https://github.com/moderndive/moderndive/blob/master/data-raw/process_data_sets.R">GitHub</a>에서 이를 수행하는 데 필요한 데이터 전처리 코드를 확인하실 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>movies_sample</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>movies_sample</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 68 × 4
    title                     year rating genre  
@@ -1256,11 +1284,11 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 <p>변수에는 영화 제목(<code>title</code>)과 제작 연도(<code>year</code>)가 포함되어 있습니다. 또한 10개 별점 만점의 IMDb 평점인 수치형 변수 <code>rating</code>과, 영화가 액션(<code>Action</code>)인지 로맨스(<code>Romance</code>)인지를 나타내는 이진 범주형 변수 <code>genre</code>가 있습니다. 우리는 평균적으로 <code>Action</code> 영화와 <code>Romance</code> 영화 중 어느 쪽의 <code>rating</code>이 더 높은지에 관심이 있습니다.</p>
-<p>이 데이터에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 섹션 @ref(geomboxplot)에서 보았듯이 박스플롯(boxplot)은 수치형 변수와 범주형 변수 사이의 관계를 보여주기 위해 사용할 수 있는 시각화 도구입니다. 섹션 @ref(facets)에서 보았던 또 다른 옵션은 패싯 히스토그램(faceted histogram)을 사용하는 것입니다. 하지만 간결함을 위해 그림 @ref(fig:action-romance-boxplot)에서는 박스플롯만 제시하겠습니다.</p>
+<p>이 데이터에 대한 탐색적 데이터 분석을 수행해 보겠습니다. 하위 <span class="quarto-unresolved-ref">?sec-geomboxplot절에서</span> 보았듯이 박스플롯(boxplot)은 수치형 변수와 범주형 변수 사이의 관계를 보여주기 위해 사용할 수 있는 시각화 도구입니다. <span class="quarto-unresolved-ref">?sec-facets절에서</span> 보았던 또 다른 옵션은 패싯 히스토그램(faceted histogram)을 사용하는 것입니다. 하지만 간결함을 위해 그림 <span class="quarto-unresolved-ref">?fig-action-romance-boxplot에서는</span> 박스플롯만 제시하겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> movies_sample, <span class="fu">aes</span>(<span class="at">x =</span> genre, <span class="at">y =</span> rating)) <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"IMDb 평점"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> movies_sample, <span class="fu">aes</span>(<span class="at">x =</span> genre, <span class="at">y =</span> rating)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"IMDb 평점"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1270,13 +1298,13 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 </div>
 </div>
-<p>그림 @ref(fig:action-romance-boxplot)을 눈으로 확인해 보면, 로맨스 영화의 중앙값 평점이 더 높습니다. 하지만 액션 영화와 로맨스 영화의 평균 <code>rating</code> 사이에 <strong>유의미한(significant)</strong> 차이가 있다고 믿을 만한 이유가 있을까요? 단지 이 그래프만 보고 판단하기는 어렵습니다. 박스플롯은 표본 평점의 중앙값이 로맨스 영화에서 더 높다는 것을 보여줍니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-action-romance-boxplot을</span> 눈으로 확인해 보면, 로맨스 영화의 중앙값 평점이 더 높습니다. 하지만 액션 영화와 로맨스 영화의 평균 <code>rating</code> 사이에 <strong>유의미한(significant)</strong> 차이가 있다고 믿을 만한 이유가 있을까요? 단지 이 그래프만 보고 판단하기는 어렵습니다. 박스플롯은 표본 평점의 중앙값이 로맨스 영화에서 더 높다는 것을 보여줍니다.</p>
 <p>하지만 박스들 사이에 겹치는 영역이 상당히 많습니다. 또한 분포가 비대칭인지 여부에 따라 중앙값이 반드시 평균과 같지는 않다는 점을 상기하십시오.</p>
 <p>이진 범주형 변수 <code>genre</code>에 따라 영화 편수, 평균 평점, 표준 편차와 같은 요약 통계량을 계산해 보겠습니다. <code>dplyr</code> 데이터 전처리 연산자를 사용하여 이를 수행할 것입니다. 특히 <code>n()</code> 요약 함수를 사용하여 각 장르의 영화 편수를 어떻게 세는지 확인해 보십시오.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating), <span class="at">std_dev =</span> <span class="fu">sd</span>(rating))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating), <span class="at">std_dev =</span> <span class="fu">sd</span>(rating))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   genre       n mean_rating std_dev
@@ -1287,10 +1315,10 @@ visualize(null_distribution, bins = 10)</code></pre>
 </div>
 <p>평균 평점이 6.322점인 로맨스 영화 36편과, 평균 평점이 5.275점인 액션 영화 32편이 있음을 확인하십시오. 따라서 이 평균 평점의 차이는 6.322 - 5.275 = 1.047입니다. 따라서 로맨스 영화가 1.047점만큼 우세한 것으로 보입니다. 하지만 문제는 이러한 결과가 <strong>모든</strong> 로맨스 및 액션 영화에 대한 진정한 차이를 나타내는가 하는 것입니다. 아니면 이 차이를 우연한 <strong>표본 변동(sampling variation)</strong> 때문으로 돌릴 수 있을까요?</p>
 </section>
-<section id="표본-추출-시나리오" class="level3" data-number="11.5.2">
-<h3 data-number="11.5.2" class="anchored" data-anchor-id="표본-추출-시나리오"><span class="header-section-number">11.5.2</span> 표본 추출 시나리오</h3>
-<p>이제 하위 섹션 @ref(terminology-and-notation)에서 공부한 표본 추출과 관련된 용어와 기호를 사용하여 이 연구를 다시 살펴보겠습니다. <strong>연구 대상 모집단(study population)</strong>은 액션 또는 로맨스 중 하나에만 해당하는 IMDb 데이터베이스의 모든 영화입니다. 이 모집단에서 가져온 <strong>표본(sample)</strong>은 <code>movies_sample</code> 데이터셋에 포함된 68편의 영화입니다.</p>
-<p>이 표본은 모집단 <code>movies</code>에서 무작위로 추출되었으므로, IMDb에 있는 모든 로맨스 및 액션 영화를 대표합니다. 따라서 <code>movies_sample</code>에 기반한 모든 분석과 결과는 전체 모집단으로 일반화될 수 있습니다. 관련 <strong>모집단 모수(population parameter)</strong>와 <strong>점 추정치(point estimates)</strong>는 무엇일까요? 표 @ref(tab:summarytable-ch10)에서 네 번째 표본 추출 시나리오를 소개합니다.</p>
+<section id="표본-추출-시나리오" class="level3">
+<h3 class="anchored" data-anchor-id="표본-추출-시나리오">표본 추출 시나리오</h3>
+<p>이제 하위 <span class="quarto-unresolved-ref">?sec-terminology-and-notation절에서</span> 공부한 표본 추출과 관련된 용어와 기호를 사용하여 이 연구를 다시 살펴보겠습니다. <strong>연구 대상 모집단(study population)</strong>은 액션 또는 로맨스 중 하나에만 해당하는 IMDb 데이터베이스의 모든 영화입니다. 이 모집단에서 가져온 <strong>표본(sample)</strong>은 <code>movies_sample</code> 데이터셋에 포함된 68편의 영화입니다.</p>
+<p>이 표본은 모집단 <code>movies</code>에서 무작위로 추출되었으므로, IMDb에 있는 모든 로맨스 및 액션 영화를 대표합니다. 따라서 <code>movies_sample</code>에 기반한 모든 분석과 결과는 전체 모집단으로 일반화될 수 있습니다. 관련 <strong>모집단 모수(population parameter)</strong>와 <strong>점 추정치(point estimates)</strong>는 무엇일까요? 표 <span class="quarto-unresolved-ref">?tbl-summarytable-ch10에서</span> 네 번째 표본 추출 시나리오를 소개합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -1337,12 +1365,12 @@ visualize(null_distribution, bins = 10)</code></pre>
 </table>
 </div>
 </div>
-<p>섹션 @ref(sampling-activity)의 표본 추출 그릇 활동이 <strong>비율</strong>에 관한 것이었고, 섹션 @ref(resampling-tactile)의 페니 활동이 <strong>평균</strong>에 관한 것이었으며, 섹션 @ref(case-study-two-prop-ci)의 하품이 전염되는지에 대한 사례 연구와 섹션 @ref(ht-activity)의 승진 활동이 <strong>비율의 차이</strong>에 관한 것이었다면, 이제 우리는 <strong>평균의 차이</strong>에 주목합니다.</p>
+<p><span class="quarto-unresolved-ref">?sec-sampling-activity절의</span> 표본 추출 그릇 활동이 <strong>비율</strong>에 관한 것이었고, <span class="quarto-unresolved-ref">?sec-resampling-tactile절의</span> 페니 활동이 <strong>평균</strong>에 관한 것이었으며, <span class="quarto-unresolved-ref">?sec-case-study-two-prop-ci절의</span> 하품이 전염되는지에 대한 사례 연구와 <span class="quarto-unresolved-ref">?sec-ht-activity절의</span> 승진 활동이 <strong>비율의 차이</strong>에 관한 것이었다면, 이제 우리는 <strong>평균의 차이</strong>에 주목합니다.</p>
 <p>즉, 관심 있는 모집단 모수는 모집단 평균 평점의 차이인 <span class="math inline">\(\mu_a - \mu_r\)</span>입니다. 여기서 <span class="math inline">\(\mu_a\)</span>는 IMDb에 있는 모든 액션 영화의 평균 평점이고, <span class="math inline">\(\mu_r\)</span>은 모든 로맨스 영화의 평균 평점입니다. 또한 관심 있는 점 추정치/표본 통계량은 표본 평균의 차이인 <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>입니다. 여기서 <span class="math inline">\(\overline{x}_a\)</span>는 표본에 포함된 <span class="math inline">\(n_a = 32\)</span>편의 영화의 평균 평점이고, <span class="math inline">\(\overline{x}_r\)</span>은 표본에 포함된 <span class="math inline">\(n_r = 36\)</span>편의 평균 평점입니다. 앞서 수행한 탐색적 데이터 분석에 따르면, 우리의 추정치 <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>은 <span class="math inline">\(5.275 - 6.322 = -1.047\)</span>입니다.</p>
 <p>따라서 로맨스 영화가 -1.047점만큼 약간 우세한 것으로 보입니다. 하지만 문제는 이 -1.047의 차이가 단순히 우연과 표본 변동 때문일 수 있느냐는 것입니다. 아니면 이러한 결과가 IMDb의 <strong>모든</strong> 로맨스 및 액션 영화에 대한 평균 평점의 진정한 차이를 나타내는 것일까요? 이 질문에 답하기 위해 가설 검정을 사용하겠습니다.</p>
 </section>
-<section id="가설-검정-수행하기" class="level3" data-number="11.5.3">
-<h3 data-number="11.5.3" class="anchored" data-anchor-id="가설-검정-수행하기"><span class="header-section-number">11.5.3</span> 가설 검정 수행하기</h3>
+<section id="가설-검정-수행하기" class="level3">
+<h3 class="anchored" data-anchor-id="가설-검정-수행하기">가설 검정 수행하기</h3>
 <p>우리는 다음을 검정할 것입니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1351,12 +1379,12 @@ H_0 &amp;: \mu_a - \mu_r = 0\\
 \end{aligned}
 \]</span></p>
 <p>또한, 우리는 <span class="math inline">\(\alpha = 0.001\)</span>이라는 매우 낮은 유의 수준을 미리 지정할 것입니다. 이 값을 낮게 설정하면 모든 조건이 동일할 때 p-값이 <span class="math inline">\(\alpha\)</span>보다 작을 가능성이 낮아집니다. 따라서 대립 가설 <span class="math inline">\(H_A\)</span>를 지지하여 귀무 가설 <span class="math inline">\(H_0\)</span>를 기각할 가능성이 낮아집니다. 다시 말해, 우리는 꽤 강력한 증거가 있는 경우에만 모든 액션 영화와 로맨스 영화의 평균 평점에 차이가 없다는 가설을 기각할 것입니다. 이를 “보수적인” 가설 검정 절차라고 합니다.</p>
-<section id="변수-specify지정" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="변수-specify지정">1. 변수 <code>specify</code>(지정)</h4>
+<section id="변수-지정specify-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="변수-지정specify-1">1. 변수 지정(specify)</h4>
 <p>이제 <code>infer</code> 워크플로의 모든 단계를 수행해 보겠습니다. 먼저 <code>rating ~ genre</code> 공식을 사용하여 <code>movies_sample</code> 데이터 프레임에서 관심 변수를 <code>specify()</code>합니다. 이는 <code>infer</code>에 수치형 변수 <code>rating</code>이 결과 변수이고 이진 변수 <code>genre</code>가 설명 변수임을 알려줍니다. 이전에 비율에 관심이 있었을 때와 달리, 지금은 수치형 변수의 평균에 관심이 있으므로 <code>success</code> 인수를 설정할 필요가 없습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: rating (numeric)
 Explanatory: genre (factor)
@@ -1378,13 +1406,13 @@ Explanatory: genre (factor)
 </div>
 <p>이 시점에서 <code>movies_sample</code>의 데이터는 변하지 않았음을 확인하십시오. 지금까지의 유일한 변화는 새로 정의된 <code>Response: rating (numeric)</code>과 <code>Explanatory: genre (factor)</code>라는 <strong>메타데이터(meta-data)</strong>뿐입니다.</p>
 </section>
-<section id="귀무-가설-hypothesize설정" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="귀무-가설-hypothesize설정">2. 귀무 가설 <code>hypothesize</code>(설정)</h4>
-<p><code>hypothesize()</code> 함수를 사용하여 귀무 가설 <span class="math inline">\(H_0: \mu_a - \mu_r = 0\)</span>을 설정합니다. 액션 영화와 로맨스 영화라는 두 개의 표본이 있으므로, 섹션 @ref(ht-infer)에서 설명한 대로 <code>null</code>을 <code>"independence"</code>(독립성)로 설정합니다.</p>
+<section id="귀무-가설-설정hypothesize-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="귀무-가설-설정hypothesize-1">2. 귀무 가설 설정(hypothesize)</h4>
+<p><code>hypothesize()</code> 함수를 사용하여 귀무 가설 <span class="math inline">\(H_0: \mu_a - \mu_r = 0\)</span>을 설정합니다. 액션 영화와 로맨스 영화라는 두 개의 표본이 있으므로, <span class="quarto-unresolved-ref">?sec-ht-infer절에서</span> 설명한 대로 <code>null</code>을 <code>"independence"</code>(독립성)로 설정합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: rating (numeric)
 Explanatory: genre (factor)
@@ -1406,29 +1434,29 @@ Null Hypothesis: indep...
 </div>
 </div>
 </section>
-<section id="반복-복제본-generate생성" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="반복-복제본-generate생성">3. 반복 복제본 <code>generate</code>(생성)</h4>
-<p>귀무 가설을 설정한 후, 섹션 @ref(ht-activity)에서 수행했던 셔플링/순열 활동을 반복하여 귀무 가설이 참이라고 가정한 “셔플된” 반복 복제본을 생성합니다.</p>
+<section id="반복-복제본-생성generate-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="반복-복제본-생성generate-1">3. 반복 복제본 생성(generate)</h4>
+<p>귀무 가설을 설정한 후, <span class="quarto-unresolved-ref">?sec-ht-activity절에서</span> 수행했던 셔플링/순열 활동을 반복하여 귀무 가설이 참이라고 가정한 “셔플된” 반복 복제본을 생성합니다.</p>
 <p>이 비복원 재표본 추출(<code>type = "permute"</code>)을 총 <code>reps = 1000</code>번 반복할 것입니다. 아래 코드를 실행하여 <code>generate()</code> 단계에서 무엇이 생성되는지 자유롭게 확인해 보십시오.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="요약-통계량-calculate계산" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="요약-통계량-calculate계산">4. 요약 통계량 <code>calculate</code>(계산)</h4>
-<p>IMDb의 <code>Action</code> 영화와 <code>Romance</code> 영화가 평균적으로 같은 평점을 갖는다는 귀무 가설 <span class="math inline">\(H_0\)</span>를 가정한 1000개의 반복된 “셔플”을 생성했으므로, 이제 이 1000개의 반복된 셔플에 대해 적절한 요약 통계량을 <code>calculate()</code>해 보겠습니다. 섹션 @ref(understanding-ht)에서 보았듯이, 가설 검정과 관련된 요약 통계량은 <strong>검정 통계량(test statistics)</strong>이라는 특별한 명칭을 갖습니다. 관심 있는 미지의 모집단 모수가 모집단 평균의 차이인 <span class="math inline">\(\mu_{a} - \mu_{r}\)</span>이므로, 여기서 관심 있는 검정 통계량은 표본 평균의 차이인 <span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>입니다.</p>
-<p>1000개의 셔플 각각에 대해 <code>stat = "diff in means"</code>를 설정하여 이 검정 통계량을 계산할 수 있습니다. 또한 <span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>에 관심이 있으므로 <code>order = c("Action", "Romance")</code>로 설정합니다. 결과는 <code>null_distribution_movies</code>라는 데이터 프레임에 저장하겠습니다.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>null_distribution_movies <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>null_distribution_movies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="요약-통계량-계산calculate-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="요약-통계량-계산calculate-1">4. 요약 통계량 계산(calculate)</h4>
+<p>IMDb의 <code>Action</code> 영화와 <code>Romance</code> 영화가 평균적으로 같은 평점을 갖는다는 귀무 가설 <span class="math inline">\(H_0\)</span>를 가정한 1000개의 반복된 “셔플”을 생성했으므로, 이제 이 1000개의 반복된 셔플에 대해 적절한 요약 통계량을 <code>calculate()</code>해 보겠습니다. <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 보았듯이, 가설 검정과 관련된 요약 통계량은 <strong>검정 통계량(test statistics)</strong>이라는 특별한 명칭을 갖습니다. 관심 있는 미지의 모집단 모수가 모집단 평균의 차이인 <span class="math inline">\(\mu_{a} - \mu_{r}\)</span>이므로, 여기서 관심 있는 검정 통계량은 표본 평균의 차이인 <span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>입니다.</p>
+<p>1000개의 셔플 각각에 대해 <code>stat = "diff in means"</code>를 설정하여 이 검정 통계량을 계산할 수 있습니다. 또한 <span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>에 관심이 있으므로 <code>order = c("Action", "Romance")</code>로 설정합니다. 결과는 <code>null_distribution_movies</code>라는 데이터 프레임에 저장하겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>null_distribution_movies <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>null_distribution_movies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
@@ -1450,10 +1478,10 @@ Null Hypothesis: indep...
 </div>
 <p><span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>의 각 인스턴스를 나타내는 1000개의 <code>stat</code> 값이 있음을 확인하십시오. 이 1000개의 값은 <strong>귀무 분포(null distribution)</strong>를 형성합니다. 이는 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때 표본 평균 차이인 <span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>의 표집 분포를 일컫는 기술적인 용어입니다. 그렇다면 실제 생활에서는 어떤 일이 일어났을까요? 관찰된 승진율의 차이는 얼마였을까요? <strong>관찰된 검정 통계량(observed test statistic)</strong> <span class="math inline">\(\overline{x}_{a} - \overline{x}_{r}\)</span>은 무엇이었나요? 앞서 수행한 데이터 전처리를 상기해 보면, 관찰된 평균의 차이는 <span class="math inline">\(5.275 - 6.322 = -1.047\)</span>이었습니다. 귀무 분포 <code>null_distribution_movies</code>를 구성했던 코드에서 <code>hypothesize()</code>와 <code>generate()</code> 단계를 제거하여 이를 얻을 수도 있습니다. 이를 <code>obs_diff_means</code>에 저장하겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>obs_diff_means <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>obs_diff_means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>obs_diff_means <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>obs_diff_means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: rating (numeric)
 Explanatory: genre (factor)
@@ -1464,12 +1492,12 @@ Explanatory: genre (factor)
 </div>
 </div>
 </section>
-<section id="p-값-visualize시각화" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="p-값-visualize시각화">5. p-값 <code>visualize</code>(시각화)</h4>
-<p>마지막으로 p-값을 계산하기 위해, 관찰된 평균 차이인 -1.047가 얼마나 “극단적인지” 평가해야 합니다. 영화 평점에 진정한 차이가 없는 가상 우주에서 구성된 귀무 분포와 -1.047를 비교하여 이를 수행합니다. 그림 @ref(fig:null-distribution-movies-2)에서 귀무 분포와 p-값을 시각화해 보겠습니다. 승진과 관련된 하위 섹션 @ref(infer-workflow-ht)의 예시와 달리, 지금은 양측 대립 가설 <span class="math inline">\(H_A: \mu_a - \mu_r \neq 0\)</span>를 가지고 있으므로 <strong>더 극단적인</strong> 두 가지 가능성을 모두 허용해야 합니다. 따라서 <code>direction = "both"</code>로 설정합니다.</p>
+<section id="p-값-시각화visualize-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="p-값-시각화visualize-1">5. p-값 시각화(visualize)</h4>
+<p>마지막으로 p-값을 계산하기 위해, 관찰된 평균 차이인 -1.047가 얼마나 “극단적인지” 평가해야 합니다. 영화 평점에 진정한 차이가 없는 가상 우주에서 구성된 귀무 분포와 -1.047를 비교하여 이를 수행합니다. 그림 <span class="quarto-unresolved-ref">?fig-null-distribution-movies-2에서</span> 귀무 분포와 p-값을 시각화해 보겠습니다. 승진과 관련된 하위 <span class="quarto-unresolved-ref">?sec-infer-workflow-ht절의</span> 예시와 달리, 지금은 양측 대립 가설 <span class="math inline">\(H_A: \mu_a - \mu_r \neq 0\)</span>를 가지고 있으므로 <strong>더 극단적인</strong> 두 가지 가능성을 모두 허용해야 합니다. 따라서 <code>direction = "both"</code>로 설정합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies, <span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span> </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_diff_means, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies, <span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_diff_means, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1484,8 +1512,8 @@ Explanatory: genre (factor)
 <p>이 그래프의 요소들을 살펴보겠습니다. 첫째, 히스토그램은 <strong>귀무 분포</strong>입니다. 둘째, 실선은 실제 생활에서 관찰한 표본 평균의 차이인 <strong>관찰된 검정 통계량</strong> <span class="math inline">\(5.275 - 6.322 = -1.047\)</span>입니다. 셋째, 히스토그램의 두 음영 영역은 <strong>p-값</strong>, 즉 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong> 관찰된 검정 통계량만큼 혹은 그보다 더 극단적인 검정 통계량을 얻을 확률을 나타냅니다.</p>
 <p>귀무 분포의 어느 정도 비율이 음영 처리되어 있습니까? 다시 말해, p-값의 수치는 얼마입니까? <code>get_p_value()</code> 함수를 사용하여 이 값을 계산합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>null_distribution_movies <span class="sc">%&gt;%</span> </span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_diff_means, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>null_distribution_movies <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_diff_means, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p_value
@@ -1494,7 +1522,7 @@ Explanatory: genre (factor)
 </div>
 </div>
 <p>이 p-값 0.004는 매우 작습니다. 다시 말해, 장르 간 평점 차이가 실제로 없는 가상 우주에서 5.275 - 6.322 = -1.047와 같은 차이를 관찰할 확률은 매우 희박합니다.</p>
-<p>하지만 이 p-값은 우리가 미리 지정한 (심지어 더 작은) 유의 수준 <span class="math inline">\(\alpha = 0.001\)</span>보다는 큽니다. 따라서 우리는 귀무 가설 <span class="math inline">\(H_0: \mu_a - \mu_r = 0\)</span>을 기각하는 데 실패하게 됩니다. 비통계적 언어로 결론을 내리면 다음과 같습니다. 즉, 우리는 이 데이터 표본에서 로맨스 영화와 액션 영화 사이의 평균 IMDb 평점에 차이가 없다는 가설을 기각해야 한다고 제안할 만한 필요한 증거를 가지고 있지 않습니다. 따라서 우리는 모든 IMDb 영화에 대해 로맨스 영화와 액션 영화의 평점에 평균적으로 차이가 존재한다고 말할 수 없습니다.</p>
+<p>하지만 이 p-값은 우리가 미리 지정한 (심지어 더 작은 유의 수준 <span class="math inline">\(\alpha = 0.001\)</span>보다는 큽니다. 따라서 우리는 귀무 가설 <span class="math inline">\(H_0: \mu_a - \mu_r = 0\)</span>을 기각하는 데 실패하게 됩니다. 비통계적 언어로 결론을 내리면 다음과 같습니다. 즉, 우리는 이 데이터 표본에서 로맨스 영화와 액션 영화 사이의 평균 IMDb 평점에 차이가 없다는 가설을 기각해야 한다고 제안할 만한 필요한 증거를 가지고 있지 않습니다. 따라서 우리는 모든 IMDb 영화에 대해 로맨스 영화와 액션 영화의 평점에 평균적으로 차이가 존재한다고 말할 수 없습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1522,19 +1550,19 @@ Explanatory: genre (factor)
 </section>
 </section>
 </section>
-<section id="nhst-conclusion" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="nhst-conclusion"><span class="header-section-number">11.6</span> 결론</h2>
-<section id="theory-hypo" class="level3" data-number="11.6.1">
-<h3 data-number="11.6.1" class="anchored" data-anchor-id="theory-hypo"><span class="header-section-number">11.6.1</span> 이론 기반 가설 검정</h3>
-<p>하위 섹션 @ref(theory-se) 및 @ref(theory-ci)에서 수학 공식을 사용하여 표준 오차를 계산하고 신뢰 구간을 구축하는 이론 기반 방법을 보여드렸던 것처럼, 이제 가설 검정을 수행하는 전통적인 이론 기반 방법의 예시를 제시하겠습니다. 이 방법은 확률 모델, 확률 분포 및 몇 가지 가정을 사용하여 귀무 분포를 구축합니다. 이는 귀무 분포를 구축하기 위해 컴퓨터 시뮬레이션에 의존했던 이 책 전체의 접근 방식과 대조됩니다.</p>
+<section id="nhst-conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="nhst-conclusion">결론</h2>
+<section id="theory-hypo" class="level3">
+<h3 class="anchored" data-anchor-id="theory-hypo">이론 기반 가설 검정</h3>
+<p>하위 <span class="quarto-unresolved-ref">?sec-theory-se절</span> 및 <span class="quarto-unresolved-ref">?sec-theory-ci에서</span> 수학 공식을 사용하여 표준 오차를 계산하고 신뢰 구간을 구축하는 이론 기반 방법을 보여드렸던 것처럼, 이제 가설 검정을 수행하는 전통적인 이론 기반 방법의 예시를 제시하겠습니다. 이 방법은 확률 모델, 확률 분포 및 몇 가지 가정을 사용하여 귀무 분포를 구축합니다. 이는 귀무 분포를 구축하기 위해 컴퓨터 시뮬레이션에 의존했던 이 책 전체의 접근 방식과 대조됩니다.</p>
 <p>이러한 전통적인 이론 기반 방법이 수십 년 동안 사용되어 온 주된 이유는 연구자들이 수천 번의 계산을 빠르고 효율적으로 실행할 수 있는 컴퓨터를 사용할 수 없었기 때문입니다. 이제 컴퓨팅 파워가 훨씬 저렴해지고 접근하기 쉬워졌으므로 시뮬레이션 기반 방법이 훨씬 더 실현 가능해졌습니다. 그러나 많은 분야의 연구자들은 여전히 이론 기반 방법을 계속 사용하고 있습니다. 따라서 여기서 예시를 포함하는 것을 중요하게 생각합니다.</p>
-<p>이 섹션에서 보여주겠지만, 모든 이론 기반 방법은 궁극적으로 시뮬레이션 기반 방법에 대한 근사치입니다. 우리가 집중할 이론 기반 방법은 표본 평균의 차이를 검정하기 위한 <strong>이표본 t-검정(two-sample <span class="math inline">\(t\)</span>-test)</strong>으로 알려져 있습니다. 그러나 우리가 사용할 검정 통계량은 표본 평균의 차이인 <span class="math inline">\(\overline{x}_1 - \overline{x}_2\)</span>가 아니라, 이와 관련된 <strong>이표본 t-통계량(two-sample <span class="math inline">\(t\)</span>-statistic)</strong>입니다. 사용할 데이터는 섹션 @ref(ht-case-study)의 액션 영화와 로맨스 영화에 대한 <code>movies_sample</code> 데이터를 다시 사용하겠습니다.</p>
+<p>이 섹션에서 보여주겠지만, 모든 이론 기반 방법은 궁극적으로 시뮬레이션 기반 방법에 대한 근사치입니다. 우리가 집중할 이론 기반 방법은 표본 평균의 차이를 검정하기 위한 <strong>이표본 t-검정(two-sample <span class="math inline">\(t\)</span>-test)</strong>으로 알려져 있습니다. 그러나 우리가 사용할 검정 통계량은 표본 평균의 차이인 <span class="math inline">\(\overline{x}_1 - \overline{x}_2\)</span>가 아니라, 이와 관련된 <strong>이표본 t-통계량(two-sample <span class="math inline">\(t\)</span>-statistic)</strong>입니다. 사용할 데이터는 <span class="quarto-unresolved-ref">?sec-ht-case-study절의</span> 액션 영화와 로맨스 영화에 대한 <code>movies_sample</code> 데이터를 다시 사용하겠습니다.</p>
 <section id="이표본-t-통계량" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="이표본-t-통계량">이표본 t-통계량</h4>
 <p>통계학에서 흔히 수행하는 작업은 “변수를 표준화(standardizing)”하는 과정입니다. 서로 다른 변수들을 표준화함으로써 상호 비교가 더 용이해집니다. 예를 들어, 미국 오리건주 포틀랜드의 온도 기록 분포를 연구하고 이를 캐나다 퀘벡주 몬트리올의 온도 기록과 비교하는 데 관심이 있다고 가정해 봅시다. 미국 기온은 일반적으로 화씨(Fahrenheit)로 기록되고 캐나다 기온은 일반적으로 섭씨(Celsius)로 기록된다는 점을 고려할 때, 어떻게 비교할 수 있을까요? 한 가지 방법은 화씨를 섭씨로 변환하거나 그 반대로 변환하는 것입니다. 또 다른 방법은 둘 다 절대온도(Kelvin)와 같은 공통된 “표준화된” 척도로 변환하는 것입니다.</p>
 <p>확률 및 통계 이론에서 변수를 표준화하는 한 가지 일반적인 방법은 <strong>z-점수(z-score)</strong>를 계산하는 것입니다.</p>
 <p><span class="math display">\[z = \frac{x - \mu}{\sigma}\]</span></p>
-<p>여기서 <span class="math inline">\(x\)</span>는 변수의 한 값, <span class="math inline">\(\mu\)</span>는 그 변수의 평균, <span class="math inline">\(\sigma\)</span>는 그 변수의 표준 편차를 나타냅니다. 먼저 각 <span class="math inline">\(x\)</span> 값에서 평균 <span class="math inline">\(\mu\)</span>를 뺀 다음, <span class="math inline">\(x - \mu\)</span>를 표준 편차 <span class="math inline">\(\sigma\)</span>로 나눕니다. 이러한 연산은 변수의 중심을 0으로 다시 맞추고(<strong>re-centering</strong>), 변수 <span class="math inline">\(x\)</span>의 척도를 조정하여(<strong>re-scaling</strong>) “표준 단위(standard units)”를 갖게 하는 효과가 있습니다. 따라서 변수가 가질 수 있는 모든 값에 대해, 해당 값이 평균 <span class="math inline">\(\mu\)</span>로부터 표준 단위로 얼마나 떨어져 있는지를 나타내는 대응하는 z-점수가 존재합니다. z-점수는 평균이 0이고 표준 편차가 1인 정규 분포를 따릅니다. 이 곡선을 “z-분포” 또는 “표준 정규” 곡선이라고 하며, 부록 @ref(appendix-normal-curve)에서 논의된 그림 @ref(fig:zcurve)와 같은 일반적인 종 모양 패턴을 가집니다.</p>
+<p>여기서 <span class="math inline">\(x\)</span>는 변수의 한 값, <span class="math inline">\(\mu\)</span>는 그 변수의 평균, <span class="math inline">\(\sigma\)</span>는 그 변수의 표준 편차를 나타냅니다. 먼저 각 <span class="math inline">\(x\)</span> 값에서 평균 <span class="math inline">\(\mu\)</span>를 뺀 다음, <span class="math inline">\(x - \mu\)</span>를 표준 편차 <span class="math inline">\(\sigma\)</span>로 나눕니다. 이러한 연산은 변수의 중심을 0으로 다시 맞추고(<strong>re-centering</strong>), 변수 <span class="math inline">\(x\)</span>의 척도를 조정하여(<strong>re-scaling</strong> “표준 단위(standard units)”를 갖게 하는 효과가 있습니다. 따라서 변수가 가질 수 있는 모든 값에 대해, 해당 값이 평균 <span class="math inline">\(\mu\)</span>로부터 표준 단위로 얼마나 떨어져 있는지를 나타내는 대응하는 z-점수가 존재합니다. z-점수는 평균이 0이고 표준 편차가 1인 정규 분포를 따릅니다. 이 곡선을 “z-분포” 또는 “표준 정규” 곡선이라고 하며, 부록 <span class="quarto-unresolved-ref">?sec-appendix-normal-curve에서</span> 논의된 그림 <span class="quarto-unresolved-ref">?fig-zcurve와</span> 같은 일반적인 종 모양 패턴을 가집니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1545,13 +1573,13 @@ Explanatory: genre (factor)
 </div>
 </div>
 </div>
-<p>이것을 다시 액션 영화 대 로맨스 영화의 표본 평균 평점 차이인 <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>로 가져와 보면, 어떻게 이 변수를 표준화할 수 있을까요? 다시 한번 평균을 빼고 표준 편차로 나누는 방식입니다. 하위 섹션 @ref(moral-of-the-story)에서 두 가지 사실을 상기해 보십시오. 첫째, 표본 추출이 대표성 있게 수행되었다면, <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>의 표집 분포는 실제 모집단 모수인 <span class="math inline">\(\mu_a - \mu_r\)</span>을 중심으로 형성될 것입니다. 둘째, <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>과 같은 점 추정치의 표준 편차에는 특별한 이름이 있는데, 바로 <strong>표준 오차(standard error)</strong>입니다.</p>
+<p>이것을 다시 액션 영화 대 로맨스 영화의 표본 평균 평점 차이인 <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>로 가져와 보면, 어떻게 이 변수를 표준화할 수 있을까요? 다시 한번 평균을 빼고 표준 편차로 나누는 방식입니다. 하위 <span class="quarto-unresolved-ref">?sec-moral-of-the-story절에서</span> 두 가지 사실을 상기해 보십시오. 첫째, 표본 추출이 대표성 있게 수행되었다면, <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>의 표집 분포는 실제 모집단 모수인 <span class="math inline">\(\mu_a - \mu_r\)</span>을 중심으로 형성될 것입니다. 둘째, <span class="math inline">\(\overline{x}_a - \overline{x}_r\)</span>과 같은 점 추정치의 표준 편차에는 특별한 이름이 있는데, 바로 <strong>표준 오차(standard error)</strong>입니다.</p>
 <p>이러한 아이디어를 적용하여 <strong>이표본 t-통계량(two-sample <span class="math inline">\(t\)</span>-statistic)</strong>을 제시합니다.</p>
 <p><span class="math display">\[t = \dfrac{ (\bar{x}_a - \bar{x}_r) - (\mu_a - \mu_r)}{ \text{SE}_{\bar{x}_a - \bar{x}_r} } = \dfrac{ (\bar{x}_a - \bar{x}_r) - (\mu_a - \mu_r)}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  }\]</span></p>
-<p>우와! 여기서 풀어야 할 내용이 참 많네요! 천천히 살펴보겠습니다. 분자에서 <span class="math inline">\(\bar{x}_a-\bar{x}_r\)</span>은 표본 평균의 차이이고, <span class="math inline">\(\mu_a - \mu_r\)</span>은 모집단 평균의 차이입니다. 분모에서 <span class="math inline">\(s_a\)</span>와 <span class="math inline">\(s_r\)</span>은 표본 <code>movies_sample</code>에 포함된 액션 영화와 로맨스 영화의 <strong>표본 표준 편차</strong>입니다. 마지막으로 <span class="math inline">\(n_a\)</span>와 <span class="math inline">\(n_r\)</span>은 액션 영화와 로맨스 영화의 표본 크기입니다. 이것들을 제곱근(루트) 안에 모두 넣으면 표준 오차인 <span class="math inline">\(\text{SE}_{\bar{x}_a - \bar{x}_r}\)</span>이 됩니다.</p>
-<p><span class="math inline">\(\text{SE}_{\bar{x}_a - \bar{x}_r}\)</span> 공식에 표본 크기 <span class="math inline">\(n_a\)</span>와 <span class="math inline">\(n_r\)</span>이 포함되어 있음을 확인하십시오. 따라서 표본 크기가 커질수록 표준 오차는 작아집니다. 우리는 이미 이 개념을 수차례 보았습니다. 특히 (1) 그림 @ref(fig:comparing-sampling-distributions-3)에서 <span class="math inline">\(n = 25, 50, 100\)</span>개의 칸이 있는 세 개의 가상 삽을 사용한 시뮬레이션에서, (2) 하위 섹션 @ref(ci-width)에서 더 큰 표본 크기를 사용하는 것이 신뢰 구간의 폭에 미치는 영향을 공부할 때, 그리고 (3) 하위 섹션 @ref(theory-se)에서 표본 비율 <span class="math inline">\(\widehat{p}\)</span>의 표준 오차에 대한 공식 기반 근사치를 공부할 때 보았습니다.</p>
+<p>우와! 여기서 풀어야 할 내용이 참 많네요! 천천히 살펴보겠습니다. 분자에서 <span class="math inline">\(\bar{x}_a-\bar{x}_r\)</span>은 표본 평균의 차이이고, <span class="math inline">\(\mu_a - \mu_r\)</span>은 모집단 평균의 차이입니다. 분모에서 <span class="math inline">\(s_a\)</span>와 <span class="math inline">\(s_r\)</span>은 표본 <code>movies_sample</code>에 포함된 액션 영화와 로맨스 영화의 <strong>표본 표준 편차</strong>입니다. 마지막으로 <span class="math inline">\(n_a\)</span>와 <span class="math inline">\(n_r\)</span>은 액션 영화와 로맨스 영화의 표본 크기입니다. 이것들을 제곱근(루트 안에 모두 넣으면 표준 오차인 <span class="math inline">\(\text{SE}_{\bar{x}_a - \bar{x}_r}\)</span>이 됩니다.</p>
+<p><span class="math inline">\(\text{SE}_{\bar{x}_a - \bar{x}_r}\)</span> 공식에 표본 크기 <span class="math inline">\(n_a\)</span>와 <span class="math inline">\(n_r\)</span>이 포함되어 있음을 확인하십시오. 따라서 표본 크기가 커질수록 표준 오차는 작아집니다. 우리는 이미 이 개념을 수차례 보았습니다. 특히 (1 그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions-3에서</span> <span class="math inline">\(n = 25, 50, 100\)</span>개의 칸이 있는 세 개의 가상 삽을 사용한 시뮬레이션에서, (2 하위 <span class="quarto-unresolved-ref">?sec-ci-width절에서</span> 더 큰 표본 크기를 사용하는 것이 신뢰 구간의 폭에 미치는 영향을 공부할 때, 그리고 (3 하위 <span class="quarto-unresolved-ref">?sec-theory-se절에서</span> 표본 비율 <span class="math inline">\(\widehat{p}\)</span>의 표준 오차에 대한 공식 기반 근사치를 공부할 때 보았습니다.</p>
 <p>그렇다면 이표본 t-통계량을 가설 검정에서 검정 통계량으로 어떻게 사용할 수 있을까요? 첫째, 귀무 가설 <span class="math inline">\(H_0: \mu_a - \mu_r = 0\)</span>이 참이라고 가정하면 분자의 오른쪽 항(<span class="math inline">\(-\)</span> 기호 오른쪽), 즉 <span class="math inline">\(\mu_a - \mu_r\)</span>은 0이 됩니다.</p>
-<p>둘째, 하위 섹션 @ref(sampling-conclusion-central-limit-theorem)의 중심 극한 정리가 표본 평균이 정규 분포를 따른다고 설명하는 것과 유사하게, 이표본 t-통계량이 <strong>자유도(degrees of freedom)</strong>가 <span class="math inline">\(df = n_a + n_r - 2\)</span>에 “대략적으로 같은” <strong>t-분포</strong>를 따른다는 것을 수학적으로 증명할 수 있습니다. 이 <strong>자유도</strong>라는 개념을 더 잘 이해하기 위해, 그림 @ref(fig:t-distributions)에서 표준 정규 z 곡선과 함께 t-분포의 세 가지 예시를 보여드리겠습니다.</p>
+<p>둘째, 하위 <span class="quarto-unresolved-ref">?sec-sampling-conclusion-central-limit-theorem절의</span> 중심 극한 정리가 표본 평균이 정규 분포를 따른다고 설명하는 것과 유사하게, 이표본 t-통계량이 <strong>자유도(degrees of freedom)</strong>가 <span class="math inline">\(df = n_a + n_r - 2\)</span>에 “대략적으로 같은” <strong>t-분포</strong>를 따른다는 것을 수학적으로 증명할 수 있습니다. 이 <strong>자유도</strong>라는 개념을 더 잘 이해하기 위해, 그림 <span class="quarto-unresolved-ref">?fig-t-distributions에서</span> 표준 정규 z 곡선과 함께 t-분포의 세 가지 예시를 보여드리겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1563,16 +1591,16 @@ Explanatory: genre (factor)
 </div>
 </div>
 <p>가로축의 0을 중심으로 그래프의 중앙을 먼저 보십시오. 0에서 위로 올라가면서 라벨을 따라가 보면, 맨 아래 곡선은 자유도가 1인 경우에 해당하고, 그 위 곡선은 자유도가 3인 경우, 그 위 곡선은 자유도가 10인 경우, 마지막으로 점선 곡선은 표준 정규 z 곡선임을 알 수 있습니다.</p>
-<p>네 가지 곡선 모두 종 모양이고 0을 중심으로 하며, 자유도가 증가할수록 t-분포가 표준 정규 z 곡선과 점점 더 닮아가는 것을 확인하십시오. “자유도(degrees of freedom)” 는 t-분포가 정규 분포와 얼마나 다른지를 측정하는 척도입니다. t-분포는 표준 정규 z 곡선보다 분포의 꼬리(tails) 부분에 더 많은 값을 갖는 경향이 있습니다(즉, 꼬리가 더 두껍습니다).</p>
-<p>이 “대략적으로 같다”는 진술은 <span class="math inline">\(df = n_a + n_r - 2\)</span>라는 식이 실제 자유도에 대한 “충분히 좋은” 근사치임을 나타냅니다. 실제 <a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes,_unequal_variances">공식</a>은 이 간단한 표현보다 다소 복잡하지만, 우리는 그 공식이 통계적 추론을 처음 접하는 사람들에게는 너무 어렵고 t-검정의 직관을 키우는 데는 큰 도움이 되지 않는다는 것을 알게 되었습니다.</p>
+<p>네 가지 곡선 모두 종 모양이고 0을 중심으로 하며, 자유도가 증가할수록 t-분포가 표준 정규 z 곡선과 점점 더 닮아가는 것을 확인하십시오. “자유도(degrees of freedom)” 는 t-분포가 정규 분포와 얼마나 다른지를 측정하는 척도입니다. t-분포는 표준 정규 z 곡선보다 분포의 꼬리(tails 부분에 더 많은 값을 갖는 경향이 있습니다(즉, 꼬리가 더 두껍습니다).</p>
+<p>이 “대략적으로 같다”는 진술은 <span class="math inline">\(df = n_a + n_r - 2\)</span>라는 식이 실제 자유도에 대한 “충분히 좋은” 근사치임을 나타냅니다. 실제 공식](https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes,_unequal_variances)은 이 간단한 표현보다 다소 복잡하지만, 우리는 그 공식이 통계적 추론을 처음 접하는 사람들에게는 너무 어렵고 t-검정의 직관을 키우는 데는 큰 도움이 되지 않는다는 것을 알게 되었습니다.</p>
 <p>여기서 기억해야 할 메시지는 표본 크기가 작으면 자유도가 작아지고, 따라서 표본 크기가 작으면 z 곡선과 다른 t-분포가 생성된다는 것입니다. 반면, 표본 크기가 크면 자유도가 커지며, 따라서 표준 정규 z 곡선과 밀접하게 일치하는 t-분포가 생성됩니다.</p>
 <p>따라서 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정하면, 검정 통계량 공식은 다음과 같이 약간 단순화됩니다.</p>
 <p><span class="math display">\[t = \dfrac{ (\bar{x}_a - \bar{x}_r) - 0}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  } = \dfrac{ \bar{x}_a - \bar{x}_r}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  }\]</span></p>
-<p>이 이표본 t-통계량에 필요한 값들을 계산해 보겠습니다. 섹션 @ref(imdb-data)의 탐색적 데이터 분석 중에 계산했던 요약 통계량을 상기해 보십시오.</p>
+<p>이 이표본 t-통계량에 필요한 값들을 계산해 보겠습니다. <span class="quarto-unresolved-ref">?sec-imdb-data절의</span> 탐색적 데이터 분석 중에 계산했던 요약 통계량을 상기해 보십시오.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating), <span class="at">std_dev =</span> <span class="fu">sd</span>(rating))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating), <span class="at">std_dev =</span> <span class="fu">sd</span>(rating))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   genre       n mean_rating std_dev
@@ -1591,26 +1619,26 @@ Explanatory: genre (factor)
 </section>
 <section id="귀무-분포" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="귀무-분포">귀무 분포</h4>
-<p>섹션 @ref(ht-case-study)에서 구축했던 검정 통계량 <span class="math inline">\(\bar{x}_a - \bar{x}_r\)</span>에 대한 귀무 분포를 다시 살펴보겠습니다. 이를 그림 @ref(fig:comparing-diff-means-t-stat)의 왼쪽 그래프에서 시각화해 보겠습니다.</p>
+<p><span class="quarto-unresolved-ref">?sec-ht-case-study절에서</span> 구축했던 검정 통계량 <span class="math inline">\(\bar{x}_a - \bar{x}_r\)</span>에 대한 귀무 분포를 다시 살펴보겠습니다. 이를 그림 <span class="quarto-unresolved-ref">?fig-comparing-diff-means-t-stat의</span> 왼쪽 그래프에서 시각화해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># xbar_a - xbar_r의 귀무 분포 구축:</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>null_distribution_movies <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies, <span class="at">bins =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><code>infer</code> 패키지에는 몇 가지 내장된 이론 기반 검정 통계량도 포함되어 있습니다. 따라서 관심 있는 검정 통계량을 <code>"diff in means"</code>(<span class="math inline">\(\bar{x}_a - \bar{x}_r\)</span>)로 계산하는 대신, <code>stat = "t"</code>로 설정하여 정의된 이표본 t-통계량을 계산할 수 있습니다. 그림 @ref(fig:comparing-diff-means-t-stat)의 오른쪽 그래프에서 이를 시각화해 보겠습니다.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t의 귀무 분포 구축:</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>null_distribution_movies_t <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># xbar_a - xbar_r의 귀무 분포 구축:</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>null_distribution_movies <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat을 "diff in means"에서 "t"로 변경했음에 주목하십시오.</span></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"t"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies_t, <span class="at">bins =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies, <span class="at">bins =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>infer</code> 패키지에는 몇 가지 내장된 이론 기반 검정 통계량도 포함되어 있습니다. 따라서 관심 있는 검정 통계량을 <code>"diff in means"</code>(<span class="math inline">\(\bar{x}_a - \bar{x}_r\)</span>)로 계산하는 대신, <code>stat = "t"</code>로 설정하여 정의된 이표본 t-통계량을 계산할 수 있습니다. 그림 <span class="quarto-unresolved-ref">?fig-comparing-diff-means-t-stat의</span> 오른쪽 그래프에서 이를 시각화해 보겠습니다.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t의 귀무 분포 구축:</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>null_distribution_movies_t <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat을 "diff in means"에서 "t"로 변경했음에 주목하십시오.</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"t"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies_t, <span class="at">bins =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1625,7 +1653,7 @@ Explanatory: genre (factor)
 <p>평균의 차이(<span class="math inline">\(\bar{x}_a - \bar{x}_r\)</span>)와 이표본 t-통계량 모두 귀무 분포의 모양은 비슷하지만, x축의 척도가 다르다는 점을 확인하십시오. 이표본 t-통계량 값들은 더 넓은 범위에 걸쳐 퍼져 있습니다.</p>
 <p>그러나 전통적인 이론 기반 t-검정은 <code>null_distribution_movies_t</code>에 있는 시뮬레이션된 히스토그램을 보는 대신, 자유도가 대략 65.8496인 t-분포 곡선을 봅니다. 이 계산은 앞서 언급한 복잡한 공식을 기반으로 하며, 우리는 이를 <span class="math inline">\(df = n_a + n_r - 2 = 32 + 36 - 2 = 66\)</span>로 근사했습니다. <code>visualize()</code>에서 <code>method = "both"</code> 인수를 사용하여 시뮬레이션된 이표본 t-통계량 위에 이 t-분포 곡선을 겹쳐 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies_t, <span class="at">bins =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies_t, <span class="at">bins =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1638,10 +1666,10 @@ Explanatory: genre (factor)
 <p>곡선이 여기서 히스토그램을 잘 근사하고 있음을 확인하십시오. 이 경우 p-값을 계산하려면 t-분포 곡선 아래의 전체 면적 중 관찰된 이표본 t-통계량과 같거나 그보다 “더 극단적인” 영역이 얼마나 되는지 알아내야 합니다. <span class="math inline">\(H_A: \mu_a - \mu_r \neq 0\)</span>이 양측 대립 가설이므로 두 꼬리 부분의 면적을 모두 합쳐야 합니다.</p>
 <p>먼저 <code>infer</code> 동사를 사용하여 관찰된 이표본 t-통계량을 계산합니다. 이 간편한 계산법은 귀무 가설이 참이라고, 즉 액션 영화와 로맨스 영화 모집단의 평균 평점이 같다고 추가로 가정합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>obs_two_sample_t <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"t"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>obs_two_sample_t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>obs_two_sample_t <span class="ot">&lt;-</span> movies_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">formula =</span> rating <span class="sc">~</span> genre) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"t"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"Action"</span>, <span class="st">"Romance"</span>))</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>obs_two_sample_t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response: rating (numeric)
 Explanatory: genre (factor)
@@ -1653,8 +1681,8 @@ Explanatory: genre (factor)
 </div>
 <p>우리는 <code>obs_two_sample_t</code> <span class="math inline">\(= -2.906\)</span> 이하이거나 <code>-obs_two_sample_t</code> <span class="math inline">\(= 2.906\)</span> 이상인 값의 비율을 찾고자 합니다. <code>shade_p_value()</code> 함수를 사용하고 <code>direction</code> 인수를 <code>"both"</code>로 설정하여 이를 수행합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies_t, <span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_two_sample_t, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(null_distribution_movies_t, <span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_two_sample_t, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Check to make sure the conditions have been met for the theoretical method.
 infer currently does not check these for you.</code></pre>
@@ -1670,8 +1698,8 @@ infer currently does not check these for you.</code></pre>
 </div>
 <p>(잠시 후에 이 경고 메시지에 대해 논의하겠습니다.) p-값은 얼마입니까? <code>null_distribution_movies_t</code>에 저장된 귀무 분포에 <code>get_p_value()</code>를 적용합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>null_distribution_movies_t <span class="sc">%&gt;%</span> </span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_two_sample_t, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>null_distribution_movies_t <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_two_sample_t, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p_value
@@ -1682,7 +1710,7 @@ infer currently does not check these for you.</code></pre>
 <p>p-값이 매우 작으므로, 이러한 결과가 <strong>표집 변동(sampling variation)</strong>에 의한 것일 가능성은 매우 낮습니다. 따라서 우리는 <span class="math inline">\(H_0\)</span>를 기각하게 됩니다.</p>
 <p>앞서 보았던 경고 메시지로 돌아가 보겠습니다. <code>이론적 방법의 조건이 충족되었는지 확인하십시오. {infer}는 현재 이를 자동으로 확인하지 않습니다.</code> t-검정 및 기타 이론 기반 방법을 사용하려면 항상 확인해야 할 몇 가지 조건이 있습니다. <code>infer</code> 패키지는 이러한 조건을 자동으로 확인하지 않으므로 우리가 받은 경고 메시지가 나타난 것입니다. 이러한 조건은 근간이 되는 수학적 이론이 성립하기 위해 필요합니다. 이표본 t-검정 결과가 유효하려면 다음 세 가지 조건이 충족되어야 합니다.</p>
 <ol type="1">
-<li>거의 <strong>정규 분포</strong>를 따르는 모집단이거나 <strong>큰 표본 크기</strong>를 가져야 합니다. 많은 상황에서(전부는 아니지만) 적용되는 일반적인 경험 법칙(rule of thumb)은 표본 크기 <span class="math inline">\(n\)</span>이 30보다 커야 한다는 것입니다.</li>
+<li>거의 <strong>정규 분포</strong>를 따르는 모집단이거나 <strong>큰 표본 크기</strong>를 가져야 합니다. 많은 상황에서(전부는 아니지만 적용되는 일반적인 경험 법칙(rule of thumb)은 표본 크기 <span class="math inline">\(n\)</span>이 30보다 커야 한다는 것입니다.</li>
 <li>두 표본은 서로 <strong>독립적으로</strong> 선택되어야 합니다.</li>
 <li>모든 관측치는 서로 <strong>독립적</strong>이어야 합니다.</li>
 </ol>
@@ -1696,20 +1724,20 @@ infer currently does not check these for you.</code></pre>
 <p>이러한 시뮬레이션 기반 방법에 왜 <code>reps = 1000</code>을 선택했는지 궁금하실 수 있습니다. 우리는 대부분의 문제에서 귀무 분포와 부트스트랩 분포를 위해 약 1000번의 반복 복제본을 만들면 통계량이 어떻게 작동하는지 일반적인 감을 잡기 시작할 수 있다는 것을 확인했습니다. 만약 더 세밀한 디테일을 원한다면 <code>reps</code> 값을 10,000과 같은 값으로 변경할 수 있지만, 계산하는 데 더 많은 시간이 걸릴 것입니다. 원하는 만큼 귀무 분포와 부트스트랩 분포의 모양을 더 잘 파악하기 위해 자유롭게 반복 횟수를 조정해 보십시오.</p>
 </section>
 </section>
-<section id="추론이-필요하지-않은-경우" class="level3" data-number="11.6.2">
-<h3 data-number="11.6.2" class="anchored" data-anchor-id="추론이-필요하지-않은-경우"><span class="header-section-number">11.6.2</span> 추론이 필요하지 않은 경우</h3>
+<section id="추론이-필요하지-않은-경우" class="level3">
+<h3 class="anchored" data-anchor-id="추론이-필요하지-않은-경우">추론이 필요하지 않은 경우</h3>
 <p>지금까지 신뢰 구간 구축과 가설 검정 수행이라는 <code>infer</code> 패키지 사용법의 여러 예시를 살펴보았습니다. 각 예시에서 우리는 항상 탐색적 데이터 분석(EDA)을 먼저 수행하는 것을 원칙으로 했습니다. 구체적으로 원시 데이터 값을 살펴보고, <code>ggplot2</code>를 사용한 데이터 시각화와 <code>dplyr</code>을 사용한 데이터 전처리를 사전에 수행했습니다. 여러분도 항상 그렇게 하시기를 <strong>강력히</strong> 권장합니다. 통계학 입문자에게 EDA는 신뢰 구간이나 가설 검정과 같은 통계적 방법이 우리에게 무엇을 말해줄 수 있는지에 대한 직관을 기르는 데 도움이 됩니다. 숙련된 통계 전문가에게도 EDA는 통계적 조사의 방향을 잡는 데 도움이 됩니다. 특히, “통계적 추론이 정말 필요한가?”라는 질문에 답하는 데 유용합니다.</p>
-<p>한 가지 예를 들어보겠습니다. 뉴욕시 공항에서 출발하는 <strong>모든</strong> 항공편 중에서 하와이안 항공(Hawaiian Airlines)의 비행 시간이 알래스카 항공(Alaska Airlines)보다 더 긴가요? 또한 2013년 항공편이 이러한 모든 항공편의 대표 표본이라고 가정해 봅시다. 그러면 섹션 @ref(nycflights13)에서 소개한 <code>nycflights13</code> 패키지의 <code>flights</code> 데이터 프레임을 사용하여 이 질문에 답할 수 있습니다. <code>carrier</code> 코드인 <code>HA</code>(하와이안)와 <code>AS</code>(알래스카)를 사용하여 하와이안 항공과 알래스카 항공만 포함하도록 이 데이터 프레임을 필터링해 보겠습니다.</p>
+<p>한 가지 예를 들어보겠습니다. 뉴욕시 공항에서 출발하는 <strong>모든</strong> 항공편 중에서 하와이안 항공(Hawaiian Airlines)의 비행 시간이 알래스카 항공(Alaska Airlines)보다 더 긴가요? 또한 2013년 항공편이 이러한 모든 항공편의 대표 표본이라고 가정해 봅시다. 그러면 <span class="quarto-unresolved-ref">?sec-nycflights13절에서</span> 소개한 <code>nycflights13</code> 패키지의 <code>flights</code> 데이터 프레임을 사용하여 이 질문에 답할 수 있습니다. <code>carrier</code> 코드인 <code>HA</code>(하와이안)와 <code>AS</code>(알래스카)를 사용하여 하와이안 항공과 알래스카 항공만 포함하도록 이 데이터 프레임을 필터링해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>flights_sample <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carrier <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HA"</span>, <span class="st">"AS"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>flights_sample <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carrier <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HA"</span>, <span class="st">"AS"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>이러한 질문에 답하기 위해 사용할 수 있는 두 가지 통계적 추론 방법이 있습니다. 첫째, 모집단 평균의 차이인 <span class="math inline">\(\mu_{HA} - \mu_{AS}\)</span>에 대한 95% 신뢰 구간을 구축할 수 있습니다. 여기서 <span class="math inline">\(\mu_{HA}\)</span>는 모든 하와이안 항공 항공편의 평균 비행 시간이고, <span class="math inline">\(\mu_{AS}\)</span>는 모든 알래스카 항공 항공편의 평균 비행 시간입니다. 그런 다음 구간 전체가 0보다 큰지 확인하여 <span class="math inline">\(\mu_{HA} - \mu_{AS} &gt; 0\)</span>, 즉 <span class="math inline">\(\mu_{HA} &gt; \mu_{AS}\)</span>임을 시사하는지 확인할 수 있습니다. 둘째, 귀무 가설 <span class="math inline">\(H_0: \mu_{HA} - \mu_{AS} = 0\)</span> 대 대립 가설 <span class="math inline">\(H_A: \mu_{HA} - \mu_{AS} &gt; 0\)</span>에 대한 가설 검정을 수행할 수 있습니다.</p>
-<p>하지만 먼저 앞서 제안한 대로 탐색적 시각화를 구축해 보겠습니다. <code>air_time</code>은 수치형이고 <code>carrier</code>는 범주형이므로 박스플롯을 통해 이 두 변수 사이의 관계를 나타낼 수 있습니다. 이를 그림 @ref(fig:ha-as-flights-boxplot)에 표시했습니다.</p>
+<p>하지만 먼저 앞서 제안한 대로 탐색적 시각화를 구축해 보겠습니다. <code>air_time</code>은 수치형이고 <code>carrier</code>는 범주형이므로 박스플롯을 통해 이 두 변수 사이의 관계를 나타낼 수 있습니다. 이를 그림 <span class="quarto-unresolved-ref">?fig-ha-as-flights-boxplot에</span> 표시했습니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights_sample, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> air_time)) <span class="sc">+</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"공보사(Carrier)"</span>, <span class="at">y =</span> <span class="st">"비행 시간(Air Time)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights_sample, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> air_time)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"공보사(Carrier)"</span>, <span class="at">y =</span> <span class="st">"비행 시간(Air Time)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1719,12 +1747,12 @@ infer currently does not check these for you.</code></pre>
 </div>
 </div>
 </div>
-<p>이것이 바로 우리가 소위 “통계학 박사 학위가 필요 없는” 순간이라고 부르는 것입니다. 알래스카 항공과 하와이안 항공의 비행 시간이 <strong>유의미하게</strong> 다르다는 것을 알기 위해 통계 전문가가 될 필요는 없습니다. 두 박스플롯은 전혀 겹치지조차 않습니다! 솔직히 말해서 신뢰 구간을 구축하거나 가설 검정을 수행하는 것이 그림 @ref(fig:ha-as-flights-boxplot)보다 더 많은 통찰력을 제공하지는 못할 것입니다.</p>
+<p>이것이 바로 우리가 소위 “통계학 박사 학위가 필요 없는” 순간이라고 부르는 것입니다. 알래스카 항공과 하와이안 항공의 비행 시간이 <strong>유의미하게</strong> 다르다는 것을 알기 위해 통계 전문가가 될 필요는 없습니다. 두 박스플롯은 전혀 겹치지조차 않습니다! 솔직히 말해서 신뢰 구간을 구축하거나 가설 검정을 수행하는 것이 그림 <span class="quarto-unresolved-ref">?fig-ha-as-flights-boxplot보다</span> 더 많은 통찰력을 제공하지는 못할 것입니다.</p>
 <p>데이터 전처리를 사용하여 왜 이 두 항공사 사이에 이렇게 명확한 차이가 관찰되는지 조사해 보겠습니다. 먼저 <code>flights_sample</code>의 행을 <code>carrier</code>뿐만 아니라 목적지인 <code>dest</code>로도 그룹화해 보겠습니다. 그 후 <code>n()</code>을 사용한 관측치 수와 평균 비행 시간을 계산합니다.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>flights_sample <span class="sc">%&gt;%</span> </span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carrier, dest) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_time =</span> <span class="fu">mean</span>(air_time, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>flights_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carrier, dest) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_time =</span> <span class="fu">mean</span>(air_time, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has regrouped the output.
 ℹ Summaries were computed grouped by carrier and dest.
@@ -1745,9 +1773,9 @@ infer currently does not check these for you.</code></pre>
 <p>알고 보니 2013년에 뉴욕시(NYC)에서 알래스카 항공은 <code>SEA</code>(시애틀)로만 운행했고, 하와이안 항공은 <code>HNL</code>(호놀룰루)로만 운행했습니다. 뉴욕시에서 시애틀까지의 거리와 뉴욕시에서 호놀룰루까지의 거리 차이가 극명하다는 점을 고려하면, 비행 시간에서 이토록 큰 차이(실제로 <strong>통계적으로 유의미한</strong> 차이)가 관찰되는 것은 전혀 놀랄 일이 아닙니다.</p>
 <p>이는 적절한 결론을 도출하기 위해 데이터 시각화와 기술 통계를 사용한 단순한 탐색적 데이터 분석 이상의 것이 필요하지 않음을 보여주는 명확한 예시입니다. 이것이 바로 우리가 신뢰 구간이나 가설 검정과 같은 통계적 추론 방법을 실행하기 전에 표본 데이터에 대한 EDA를 수행하도록 강력히 권장하는 이유입니다.</p>
 </section>
-<section id="p-값의-문제점" class="level3" data-number="11.6.3">
-<h3 data-number="11.6.3" class="anchored" data-anchor-id="p-값의-문제점"><span class="header-section-number">11.6.3</span> p-값의 문제점</h3>
-<p>섹션 @ref(ht-interpretation)에서 나열한 가설 검정과 p-값에 대한 많은 일반적인 오해 외에도, p-값과 가설 검정의 사용이 확대되면서 나타난 또 다른 불행한 결과는 <strong>p-해킹(p-hacking)</strong>으로 알려진 현상입니다. p-해킹은 과학적 아이디어를 희생시키더라도 통계적으로 유의미한 결과만 선택적으로 골라내고(<strong>cherry-picking</strong>) 유의미하지 않은 결과는 무시하는 행위를 말합니다. 최근 p-값의 오해와 문제점에 관한 많은 기사가 작성되었습니다. 그중 몇 가지를 확인해 보시기 바랍니다.</p>
+<section id="p-값의-문제점" class="level3">
+<h3 class="anchored" data-anchor-id="p-값의-문제점">p-값의 문제점</h3>
+<p><span class="quarto-unresolved-ref">?sec-ht-interpretation절에서</span> 나열한 가설 검정과 p-값에 대한 많은 일반적인 오해 외에도, p-값과 가설 검정의 사용이 확대되면서 나타난 또 다른 불행한 결과는 <strong>p-해킹(p-hacking)</strong>으로 알려진 현상입니다. p-해킹은 과학적 아이디어를 희생시키더라도 통계적으로 유의미한 결과만 선택적으로 골라내고(<strong>cherry-picking</strong> 유의미하지 않은 결과는 무시하는 행위를 말합니다. 최근 p-값의 오해와 문제점에 관한 많은 기사가 작성되었습니다. 그중 몇 가지를 확인해 보시기 바랍니다.</p>
 <ol type="1">
 <li><a href="https://en.wikipedia.org/wiki/Misunderstandings_of_p-values">p-값에 대한 오해(영문)</a></li>
 <li><a href="https://www.vox.com/science-and-health/2017/7/31/16021654/p-values-statistical-significance-redefine-0005">p-값에 대한 논쟁이 과학에 대해 보여주는 것 - 그리고 이를 해결하는 방법(영문)</a></li>
@@ -1758,16 +1786,16 @@ infer currently does not check these for you.</code></pre>
 <p>이러한 문제가 너무나 심각해지자 미국 통계학회(ASA)는 2016년에 <a href="https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf">“통계적 유의성과 p-값에 관한 ASA 성명서”</a>를 발표하여 p-값의 적절한 사용과 해석을 위한 6가지 원칙을 제시했습니다. ASA는 정량적 과학의 수행과 해석을 개선하고 과학 연구의 재현성에 대한 강조가 높아지고 있는 상황에 발맞추어 이 p-값 가이드를 발표했습니다.</p>
 <p>저자인 저희는 신뢰 구간이 오해의 소지가 훨씬 적다고 생각하기 때문에 통계적 추론에 신뢰 구간을 사용하는 것을 훨씬 선호합니다. 하지만 여전히 많은 분야에서 통계적 추론을 위해 p-값만을 독점적으로 사용하고 있으며, 이것이 이 텍스트에 p-값을 포함한 이유 중 하나입니다. 여러분도 “p-해킹”과 그것이 과학에 미치는 영향에 대해 더 알아보시기를 권장합니다.</p>
 </section>
-<section id="추가-자료" class="level3" data-number="11.6.4">
-<h3 data-number="11.6.4" class="anchored" data-anchor-id="추가-자료"><span class="header-section-number">11.6.4</span> 추가 자료</h3>
+<section id="추가-자료" class="level3">
+<h3 class="anchored" data-anchor-id="추가-자료">추가 자료</h3>
 <div class="cell" data-layout-align="center">
 <p>이 장에서 사용된 모든 R 코드의 R 스크립트 파일은 <a href="scripts/09-hypothesis-testing.R">여기</a>에서 이용 가능합니다.</p>
 </div>
 <p>가설 검정을 수행하기 위한 <code>infer</code> 워크플로의 더 많은 예시를 원하신다면, <code>infer</code> 패키지 홈페이지, 특히 <a href="https://infer.netlify.app/articles/" class="uri">https://infer.netlify.app/articles/</a>에 있는 일련의 예시 분석들을 확인해 보시기를 권장합니다.</p>
 </section>
-<section id="향후-계획" class="level3" data-number="11.6.5">
-<h3 data-number="11.6.5" class="anchored" data-anchor-id="향후-계획"><span class="header-section-number">11.6.5</span> 향후 계획</h3>
-<p>그림 @ref(fig:infer-workflow-ht)에서 가설 검정을 위한 <code>infer</code> 파이프라인을 보여주며 결론을 맺습니다.</p>
+<section id="향후-계획" class="level3">
+<h3 class="anchored" data-anchor-id="향후-계획">향후 계획</h3>
+<p>그림 <span class="quarto-unresolved-ref">?fig-infer-workflow-ht에서</span> 가설 검정을 위한 <code>infer</code> 파이프라인을 보여주며 결론을 맺습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1778,14 +1806,14 @@ infer currently does not check these for you.</code></pre>
 </div>
 </div>
 </div>
-<p>이제 챕터 @ref(confidence-intervals)에서 신뢰 구간을, 이번 챕터에서 가설 검정에 대한 이해를 갖추었으므로, 이제 다가올 챕터 @ref(inference-for-regression)에서 회귀 분석을 위한 추론(inference for regression)을 공부하겠습니다.</p>
-<p>기초 회귀 분석을 다룬 챕터 @ref(regression)와 다중 회귀 분석을 다룬 챕터 @ref(multiple-regression)에서 공부했던 회귀 모델을 다시 살펴보겠습니다. 예를 들어, 강사의 “외모(beauty)” 점수에 따른 강의 점수에 대한 회귀 모델에 해당하는 표 @ref(tab:regtable)(여기 표 @ref(tab:regression-table-inference)에서 다시 표시함)를 상기해 보십시오.</p>
+<p>이제 <span class="quarto-unresolved-ref">?sec-confidence-intervals에서</span> 신뢰 구간을, 이번 챕터에서 가설 검정에 대한 이해를 갖추었으므로, 이제 다가올 <span class="quarto-unresolved-ref">?sec-inference-for-regression에서</span> 회귀 분석을 위한 추론(inference for regression)을 공부하겠습니다.</p>
+<p>기초 회귀 분석을 다룬 <span class="quarto-unresolved-ref">?sec-regression와</span> 다중 회귀 분석을 다룬 <span class="quarto-unresolved-ref">?sec-multiple-regression에서</span> 공부했던 회귀 모델을 다시 살펴보겠습니다. 예를 들어, 강사의 “외모(beauty)” 점수에 따른 강의 점수에 대한 회귀 모델에 해당하는 표 <span class="quarto-unresolved-ref">?tbl-regtable</span>(여기 표 <span class="quarto-unresolved-ref">?tbl-regression-table-inference에서</span> 다시 표시함)를 상기해 보십시오.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>score_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> bty_avg, <span class="at">data =</span> evals)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 표 가져오기:</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="fu">get_regression_table</span>(score_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>score_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> bty_avg, <span class="at">data =</span> evals)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 표 가져오기:</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="fu">get_regression_table</span>(score_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1825,7 +1853,7 @@ infer currently does not check these for you.</code></pre>
 </table>
 </div>
 </div>
-<p>우리는 이전에 하위 섹션 @ref(model1table)에서 <code>estimate</code> 열의 값이 적합된 절편 <span class="math inline">\(b_0\)</span>와 “외모” 점수에 대해 적합된 기울기 <span class="math inline">\(b_1\)</span>임을 보았습니다. 챕터 @ref(inference-for-regression)에서는 나머지 열들도 살펴볼 것입니다. 즉, 표준 오차인 <code>std_error</code>, <code>p_value</code>를 계산하기 위한 관찰된 <strong>표준화된</strong> 검정 통계량인 <code>statistic</code>, 그리고 <code>lower_ci</code>와 <code>upper_ci</code>로 주어지는 95% 신뢰 구간입니다.</p>
+<p>우리는 이전에 하위 <span class="quarto-unresolved-ref">?sec-model1table절에서</span> <code>estimate</code> 열의 값이 적합된 절편 <span class="math inline">\(b_0\)</span>와 “외모” 점수에 대해 적합된 기울기 <span class="math inline">\(b_1\)</span>임을 보았습니다. <span class="quarto-unresolved-ref">?sec-inference-for-regression에서는</span> 나머지 열들도 살펴볼 것입니다. 즉, 표준 오차인 <code>std_error</code>, <code>p_value</code>를 계산하기 위한 관찰된 <strong>표준화된</strong> 검정 통계량인 <code>statistic</code>, 그리고 <code>lower_ci</code>와 <code>upper_ci</code>로 주어지는 95% 신뢰 구간입니다.</p>
 
 
 </section>
@@ -2234,13 +2262,13 @@ infer currently does not check these for you.</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./08-confidence-intervals.html" class="pagination-link" aria-label="Bootstrapping and Confidence Intervals">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bootstrapping and Confidence Intervals</span></span>
+      <a href="./08-confidence-intervals.html" class="pagination-link" aria-label="붓스트랩과 신뢰 구간">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">붓스트랩과 신뢰 구간</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./10-inference-for-regression.html" class="pagination-link" aria-label="회귀 분석을 위한 추론">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">회귀 분석을 위한 추론</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

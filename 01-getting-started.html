@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; R 데이터 시작하기 – ModernDive: Statistical Inference via Data Science</title>
+<title>R 데이터 시작하기 – ModernDive: Statistical Inference via Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,7 +86,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./02-visualization.html" rel="next">
-<link href="./00-preface.html" rel="prev">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-getting-started.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-getting-started.html"><span class="chapter-title">R 데이터 시작하기</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,130 +194,155 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>r ifelse(knitr::is_latex_output(), 'Statistical Inference via Data Science:  A ModernDive into R and the Tidyverse', 'Statistical Inference via Data Science')</code></span></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">머리말</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00-foreword.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">00-foreword.html</span></span></a>
+  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">R 데이터 시작하기</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 과학</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 시각화</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 전처리</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 모델링</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">기초 회귀 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">다중 회귀 분석</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">통계적 추론</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">표본 추출</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">붓스트랩과 신뢰 구간</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">가설 검정</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">데이터 모델링(심화)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">회귀 분석을 위한 추론</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00-preface.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">머리말</span></a>
+  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">데이터로 이야기 들려주기</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">부록</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-getting-started.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span></a>
+  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">통계적 배경</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></span></a>
+  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">추론 예제</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터 전처리</span></span></a>
+  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">팁과 요령</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></a>
+  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">학습 확인 문제 풀이</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">기초 회귀 분석</span></span></a>
+  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">사용된 R 패키지 버전</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-multiple-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다중 회귀 분석</span></span></a>
+  <a href="./NEWS.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">업데이트 내용</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-sampling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">표본 추출</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bootstrapping and Confidence Intervals</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">가설 검정</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-inference-for-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">회귀 분석을 위한 추론</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11-tell-your-story-with-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART) 결론</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./91-appendixA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">통계적 배경</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./92-appendixB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">추론 예제</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./93-appendixC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">팁과 요령</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./94-appendixD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Learning Check Solutions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./95-appendixE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">사용된 R 패키지 버전</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">참고 문헌</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./NEWS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ModernDive 1.1.0.9000</span></span></a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -328,35 +353,35 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#r-rstudio" id="toc-r-rstudio" class="nav-link active" data-scroll-target="#r-rstudio"><span class="header-section-number">3.1</span> R과 RStudio는 무엇인가?</a>
+  <li><a href="#r-rstudio" id="toc-r-rstudio" class="nav-link active" data-scroll-target="#r-rstudio">R과 RStudio는 무엇인가?</a>
   <ul class="collapse">
-  <li><a href="#installing" id="toc-installing" class="nav-link" data-scroll-target="#installing"><span class="header-section-number">3.1.1</span> R과 RStudio 설치하기</a></li>
-  <li><a href="#rstudio를-통해-r-사용하기" id="toc-rstudio를-통해-r-사용하기" class="nav-link" data-scroll-target="#rstudio를-통해-r-사용하기"><span class="header-section-number">3.1.2</span> RStudio를 통해 R 사용하기</a></li>
+  <li><a href="#installing" id="toc-installing" class="nav-link" data-scroll-target="#installing">R과 RStudio 설치하기</a></li>
+  <li><a href="#rstudio를-통해-r-사용하기" id="toc-rstudio를-통해-r-사용하기" class="nav-link" data-scroll-target="#rstudio를-통해-r-사용하기">RStudio를 통해 R 사용하기</a></li>
   </ul></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code"><span class="header-section-number">3.2</span> R로 어떻게 코딩하는가?</a>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">R로 어떻게 코딩하는가?</a>
   <ul class="collapse">
-  <li><a href="#programming-concepts" id="toc-programming-concepts" class="nav-link" data-scroll-target="#programming-concepts"><span class="header-section-number">3.2.1</span> 기초 프로그래밍 개념 및 용어</a></li>
-  <li><a href="#messages" id="toc-messages" class="nav-link" data-scroll-target="#messages"><span class="header-section-number">3.2.2</span> 오류, 경고 및 메시지</a></li>
-  <li><a href="#tips-code" id="toc-tips-code" class="nav-link" data-scroll-target="#tips-code"><span class="header-section-number">3.2.3</span> 코딩 학습 팁</a></li>
+  <li><a href="#programming-concepts" id="toc-programming-concepts" class="nav-link" data-scroll-target="#programming-concepts">기초 프로그래밍 개념 및 용어</a></li>
+  <li><a href="#messages" id="toc-messages" class="nav-link" data-scroll-target="#messages">오류, 경고 및 메시지</a></li>
+  <li><a href="#tips-code" id="toc-tips-code" class="nav-link" data-scroll-target="#tips-code">코딩 학습 팁</a></li>
   </ul></li>
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">3.3</span> R 패키지란 무엇인가?</a>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">R 패키지란 무엇인가?</a>
   <ul class="collapse">
-  <li><a href="#package-installation" id="toc-package-installation" class="nav-link" data-scroll-target="#package-installation"><span class="header-section-number">3.3.1</span> 패키지 설치</a></li>
-  <li><a href="#package-loading" id="toc-package-loading" class="nav-link" data-scroll-target="#package-loading"><span class="header-section-number">3.3.2</span> 패키지 로드</a></li>
-  <li><a href="#package-use" id="toc-package-use" class="nav-link" data-scroll-target="#package-use"><span class="header-section-number">3.3.3</span> 패키지 사용</a></li>
+  <li><a href="#package-installation" id="toc-package-installation" class="nav-link" data-scroll-target="#package-installation">패키지 설치</a></li>
+  <li><a href="#package-loading" id="toc-package-loading" class="nav-link" data-scroll-target="#package-loading">패키지 로드</a></li>
+  <li><a href="#package-use" id="toc-package-use" class="nav-link" data-scroll-target="#package-use">패키지 사용</a></li>
   </ul></li>
-  <li><a href="#nycflights13" id="toc-nycflights13" class="nav-link" data-scroll-target="#nycflights13"><span class="header-section-number">3.4</span> 첫 데이터셋 탐색하기</a>
+  <li><a href="#nycflights13" id="toc-nycflights13" class="nav-link" data-scroll-target="#nycflights13">첫 데이터셋 탐색하기</a>
   <ul class="collapse">
-  <li><a href="#nycflights13-패키지" id="toc-nycflights13-패키지" class="nav-link" data-scroll-target="#nycflights13-패키지"><span class="header-section-number">3.4.1</span> <code>nycflights13</code> 패키지</a></li>
-  <li><a href="#flights-데이터-프레임" id="toc-flights-데이터-프레임" class="nav-link" data-scroll-target="#flights-데이터-프레임"><span class="header-section-number">3.4.2</span> <code>flights</code> 데이터 프레임</a></li>
-  <li><a href="#exploredataframes" id="toc-exploredataframes" class="nav-link" data-scroll-target="#exploredataframes"><span class="header-section-number">3.4.3</span> 데이터 프레임 탐색하기</a></li>
-  <li><a href="#identification-vs-measurement-variables" id="toc-identification-vs-measurement-variables" class="nav-link" data-scroll-target="#identification-vs-measurement-variables"><span class="header-section-number">3.4.4</span> 식별 변수와 측정 변수</a></li>
-  <li><a href="#도움말-파일" id="toc-도움말-파일" class="nav-link" data-scroll-target="#도움말-파일"><span class="header-section-number">3.4.5</span> 도움말 파일</a></li>
+  <li><a href="#nycflights13-패키지" id="toc-nycflights13-패키지" class="nav-link" data-scroll-target="#nycflights13-패키지"><code>nycflights13</code> 패키지</a></li>
+  <li><a href="#flights-데이터-프레임" id="toc-flights-데이터-프레임" class="nav-link" data-scroll-target="#flights-데이터-프레임"><code>flights</code> 데이터 프레임</a></li>
+  <li><a href="#exploredataframes" id="toc-exploredataframes" class="nav-link" data-scroll-target="#exploredataframes">데이터 프레임 탐색하기</a></li>
+  <li><a href="#identification-vs-measurement-variables" id="toc-identification-vs-measurement-variables" class="nav-link" data-scroll-target="#identification-vs-measurement-variables">식별 변수와 측정 변수</a></li>
+  <li><a href="#도움말-파일" id="toc-도움말-파일" class="nav-link" data-scroll-target="#도움말-파일">도움말 파일</a></li>
   </ul></li>
-  <li><a href="#결론" id="toc-결론" class="nav-link" data-scroll-target="#결론"><span class="header-section-number">3.5</span> 결론</a>
+  <li><a href="#결론" id="toc-결론" class="nav-link" data-scroll-target="#결론">결론</a>
   <ul class="collapse">
-  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료"><span class="header-section-number">3.5.1</span> 추가 자료</a></li>
-  <li><a href="#앞으로의-계획" id="toc-앞으로의-계획" class="nav-link" data-scroll-target="#앞으로의-계획"><span class="header-section-number">3.5.2</span> 앞으로의 계획</a></li>
+  <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료">추가 자료</a></li>
+  <li><a href="#앞으로의-계획" id="toc-앞으로의-계획" class="nav-link" data-scroll-target="#앞으로의-계획">앞으로의 계획</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -366,7 +391,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="getting-started" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 데이터 시작하기</span></span></h1>
+<h1 class="title"><span id="getting-started" class="quarto-section-identifier"><span class="chapter-title">R 데이터 시작하기</span></span></h1>
 </div>
 
 
@@ -389,10 +414,10 @@ window.Quarto = {
 <li>R로 어떻게 코딩하는가?</li>
 <li>R 패키지란 무엇인가?</li>
 </ol>
-<p>이어지는 섹션 @ref(r-rstudio)-@ref(packages)에서 이러한 개념들을 소개할 것입니다. 이러한 개념들에 이미 어느 정도 익숙하다면 섹션 @ref(nycflights13)으로 건너뛰어도 좋습니다. 그곳에서는 우리의 첫 데이터셋인 2013년 뉴욕시(NYC)의 세 주요 공항에서 출발하는 모든 국내선 항공편 데이터를 소개할 것입니다. 이 데이터셋은 이 책의 남은 부분 중 많은 곳에서 심도 있게 탐색하게 될 데이터입니다.</p>
-<section id="r-rstudio" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="r-rstudio"><span class="header-section-number">3.1</span> R과 RStudio는 무엇인가?</h2>
-<p>이 책 전반에 걸쳐 여러분이 RStudio를 통해 R을 사용하고 있다고 가정할 것입니다. 처음 사용하는 사람들은 종종 이 둘을 혼동하곤 합니다. 가장 간단하게 표현하자면, 그림 @ref(fig:R-vs-RStudio-1)에서 묘사된 것처럼 R은 자동차의 엔진과 같고, RStudio는 자동차의 대시보드와 같습니다.</p>
+<p>이어지는 <span class="quarto-unresolved-ref">?sec-r-rstudio절</span><span class="quarto-unresolved-ref">?sec-packages에서</span> 이러한 개념들을 소개할 것입니다. 이러한 개념들에 이미 어느 정도 익숙하다면 <span class="quarto-unresolved-ref">?sec-nycflights13절으로</span> 건너뛰어도 좋습니다. 그곳에서는 우리의 첫 데이터셋인 2013년 뉴욕시(NYC)의 세 주요 공항에서 출발하는 모든 국내선 항공편 데이터를 소개할 것입니다. 이 데이터셋은 이 책의 남은 부분 중 많은 곳에서 심도 있게 탐색하게 될 데이터입니다.</p>
+<section id="r-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="r-rstudio">R과 RStudio는 무엇인가?</h2>
+<p>이 책 전반에 걸쳐 여러분이 RStudio를 통해 R을 사용하고 있다고 가정할 것입니다. 처음 사용하는 사람들은 종종 이 둘을 혼동하곤 합니다. 가장 간단하게 표현하자면, 그림 <span class="quarto-unresolved-ref">?fig-R-vs-RStudio-1에서</span> 묘사된 것처럼 R은 자동차의 엔진과 같고, RStudio는 자동차의 대시보드와 같습니다.</p>
 <!--
 R: 엔진            |  RStudio: 대시보드 
 :-------------------------:|:-------------------------:
@@ -409,8 +434,8 @@ R: 엔진            |  RStudio: 대시보드
 </div>
 </div>
 <p>더 정확하게 말하면, R은 계산을 실행하는 프로그래밍 언어이고, RStudio는 많은 편리한 기능과 도구를 추가하여 인터페이스를 제공하는 <em>통합 개발 환경(IDE)</em>입니다. 속도계, 백미러, 내비게이션 시스템을 갖추는 것이 운전을 훨씬 쉽게 만드는 것과 마찬가지로, RStudio의 인터페이스를 사용하는 것은 R을 훨씬 더 쉽게 사용할 수 있게 해줍니다.</p>
-<section id="installing" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="installing"><span class="header-section-number">3.1.1</span> R과 RStudio 설치하기</h3>
+<section id="installing" class="level3">
+<h3 class="anchored" data-anchor-id="installing">R과 RStudio 설치하기</h3>
 <blockquote class="blockquote">
 <p><strong>RStudio Server 또는 RStudio Cloud에 관한 참고 사항</strong>: 강사가 RStudio Server 또는 RStudio Cloud에 대한 링크와 액세스 권한을 제공했다면 이 섹션은 건너뛰어도 됩니다. 하지만 RStudio Server/Cloud에서 몇 달 동안 작업한 후에는 자신의 컴퓨터에 이 소프트웨어를 설치하기 위해 이 지침으로 돌아오는 것을 권장합니다.</p>
 </blockquote>
@@ -429,9 +454,9 @@ R: 엔진            |  RStudio: 대시보드
 </ul></li>
 </ol>
 </section>
-<section id="rstudio를-통해-r-사용하기" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="rstudio를-통해-r-사용하기"><span class="header-section-number">3.1.2</span> RStudio를 통해 R 사용하기</h3>
-<p>앞서 언급한 자동차 비유를 떠올려 보세요. 우리가 엔진과 직접 상호작용하며 운전하는 것이 아니라 자동차 대시보드의 요소들과 상호작용하며 운전하는 것과 마찬가지로, 우리는 R을 직접 사용하는 것이 아니라 RStudio의 인터페이스를 사용할 것입니다. 컴퓨터에 R과 RStudio를 설치하고 나면 열 수 있는 두 개의 새로운 <em>프로그램</em>(또는 <em>애플리케이션</em>)이 생깁니다. 우리는 항상 R 애플리케이션이 아닌 RStudio에서 작업할 것입니다. 그림 @ref(fig:R-vs-RStudio-2)는 컴퓨터에서 어떤 아이콘을 클릭해야 하는지 보여줍니다.</p>
+<section id="rstudio를-통해-r-사용하기" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio를-통해-r-사용하기">RStudio를 통해 R 사용하기</h3>
+<p>앞서 언급한 자동차 비유를 떠올려 보세요. 우리가 엔진과 직접 상호작용하며 운전하는 것이 아니라 자동차 대시보드의 요소들과 상호작용하며 운전하는 것과 마찬가지로, 우리는 R을 직접 사용하는 것이 아니라 RStudio의 인터페이스를 사용할 것입니다. 컴퓨터에 R과 RStudio를 설치하고 나면 열 수 있는 두 개의 새로운 <em>프로그램</em>(또는 <em>애플리케이션</em>)이 생깁니다. 우리는 항상 R 애플리케이션이 아닌 RStudio에서 작업할 것입니다. 그림 <span class="quarto-unresolved-ref">?fig-R-vs-RStudio-2는</span> 컴퓨터에서 어떤 아이콘을 클릭해야 하는지 보여줍니다.</p>
 <!--
 R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 :-------------------------:|:-------------------------:
@@ -447,7 +472,7 @@ R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 </div>
 </div>
 </div>
-<p>RStudio를 열면 그림 @ref(fig:RStudio-interface)와 유사한 화면이 나타납니다. (2019년 이후 RStudio 인터페이스가 업데이트되어 기본값이 이와 다를 경우 약간의 차이가 있을 수 있습니다.)</p>
+<p>RStudio를 열면 그림 <span class="quarto-unresolved-ref">?fig-RStudio-interface와</span> 유사한 화면이 나타납니다. (2019년 이후 RStudio 인터페이스가 업데이트되어 기본값이 이와 다를 경우 약간의 차이가 있을 수 있습니다.)</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -461,12 +486,12 @@ R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 <p>화면을 나누고 있는 세 개의 <em>패널(panes)</em>을 주목하세요: <em>콘솔 패널(console pane)</em>, <em>파일 패널(files pane)</em>, 그리고 <em>환경 패널(environment pane)</em>입니다. 이 장을 진행하면서 각 패널이 어떤 용도로 쓰이는지 배우게 될 것입니다.</p>
 </section>
 </section>
-<section id="code" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="code"><span class="header-section-number">3.2</span> R로 어떻게 코딩하는가?</h2>
-<p>이제 R과 RStudio 설정이 끝났으니, “좋아, 이제 R을 어떻게 사용하는 거지?”라고 자문하고 계실 것입니다. 가장 먼저 알아야 할 점은 Excel, SPSS, Minitab과 같이 <a href="https://ko.wikipedia.org/wiki/포인트_앤_클릭">포인트 앤 클릭(point-and-click)</a> 인터페이스를 제공하는 다른 통계 소프트웨어 프로그램들과 달리, R은 <a href="https://ko.wikipedia.org/wiki/인터프리터_언어">인터프리터 언어(interpreted language)</a>라는 것입니다. 이는 <em>R 코드</em>라고 불리는 명령어를 직접 타이핑해야 함을 의미합니다. 즉, R로 코딩/프로그래밍을 해야 합니다. 이 책에서는 “코딩”과 “프로그래밍”이라는 용어를 혼용하여 사용하겠습니다.</p>
+<section id="code" class="level2">
+<h2 class="anchored" data-anchor-id="code">R로 어떻게 코딩하는가?</h2>
+<p>이제 R과 RStudio 설정이 끝났으니, “좋아, 이제 R을 어떻게 사용하는 거지?”라고 자문하고 계실 것입니다. 가장 먼저 알아야 할 점은 Excel, SPSS, Minitab과 같이 [포인트 앤 클릭(point-and-click)](https://ko.wikipedia.org/wiki/포인트_앤_클릭 인터페이스를 제공하는 다른 통계 소프트웨어 프로그램들과 달리, R은 <a href="https://ko.wikipedia.org/wiki/인터프리터_언어">인터프리터 언어(interpreted language)</a>라는 것입니다. 이는 <em>R 코드</em>라고 불리는 명령어를 직접 타이핑해야 함을 의미합니다. 즉, R로 코딩/프로그래밍을 해야 합니다. 이 책에서는 “코딩”과 “프로그래밍”이라는 용어를 혼용하여 사용하겠습니다.</p>
 <p>R을 사용하기 위해 숙련된 코더나 컴퓨터 프로그래머가 될 필요는 없지만, 새로운 R 사용자가 이해해야 할 기초적인 프로그래밍 개념은 여전히 존재합니다. 따라서 이 책이 프로그래밍 전문 서적은 아니지만, 데이터를 효과적으로 탐색하고 분석하는 데 필요한 기본적인 프로그래밍 개념들을 충분히 배우게 될 것입니다.</p>
-<section id="programming-concepts" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="programming-concepts"><span class="header-section-number">3.2.1</span> 기초 프로그래밍 개념 및 용어</h3>
+<section id="programming-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="programming-concepts">기초 프로그래밍 개념 및 용어</h3>
 <p>이제 몇 가지 기초 프로그래밍 개념과 용어를 소개합니다. 지금 당장 이 모든 개념과 용어를 암기하라고 요구하는 대신, 여러분이 “직접 해보며 배울 수 있도록” 안내할 것입니다. 학습을 돕기 위해 일반 텍스트와 <code>computer_code</code>를 구분하기 위해 항상 다른 폰트를 사용할 것입니다. 이러한 주제를 마스터하는 가장 좋은 방법은 R을 사용한 <a href="https://jamesclear.com/deliberate-practice-theory">의도적인 연습(deliberate practice)</a>과 많은 반복이라고 우리는 생각합니다.</p>
 <ul>
 <li>기초:
@@ -474,11 +499,11 @@ R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 <li><em>콘솔 패널(Console pane)</em>: 명령어를 입력하는 곳입니다. </li>
 <li><em>코드 실행(Running code)</em>: 콘솔에 명령어를 입력하여 R에게 특정 동작을 수행하도록 지시하는 행위입니다.</li>
 <li><em>객체(Objects)</em>: R에서 값이 저장되는 곳입니다. 객체에 값을 <em>할당(assign)</em>하는 방법과 객체의 내용을 표시하는 방법을 보여드릴 것입니다. </li>
-<li><em>데이터 타입(Data types)</em>: 정수(integers), 실수/수치형(doubles/numerics), 논리형(logicals), 문자형(characters) 등이 있습니다. 정수는 -1, 0, 2, 4092와 같은 값입니다. 실수 또는 수치형은 정수를 포함하지만 분수와 -24.932, 0.8과 같은 소수값도 포함하는 더 큰 값의 집합입니다. 논리형은 <code>TRUE</code> 또는 <code>FALSE</code> 중 하나이며, 문자형은 “cabbage”, “Hamilton”, “The Wire is the greatest TV show ever”, “This ramen is delicious”와 같은 텍스트입니다. 문자형은 종종 따옴표로 감싸서 표시한다는 점에 유의하세요.</li>
+<li><em>데이터 타입(Data types)</em>: 정수(integers), 실수/수치형(doubles/numerics), 논리형(logicals), 문자형(characters 등이 있습니다. 정수는 -1, 0, 2, 4092와 같은 값입니다. 실수 또는 수치형은 정수를 포함하지만 분수와 -24.932, 0.8과 같은 소수값도 포함하는 더 큰 값의 집합입니다. 논리형은 <code>TRUE</code> 또는 <code>FALSE</code> 중 하나이며, 문자형은 “cabbage”, “Hamilton”, “The Wire is the greatest TV show ever”, “This ramen is delicious”와 같은 텍스트입니다. 문자형은 종종 따옴표로 감싸서 표시한다는 점에 유의하세요.</li>
 </ul></li>
 <li><em>벡터(Vectors)</em>: 일련의 값들의 연속입니다. 이는 “결합하다(combine)” 또는 “연결하다(concatenate)”의 약자인 <code>c()</code> 함수를 사용하여 생성합니다. 예를 들어, <code>c(6, 11, 13, 31, 90, 92)</code>는 6개의 양의 정수 값으로 구성된 시리즈를 생성합니다. </li>
 <li><em>범주형(Factors)</em>: R에서 <em>범주형 데이터(categorical data)</em>는 흔히 factor로 표현됩니다. 범주형 데이터는 <em>문자열(strings)</em>로 표현될 수도 있습니다. 책을 진행하면서 이 차이점에 대해 공부할 것입니다.</li>
-<li><em>데이터 프레임(Data frames)</em>: 직사각형 모양의 스프레드시트입니다. R에서 데이터셋을 표현하는 방식으로, 행(rows)은 <em>관측치(observations)</em>에 해당하고 열(columns)은 관측치를 설명하는 <em>변수(variables)</em>에 해당합니다. 데이터 프레임은 나중에 섹션 @ref(nycflights13)에서 다룰 것입니다.</li>
+<li><em>데이터 프레임(Data frames)</em>: 직사각형 모양의 스프레드시트입니다. R에서 데이터셋을 표현하는 방식으로, 행(rows)은 <em>관측치(observations)</em>에 해당하고 열(columns)은 관측치를 설명하는 <em>변수(variables)</em>에 해당합니다. 데이터 프레임은 나중에 <span class="quarto-unresolved-ref">?sec-nycflights13절에서</span> 다룰 것입니다.</li>
 <li><em>조건문(Conditionals)</em>:
 <ul>
 <li>R에서 같음을 테스트할 때는 전형적으로 할당에 사용되는 <code>=</code>가 아닌 <code>==</code>를 사용합니다. 예를 들어, <code>2 + 1 == 3</code>은 <code>2 + 1</code>과 <code>3</code>을 비교하며 올바른 R 코드인 반면, <code>2 + 1 = 3</code>은 오류를 반환합니다.</li>
@@ -493,14 +518,14 @@ R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 </ul>
 <p>이 리스트는 능숙한 R 사용자가 되기 위해 필요한 모든 프로그래밍 개념과 용어를 망라한 것은 결코 아닙니다. 그런 리스트는 너무 방대해서 특히 초보자들에게는 별로 유용하지 않을 것입니다. 그보다는 시작하기 전에 반드시 알아야 할 최소한의 필수 목록이라고 생각합니다. 나머지는 진행하면서 배울 수 있습니다. 여러분이 더 많이 연습할수록 이러한 모든 개념과 용어에 대한 숙련도가 쌓일 것임을 기억하세요.</p>
 </section>
-<section id="messages" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="messages"><span class="header-section-number">3.2.2</span> 오류, 경고 및 메시지</h3>
+<section id="messages" class="level3">
+<h3 class="anchored" data-anchor-id="messages">오류, 경고 및 메시지</h3>
 <p>새로운 R 및 RStudio 사용자를 겁나게 하는 것 중 하나는 도구가 <em>오류(errors)</em>, <em>경고(warnings)</em>, <em>메시지(messages)</em>를 보고하는 방식입니다. R은 눈에 띄는 빨간색 폰트로 이를 보고하는데, 마치 여러분을 꾸짖는 것처럼 느껴질 수 있습니다. 하지만 콘솔에 빨간색 텍스트가 보인다고 해서 항상 나쁜 것은 아닙니다.</p>
 <p>R은 콘솔 패널에서 세 가지 다른 상황에 빨간색 텍스트를 표시합니다:</p>
 <ul>
-<li><strong>오류(Errors)</strong>: 빨간색 텍스트가 실제 오류일 경우, “Error in…”으로 시작하며 무엇이 잘못되었는지 설명하려고 시도합니다. 일반적으로 오류가 발생하면 코드는 실행되지 않습니다. 예를 들어, 소섹션 @ref(package-use)에서 보겠지만 <code>Error in ggplot(...) : could not find function "ggplot"</code>이라는 메시지가 뜨면, 해당 함수를 포함하는 패키지(<code>ggplot2</code>)가 <code>library(ggplot2)</code> 명령어로 로드되지 않았기 때문에 <code>ggplot()</code> 함수에 접근할 수 없음을 의미합니다. 따라서 <code>ggplot2</code> 패키지를 먼저 로드하지 않고는 <code>ggplot()</code> 함수를 사용할 수 없습니다.</li>
-<li><strong>경고(Warnings)</strong>: 빨간색 텍스트가 경고일 경우, “Warning:”으로 시작하며 R은 경고가 발생한 이유를 설명하려고 시도합니다. 일반적으로 코드는 계속 작동하지만 몇 가지 주의 사항이 있습니다. 예를 들어, 제@ref(viz)장에서 보겠지만 산점도를 생성할 때 데이터의 두 행에 누락된 항목(결측치)이 있을 경우 다음과 같은 경고가 나타납니다: <code>Warning: Removed 2 rows containing missing values (geom_point)</code>. R은 나머지 결측치가 없는 값들로 산점도를 계속 생성하지만, 두 개의 점이 거기 없다는 사실을 경고하는 것입니다.</li>
-<li><strong>메시지(Messages)</strong>: 빨간색 텍스트가 “Error”나 “Warning”으로 시작하지 않는다면, 그것은 <em>단지 친절한 메시지</em>일 뿐입니다. 이어지는 소섹션 @ref(package-loading)에서처럼 <em>R 패키지</em>를 로드할 때나, 제@ref(tidy)장에서처럼 <code>read_csv()</code> 함수로 스프레드시트 파일에 저장된 데이터를 읽을 때 이러한 메시지를 보게 될 것입니다. 이것들은 도움이 되는 진단 메시지이며 코드의 작동을 멈추지 않습니다. 또한 소섹션 @ref(package-installation)에서 논의된 <code>install.packages()</code>를 사용하여 패키지를 설치할 때도 이러한 메시지를 보게 될 것입니다.</li>
+<li><strong>오류(Errors)</strong>: 빨간색 텍스트가 실제 오류일 경우, “Error in…”으로 시작하며 무엇이 잘못되었는지 설명하려고 시도합니다. 일반적으로 오류가 발생하면 코드는 실행되지 않습니다. 예를 들어, <span class="quarto-unresolved-ref">?sec-package-use절에서</span> 보겠지만 <code>Error in ggplot(... : could not find function "ggplot"</code>이라는 메시지가 뜨면, 해당 함수를 포함하는 패키지(<code>ggplot2</code>)가 <code>library(ggplot2)</code> 명령어로 로드되지 않았기 때문에 <code>ggplot()</code> 함수에 접근할 수 없음을 의미합니다. 따라서 <code>ggplot2</code> 패키지를 먼저 로드하지 않고는 <code>ggplot()</code> 함수를 사용할 수 없습니다.</li>
+<li><strong>경고(Warnings)</strong>: 빨간색 텍스트가 경고일 경우, “Warning:”으로 시작하며 R은 경고가 발생한 이유를 설명하려고 시도합니다. 일반적으로 코드는 계속 작동하지만 몇 가지 주의 사항이 있습니다. 예를 들어, <span class="quarto-unresolved-ref">?sec-viz장에서</span> 보겠지만 산점도를 생성할 때 데이터의 두 행에 누락된 항목(결측치)이 있을 경우 다음과 같은 경고가 나타납니다: <code>Warning: Removed 2 rows containing missing values (geom_point)</code>. R은 나머지 결측치가 없는 값들로 산점도를 계속 생성하지만, 두 개의 점이 거기 없다는 사실을 경고하는 것입니다.</li>
+<li><strong>메시지(Messages)</strong>: 빨간색 텍스트가 “Error”나 “Warning”으로 시작하지 않는다면, 그것은 <em>단지 친절한 메시지</em>일 뿐입니다. 이어지는 <span class="quarto-unresolved-ref">?sec-package-loading절에서처럼</span> <em>R 패키지</em>를 로드할 때나, <span class="quarto-unresolved-ref">?sec-tidy장에서처럼</span> <code>read_csv()</code> 함수로 스프레드시트 파일에 저장된 데이터를 읽을 때 이러한 메시지를 보게 될 것입니다. 이것들은 도움이 되는 진단 메시지이며 코드의 작동을 멈추지 않습니다. 또한 <span class="quarto-unresolved-ref">?sec-package-installation절에서</span> 논의된 <code>install.packages()</code>를 사용하여 패키지를 설치할 때도 이러한 메시지를 보게 될 것입니다.</li>
 </ul>
 <p>기억하세요, 콘솔에 빨간색 텍스트가 나타나도 <em>당황하지 마세요</em>. 반드시 무엇인가 잘못되었다는 뜻은 아닙니다. 그보다는:</p>
 <ul>
@@ -509,8 +534,8 @@ R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 <li>그렇지 않다면 텍스트는 그저 메시지일 뿐입니다. 내용을 읽고 R에게 손을 흔들어주며 말을 걸어줘서 고맙다고 하세요. <span style="color:green">메시지는 초록색 신호등이라고 생각하세요: 모든 것이 잘 작동하고 있으니 계속 진행하세요!</span></li>
 </ul>
 </section>
-<section id="tips-code" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="tips-code"><span class="header-section-number">3.2.3</span> 코딩 학습 팁</h3>
+<section id="tips-code" class="level3">
+<h3 class="anchored" data-anchor-id="tips-code">코딩 학습 팁</h3>
 <p>코딩/프로그래밍을 배우는 것은 외국어를 배우는 것과 매우 비슷합니다. 처음에는 막막하고 좌절스러울 수 있습니다. 그러한 좌절은 흔한 일이며 배우면서 의기소침해지는 것은 정상입니다. 하지만 외국어를 배울 때와 마찬가지로 노력을 기울이고 실수를 두려워하지 않는다면 누구나 배우고 향상될 수 있습니다.</p>
 <p>프로그래밍을 배울 때 염두에 두어야 할 몇 가지 유용한 팁은 다음과 같습니다:</p>
 <ul>
@@ -521,10 +546,10 @@ R: 이것을 열지 마세요          |  RStudio: 이것을 여세요
 </ul>
 </section>
 </section>
-<section id="packages" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="packages"><span class="header-section-number">3.3</span> R 패키지란 무엇인가?</h2>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">R 패키지란 무엇인가?</h2>
 <p>많은 새로운 R 사용자들에게 혼란을 주는 또 다른 지점은 R 패키지라는 아이디어입니다. R 패키지는 추가적인 함수, 데이터, 문서를 제공함으로써 R의 기능을 확장합니다. 패키지들은 전 세계 R 사용자 커뮤니티에 의해 작성되며 인터넷에서 무료로 다운로드할 수 있습니다.</p>
-<p>예를 들어, 이 책에서 사용할 많은 패키지 중에는 제@ref(viz)장 데이터 시각화를 위한 <code>ggplot2</code> 패키지 <span class="citation" data-cites="R-ggplot2">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham, Chang, et al. 2026</a>)</span>, 제@ref(wrangling)장 데이터 가공을 위한 <code>dplyr</code> 패키지 <span class="citation" data-cites="R-dplyr">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2026</a>)</span>, 이 책과 함께 제공되는 <code>moderndive</code> 패키지 <span class="citation" data-cites="R-moderndive">(<a href="#ref-R-moderndive" role="doc-biblioref">Kim and Ismay 2024</a>)</span>, 그리고 제@ref(confidence-intervals)장, @ref(hypothesis-testing)장, @ref(inference-for-regression)장 등에서 “tidy”하고 투명한 통계적 추론을 위해 사용될 <code>infer</code> 패키지 <span class="citation" data-cites="R-infer">(<a href="#ref-R-infer" role="doc-biblioref">Bray et al. 2025</a>)</span>가 있습니다.</p>
+<p>예를 들어, 이 책에서 사용할 많은 패키지 중에는 <span class="quarto-unresolved-ref">?sec-viz장</span> 데이터 시각화를 위한 <code>ggplot2</code> 패키지 <span class="citation" data-cites="R-ggplot2">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham, Chang, et al. 2026</a>)</span>, <span class="quarto-unresolved-ref">?sec-wrangling장</span> 데이터 가공을 위한 <code>dplyr</code> 패키지 <span class="citation" data-cites="R-dplyr">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham, François, et al. 2026</a>)</span>, 이 책과 함께 제공되는 <code>moderndive</code> 패키지 <span class="citation" data-cites="R-moderndive">(<a href="#ref-R-moderndive" role="doc-biblioref">Kim and Ismay 2024</a>)</span>, 그리고 <span class="quarto-unresolved-ref">?sec-confidence-intervals장</span>, <span class="quarto-unresolved-ref">?sec-hypothesis-testing장</span>, <span class="quarto-unresolved-ref">?sec-inference-for-regression장</span> 등에서 “tidy”하고 투명한 통계적 추론을 위해 사용될 <code>infer</code> 패키지 <span class="citation" data-cites="R-infer">(<a href="#ref-R-infer" role="doc-biblioref">Bray et al. 2025</a>)</span>가 있습니다.</p>
 <p>R 패키지에 대한 좋은 비유는 휴대폰에 다운로드할 수 있는 앱과 같다는 것입니다:</p>
 <!--
 R: 새 휴대폰           |  R 패키지: 다운로드할 수 있는 앱
@@ -553,18 +578,13 @@ R: 새 휴대폰           |  R 패키지: 다운로드할 수 있는 앱
 <li><em>패키지 “로드”</em>: 패키지를 “로드(Loading)”하는 것은 휴대폰에서 앱을 여는 것과 같습니다. 패키지는 컴퓨터에서 RStudio를 시작할 때 기본으로 “로드”되지 않습니다. RStudio를 시작할 때마다 사용하려는 각 패키지를 “로드”해야 합니다.</li>
 </ol>
 <p>데이터 시각화를 위한 <code>ggplot2</code> 패키지에 대해 이 두 단계를 수행해 봅시다.</p>
-<section id="package-installation" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="package-installation"><span class="header-section-number">3.3.1</span> 패키지 설치</h3>
+<section id="package-installation" class="level3">
+<h3 class="anchored" data-anchor-id="package-installation">패키지 설치</h3>
 <blockquote class="blockquote">
 <p><strong>RStudio Server 또는 RStudio Cloud에 관한 참고 사항</strong>: 강사가 RStudio Server 또는 RStudio Cloud에 대한 링크와 액세스 권한을 제공했다면, 강사가 패키지를 미리 설치해 두었을 수 있으므로 패키지를 설치할 필요가 없을 수도 있습니다. 그렇다 하더라도 나중에 RStudio Server 또는 Cloud를 사용하지 않고 자신의 컴퓨터에서 RStudio Desktop을 사용할 때를 위해 이 과정을 알아두는 것이 좋습니다.</p>
 </blockquote>
-<p>R 패키지를 설치하는 방법에는 쉬운 방법과 좀 더 고급 방법의 두 가지가 있습니다. 먼저 그림 @ref(fig:easy-way-install)에 표시된 대로 쉬운 방법으로 <code>ggplot2</code> 패키지를 설치해 보겠습니다. RStudio의 Files 패널에서 다음을 수행합니다:</p>
-<ol type="a">
-<li>“Packages” 탭을 클릭합니다.</li>
-<li>Update 옆의 “Install”을 클릭합니다.</li>
-<li>“Packages (separate multiple with space or comma):” 아래에 패키지 이름을 입력합니다. 이 경우 <code>ggplot2</code>를 입력합니다.</li>
-<li>“Install”을 클릭합니다.</li>
-</ol>
+<p>R 패키지를 설치하는 방법에는 쉬운 방법과 좀 더 고급 방법의 두 가지가 있습니다. 먼저 그림 <span class="quarto-unresolved-ref">?fig-easy-way-install에</span> 표시된 대로 쉬운 방법으로 <code>ggplot2</code> 패키지를 설치해 보겠습니다. RStudio의 Files 패널에서 다음을 수행합니다:</p>
+<p>a “Packages” 탭을 클릭합니다. a Update 옆의 “Install”을 클릭합니다. a “Packages (separate multiple with space or comma):” 아래에 패키지 이름을 입력합니다. 이 경우 <code>ggplot2</code>를 입력합니다. a “Install”을 클릭합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -590,18 +610,18 @@ R: 새 휴대폰           |  R 패키지: 다운로드할 수 있는 앱
 
 </div>
 </div>
-<p>컴퓨터의 출력이 책 전체에 제시된 출력과 정확히 일치하기를 원한다면, 저희가 사용한 패키지의 정확한 버전을 사용하고 싶을 수도 있습니다. 부록 @ref(appendixE)에서 이러한 패키지와 해당 버전의 전체 목록을 확인할 수 있습니다. 초보자에게는 아마 관련이 없겠지만, 재현성을 위해 포함했습니다.</p>
+<p>컴퓨터의 출력이 책 전체에 제시된 출력과 정확히 일치하기를 원한다면, 저희가 사용한 패키지의 정확한 버전을 사용하고 싶을 수도 있습니다. 부록 <span class="quarto-unresolved-ref">?sec-appendixE에서</span> 이러한 패키지와 해당 버전의 전체 목록을 확인할 수 있습니다. 초보자에게는 아마 관련이 없겠지만, 재현성을 위해 포함했습니다.</p>
 </section>
-<section id="package-loading" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="package-loading"><span class="header-section-number">3.3.2</span> 패키지 로드</h3>
+<section id="package-loading" class="level3">
+<h3 class="anchored" data-anchor-id="package-loading">패키지 로드</h3>
 <p>패키지를 설치한 후에는 “로드(load)”해야 한다는 점을 기억하세요. 즉, “열어야” 합니다. 우리는 <code>library()</code> 명령어를 사용하여 이를 수행합니다. </p>
 <p>예를 들어, <code>ggplot2</code> 패키지를 로드하려면 콘솔 패널에서 다음 코드를 실행하세요. “다음 코드를 실행한다”는 것이 무슨 뜻일까요? 다음 코드를 콘솔 패널에 직접 입력하거나 복사하여 붙여넣은 다음 Enter 키를 누르는 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>위의 코드를 실행한 후 <code>&gt;</code> “프롬프트” 기호 옆에 커서가 깜박이면 성공한 것이며, 이제 <code>ggplot2</code> 패키지가 로드되어 사용할 준비가 된 것입니다. 하지만 다음과 같은 빨간색 “오류 메시지”가 나타난다면 <code>...</code> </p>
-<pre><code>Error in library(ggplot2) : there is no package called ‘ggplot2’</code></pre>
-<p><code>...</code> 이는 여러분이 성공적으로 설치하지 못했음을 의미합니다. 이것은 소섹션 @ref(messages)에서 논의한 “오류 메시지”의 한 예입니다. 이 오류 메시지가 나타나면 R 패키지 설치에 관한 소섹션 @ref(package-installation)으로 돌아가서 계속 진행하기 전에 <code>ggplot2</code> 패키지를 설치했는지 확인하세요.</p>
+<pre><code>Error in library(ggplot2 : there is no package called ‘ggplot2’</code></pre>
+<p><code>...</code> 이는 여러분이 성공적으로 설치하지 못했음을 의미합니다. 이것은 <span class="quarto-unresolved-ref">?sec-messages절에서</span> 논의한 “오류 메시지”의 한 예입니다. 이 오류 메시지가 나타나면 R 패키지 설치에 관한 <span class="quarto-unresolved-ref">?sec-package-installation절으로</span> 돌아가서 계속 진행하기 전에 <code>ggplot2</code> 패키지를 설치했는지 확인하세요.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -617,37 +637,37 @@ R: 새 휴대폰           |  R 패키지: 다운로드할 수 있는 앱
 </div>
 <p></p>
 </section>
-<section id="package-use" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="package-use"><span class="header-section-number">3.3.3</span> 패키지 사용</h3>
+<section id="package-use" class="level3">
+<h3 class="anchored" data-anchor-id="package-use">패키지 사용</h3>
 <p>새로운 R 사용자들이 특정 패키지를 사용하고 싶을 때 저지르는 매우 흔한 실수는 방금 살펴본 <code>library()</code> 명령어를 사용하여 패키지를 먼저 “로드”하는 것을 잊는 것입니다. 기억하세요: <em>RStudio를 시작할 때마다 사용하려는 각 패키지를 로드해야 합니다.</em> 패키지를 먼저 “로드”하지 않고 그 기능을 사용하려고 하면 다음과 유사한 오류 메시지가 나타납니다:</p>
 <pre><code>Error: could not find function</code></pre>
 <p>이것은 패키지가 아직 설치되지 않았을 때 보았던 것과는 다른 오류 메시지입니다. R은 여러분이 아직 “로드”되지 않은 패키지의 함수를 사용하려고 한다고 말하고 있습니다. R은 여러분이 사용 중인 함수를 어디에서 찾을지 모릅니다. 거의 모든 새로운 사용자가 시작할 때 이를 잊어버리며, 이를 수행하는 데 익숙해지는 것은 조금 번거로운 일입니다. 하지만 연습을 통해 기억하게 될 것이며, 얼마 후에는 자연스럽게 몸에 배게 될 것입니다.</p>
 </section>
 </section>
-<section id="nycflights13" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="nycflights13"><span class="header-section-number">3.4</span> 첫 데이터셋 탐색하기</h2>
-<p>지금까지 배운 모든 것을 실전에 적용하고 실제 데이터를 탐색해 봅시다! 데이터는 사진부터 텍스트, 숫자에 이르기까지 다양한 형식으로 제공됩니다. 이 책 전반에 걸쳐 우리는 “스프레드시트” 유형의 형식으로 저장된 데이터셋에 집중할 것입니다. 이것이 아마도 많은 분야에서 데이터를 수집하고 저장하는 가장 일반적인 방식일 것입니다. 소섹션 @ref(programming-concepts)에서 이러한 “스프레드시트” 유형의 데이터셋을 R에서는 <em>데이터 프레임(data frames)</em>이라고 부른다는 점을 기억하세요. 우리는 이 책 전반에 걸쳐 데이터 프레임으로 저장된 데이터를 다루는 데 집중할 것입니다.</p>
-<p>먼저 이 장에 필요한 모든 패키지들을 설치했다고 가정하고 로드해 보겠습니다. 아직 설치하지 않았다면 R 패키지를 설치하고 로드하는 방법에 대한 섹션 @ref(packages)를 읽어보세요.</p>
+<section id="nycflights13" class="level2">
+<h2 class="anchored" data-anchor-id="nycflights13">첫 데이터셋 탐색하기</h2>
+<p>지금까지 배운 모든 것을 실전에 적용하고 실제 데이터를 탐색해 봅시다! 데이터는 사진부터 텍스트, 숫자에 이르기까지 다양한 형식으로 제공됩니다. 이 책 전반에 걸쳐 우리는 “스프레드시트” 유형의 형식으로 저장된 데이터셋에 집중할 것입니다. 이것이 아마도 많은 분야에서 데이터를 수집하고 저장하는 가장 일반적인 방식일 것입니다. <span class="quarto-unresolved-ref">?sec-programming-concepts절에서</span> 이러한 “스프레드시트” 유형의 데이터셋을 R에서는 <em>데이터 프레임(data frames)</em>이라고 부른다는 점을 기억하세요. 우리는 이 책 전반에 걸쳐 데이터 프레임으로 저장된 데이터를 다루는 데 집중할 것입니다.</p>
+<p>먼저 이 장에 필요한 모든 패키지들을 설치했다고 가정하고 로드해 보겠습니다. 아직 설치하지 않았다면 R 패키지를 설치하고 로드하는 방법에 대한 <span class="quarto-unresolved-ref">?sec-packages절을</span> 읽어보세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>이 책의 모든 후속 장의 시작 부분에는 해당 장의 R 코드를 실행하기 위해 설치하고 로드해야 하는 패키지 목록이 항상 있을 것입니다.</p>
-<section id="nycflights13-패키지" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="nycflights13-패키지"><span class="header-section-number">3.4.1</span> <code>nycflights13</code> 패키지</h3>
+<section id="nycflights13-패키지" class="level3">
+<h3 class="anchored" data-anchor-id="nycflights13-패키지"><code>nycflights13</code> 패키지</h3>
 <p>우리 중 많은 사람이 비행기를 타 보았거나 타 본 사람을 알고 있습니다. 항공 여행은 많은 사람의 삶에서 늘 존재하는 측면이 되었습니다. 공항의 출발 항공편 정보 게시판을 보면 종종 일부 항공편이 다양한 이유로 지연되는 것을 볼 수 있습니다. 항공편 지연을 일으키는 원인들을 이해할 수 있는 방법이 있을까요?</p>
-<p>우리는 모두 가능하면 제시간에 목적지에 도착하고 싶어 합니다. (비밀리에 공항에서 머무는 것을 좋아하는 분이 아니라면 말이죠. 만약 그런 분이라면 잠시 동안은 최종 목적지에 도착하는 것을 간절히 기다리고 있다고 가정해 봅시다.) 이 책 전반에 걸쳐 우리는 2013년 뉴욕시의 세 주요 공항인 뉴어크 리버티 국제공항(EWR), 존 F. 케네디 국제공항(JFK), 라과디아 공항(LGA)에서 출발하는 모든 국내선 항공편과 관련된 데이터를 분석할 것입니다. 우리는 <code>nycflights13</code> R 패키지를 사용하여 이 데이터에 접근할 것입니다. 이 패키지에는 다섯 개의 데이터 프레임에 저장된 다섯 개의 데이터셋이 포함되어 있습니다:</p>
+<p>우리는 모두 가능하면 제시간에 목적지에 도착하고 싶어 합니다. (비밀리에 공항에서 머무는 것을 좋아하는 분이 아니라면 말이죠. 만약 그런 분이라면 잠시 동안은 최종 목적지에 도착하는 것을 간절히 기다리고 있다고 가정해 봅시다. 이 책 전반에 걸쳐 우리는 2013년 뉴욕시의 세 주요 공항인 뉴어크 리버티 국제공항(EWR), 존 F. 케네디 국제공항(JFK), 라과디아 공항(LGA)에서 출발하는 모든 국내선 항공편과 관련된 데이터를 분석할 것입니다. 우리는 <code>nycflights13</code> R 패키지를 사용하여 이 데이터에 접근할 것입니다. 이 패키지에는 다섯 개의 데이터 프레임에 저장된 다섯 개의 데이터셋이 포함되어 있습니다:</p>
 <ul>
 <li><code>flights</code>: 모든 336,776개 항공편에 대한 정보.</li>
-<li><code>airlines</code>: 항공사 이름과 해당 항공사의 2자리 국제항공운송협회(IATA) 항공사 코드(운송업체 코드라고도 함)를 매칭한 표로, 16개 항공사에 대한 정보입니다. 예를 들어, “DL”은 Delta 항공의 2자리 코드입니다.</li>
+<li><code>airlines</code>: 항공사 이름과 해당 항공사의 2자리 국제항공운송협회(IATA 항공사 코드(운송업체 코드라고도 함)를 매칭한 표로, 16개 항공사에 대한 정보입니다. 예를 들어, “DL”은 Delta 항공의 2자리 코드입니다.</li>
 <li><code>planes</code>: 사용된 3,322대의 각 물리적 항공기에 대한 정보.</li>
 <li><code>weather</code>: 세 곳의 NYC 공항 각각에 대한 시간별 기상 데이터. 이 데이터 프레임은 26,115개의 행을 가지고 있으며, 이는 대략 한 해 동안 세 위치에서 관측할 수 있는 <span class="math inline">\(365 \times 24 \times 3 = 26,280\)</span>개의 시간별 측정값에 해당합니다.</li>
 <li><code>airports</code>: 1,458개 국내 목적지의 이름, 코드 및 위치.</li>
 </ul>
 </section>
-<section id="flights-데이터-프레임" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="flights-데이터-프레임"><span class="header-section-number">3.4.2</span> <code>flights</code> 데이터 프레임</h3>
+<section id="flights-데이터-프레임" class="level3">
+<h3 class="anchored" data-anchor-id="flights-데이터-프레임"><code>flights</code> 데이터 프레임</h3>
 <p>먼저 <code>flights</code> 데이터 프레임을 탐색하고 그 구조에 대한 아이디어를 얻는 것부터 시작하겠습니다. 콘솔에서 다음 코드를 직접 입력하거나 복사하여 붙여넣어 실행하세요. 이 코드는 콘솔에 <code>flights</code> 데이터 프레임의 내용을 표시합니다. 모니터의 크기에 따라 출력이 약간 다를 수 있다는 점에 유의하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flights</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -684,8 +704,8 @@ R: 새 휴대폰           |  R 패키지: 다운로드할 수 있는 앱
 </ul>
 <p>안타깝게도 이 출력만으로는 데이터를 아주 잘 탐색할 수 없지만, 좋은 미리보기를 제공합니다. 데이터 프레임을 탐색하는 몇 가지 다른 방법들을 살펴보겠습니다.</p>
 </section>
-<section id="exploredataframes" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="exploredataframes"><span class="header-section-number">3.4.3</span> 데이터 프레임 탐색하기</h3>
+<section id="exploredataframes" class="level3">
+<h3 class="anchored" data-anchor-id="exploredataframes">데이터 프레임 탐색하기</h3>
 <p><code>flights</code>와 같은 데이터 프레임에 포함된 데이터의 느낌을 파악하는 방법은 많이 있습니다. 해당 데이터 프레임을 “인자(argument)”(입력값)로 받는 세 가지 함수를 소개합니다. 또한 데이터 프레임의 특정 열 하나를 탐색하기 위한 네 번째 방법도 포함합니다:</p>
 <ol type="1">
 <li>RStudio에 내장된 데이터 뷰어를 불러오는 <code>View()</code> 함수 사용.</li>
@@ -715,7 +735,7 @@ R: 새 휴대폰           |  R 패키지: 다운로드할 수 있는 앱
 </div>
 </div>
 <p><code>View(flights)</code>를 실행함으로써 열에 나열된 서로 다른 <em>변수(variables)</em>들을 탐색할 수 있습니다. 매우 다양한 유형의 변수가 있음을 관찰해 보세요. <code>distance</code>, <code>day</code>, <code>arr_delay</code>와 같은 일부 변수는 우리가 <em>수치형(quantitative)</em> 변수라고 부를 것입니다. 이러한 변수는 성질상 수치로 되어 있습니다. 여기 있는 다른 변수들은 <em>범주형(categorical)</em> 변수입니다.</p>
-<p><code>View(flights)</code> 출력의 가장 왼쪽 열을 보면 숫자로 된 열이 보일 것입니다. 이것들은 데이터셋의 행 번호입니다. 같은 번호의 행(예: 5번 행)을 가로질러 훑어보면 각 행이 무엇을 나타내는지 알 수 있습니다. 이를 통해 특정 행의 열 값들을 확인하여 해당 행에서 어떤 객체 상황이 설명되고 있는지 식별할 수 있습니다. 이를 흔히 <em>관측 단위(observational unit)</em>라고 합니다. 이 예시에서의 관측 단위는 2013년 뉴욕시에서 출발한 개별 항공편입니다. 각 변수에 의해 어떤 “것”이 측정되거나 설명되고 있는지 결정함으로써 관측 단위를 식별할 수 있습니다. 관측 단위에 대해서는 소섹션 @ref(identification-vs-measurement-variables)의 <em>식별(identification)</em> 변수와 <em>측정(measurement)</em> 변수에서 더 자세히 이야기하겠습니다.</p>
+<p><code>View(flights)</code> 출력의 가장 왼쪽 열을 보면 숫자로 된 열이 보일 것입니다. 이것들은 데이터셋의 행 번호입니다. 같은 번호의 행(예: 5번 행)을 가로질러 훑어보면 각 행이 무엇을 나타내는지 알 수 있습니다. 이를 통해 특정 행의 열 값들을 확인하여 해당 행에서 어떤 객체 상황이 설명되고 있는지 식별할 수 있습니다. 이를 흔히 <em>관측 단위(observational unit)</em>라고 합니다. 이 예시에서의 관측 단위는 2013년 뉴욕시에서 출발한 개별 항공편입니다. 각 변수에 의해 어떤 “것”이 측정되거나 설명되고 있는지 결정함으로써 관측 단위를 식별할 수 있습니다. 관측 단위에 대해서는 <span class="quarto-unresolved-ref">?sec-identification-vs-measurement-variables절의</span> <em>식별(identification)</em> 변수와 <em>측정(measurement)</em> 변수에서 더 자세히 이야기하겠습니다.</p>
 <p><strong>2. <code>glimpse()</code></strong>:</p>
 <p>데이터 프레임을 탐색하기 위해 다룰 두 번째 방법은 <code>dplyr</code> 패키지에 포함된 <code>glimpse()</code> 함수를 사용하는 것입니다. 따라서 <code>library(dplyr)</code>를 실행하여 <code>dplyr</code> 패키지를 로드한 후에만 <code>glimpse()</code> 함수를 사용할 수 있습니다. 이 함수는 <code>View()</code> 함수와는 다른 관점에서 데이터 프레임을 탐색할 수 있게 해줍니다:</p>
 <div class="cell" data-layout-align="center">
@@ -744,8 +764,8 @@ $ minute         &lt;dbl&gt; 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-01 0…</code></pre>
 </div>
 </div>
-<p><code>glimpse()</code>는 변수 이름 뒤에 행에 있는 각 변수의 처음 몇 개 항목을 보여줍니다. 또한 변수의 <em>데이터 타입</em>(소섹션 @ref(programming-concepts) 참조)이 변수 이름 바로 뒤 <code>&lt; &gt;</code> 안에 제공됩니다. 여기서 <code>int</code>와 <code>dbl</code>은 수치형 변수에 대한 컴퓨터 코딩 용어인 “정수(integer)”와 “실수(double)”를 나타냅니다. “Double”은 정수에 비해 컴퓨터에 저장될 때 두 배의 공간을 차지합니다.</p>
-<p>반면 <code>chr</code>은 텍스트 데이터에 대한 컴퓨터 용어인 “문자(character)”를 나타냅니다. 항공편의 <code>carrier</code>나 <code>origin</code>과 같은 대부분의 텍스트 데이터는 범주형 변수입니다. <code>time_hour</code> 변수는 또 다른 데이터 타입인 <code>dttm</code>입니다. 이러한 유형의 변수는 날짜와 시간의 조합을 나타냅니다. 하지만 이 책에서는 날짜와 시간을 다루지 않을 것입니다. 이 주제는 <a href="https://ubc-dsci.github.io/introduction-to-datascience/">Tiffany-Anne Timbers, Melissa Lee, Trevor Campbell 저 <em>Introduction to Data Science</em></a>나 <a href="https://r4ds.had.co.nz/dates-and-times.html"><em>R for Data Science</em></a> <span class="citation" data-cites="rds2016">(<a href="#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>와 같은 다른 데이터 과학 서적에 맡기겠습니다.</p>
+<p><code>glimpse()</code>는 변수 이름 뒤에 행에 있는 각 변수의 처음 몇 개 항목을 보여줍니다. 또한 변수의 <em>데이터 타입</em>( <span class="quarto-unresolved-ref">?sec-programming-concepts절</span> 참조)이 변수 이름 바로 뒤 <code>&lt; &gt;</code> 안에 제공됩니다. 여기서 <code>int</code>와 <code>dbl</code>은 수치형 변수에 대한 컴퓨터 코딩 용어인 “정수(integer)”와 “실수(double)”를 나타냅니다. “Double”은 정수에 비해 컴퓨터에 저장될 때 두 배의 공간을 차지합니다.</p>
+<p>반면 <code>chr</code>은 텍스트 데이터에 대한 컴퓨터 용어인 “문자(character)”를 나타냅니다. 항공편의 <code>carrier</code>나 <code>origin</code>과 같은 대부분의 텍스트 데이터는 범주형 변수입니다. <code>time_hour</code> 변수는 또 다른 데이터 타입인 <code>dttm</code>입니다. 이러한 유형의 변수는 날짜와 시간의 조합을 나타냅니다. 하지만 이 책에서는 날짜와 시간을 다루지 않을 것입니다. 이 주제는 <a href="https://ubc-dsci.github.io/introduction-to-datascience/">Tiffany-Anne Timbers, Melissa Lee, Trevor Campbell 저 <em>Introduction to Data Science</em></a>나 [<em>R for Data Science</em>](https://r4ds.had.co.nz/dates-and-times.html <span class="citation" data-cites="rds2016">(<a href="#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>와 같은 다른 데이터 과학 서적에 맡기겠습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -773,9 +793,9 @@ $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-
 </div>
 <p>우리는 <code>$</code> 연산자를 사용하여 <code>name</code> 변수만 추출하고 이를 길이가 16인 벡터로 반환했습니다. 우리는 가끔씩만 <code>$</code> 연산자를 사용하여 데이터 프레임을 탐색할 것이며, 대신 <code>View()</code>와 <code>glimpse()</code> 함수를 선호할 것입니다.</p>
 </section>
-<section id="identification-vs-measurement-variables" class="level3" data-number="3.4.4">
-<h3 data-number="3.4.4" class="anchored" data-anchor-id="identification-vs-measurement-variables"><span class="header-section-number">3.4.4</span> 식별 변수와 측정 변수</h3>
-<p>데이터 프레임에서 만나는 변수의 종류에는 미묘한 차이가 있습니다. <em>식별(identification) 변수</em>와 <em>측정(measurement) 변수</em>가 있습니다. 예를 들어, <code>glimpse(airports)</code>의 출력을 보여줌으로써 <code>airports</code> 데이터 프레임을 탐색해 봅시다:</p>
+<section id="identification-vs-measurement-variables" class="level3">
+<h3 class="anchored" data-anchor-id="identification-vs-measurement-variables">식별 변수와 측정 변수</h3>
+<p>데이터 프레임에서 만나는 변수의 종류에는 미묘한 차이가 있습니다. <em>식별(identification 변수</em>와 <em>측정(measurement 변수</em>가 있습니다. 예를 들어, <code>glimpse(airports)</code>의 출력을 보여줌으로써 <code>airports</code> 데이터 프레임을 탐색해 봅시다:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(airports)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -808,8 +828,8 @@ $ tzone &lt;chr&gt; "America/New_York", "America/Chicago", "America/Chicago", "A
 </div>
 </div>
 </section>
-<section id="도움말-파일" class="level3" data-number="3.4.5">
-<h3 data-number="3.4.5" class="anchored" data-anchor-id="도움말-파일"><span class="header-section-number">3.4.5</span> 도움말 파일</h3>
+<section id="도움말-파일" class="level3">
+<h3 class="anchored" data-anchor-id="도움말-파일">도움말 파일</h3>
 <p>R의 또 다른 멋진 기능은 다양한 함수와 데이터셋에 대한 문서를 제공하는 도움말 파일입니다. 함수나 데이터 프레임의 이름 앞에 <code>?</code>를 붙여 콘솔에서 실행하면 도움말 파일을 불러올 수 있습니다. 그러면 해당 문서가 존재하는 경우 해당 페이지가 표시됩니다. 예를 들어, <code>flights</code> 데이터 프레임에 대한 도움말 파일을 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>?flights</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -830,12 +850,12 @@ $ tzone &lt;chr&gt; "America/New_York", "America/Chicago", "America/Chicago", "A
 </div>
 </section>
 </section>
-<section id="결론" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="결론"><span class="header-section-number">3.5</span> 결론</h2>
+<section id="결론" class="level2">
+<h2 class="anchored" data-anchor-id="결론">결론</h2>
 <p>우리는 여러분에게 R에서 데이터를 탐색하는 데 필요한 최소한의 필수 도구 세트를 제공했다고 생각합니다. 이 장에 여러분이 알아야 할 모든 내용이 포함되어 있을까요? 전혀 그렇지 않습니다! 이 장에 모든 내용을 포함하려고 하면 장이 너무 방대해져서 유용하지 않을 것입니다. 앞서 말씀드렸듯이, 여러분의 도구 상자를 채우는 가장 좋은 방법은 RStudio에 들어가서 가능한 한 많이 코드를 실행하고 작성하는 것입니다.</p>
-<section id="추가-자료" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="추가-자료"><span class="header-section-number">3.5.1</span> 추가 자료</h3>
-<p>코딩, R, RStudio의 세계가 처음이고 더 자세한 소개가 도움이 될 것 같다면, 짧은 책인 <a href="https://rbasics.netlify.app/"><em>Getting Used to R, RStudio, and R Markdown</em></a> <span class="citation" data-cites="usedtor2016">(<a href="#ref-usedtor2016" role="doc-biblioref">Ismay and Kennedy 2016</a>)</span>을 확인해 보시길 권장합니다. 여기에는 배우면서 따라 하고 일시 정지할 수 있는 스크린캐스트 녹화본이 포함되어 있습니다. 이 책에는 R에서 재현 가능한 연구를 위해 사용되는 도구인 R Markdown에 대한 소개도 포함되어 있습니다.</p>
+<section id="추가-자료" class="level3">
+<h3 class="anchored" data-anchor-id="추가-자료">추가 자료</h3>
+<p>코딩, R, RStudio의 세계가 처음이고 더 자세한 소개가 도움이 될 것 같다면, 짧은 책인 [<em>Getting Used to R, RStudio, and R Markdown</em>](https://rbasics.netlify.app/ <span class="citation" data-cites="usedtor2016">(<a href="#ref-usedtor2016" role="doc-biblioref">Ismay and Kennedy 2016</a>)</span>을 확인해 보시길 권장합니다. 여기에는 배우면서 따라 하고 일시 정지할 수 있는 스크린캐스트 녹화본이 포함되어 있습니다. 이 책에는 R에서 재현 가능한 연구를 위해 사용되는 도구인 R Markdown에 대한 소개도 포함되어 있습니다.</p>
 <p>(ref:ismay-book) <em>Getting Used to R, RStudio, and R Markdown</em>의 미리보기.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -848,9 +868,9 @@ $ tzone &lt;chr&gt; "America/New_York", "America/Chicago", "America/Chicago", "A
 </div>
 </div>
 </section>
-<section id="앞으로의-계획" class="level3" data-number="3.5.2">
-<h3 data-number="3.5.2" class="anchored" data-anchor-id="앞으로의-계획"><span class="header-section-number">3.5.2</span> 앞으로의 계획</h3>
-<p>그림 @ref(fig:moderndive-flowchart)에서 보듯이 이제 제@ref(viz)장에서 데이터 과학자의 도구 상자에서 가장 중요한 도구인 데이터 시각화와 함께 이 책의 “<code>tidyverse</code>를 사용한 데이터 과학” 부분을 시작할 것입니다. 우리는 데이터 시각화를 위해 <code>ggplot2</code> 패키지를 사용하여 <code>moderndive</code>와 <code>nycflights13</code> 패키지에 포함된 데이터를 계속 탐색할 것입니다. 데이터 시각화가 <code>View()</code>와 <code>glimpse()</code> 함수가 제공할 수 있는 것 이상의 추가적인 통찰력을 제공하는 강력한 데이터 탐색 도구임을 알게 될 것입니다.</p>
+<section id="앞으로의-계획" class="level3">
+<h3 class="anchored" data-anchor-id="앞으로의-계획">앞으로의 계획</h3>
+<p>그림 <span class="quarto-unresolved-ref">?fig-moderndive-flowchart에서</span> 보듯이 이제 <span class="quarto-unresolved-ref">?sec-viz장에서</span> 데이터 과학자의 도구 상자에서 가장 중요한 도구인 데이터 시각화와 함께 이 책의 “<code>tidyverse</code>를 사용한 데이터 과학” 부분을 시작할 것입니다. 우리는 데이터 시각화를 위해 <code>ggplot2</code> 패키지를 사용하여 <code>moderndive</code>와 <code>nycflights13</code> 패키지에 포함된 데이터를 계속 탐색할 것입니다. 데이터 시각화가 <code>View()</code>와 <code>glimpse()</code> 함수가 제공할 수 있는 것 이상의 추가적인 통찰력을 제공하는 강력한 데이터 탐색 도구임을 알게 될 것입니다.</p>
 <p>(ref:flowchart2) <em>ModernDive</em> 플로우차트 - 파트 I로!</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1290,13 +1310,13 @@ Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaugh
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./00-preface.html" class="pagination-link" aria-label="머리말">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">머리말</span>
+      <a href="./index.html" class="pagination-link" aria-label="머리말">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">머리말</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./02-visualization.html" class="pagination-link" aria-label="데이터 시각화">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">데이터 시각화</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">데이터 시각화</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
