@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>추론 예제 – ModernDive: Statistical Inference via Data Science</title>
+<title>추론 예제 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -184,7 +184,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -461,7 +461,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="단일-평균-one-mean">단일 평균 (One mean)</h2>
 <section id="문제-정의" class="level3">
 <h3 class="anchored" data-anchor-id="문제-정의">문제 정의</h3>
-<p>질병통제예방센터(CDC)에서 실시하는 전국 가족 성장 설문조사(National Survey of Family Growth)는 가족 생활, 결혼과 이혼, 임신, 불임, 피임법 사용, 남성과 여성의 건강에 관한 정보를 수집합니다. 이 설문조사에서 수집된 변수 중 하나는 첫 결혼 연령입니다. 2006년에서 2010년 사이 무작위로 추출된 5,534명의 미국 여성이 설문조사에 참여했습니다. 여기서 샘플링된 여성들은 최소 한 번 이상 결혼한 경험이 있는 사람들입니다. 2006년부터 2010년까지 모든 미국 여성의 평균 첫 결혼 연령이 23세보다 높다는 증거가 있습니까? <span class="citation" data-cites="isrs2014">(<a href="#ref-isrs2014" role="doc-biblioref">Diez, Barr, and Çetinkaya-Rundel 2014, [4장]에서</a> 약간 수정함)</span></p>
+<p>질병통제예방센터(CDC)에서 실시하는 전국 가족 성장 설문조사(National Survey of Family Growth)는 가족 생활, 결혼과 이혼, 임신, 불임, 피임법 사용, 남성과 여성의 건강에 관한 정보를 수집합니다. 이 설문조사에서 수집된 변수 중 하나는 첫 결혼 연령입니다. 2006년에서 2010년 사이 무작위로 추출된 5,534명의 미국 여성이 설문조사에 참여했습니다. 여기서 샘플링된 여성들은 최소 한 번 이상 결혼한 경험이 있는 사람들입니다. 2006년부터 2010년까지 모든 미국 여성의 평균 첫 결혼 연령이 23세보다 높다는 증거가 있습니까? <span class="citation" data-cites="isrs2014">(<a href="99-references.html#ref-isrs2014" role="doc-biblioref">Diez, Barr, and Çetinkaya-Rundel 2014, [4장]에서</a> 약간 수정함)</span></p>
 </section>
 <section id="대립하는-가설" class="level3">
 <h3 class="anchored" data-anchor-id="대립하는-가설">대립하는 가설</h3>
@@ -684,7 +684,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>하지만 여기서는 표본 크기가 매우 크므로(<span class="math inline">\(n = 5534\)</span> 두 조건이 모두 충족됩니다.</p>
+<p>하지만 여기서는 표본 크기가 매우 크므로(<span class="math inline">\(n = 5534\)</span>) 두 조건이 모두 충족됩니다.</p>
 </section>
 <section id="검정-통계량" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="검정-통계량">검정 통계량</h4>
@@ -810,7 +810,7 @@ attr(,"conf.level")
 <h3 class="anchored" data-anchor-id="비전통적-방법-1">비전통적 방법</h3>
 <section id="가설-검정을-위한-시뮬레이션" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="가설-검정을-위한-시뮬레이션">가설 검정을 위한 시뮬레이션</h4>
-<p>0.73이 0.8과 통계적으로 다른지 확인하기 위해 표본 크기를 고려해야 합니다. 또한 100명의 원래 표본이 선택된 방식을 재현하는 과정도 결정해야 합니다. “불공정 코인(unfair coin)”의 개념을 사용하여 이 과정을 <strong>시뮬레이션</strong>할 수 있습니다. (귀무 가설과 일치하게 성공 확률이 0.8인 불공정 코인을 100번 던지는 시뮬레이션을 수행합니다. 그런 다음 100번의 던지기 중 앞면이 몇 번 나오는지 기록합니다. 우리의 시뮬레이션 통계량은 원래 통계량인 <span class="math inline">\(\hat{p}\)</span>를 계산한 방식과 일치합니다: 전체 100개의 표본 중 앞면(만족)의 개수입니다. 그런 다음 이 과정을 여러 번(예: 10,000번 반복하여 시뮬레이션된 성공 비율을 살펴보는 귀무 분포를 생성합니다.</p>
+<p>0.73이 0.8과 통계적으로 다른지 확인하기 위해 표본 크기를 고려해야 합니다. 또한 100명의 원래 표본이 선택된 방식을 재현하는 과정도 결정해야 합니다. “불공정 코인(unfair coin)”의 개념을 사용하여 이 과정을 <strong>시뮬레이션</strong>할 수 있습니다. 귀무 가설과 일치하게 성공 확률이 0.8인 불공정 코인을 100번 던지는 시뮬레이션을 수행합니다. 그런 다음 100번의 던지기 중 앞면이 몇 번 나오는지 기록합니다. 우리의 시뮬레이션 통계량은 원래 통계량인 <span class="math inline">\(\hat{p}\)</span>를 계산한 방식과 일치합니다: 전체 100개의 표본 중 앞면(만족)의 개수입니다. 그런 다음 이 과정을 여러 번(예: 10,000번) 반복하여 시뮬레이션된 성공 비율을 살펴보는 귀무 분포를 생성합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2018</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>null_distn_one_prop <span class="ot">&lt;-</span> elec <span class="sc">%&gt;%</span></span>
@@ -954,7 +954,7 @@ attr(,"conf.level")
 <pre><code>[1] 0.08011831</code></pre>
 </div>
 </div>
-<p>우리 귀무 분포에서 -1.75 또는 그보다 더 극단적인(양방향 <span class="math inline">\(z_{obs}\)</span> 값을 관찰할 확률인 <span class="math inline">\(p\)</span>-값은 약 8.01%입니다.</p>
+<p>우리 귀무 분포에서 -1.75 또는 그보다 더 극단적인(양방향 <span class="math inline">\(z_{obs}\)</span>) 값을 관찰할 확률인 <span class="math inline">\(p\)</span>-값은 약 8.01%입니다.</p>
 <p>참고로 <code>prop.test</code> 함수를 사용하여 이 검정을 직접 수행할 수도 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(</span>
@@ -995,7 +995,7 @@ sample estimates:
 <h2 class="anchored" data-anchor-id="두-비율-two-proportions">두 비율 (Two proportions)</h2>
 <section id="문제-정의-2" class="level3">
 <h3 class="anchored" data-anchor-id="문제-정의-2">문제 정의</h3>
-<p>2010년 한 설문조사에서 캘리포니아주에 등록된 유권자 827명을 무작위로 추출하여 다음과 같이 물었습니다. “캘리포니아 연안의 석유 및 천연가스 해상 시추(drilling)를 지지하십니까? 아니면 반대하십니까? 아니면 결정하기에 아는 바가 충분하지 않으십니까?” 이 데이터를 바탕으로, 이 문제에 대해 ’의견 없음(no opinion)’을 가진 대졸자의 비율이 비대졸자의 비율과 다르다는 강력한 증거가 있는지 가설 검정을 수행하십시오. <span class="citation" data-cites="isrs2014">(<a href="#ref-isrs2014" role="doc-biblioref">Diez, Barr, and Çetinkaya-Rundel 2014, [6장]에서</a> 약간 수정함)</span></p>
+<p>2010년 한 설문조사에서 캘리포니아주에 등록된 유권자 827명을 무작위로 추출하여 다음과 같이 물었습니다. “캘리포니아 연안의 석유 및 천연가스 해상 시추(drilling)를 지지하십니까? 아니면 반대하십니까? 아니면 결정하기에 아는 바가 충분하지 않으십니까?” 이 데이터를 바탕으로, 이 문제에 대해 ’의견 없음(no opinion)’을 가진 대졸자의 비율이 비대졸자의 비율과 다르다는 강력한 증거가 있는지 가설 검정을 수행하십시오. <span class="citation" data-cites="isrs2014">(<a href="99-references.html#ref-isrs2014" role="doc-biblioref">Diez, Barr, and Çetinkaya-Rundel 2014, [6장]에서</a> 약간 수정함)</span></p>
 </section>
 <section id="대립하는-가설-2" class="level3">
 <h3 class="anchored" data-anchor-id="대립하는-가설-2">대립하는 가설</h3>
@@ -1085,7 +1085,7 @@ Explanatory: college_grad (factor)
 <section id="가설-검정을-위한-무작위화" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="가설-검정을-위한-무작위화">가설 검정을 위한 무작위화</h4>
 <p>관측된 대졸자의 의견 없음 비율 0.2374429가 비대졸자의 의견 없음 비율 0.3367609와 통계적으로 다른지 확인하려면 표본 크기를 고려해야 합니다. 이는 관측된 표본 비율의 차이인 -0.099318가 0과 통계적으로 다른지 확인하는 것과 같습니다. 또한 원래의 그룹 크기인 389와 438가 선택된 방식을 재현하는 과정도 결정해야 합니다.</p>
-<p><strong>무작위화 검정(randomization testing)</strong>(또는 <strong>순열 검정(permutation testing)</strong> 개념을 사용하여 표본이 추출된 모집단(서로 다른 크기의 두 그룹이 있는)을 시뮬레이션하고, 표집 변동을 고려하기 위해 시뮬레이션된 모집단에서 <strong>셔플링(shuffling)</strong>을 사용하여 표본을 생성할 수 있습니다.</p>
+<p><strong>무작위화 검정(randomization testing)</strong> 또는 <strong>순열 검정(permutation testing)</strong> 개념을 사용하여 표본이 추출된 모집단(서로 다른 크기의 두 그룹이 있는)을 시뮬레이션하고, 표집 변동을 고려하기 위해 시뮬레이션된 모집단에서 <strong>셔플링(shuffling)</strong>을 사용하여 표본을 생성할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2018</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>null_distn_two_props <span class="ot">&lt;-</span> offshore <span class="sc">%&gt;%</span></span>
@@ -1223,7 +1223,7 @@ Explanatory: college_grad (factor)
 </section>
 <section id="결과-비교-2" class="level3">
 <h3 class="anchored" data-anchor-id="결과-비교-2">결과 비교</h3>
-<p>생성된 부트스트랩 분포와 귀무 분포를 관찰해 보면, 이 분포들이 정규 분포와 매우 유사해 보이기 때문에 <span class="math inline">\(p\)</span>-값과 신뢰 구간 측면에서 전통적 방법과 비전통적 방법의 결과가 매우 유사하게 나오는 것은 꽤 타당합니다. 쌍(pairs)의 수가 적어 조건이 완전히 충족되지는 않았지만, 표본 데이터가 심하게 비대칭적이지는 않았습니다. 전통적(공식 기반 방법이든 비전통적(계산 기반 방법이든 어떤 방법을 사용하더라도 유사한 결과로 이어졌습니다.</p>
+<p>생성된 부트스트랩 분포와 귀무 분포를 관찰해 보면, 이 분포들이 정규 분포와 매우 유사해 보이기 때문에 <span class="math inline">\(p\)</span>-값과 신뢰 구간 측면에서 전통적 방법과 비전통적 방법의 결과가 매우 유사하게 나오는 것은 꽤 타당합니다. 쌍(pairs)의 수가 적어 조건이 완전히 충족되지는 않았지만, 표본 데이터가 심하게 비대칭적이지는 않았습니다. 전통적 공식 기반 방법이든 비전통적 계산 기반 방법이든 어떤 방법을 사용하더라도 유사한 결과로 이어졌습니다.</p>
 </section>
 </section>
 <section id="two-means-independent-samples" class="level2">
@@ -1233,7 +1233,7 @@ Explanatory: college_grad (factor)
 <h2 class="anchored" data-anchor-id="두-평균-독립-표본">두 평균 (독립 표본)</h2>
 <section id="문제-정의-3" class="level3">
 <h3 class="anchored" data-anchor-id="문제-정의-3">문제 정의</h3>
-<p>평균 소득은 지역마다 다르며, 이는 종종 생활 방식과 지역 생활비를 반영합니다. 어떤 대학 졸업생이 오하이오주 클리블랜드(Cleveland, OH)와 캘리포니아주 새크라멘토(Sacramento, CA 두 지역에서의 취업을 고려하고 있으며, 이 중 한 도시의 평균 소득이 다른 도시보다 높은지 확인하고 싶어 한다고 가정해 보겠습니다. 그는 2000년 인구 조사에서 무작위로 추출된 두 표본을 바탕으로 가설 검정을 실시하고자 합니다. <span class="citation" data-cites="isrs2014">(<a href="#ref-isrs2014" role="doc-biblioref">Diez, Barr, and Çetinkaya-Rundel 2014, [5장]에서</a> 약간 수정함)</span></p>
+<p>평균 소득은 지역마다 다르며, 이는 종종 생활 방식과 지역 생활비를 반영합니다. 어떤 대학 졸업생이 오하이오주 클리블랜드(Cleveland, OH)와 캘리포니아주 새크라멘토(Sacramento, CA 두 지역에서의 취업을 고려하고 있으며, 이 중 한 도시의 평균 소득이 다른 도시보다 높은지 확인하고 싶어 한다고 가정해 보겠습니다. 그는 2000년 인구 조사에서 무작위로 추출된 두 표본을 바탕으로 가설 검정을 실시하고자 합니다. <span class="citation" data-cites="isrs2014">(<a href="99-references.html#ref-isrs2014" role="doc-biblioref">Diez, Barr, and Çetinkaya-Rundel 2014, [5장]에서</a> 약간 수정함)</span></p>
 </section>
 <section id="대립하는-가설-3" class="level3">
 <h3 class="anchored" data-anchor-id="대립하는-가설-3">대립하는 가설</h3>
@@ -1245,21 +1245,21 @@ Explanatory: college_grad (factor)
 </ul>
 </section>
 <section id="다른-표현-문장-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="다른-표현-문장-1">다른 표현 (문장</h4>
+<h4 class="unnumbered anchored" data-anchor-id="다른-표현-문장-1">다른 표현 문장</h4>
 <ul>
 <li>귀무 가설: 두 도시의 평균 소득은 <strong>같다</strong>.</li>
 <li>대립 가설: 두 도시의 평균 소득은 서로 다르다.</li>
 </ul>
 </section>
 <section id="기호로-주석-포함-3" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="기호로-주석-포함-3">기호로 (주석 포함</h4>
+<h4 class="unnumbered anchored" data-anchor-id="기호로-주석-포함-3">기호로 주석 포함</h4>
 <ul>
 <li><span class="math inline">\(H_0: \mu_{sac} = \mu_{cle}\)</span> 또는 <span class="math inline">\(H_0: \mu_{sac} - \mu_{cle} = 0\)</span>, 여기서 <span class="math inline">\(\mu\)</span>는 평균 소득을 나타낸다.</li>
 <li><span class="math inline">\(H_A: \mu_{sac} - \mu_{cle} \ne 0\)</span></li>
 </ul>
 </section>
-<section id="알파alpha-설정-3" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="알파alpha-설정-3">알파(<span class="math inline">\(\alpha\)</span> 설정</h4>
+<section id="알파-alpha-설정" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="알파-alpha-설정">알파 <span class="math inline">\(\alpha\)</span> 설정</h4>
 <p>데이터를 사용해 검정을 시작하기 전에 유의 수준을 설정하는 것이 중요합니다. 여기서는 유의 수준을 5%로 설정하겠습니다.</p>
 </section>
 </section>
@@ -1348,7 +1348,7 @@ Explanatory: college_grad (factor)
 </div>
 <section id="통계적-유의성에-대한-추측-3" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="통계적-유의성에-대한-추측-3">통계적 유의성에 대한 추측</h4>
-<p>우리는 설명 변수의 두 수준(도시 사이에 평균 소득의 차이가 존재하는지 확인하고자 합니다. 박스 플롯만 보았을 때는 차이가 존재하지 않는다고 믿을 만한 이유가 있습니다. 소득 분포가 비슷해 보이고 평균도 거의 같은 위치에 있기 때문입니다.</p>
+<p>우리는 설명 변수의 두 수준 도시 사이에 평균 소득의 차이가 존재하는지 확인하고자 합니다. 박스 플롯만 보았을 때는 차이가 존재하지 않는다고 믿을 만한 이유가 있습니다. 소득 분포가 비슷해 보이고 평균도 거의 같은 위치에 있기 때문입니다.</p>
 </section>
 </section>
 <section id="비전통적-방법-3" class="level3">
@@ -1377,7 +1377,7 @@ Explanatory: metro_area (factor)
 <section id="가설-검정을-위한-무작위화-1" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="가설-검정을-위한-무작위화-1">가설 검정을 위한 무작위화</h4>
 <p>관측된 새크라멘토의 표본 평균 2.7467066^{4}이 클리블랜드의 표본 평균 3.2427543^{4}과 통계적으로 다른지 확인하려면 표본 크기를 고려해야 합니다. 이는 <span class="math inline">\(\bar{x}_{sac} - \bar{x}_{cle}\)</span>가 0과 통계적으로 다른지 확인하는 것과 같습니다. 또한 원래의 그룹 크기인 212과 175이 선택된 방식을 재현하는 과정도 결정해야 합니다.</p>
-<p><strong>무작위화 검정</strong>(또는 <strong>순열 검정</strong> 개념을 사용하여 표본이 추출된 모집단(서로 다른 크기의 두 그룹이 있는)을 시뮬레이션하고, 표집 변동을 고려하기 위해 시뮬레이션된 모집단에서 <strong>셔플링</strong>을 사용하여 표본을 생성할 수 있습니다.</p>
+<p><strong>무작위화 검정</strong> 또는 <strong>순열 검정</strong> 개념을 사용하여 표본이 추출된 모집단(서로 다른 크기의 두 그룹이 있는)을 시뮬레이션하고, 표집 변동을 고려하기 위해 시뮬레이션된 모집단에서 <strong>셔플링</strong>을 사용하여 표본을 생성할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2018</span>)</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>null_distn_two_means <span class="ot">&lt;-</span> cle_sac <span class="sc">%&gt;%</span></span>
@@ -1472,7 +1472,7 @@ Explanatory: metro_area (factor)
 <h3 class="anchored" data-anchor-id="전통적-방법-3">전통적 방법</h3>
 <section id="조건-확인-3" class="level5 unnumbered">
 <h5 class="unnumbered anchored" data-anchor-id="조건-확인-3">조건 확인</h5>
-<p>지름길(공식 기반, 이론적 접근 방식을 사용하려면 몇 가지 조건이 충족되는지 확인해야 합니다.</p>
+<p>지름길 공식 기반, 이론적 접근 방식을 사용하려면 몇 가지 조건이 충족되는지 확인해야 합니다.</p>
 <ol type="1">
 <li><p><em>독립된 관측치</em>: 두 그룹 모두에서 관측치가 독립적입니다.</p>
 <p>각 도시에서 사례들이 무작위로 선택되었으므로 이 조건이 충족됩니다.</p></li>
@@ -1550,7 +1550,7 @@ Explanatory: metro_area (factor)
 </section>
 <section id="결과-비교-3" class="level3">
 <h3 class="anchored" data-anchor-id="결과-비교-3">결과 비교</h3>
-<p>생성된 부트스트랩 분포와 귀무 분포를 관찰해 보면, 이 분포들이 정규 분포와 매우 유사해 보이기 때문에 <span class="math inline">\(p\)</span>-값과 신뢰 구간 측면에서 전통적 방법과 비전통적 방법의 결과가 매우 유사하게 나오는 것은 꽤 타당합니다. 조건 또한 충족되었으므로, 전통적(공식 기반 방법이든 비전통적(계산 기반 방법이든 어떤 방법을 사용하더라도 유사한 결과로 이어질 것임을 더 잘 추측할 수 있습니다.</p>
+<p>생성된 부트스트랩 분포와 귀무 분포를 관찰해 보면, 이 분포들이 정규 분포와 매우 유사해 보이기 때문에 <span class="math inline">\(p\)</span>-값과 신뢰 구간 측면에서 전통적 방법과 비전통적 방법의 결과가 매우 유사하게 나오는 것은 꽤 타당합니다. 조건 또한 충족되었으므로, 전통적 공식 기반 방법이든 비전통적 계산 기반 방법이든 어떤 방법을 사용하더라도 유사한 결과로 이어질 것임을 더 잘 추측할 수 있습니다.</p>
 </section>
 </section>
 <section id="두-평균-쌍체-표본" class="level2">
@@ -1575,8 +1575,8 @@ Explanatory: metro_area (factor)
 <li><span class="math inline">\(H_A: \mu_{diff} &lt; 0\)</span></li>
 </ul>
 </section>
-<section id="알파alpha-설정-4" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="알파alpha-설정-4">알파(<span class="math inline">\(\alpha\)</span> 설정</h4>
+<section id="알파alpha-설정-3" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="알파alpha-설정-3">알파(<span class="math inline">\(\alpha\)</span> 설정</h4>
 <p>데이터를 사용해 검정을 시작하기 전에 유의 수준을 설정하는 것이 중요합니다. 여기서는 유의 수준을 5%로 설정하겠습니다.</p>
 </section>
 </section>
@@ -1768,10 +1768,10 @@ Explanatory: metro_area (factor)
 </section>
 <section id="결과-비교-4" class="level3">
 <h3 class="anchored" data-anchor-id="결과-비교-4">결과 비교</h3>
-<p>생성된 부트스트랩 분포와 귀무 분포를 관찰해 보면, 이 분포들이 정규 분포와 매우 유사해 보이기 때문에 <span class="math inline">\(p\)</span>-값과 신뢰 구간 측면에서 전통적 방법과 비전통적 방법의 결과가 매우 유사하게 나오는 것은 꽤 타당합니다. 쌍의 개수가 적어 조건이 완전히 충족되지는 않았지만, 표본 데이터가 심하게 비대칭적이지는 않았습니다. 전통적(공식 기반 방법이든 비전통적(계산 기반 방법이든 어떤 방법을 사용하더라도 여기서 유사한 결과로 이어졌습니다.</p>
+<p>생성된 부트스트랩 분포와 귀무 분포를 관찰해 보면, 이 분포들이 정규 분포와 매우 유사해 보이기 때문에 <span class="math inline">\(p\)</span>-값과 신뢰 구간 측면에서 전통적 방법과 비전통적 방법의 결과가 매우 유사하게 나오는 것은 꽤 타당합니다. 쌍의 개수가 적어 조건이 완전히 충족되지는 않았지만, 표본 데이터가 심하게 비대칭적이지는 않았습니다. 전통적 공식 기반 방법이든 비전통적 계산 기반 방법이든 어떤 방법을 사용하더라도 여기서 유사한 결과로 이어졌습니다.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-isrs2014" class="csl-entry" role="listitem">
 Diez, David M, Christopher D Barr, and Mine Çetinkaya-Rundel. 2014. <em>Introductory Statistics with Randomization and Simulation</em>. First. Scotts Valley, CA: CreateSpace Independent Publishing Platform. <a href="https://www.openintro.org/stat/textbook.php?stat_book=isrs">https://www.openintro.org/stat/textbook.php?stat_book=isrs</a>.
 </div>

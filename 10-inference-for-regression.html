@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>회귀 분석을 위한 추론 – ModernDive: Statistical Inference via Data Science</title>
+<title>회귀 분석을 위한 추론 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -164,7 +164,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -341,31 +341,31 @@ window.Quarto = {
   <li><a href="#강의-평가-분석" id="toc-강의-평가-분석" class="nav-link" data-scroll-target="#강의-평가-분석">강의 평가 분석</a></li>
   <li><a href="#표집-시나리오" id="toc-표집-시나리오" class="nav-link" data-scroll-target="#표집-시나리오">표집 시나리오</a></li>
   </ul></li>
-  <li><a href="#regression-interp" id="toc-regression-interp" class="nav-link" data-scroll-target="#regression-interp">회귀 표 해석하기</a>
+  <li><a href="#sec-regression-interp" id="toc-sec-regression-interp" class="nav-link" data-scroll-target="#sec-regression-interp">회귀 표 해석하기</a>
   <ul class="collapse">
   <li><a href="#regression-se" id="toc-regression-se" class="nav-link" data-scroll-target="#regression-se">표준 오차</a></li>
   <li><a href="#regression-test-statistic" id="toc-regression-test-statistic" class="nav-link" data-scroll-target="#regression-test-statistic">검정 통계량</a></li>
   <li><a href="#p-값" id="toc-p-값" class="nav-link" data-scroll-target="#p-값">p-값</a></li>
   <li><a href="#신뢰-구간" id="toc-신뢰-구간" class="nav-link" data-scroll-target="#신뢰-구간">신뢰 구간</a></li>
-  <li><a href="#regression-table-computation" id="toc-regression-table-computation" class="nav-link" data-scroll-target="#regression-table-computation">R은 이 표를 어떻게 계산할까요?</a></li>
+  <li><a href="#sec-regression-table-computation" id="toc-sec-regression-table-computation" class="nav-link" data-scroll-target="#sec-regression-table-computation">R은 이 표를 어떻게 계산할까요?</a></li>
   </ul></li>
-  <li><a href="#regression-conditions" id="toc-regression-conditions" class="nav-link" data-scroll-target="#regression-conditions">회귀 추론을 위한 조건</a>
+  <li><a href="#sec-regression-conditions" id="toc-sec-regression-conditions" class="nav-link" data-scroll-target="#sec-regression-conditions">회귀 추론을 위한 조건</a>
   <ul class="collapse">
   <li><a href="#잔차-복습" id="toc-잔차-복습" class="nav-link" data-scroll-target="#잔차-복습">잔차 복습</a></li>
   <li><a href="#관계의-선형성" id="toc-관계의-선형성" class="nav-link" data-scroll-target="#관계의-선형성">관계의 선형성</a></li>
   <li><a href="#잔차의-독립성" id="toc-잔차의-독립성" class="nav-link" data-scroll-target="#잔차의-독립성">잔차의 독립성</a></li>
   <li><a href="#잔차의-정규성" id="toc-잔차의-정규성" class="nav-link" data-scroll-target="#잔차의-정규성">잔차의 정규성</a></li>
   <li><a href="#등분산성" id="toc-등분산성" class="nav-link" data-scroll-target="#등분산성">등분산성</a></li>
-  <li><a href="#what-is-the-conclusion" id="toc-what-is-the-conclusion" class="nav-link" data-scroll-target="#what-is-the-conclusion">결론이 무엇인가요?</a></li>
+  <li><a href="#sec-what-is-the-conclusion" id="toc-sec-what-is-the-conclusion" class="nav-link" data-scroll-target="#sec-what-is-the-conclusion">결론이 무엇인가요?</a></li>
   </ul></li>
-  <li><a href="#infer-regression" id="toc-infer-regression" class="nav-link" data-scroll-target="#infer-regression">시뮬레이션 기반 회귀 분석 추론</a>
+  <li><a href="#sec-infer-regression" id="toc-sec-infer-regression" class="nav-link" data-scroll-target="#sec-infer-regression">시뮬레이션 기반 회귀 분석 추론</a>
   <ul class="collapse">
   <li><a href="#기울기에-대한-신뢰-구간" id="toc-기울기에-대한-신뢰-구간" class="nav-link" data-scroll-target="#기울기에-대한-신뢰-구간">기울기에 대한 신뢰 구간</a></li>
   <li><a href="#기울기에-대한-가설-검정" id="toc-기울기에-대한-가설-검정" class="nav-link" data-scroll-target="#기울기에-대한-가설-검정">기울기에 대한 가설 검정</a></li>
   </ul></li>
   <li><a href="#inference-conclusion" id="toc-inference-conclusion" class="nav-link" data-scroll-target="#inference-conclusion">결론</a>
   <ul class="collapse">
-  <li><a href="#theory-regression" id="toc-theory-regression" class="nav-link" data-scroll-target="#theory-regression">회귀에 대한 이론 기반 추론</a></li>
+  <li><a href="#sec-theory-regression" id="toc-sec-theory-regression" class="nav-link" data-scroll-target="#sec-theory-regression">회귀에 대한 이론 기반 추론</a></li>
   <li><a href="#통계적-추론-요약" id="toc-통계적-추론-요약" class="nav-link" data-scroll-target="#통계적-추론-요약">통계적 추론 요약</a></li>
   <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료">추가 자료</a></li>
   <li><a href="#앞으로의-내용" id="toc-앞으로의-내용" class="nav-link" data-scroll-target="#앞으로의-내용">앞으로의 내용</a></li>
@@ -378,7 +378,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-inference-for-regression.html">데이터 모델링(심화)</a></li><li class="breadcrumb-item"><a href="./10-inference-for-regression.html"><span class="chapter-title">회귀 분석을 위한 추론</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="inference-for-regression" class="quarto-section-identifier"><span class="chapter-title">회귀 분석을 위한 추론</span></span></h1>
+<h1 class="title"><span id="sec-inference-for-regression" class="quarto-section-identifier"><span class="chapter-title">회귀 분석을 위한 추론</span></span></h1>
 </div>
 
 
@@ -395,10 +395,10 @@ window.Quarto = {
 </header>
 
 
-<p>이 책의 끝에서 두 번째 장에서는 <span class="quarto-unresolved-ref">?sec-regression와</span> <span class="quarto-unresolved-ref">?sec-multiple-regression에서</span> 처음 공부했던 회귀 모델을 다시 살펴보겠습니다. <span class="quarto-unresolved-ref">?sec-confidence-intervals와</span> <span class="quarto-unresolved-ref">?sec-hypothesis-testing에서</span> 배운 신뢰 구간과 가설 검정에 대한 지식을 바탕으로, 결과 변수와 설명 변수 사이의 관계를 더 깊이 이해하기 위해 통계적 추론을 적용할 수 있게 될 것입니다.</p>
+<p>이 책의 끝에서 두 번째 장에서는 <a href="05-regression.html" class="quarto-xref"><span>기초 회귀 분석</span></a> 와 <a href="06-multiple-regression.html" class="quarto-xref"><span>다중 회귀 분석</span></a> 에서 처음 공부했던 회귀 모델을 다시 살펴보겠습니다. <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 와 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 에서 배운 신뢰 구간과 가설 검정에 대한 지식을 바탕으로, 결과 변수와 설명 변수 사이의 관계를 더 깊이 이해하기 위해 통계적 추론을 적용할 수 있게 될 것입니다.</p>
 <section id="inf-packages" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="inf-packages">필요한 패키지</h3>
-<p>이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). <span class="quarto-unresolved-ref">?sec-tidyverse-package절에서</span> 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 불러오면 다음과 같이 일반적으로 사용되는 데이터 과학 패키지들을 한 번에 불러올 수 있습니다.</p>
+<p>이 장에 필요한 모든 패키지를 불러오겠습니다(이미 설치되어 있다고 가정합니다). <a href="04-tidy.html#sec-tidyverse-package" class="quarto-xref"><span>tidyverse 패키지</span></a> 절에서 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 불러오면 다음과 같이 일반적으로 사용되는 데이터 과학 패키지들을 한 번에 불러올 수 있습니다.</p>
 <ul>
 <li>데이터 시각화를 위한 <code>ggplot2</code></li>
 <li>데이터 전처리를 위한 <code>dplyr</code></li>
@@ -406,7 +406,7 @@ window.Quarto = {
 <li>스프레드시트 데이터를 R로 가져오기 위한 <code>readr</code></li>
 <li>그뿐만 아니라 더 고급 패키지인 <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code> 패키지들까지</li>
 </ul>
-<p>필요한 경우, R 패키지 설치 및 로드 방법에 대한 정보는 <span class="quarto-unresolved-ref">?sec-packages절을</span> 참조하십시오.</p>
+<p>필요한 경우, R 패키지 설치 및 로드 방법에 대한 정보는 <a href="01-getting-started.html#sec-packages" class="quarto-xref"><span>R 패키지란 무엇인가?</span></a> 절을 참조하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span>
@@ -415,7 +415,7 @@ window.Quarto = {
 </section>
 <section id="회귀-분석-복습" class="level2">
 <h2 class="anchored" data-anchor-id="회귀-분석-복습">회귀 분석 복습</h2>
-<p>회귀 분석을 위한 추론으로 넘어가기 전에, <span class="quarto-unresolved-ref">?sec-model1절에서</span> 다루었던 텍사스 대학교 오스틴(University of Texas Austin)의 강의 평가 분석을 다시 떠올려 봅시다.</p>
+<p>회귀 분석을 위한 추론으로 넘어가기 전에, <a href="05-regression.html#sec-model1" class="quarto-xref"><span>하나의 수치형 설명 변수</span></a> 절에서 다루었던 텍사스 대학교 오스틴(University of Texas Austin)의 강의 평가 분석을 다시 떠올려 봅시다.</p>
 <section id="강의-평가-분석" class="level3">
 <h3 class="anchored" data-anchor-id="강의-평가-분석">강의 평가 분석</h3>
 <p>단순 선형 회귀 를 사용하여 우리는 다음 두 변수 사이의 관계를 모델링했습니다.</p>
@@ -437,8 +437,8 @@ $ bty_avg &lt;dbl&gt; 5.00, 5.00, 5.00, 5.00, 3.00, 3.00, 3.00, 3.33, 3.33, 3.17
 $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40, 40…</code></pre>
 </div>
 </div>
-<p>하위 <span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> 우리는 <code>score</code>와 <code>bty_avg</code> 사이의 관계에 대한 탐색적 데이터 분석을 수행했습니다. 그곳에서 우리는 두 변수 사이에 0.187의 약한 양의 상관관계가 존재함을 확인했습니다.</p>
-<p>이는 <code>score</code>와 <code>bty_avg</code> 사이의 선형 관계를 요약하는 “최적적합(best-fitting)” 회귀선이 포함된 그림 <span class="quarto-unresolved-ref">?fig-regline의</span> 산점도에서 입증되었습니다. 하위 <span class="quarto-unresolved-ref">?sec-leastsquares절에서</span> 우리가 “최적적합” 선을 <em>잔차 제곱합(sum of squared residuals)</em>을 최소화하는 선으로 정의했음을 상기하십시오.</p>
+<p>하위 <a href="05-regression.html#sec-model1EDA" class="quarto-xref"><span>탐색적 데이터 분석</span></a> 절에서 우리는 <code>score</code>와 <code>bty_avg</code> 사이의 관계에 대한 탐색적 데이터 분석을 수행했습니다. 그곳에서 우리는 두 변수 사이에 0.187의 약한 양의 상관관계가 존재함을 확인했습니다.</p>
+<p>이는 <code>score</code>와 <code>bty_avg</code> 사이의 선형 관계를 요약하는 “최적적합(best-fitting)” 회귀선이 포함된 그림 <span class="quarto-unresolved-ref">?fig-regline</span> 의 산점도에서 입증되었습니다. 하위 <a href="05-regression.html#sec-leastsquares" class="quarto-xref"><span>가장 잘 맞는 직선</span></a> 절에서 우리가 “최적적합” 선을 <em>잔차 제곱합(sum of squared residuals)</em>을 최소화하는 선으로 정의했음을 상기하십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals_ch5, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
@@ -505,7 +505,7 @@ $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40
 </table>
 </div>
 </div>
-<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 결과인 회귀 표의 <code>estimate</code> 열에 있는 값들을 사용하여, 우리는 그림 <span class="quarto-unresolved-ref">?fig-regline에</span> 있는 “최적적합” 회귀선의 방정식을 얻을 수 있습니다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 결과인 회귀 표의 <code>estimate</code> 열에 있는 값들을 사용하여, 우리는 그림 <span class="quarto-unresolved-ref">?fig-regline</span> 에 있는 “최적적합” 회귀선의 방정식을 얻을 수 있습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 \widehat{y} &amp;= b_0 + b_1 \cdot x\\
@@ -521,10 +521,10 @@ $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40
 </section>
 <section id="표집-시나리오" class="level3">
 <h3 class="anchored" data-anchor-id="표집-시나리오">표집 시나리오</h3>
-<p>이제 하위 <span class="quarto-unresolved-ref">?sec-terminology-and-notation절에서</span> 공부했던 표집과 관련된 용어 및 표기법의 관점에서 이 연구를 다시 살펴보겠습니다.</p>
+<p>이제 하위 <a href="07-sampling.html#sec-terminology-and-notation" class="quarto-xref"><span>용어와 표기법</span></a> 절에서 공부했던 표집과 관련된 용어 및 표기법의 관점에서 이 연구를 다시 살펴보겠습니다.</p>
 <p>먼저, 이 463개 강의의 강사들을 더 큰 <strong>연구 모집단(study population)</strong>에서 추출한 <strong>대표 표본(representative sample)</strong>으로 간주해 봅시다. 우리의 경우, 연구 모집단은 UT 오스틴의 <strong>모든</strong> 강사이며, 이 463개 강의를 가르친 강사들의 표본이 대표 표본이라고 가정하겠습니다. 안타깝게도 연구자들이 사용한 <strong>표집 방법론(sampling methodology)</strong>에 대해 더 자세히 알지 못한다면, 우리는 단지 이 두 가지 사실을 <em>가정</em>할 수 있을 뿐입니다.</p>
 <p>우리는 이 <span class="math inline">\(n\)</span> = 463개의 강의를 하나의 표본으로 보고 있으므로, 우리가 구한 적합된 기울기 <span class="math inline">\(b_1\)</span> = 0.067을 <strong>모집단 기울기(population slope)</strong> <span class="math inline">\(\beta_1\)</span>의 <strong>점 추정치(point estimate)</strong>로 볼 수 있습니다. 즉, <span class="math inline">\(\beta_1\)</span>은 UT 오스틴의 <strong>모든</strong> 강사에 대해 강의 점수(<code>score</code>)와 외모 평점(<code>bty_avg</code>) 사이의 관계를 정량화합니다. 마찬가지로 적합된 절편 <span class="math inline">\(b_0\)</span> = 3.88을 UT 오스틴의 모든 강사에 대한 <strong>모집단 절편(population intercept)</strong> <span class="math inline">\(\beta_0\)</span>의 점 추정치로 볼 수 있습니다.</p>
-<p>이 두 아이디어를 종합하면, 적합된 선의 방정식 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(b_0 + b_1 \cdot x\)</span> = <span class="math inline">\(3.880 + 0.067 \cdot \text{bty}\_\text{avg}\)</span>를 실재하지만 알 수 없는 어떤 <strong>모집단 선(population line)</strong> <span class="math inline">\(y = \beta_0 + \beta_1 \cdot x\)</span>의 추정치로 볼 수 있습니다. 따라서 우리는 강의 평가 분석과 그동안 보았던 모든 표집 시나리오 사이의 공통점을 찾을 수 있습니다. 이 장에서는 표 <span class="quarto-unresolved-ref">?tbl-summarytable-ch11에</span> 표시된 회귀 기울기의 마지막 시나리오에 초점을 맞출 것입니다.</p>
+<p>이 두 아이디어를 종합하면, 적합된 선의 방정식 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(b_0 + b_1 \cdot x\)</span> = <span class="math inline">\(3.880 + 0.067 \cdot \text{bty}\_\text{avg}\)</span>를 실재하지만 알 수 없는 어떤 <strong>모집단 선(population line)</strong> <span class="math inline">\(y = \beta_0 + \beta_1 \cdot x\)</span>의 추정치로 볼 수 있습니다. 따라서 우리는 강의 평가 분석과 그동안 보았던 모든 표집 시나리오 사이의 공통점을 찾을 수 있습니다. 이 장에서는 표 <span class="quarto-unresolved-ref">?tbl-summarytable-ch11</span> 에 초점을 맞출 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -578,12 +578,12 @@ $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40
 </table>
 </div>
 </div>
-<p>이제 적합된 기울기 <span class="math inline">\(b_1\)</span>과 적합된 절편 <span class="math inline">\(b_0\)</span>를 <strong>표본</strong>에 기반한 <strong>점 추정치</strong>로 보고 있으므로, 이러한 추정치들 역시 <strong>표집 가변성(sampling variability)</strong>의 영향을 받게 됩니다. 다시 말해, 다른 <span class="math inline">\(n\)</span> = 463개 강의와 강사들에 대한 새로운 데이터를 수집한다면, 새로운 적합된 기울기 <span class="math inline">\(b_1\)</span>은 0.067과 다를 가능성이 높습니다. 새로운 적합된 절편 <span class="math inline">\(b_0\)</span>도 마찬가지일 것입니다. 그런데 이 추정치들이 얼마나 많이 <strong>변할까요(vary)</strong>? 이 정보는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에 있는 나머지 열들에 들어 있습니다. <span class="quarto-unresolved-ref">?sec-sampling의</span> 표집, <span class="quarto-unresolved-ref">?sec-confidence-intervals의</span> 신뢰 구간, <span class="quarto-unresolved-ref">?sec-hypothesis-testing의</span> 가설 검정에 대한 지식이 이 나머지 열들을 해석하는 데 도움이 될 것입니다.</p>
+<p>이제 적합된 기울기 <span class="math inline">\(b_1\)</span>과 적합된 절편 <span class="math inline">\(b_0\)</span>를 <strong>표본</strong>에 기반한 <strong>점 추정치</strong>로 보고 있으므로, 이러한 추정치들 역시 <strong>표집 가변성(sampling variability)</strong>의 영향을 받게 됩니다. 다시 말해, 다른 <span class="math inline">\(n\)</span> = 463개 강의와 강사들에 대한 새로운 데이터를 수집한다면, 새로운 적합된 기울기 <span class="math inline">\(b_1\)</span>은 0.067과 다를 가능성이 높습니다. 새로운 적합된 절편 <span class="math inline">\(b_0\)</span>도 마찬가지일 것입니다. 그런데 이 추정치들이 얼마나 많이 <strong>변할까요(vary)</strong>? 이 정보는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에 있는 나머지 열들에 들어 있습니다. <a href="07-sampling.html" class="quarto-xref"><span>표본 추출</span></a> 의 표집, <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 의 신뢰 구간, <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 의 가설 검정에 대한 지식이 이 나머지 열들을 해석하는 데 도움이 될 것입니다.</p>
 </section>
 </section>
-<section id="regression-interp" class="level2">
-<h2 class="anchored" data-anchor-id="regression-interp">회귀 표 해석하기</h2>
-<p>우리는 지금까지 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에서 왼쪽의 두 열인 <code>term</code>과 <code>estimate</code>에만 집중했습니다. 이제 표 <span class="quarto-unresolved-ref">?tbl-score-model-part-deux에서</span> 나머지 열들인 <code>std_error</code>, <code>statistic</code>, <code>p_value</code>, <code>lower_ci</code>, <code>upper_ci</code>로 관심을 돌려보겠습니다.</p>
+<section id="sec-regression-interp" class="level2">
+<h2 class="anchored" data-anchor-id="sec-regression-interp">회귀 표 해석하기</h2>
+<p>우리는 지금까지 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에서 왼쪽의 두 열인 <code>term</code>과 <code>estimate</code>에만 집중했습니다. 이제 표 <span class="quarto-unresolved-ref">?tbl-score-model-part-deux</span> 에서 나머지 열들인 <code>std_error</code>, <code>statistic</code>, <code>p_value</code>, <code>lower_ci</code>, <code>upper_ci</code>로 관심을 돌려보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -622,82 +622,82 @@ $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40
 </table>
 </div>
 </div>
-<p>적합된 절편 <span class="math inline">\(b_0\)</span>에 대한 실질적인 해석이 부족하다는 점을 고려하여, 이 섹션에서는 적합된 기울기 <span class="math inline">\(b_1\)</span>에 해당하는 표의 두 번째 행에만 집중하겠습니다. 먼저 <code>std_error</code>, <code>statistic</code>, <code>p_value</code>, <code>lower_ci</code>, <code>upper_ci</code> 열들을 해석해 보겠습니다. 그 후 다가올 하위 <span class="quarto-unresolved-ref">?sec-regression-table-computation절에서</span> R이 이러한 값들을 어떻게 계산하는지 논의할 것입니다.</p>
+<p>적합된 절편 <span class="math inline">\(b_0\)</span>에 대한 실질적인 해석이 부족하다는 점을 고려하여, 이 섹션에서는 적합된 기울기 <span class="math inline">\(b_1\)</span>에 해당하는 표의 두 번째 행에만 집중하겠습니다. 먼저 <code>std_error</code>, <code>statistic</code>, <code>p_value</code>, <code>lower_ci</code>, <code>upper_ci</code> 열들을 해석해 보겠습니다. 그 후 다가올 하위 <a href="#sec-regression-table-computation" class="quarto-xref"><span>R은 이 표를 어떻게 계산할까요?</span></a> 절에서 R이 이러한 값들을 어떻게 계산하는지 논의할 것입니다.</p>
 <section id="regression-se" class="level3">
 <h3 class="anchored" data-anchor-id="regression-se">표준 오차</h3>
-<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11에</span> 있는 회귀 표의 세 번째 열인 <code>std_error</code>는 우리 추정치의 <strong>표준 오차(standard error)</strong>에 해당합니다. 하위 <span class="quarto-unresolved-ref">?sec-sampling-definitions절에서</span> 보았던 <strong>표준 오차</strong> 의 정의를 상기해 봅시다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 에 있는 회귀 표의 세 번째 열인 <code>std_error</code>는 우리 추정치의 <strong>표준 오차(standard error)</strong>에 해당합니다. 하위 <a href="07-sampling.html#sec-sampling-definitions" class="quarto-xref"><span>Statistical definitions</span></a> 절에서 보았던 <strong>표준 오차</strong> 의 정의를 상기해 봅시다.</p>
 <blockquote class="blockquote">
 <p><strong>표준 오차</strong>는 표본으로부터 계산된 모든 점 추정치의 표준 편차입니다.</p>
 </blockquote>
 <p>그렇다면 이것이 적합된 기울기 <span class="math inline">\(b_1\)</span> = 0.067의 관점에서는 무엇을 의미할까요? 이 값은 강의 점수와 외모 점수가 쌍으로 이루어진 <span class="math inline">\(n\)</span> = 463개의 <strong>특정한 표본</strong>으로부터 얻은 적합된 기울기의 단 하나의 가능한 값일 뿐입니다. 그러나 만약 우리가 강의 점수와 외모 점수가 쌍으로 이루어진 다른 <span class="math inline">\(n\)</span> = 463개의 표본을 수집한다면, 우리는 거의 확실히 다른 적합된 기울기 <span class="math inline">\(b_1\)</span>을 얻게 될 것입니다. 이는 <strong>표집 가변성</strong> 때문입니다.</p>
-<p>우리가 가상으로 강의 점수와 외모 점수 쌍으로 이루어진 그러한 표본을 1000개 수집하여, 거기서 얻은 1000개의 적합된 기울기 <span class="math inline">\(b_1\)</span> 값을 계산하고 이를 히스토그램으로 시각화했다고 가정해 봅시다. 이것은 하위 <span class="quarto-unresolved-ref">?sec-sampling-definitions절에서</span> 정의한 <span class="math inline">\(b_1\)</span>의 <strong>표집 분포(sampling distribution)</strong>를 시각화한 것이 될 것입니다. 또한 <span class="math inline">\(b_1\)</span>의 <strong>표집 분포</strong>의 표준 편차에 <strong>표준 오차</strong>라는 특별한 이름이 붙는다는 점을 다시 떠올려 보십시오.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions에서</span> 삽의 크기가 25, 50, 100일 때 표본 비율 <span class="math inline">\(\widehat{p}\)</span>에 대해 세 개의 표집 분포를 구축했던 것을 상기해 보십시오. 우리는 표본 크기가 커짐에 따라 표집 분포가 좁아지는 것으로부터 알 수 있듯이 표준 오차가 감소하는 것을 관찰했습니다.</p>
+<p>우리가 가상으로 강의 점수와 외모 점수 쌍으로 이루어진 그러한 표본을 1000개 수집하여, 거기서 얻은 1000개의 적합된 기울기 <span class="math inline">\(b_1\)</span> 값을 계산하고 이를 히스토그램으로 시각화했다고 가정해 봅시다. 이것은 하위 <a href="07-sampling.html#sec-sampling-definitions" class="quarto-xref"><span>Statistical definitions</span></a> 절에서 정의한 <span class="math inline">\(b_1\)</span>의 <strong>표집 분포(sampling distribution)</strong>를 시각화한 것이 될 것입니다. 또한 <span class="math inline">\(b_1\)</span>의 <strong>표집 분포</strong>의 표준 편차에 <strong>표준 오차</strong>라는 특별한 이름이 붙는다는 점을 다시 떠올려 보십시오.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions</span> 에서 삽의 크기가 25, 50, 100일 때 표본 비율 <span class="math inline">\(\widehat{p}\)</span>에 대해 세 개의 표집 분포를 구축했던 것을 상기해 보십시오. 우리는 표본 크기가 커짐에 따라 표집 분포가 좁아지는 것으로부터 알 수 있듯이 표준 오차가 감소하는 것을 관찰했습니다.</p>
 <p><span class="math inline">\(b_1\)</span>의 <strong>표준 오차</strong>도 마찬가지로 서로 다른 표본들 사이에서 적합된 기울기 <span class="math inline">\(b_1\)</span>의 변동이 얼마나 될 것으로 예상되는지를 정량화합니다. 따라서 우리의 경우, <code>bty_avg</code> 기울기 변수에서 약 0.016 단위의 변동을 예상할 수 있습니다. <code>estimate</code>와 <code>std_error</code> 값은 모든 강사와 관련된 알 수 없는 모집단 기울기 <span class="math inline">\(\beta_1\)</span>의 값을 <strong>추론(inferring)</strong>하는 데 핵심적인 역할을 한다는 점을 기억하십시오.</p>
-<p><span class="quarto-unresolved-ref">?sec-infer-regression절에서는</span> <code>infer</code> 패키지를 사용하여 시뮬레이션을 수행하고, 이 사례에서 <span class="math inline">\(b_1\)</span>에 대한 부트스트랩 분포를 구축할 것입니다. 하위 <span class="quarto-unresolved-ref">?sec-bootstrap-vs-sampling절에서</span> 보았듯이, 부트스트랩 분포는 모양이 비슷하다는 점에서 표집 분포에 대한 <strong>근사치</strong>입니다. 모양이 비슷하기 때문에 <strong>표준 오차</strong>도 비슷합니다. 하지만 표집 분포와 달리 부트스트랩 분포는 <strong>단 하나의</strong> 표본으로부터 구축되며, 이는 실제 생활에서 이루어지는 방식과 더 일치합니다.</p>
+<p><a href="#sec-infer-regression" class="quarto-xref"><span>시뮬레이션 기반 회귀 분석 추론</span></a> 절에서는 <code>infer</code> 패키지를 사용하여 시뮬레이션을 수행하고, 이 사례에서 <span class="math inline">\(b_1\)</span>에 대한 부트스트랩 분포를 구축할 것입니다. 하위 <a href="08-confidence-intervals.html#sec-bootstrap-vs-sampling" class="quarto-xref"><span>붓스트랩 분포와 표본 분포 비교</span></a> 절에서 보았듯이, 부트스트랩 분포는 모양이 비슷하다는 점에서 표집 분포에 대한 <strong>근사치</strong>입니다. 모양이 비슷하기 때문에 <strong>표준 오차</strong>도 비슷합니다. 하지만 표집 분포와 달리 부트스트랩 분포는 <strong>단 하나의</strong> 표본으로부터 구축되며, 이는 실제 생활에서 이루어지는 방식과 더 일치합니다.</p>
 </section>
 <section id="regression-test-statistic" class="level3">
 <h3 class="anchored" data-anchor-id="regression-test-statistic">검정 통계량</h3>
-<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에서 네 번째 열인 <code>statistic</code>은 다음 <strong>가설 검정</strong>과 관련된 <strong>검정 통계량</strong>에 해당합니다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에서 네 번째 열인 <code>statistic</code>은 다음 <strong>가설 검정</strong>과 관련된 <strong>검정 통계량</strong>에 해당합니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 H_0 &amp;: \beta_1 = 0\\
 \text{대 } H_A&amp;: \beta_1 \neq 0
 \end{aligned}
 \]</span></p>
-<p><span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 소개한 가설 검정과 관련된 용어, 표기법, 정의를 상기해 봅시다.</p>
+<p><a href="09-hypothesis-testing.html#sec-understanding-ht" class="quarto-xref"><span>가설 검정의 이해</span></a> 절에서 소개한 가설 검정과 관련된 용어, 표기법, 정의를 상기해 봅시다.</p>
 <blockquote class="blockquote">
 <p><strong>가설 검정</strong>은 서로 경쟁하는 두 가설 사이의 검정으로 구성됩니다. (1) <strong>귀무 가설</strong> <span class="math inline">\(H_0\)</span> 대 (2) <strong>대립 가설</strong> <span class="math inline">\(H_A\)</span>입니다.</p>
 <p><strong>검정 통계량</strong>은 가설 검정에 사용되는 점 추정치/표본 통계량 공식입니다.</p>
 </blockquote>
 <p>여기서 우리의 <strong>귀무 가설</strong> <span class="math inline">\(H_0\)</span>는 모집단 기울기 <span class="math inline">\(\beta_1\)</span>이 0이라고 가정합니다. 만약 모집단 기울기 <span class="math inline">\(\beta_1\)</span>이 정말로 0이라면, 이는 우리 모집단의 <strong>모든</strong> 강사에 대해 강의 점수와 외모 점수 사이에 <strong>어떠한 실제적인 관계도 없음</strong>을 말하는 것입니다. 즉, <span class="math inline">\(x\)</span> = “외모” 점수가 <span class="math inline">\(y\)</span> = “강의 점수”에 아무런 영향을 미치지 않는다는 뜻입니다. 반면에 <strong>대립 가설</strong> <span class="math inline">\(H_A\)</span>는 모집단 기울기 <span class="math inline">\(\beta_1\)</span>이 0이 아니라고 가정하며, 이는 양수일 수도 있고 음수일 수도 있음을 의미합니다. 이는 강의 점수와 외모 점수 사이에 양(+)의 관계나 음(-)의 관계가 있음을 시사합니다. 우리는 이러한 대립 가설을 <strong>양측(two-sided)</strong> 가설이라고 불렀던 것을 기억하십시오. 관례적으로 회귀 분석을 위한 모든 가설 검정은 양측 대립 가설을 가정합니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-ht-activity절의</span> <code>promotions</code> 활동에서 우리가 <strong>가정</strong>했던 성차별이 없는 “가상 세계(hypothesized universe)”를 떠올려 보십시오. 마찬가지로 여기서 이 가설 검정을 수행할 때, 우리는 강의 점수와 외모 점수 사이에 아무런 관계가 없는 “가상 세계”를 가정할 것입니다. 즉, 귀무 가설 <span class="math inline">\(H_0: \beta_1 = 0\)</span>이 참이라고 가정할 것입니다.</p>
-<p>하지만 회귀 표의 <code>statistic</code> 열은 조금 까다롭습니다. 그것은 우리가 가설 검정을 위해 이론 기반 방법을 사용했던 하위 <span class="quarto-unresolved-ref">?sec-theory-hypo절에서</span> 보았던 <strong>이표본 t-통계량</strong>과 매우 유사한 <strong>표준화된 t-검정 통계량</strong>에 해당합니다. 이 두 경우 모두 <strong>귀무 분포</strong>는 수학적으로 <strong>t-분포</strong>임이 증명될 수 있습니다. 이러한 검정 통계량은 통계적 추론을 처음 접하는 분들이 공부하기에 까다로울 수 있으므로, 일단 건너뛰고 p-값의 해석으로 넘어가겠습니다. 궁금하신 분들을 위해 하위 <span class="quarto-unresolved-ref">?sec-theory-regression절에</span> 이 표준화된 t-검정 통계량에 대한 논의를 포함해 두었습니다.</p>
+<p><a href="09-hypothesis-testing.html#sec-ht-activity" class="quarto-xref"><span>승진 활동</span></a> 절의 <code>promotions</code> 활동에서 우리가 <strong>가정</strong>했던 성차별이 없는 “가상 세계(hypothesized universe)”를 떠올려 보십시오. 마찬가지로 여기서 이 가설 검정을 수행할 때, 우리는 강의 점수와 외모 점수 사이에 아무런 관계가 없는 “가상 세계”를 가정할 것입니다. 즉, 귀무 가설 <span class="math inline">\(H_0: \beta_1 = 0\)</span>이 참이라고 가정할 것입니다.</p>
+<p>하지만 회귀 표의 <code>statistic</code> 열은 조금 까다롭습니다. 그것은 우리가 가설 검정을 위해 이론 기반 방법을 사용했던 하위 <a href="09-hypothesis-testing.html#sec-theory-hypo" class="quarto-xref"><span>이론 기반 가설 검정</span></a> 절에서 보았던 <strong>이표본 t-통계량</strong>과 매우 유사한 <strong>표준화된 t-검정 통계량</strong>에 해당합니다. 이 두 경우 모두 <strong>귀무 분포</strong>는 수학적으로 <strong>t-분포</strong>임이 증명될 수 있습니다. 이러한 검정 통계량은 통계적 추론을 처음 접하는 분들이 공부하기에 까다로울 수 있으므로, 일단 건너뛰고 p-값의 해석으로 넘어가겠습니다. 궁금하신 분들을 위해 하위 <a href="#sec-theory-regression" class="quarto-xref"><span>회귀에 대한 이론 기반 추론</span></a> 절에 이 표준화된 t-검정 통계량에 대한 논의를 포함해 두었습니다.</p>
 </section>
 <section id="p-값" class="level3">
 <h3 class="anchored" data-anchor-id="p-값">p-값</h3>
-<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에서 다섯 번째 열인 <code>p_value</code>는 가설 검정 <span class="math inline">\(H_0: \beta_1 = 0\)</span> 대 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>에 대한 <strong>p-값</strong>에 해당합니다.</p>
-<p>다시 한번 <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 소개한 가설 검정 관련 용어, 표기법, 정의를 상기하며 p-값의 정의에 집중해 봅시다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에서 다섯 번째 열인 <code>p_value</code>는 가설 검정 <span class="math inline">\(H_0: \beta_1 = 0\)</span> 대 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>에 대한 <strong>p-값</strong>에 해당합니다.</p>
+<p>다시 한번 <a href="09-hypothesis-testing.html#sec-understanding-ht" class="quarto-xref"><span>가설 검정의 이해</span></a> 절에서 소개한 가설 검정 관련 용어, 표기법, 정의를 상기하며 p-값의 정의에 집중해 봅시다.</p>
 <blockquote class="blockquote">
 <p><strong>p-값</strong>은 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정할 때</strong>, 관찰된 검정 통계량만큼 극단적이거나 그보다 더 극단적인 검정 통계량을 얻을 확률입니다.</p>
 </blockquote>
 <p>직관적으로 p-값이란, 강의 점수와 외모 점수 사이에 아무런 관계가 없는 “가상 세계”에서 관찰된 적합된 기울기 <span class="math inline">\(b_1\)</span> = 0.067이 얼마나 “극단적인지”를 정량화하는 것으로 생각할 수 있습니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-ht-interpretation절에서</span> 설명한 가설 검정 절차를 따르면, 이 사례에서 p-값이 0이므로 유의 수준 <span class="math inline">\(\alpha\)</span>를 어떻게 선택하든 <span class="math inline">\(H_0\)</span>를 기각하고 <span class="math inline">\(H_A\)</span>를 채택하게 됩니다. 비통계적인 용어로는 다음과 같습니다. “우리는 강의 점수와 외모 점수 사이에 관계가 없다는 가설을 기각하고, 관계가 있다는 가설을 채택한다.” 즉, 증거는 양(+)의 유의미한 관계가 있음을 시사합니다.</p>
-<p>하지만 더 정확하게 말하자면, p-값은 관찰된 검정 통계량 4.09이 적절한 <strong>귀무 분포</strong>와 비교했을 때 얼마나 극단적인지에 해당합니다. <span class="quarto-unresolved-ref">?sec-infer-regression절에서는</span> <code>infer</code> 패키지를 사용하여 이 사례에 대한 귀무 분포를 구축하는 시뮬레이션을 수행할 것입니다.</p>
-<p>한 가지 추가로 주의할 점은, 이 가설 검정의 결과는 하위 <span class="quarto-unresolved-ref">?sec-regression-conditions절에서</span> 곧 소개할 “회귀 추론을 위한 몇 가지 조건”이 충족될 때만 유효하다는 것입니다.</p>
+<p><a href="09-hypothesis-testing.html#sec-ht-interpretation" class="quarto-xref"><span>가설 검정 해석하기</span></a> 절에서 설명한 가설 검정 절차를 따르면, 이 사례에서 p-값이 0이므로 유의 수준 <span class="math inline">\(\alpha\)</span>를 어떻게 선택하든 <span class="math inline">\(H_0\)</span>를 기각하고 <span class="math inline">\(H_A\)</span>를 채택하게 됩니다. 비통계적인 용어로는 다음과 같습니다. “우리는 강의 점수와 외모 점수 사이에 관계가 없다는 가설을 기각하고, 관계가 있다는 가설을 채택한다.” 즉, 증거는 양(+)의 유의미한 관계가 있음을 시사합니다.</p>
+<p>하지만 더 정확하게 말하자면, p-값은 관찰된 검정 통계량 4.09이 적절한 <strong>귀무 분포</strong>와 비교했을 때 얼마나 극단적인지에 해당합니다. <a href="#sec-infer-regression" class="quarto-xref"><span>시뮬레이션 기반 회귀 분석 추론</span></a> 절에서는 <code>infer</code> 패키지를 사용하여 이 사례에 대한 귀무 분포를 구축하는 시뮬레이션을 수행할 것입니다.</p>
+<p>한 가지 추가로 주의할 점은, 이 가설 검정의 결과는 하위 <a href="#sec-regression-conditions" class="quarto-xref"><span>회귀 추론을 위한 조건</span></a> 절에서 곧 소개할 “회귀 추론을 위한 몇 가지 조건”이 충족될 때만 유효하다는 것입니다.</p>
 </section>
 <section id="신뢰-구간" class="level3">
 <h3 class="anchored" data-anchor-id="신뢰-구간">신뢰 구간</h3>
-<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에서 가장 오른쪽에 있는 두 열(<code>lower_ci</code>와 <code>upper_ci</code>)은 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 95% <strong>신뢰 구간</strong>의 끝점에 해당합니다. <span class="quarto-unresolved-ref">?sec-ci-build-up절에서</span> 보았던 “그물이 물고기라면 신뢰 구간은 모집단 매개변수”라는 비유를 상기해 보십시오. <span class="math inline">\(\beta_1\)</span>에 대해 도출된 (0.035, 0.099)이라는 95% 신뢰 구간은 강의 점수와 외모 점수 사이의 선형 관계에 대한 모집단 기울기 <span class="math inline">\(\beta_1\)</span>의 타당한 범위로 생각할 수 있습니다.</p>
-<p>하위 <span class="quarto-unresolved-ref">?sec-shorthand절에서</span> 소개한 신뢰 구간의 정밀한 해석과 요약된 해석 중, 이 신뢰 구간에 대한 통계적으로 정밀한 해석은 다음과 같습니다. “만약 우리가 이 표집 절차를 아주 많이 반복한다면, 우리는 결과로 얻은 신뢰 구간의 약 95%가 모집단 기울기 <span class="math inline">\(\beta_1\)</span>의 값을 포함할 것으로 예상한다.” 하지만 우리는 이를 요약된 해석을 사용하여 “우리는 실제 모집단 기울기 <span class="math inline">\(\beta_1\)</span>이 0.035과 0.099 사이에 있다고 95% ’확신’한다”라고 정리하겠습니다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에서 가장 오른쪽에 있는 두 열(<code>lower_ci</code>와 <code>upper_ci</code>)은 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 95% <strong>신뢰 구간</strong>의 끝점에 해당합니다. <a href="08-confidence-intervals.html#sec-ci-build-up" class="quarto-xref"><span>신뢰 구간의 이해</span></a> 절에서 보았던 “그물이 물고기라면 신뢰 구간은 모집단 매개변수”라는 비유를 상기해 보십시오. <span class="math inline">\(\beta_1\)</span>에 대해 도출된 (0.035, 0.099)이라는 95% 신뢰 구간은 강의 점수와 외모 점수 사이의 선형 관계에 대한 모집단 기울기 <span class="math inline">\(\beta_1\)</span>의 타당한 범위로 생각할 수 있습니다.</p>
+<p>하위 <a href="08-confidence-intervals.html#sec-shorthand" class="quarto-xref"><span>정확한 해석과 요약 해석</span></a> 절에서 소개한 신뢰 구간의 정밀한 해석과 요약된 해석 중, 이 신뢰 구간에 대한 통계적으로 정밀한 해석은 다음과 같습니다. “만약 우리가 이 표집 절차를 아주 많이 반복한다면, 우리는 결과로 얻은 신뢰 구간의 약 95%가 모집단 기울기 <span class="math inline">\(\beta_1\)</span>의 값을 포함할 것으로 예상한다.” 하지만 우리는 이를 요약된 해석을 사용하여 “우리는 실제 모집단 기울기 <span class="math inline">\(\beta_1\)</span>이 0.035과 0.099 사이에 있다고 95% ’확신’한다”라고 정리하겠습니다.</p>
 <p>이 경우 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간 <span class="math inline">\((0.035, \, 0.099)\)</span>이 아주 특별한 값인 <span class="math inline">\(\beta_1 = 0\)</span>을 포함하지 않는다는 점에 주목하십시오. 모집단 회귀 기울기 <span class="math inline">\(\beta_1\)</span>이 0이라는 것은 강의 점수와 외모 점수 사이에 아무런 관계가 <strong>없다</strong>는 것과 같다고 언급했음을 기억하십시오. <span class="math inline">\(\beta_1 = 0\)</span>이 우리의 타당한 <span class="math inline">\(\beta_1\)</span> 범위 내에 있지 않으므로, 우리는 실제로 강의 점수와 외모 점수 사이에 관계가 있으며 그 관계가 양(+)의 관계라고 믿게 됩니다. 따라서 이 경우 95% 신뢰 구간을 통한 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 결론은 가설 검정의 결론과 일치합니다. 즉, 증거는 강의 점수와 외모 점수 사이에 의미 있는 관계가 있음을 시사합니다.</p>
-<p>하지만 하위 <span class="quarto-unresolved-ref">?sec-ci-width절에서</span> 보았듯이, <strong>신뢰 수준</strong>은 신뢰 구간의 너비를 결정하는 여러 요인 중 하나입니다. 예를 들어, 95% 대신 더 높은 99% 신뢰 수준을 사용했다고 가정해 봅시다. 그러면 <span class="math inline">\(\beta_1\)</span>에 대한 신뢰 구간이 더 넓어지며 이제 0을 포함하게 될 수도 있습니다. 여기서 기억해야 할 교훈은 신뢰 구간에 기반한 어떤 결론이든 사용된 신뢰 수준에 크게 좌우된다는 것입니다.</p>
+<p>하지만 하위 <a href="08-confidence-intervals.html#sec-ci-width" class="quarto-xref"><span>신뢰 구간의 너비</span></a> 절에서 보았듯이, <strong>신뢰 수준</strong>은 신뢰 구간의 너비를 결정하는 여러 요인 중 하나입니다. 예를 들어, 95% 대신 더 높은 99% 신뢰 수준을 사용했다고 가정해 봅시다. 그러면 <span class="math inline">\(\beta_1\)</span>에 대한 신뢰 구간이 더 넓어지며 이제 0을 포함하게 될 수도 있습니다. 여기서 기억해야 할 교훈은 신뢰 구간에 기반한 어떤 결론이든 사용된 신뢰 수준에 크게 좌우된다는 것입니다.</p>
 <p><span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간의 두 끝점을 계산하는 데 어떤 계산이 들어갔을까요?</p>
-<p>하위 <span class="quarto-unresolved-ref">?sec-theory-ci절에서</span> <code>lower_ci</code>와 <code>upper_ci</code>에 대해 논의했던 표집 그릇 예시를 상기해 보십시오. 표본 비율 <span class="math inline">\(\widehat{p}\)</span>의 표집 분포와 부트스트랩 분포가 대략 정규 분포를 따랐기 때문에, 우리는 부록 <span class="quarto-unresolved-ref">?sec-appendix-normal-curve에</span> 있는 종 모양 분포에 대한 경험 법칙을 사용하여 다음 방정식을 통해 <span class="math inline">\(p\)</span>에 대한 95% 신뢰 구간을 만들 수 있었습니다.</p>
+<p>하위 <a href="08-confidence-intervals.html#sec-theory-ci" class="quarto-xref"><span>이론 기반 신뢰 구간</span></a> 절에서 <code>lower_ci</code>와 <code>upper_ci</code>에 대해 논의했던 표집 그릇 예시를 상기해 보십시오. 표본 비율 <span class="math inline">\(\widehat{p}\)</span>의 표집 분포와 부트스트랩 분포가 대략 정규 분포를 따랐기 때문에, 우리는 부록 <a href="91-appendixA.html#sec-appendix-normal-curve" class="quarto-xref"><span>정규 분포</span></a> 에 있는 종 모양 분포에 대한 경험 법칙을 사용하여 다음 방정식을 통해 <span class="math inline">\(p\)</span>에 대한 95% 신뢰 구간을 만들 수 있었습니다.</p>
 <p><span class="math display">\[\widehat{p} \pm \text{MoE}_{\widehat{p}} = \widehat{p} \pm 1.96 \cdot \text{SE}_{\widehat{p}} = \widehat{p} \pm 1.96 \cdot \sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}}\]</span></p>
 <p>우리는 이를 표집 분포 및/또는 부트스트랩 분포가 대략적으로 종 모양을 띠는 다른 점 추정치들로 일반화할 수 있습니다.</p>
 <p><span class="math display">\[\text{점 추정치} \pm \text{오차 한계(MoE)} = \text{점 추정치} \pm 1.96 \cdot \text{표준 오차(SE)}\]</span></p>
-<p><span class="quarto-unresolved-ref">?sec-infer-regression절에서</span> 적합된 기울기 <span class="math inline">\(b_1\)</span>의 표집/부트스트랩 분포 역시 실제로 종 모양임을 보여줄 것입니다. 따라서 우리는 다음 방정식을 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축할 수 있습니다.</p>
+<p><a href="#sec-infer-regression" class="quarto-xref"><span>시뮬레이션 기반 회귀 분석 추론</span></a> 절에서 적합된 기울기 <span class="math inline">\(b_1\)</span>의 표집/부트스트랩 분포 역시 실제로 종 모양임을 보여줄 것입니다. 따라서 우리는 다음 방정식을 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축할 수 있습니다.</p>
 <p><span class="math display">\[b_1 \pm \text{MoE}_{b_1} = b_1 \pm 1.96 \cdot \text{SE}_{b_1}\]</span></p>
-<p>표준 오차 <span class="math inline">\(\text{SE}_{b_1}\)</span>의 값은 얼마일까요? 그것은 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표 세 번째 열에 있는 0.016입니다. 따라서 다음과 같습니다.</p>
+<p>표준 오차 <span class="math inline">\(\text{SE}_{b_1}\)</span>의 값은 얼마일까요? 그것은 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표 세 번째 열에 있는 0.016입니다. 따라서 다음과 같습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm 0.031\\
 &amp;= (0.036, 0.098)
 \end{aligned}
 \]</span></p>
-<p>이는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 마지막 두 열에 있는 <span class="math inline">\((0.035, 0.099)\)</span> 신뢰 구간과 매우 흡사합니다.</p>
-<p>하지만 가설 검정과 마찬가지로, 이 신뢰 구간의 결과 역시 <span class="quarto-unresolved-ref">?sec-regression-conditions절에서</span> 논의할 “회귀 추론을 위한 조건”이 충족될 때만 유효합니다.</p>
+<p>이는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 마지막 두 열에 있는 <span class="math inline">\((0.035, 0.099)\)</span> 신뢰 구간과 매우 흡사합니다.</p>
+<p>하지만 가설 검정과 마찬가지로, 이 신뢰 구간의 결과 역시 <a href="#sec-regression-conditions" class="quarto-xref"><span>회귀 추론을 위한 조건</span></a> 절에서 논의할 “회귀 추론을 위한 조건”이 충족될 때만 유효합니다.</p>
 </section>
-<section id="regression-table-computation" class="level3">
-<h3 class="anchored" data-anchor-id="regression-table-computation">R은 이 표를 어떻게 계산할까요?</h3>
-<p>우리는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11에서</span> 표준 오차, 검정 통계량, p-값, 그리고 95% 신뢰 구간의 끝점 값을 얻기 위해 시뮬레이션을 수행하지 않았으므로, 이러한 값들이 어떻게 계산되었는지 궁금할 것입니다. R은 보이지 않는 곳에서 무엇을 했을까요? R은 우리가 신뢰 구간과 가설 검정을 다룬 <span class="quarto-unresolved-ref">?sec-confidence-intervals와</span> <span class="quarto-unresolved-ref">?sec-hypothesis-testing에서</span> <code>infer</code> 패키지를 사용해 했던 것처럼 시뮬레이션을 실행했을까요?</p>
-<p>정답은 “아니오”입니다! 하위 <span class="quarto-unresolved-ref">?sec-theory-ci절에서</span> 보았던 신뢰 구간 구축을 위한 이론 기반 방법과 하위 <span class="quarto-unresolved-ref">?sec-theory-hypo절에서</span> 보았던 이론 기반 가설 검정과 마찬가지로, 회귀 추론을 위한 신뢰 구간을 구축하고 가설 검정을 수행할 수 있게 해주는 수학적 공식들이 존재합니다. 이러한 공식들은 컴퓨터가 존재하지 않던 시절에 도출되었으므로, 이 책에서 우리가 했던 광범위한 컴퓨터 시뮬레이션을 실행하는 것은 불가능했을 것입니다. 우리는 이러한 공식들을 하위 <span class="quarto-unresolved-ref">?sec-theory-regression절의</span> “회귀 분석을 위한 이론 기반 추론”에서 제시합니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-infer-regression절에서는</span> <code>infer</code> 패키지를 사용하여 신뢰 구간을 구축하고 가설 검정을 수행하는 시뮬레이션 기반 접근 방식을 살펴볼 것입니다. 특히 적합된 기울기 <span class="math inline">\(b_1\)</span>의 부트스트랩 분포가 보기에 정말 종 모양임을 확인시켜 드릴 것입니다.</p>
+<section id="sec-regression-table-computation" class="level3">
+<h3 class="anchored" data-anchor-id="sec-regression-table-computation">R은 이 표를 어떻게 계산할까요?</h3>
+<p>우리는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 에서 표준 오차, 검정 통계량, p-값, 그리고 95% 신뢰 구간의 끝점 값을 얻기 위해 시뮬레이션을 수행하지 않았으므로, 이러한 값들이 어떻게 계산되었는지 궁금할 것입니다. R은 보이지 않는 곳에서 무엇을 했을까요? R은 우리가 신뢰 구간과 가설 검정을 다룬 <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 와 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 에서 <code>infer</code> 패키지를 사용해 했던 것처럼 시뮬레이션을 실행했을까요?</p>
+<p>정답은 “아니오”입니다! 하위 <a href="08-confidence-intervals.html#sec-theory-ci" class="quarto-xref"><span>이론 기반 신뢰 구간</span></a> 절에서 보았던 신뢰 구간 구축을 위한 이론 기반 방법과 하위 <a href="09-hypothesis-testing.html#sec-theory-hypo" class="quarto-xref"><span>이론 기반 가설 검정</span></a> 절에서 보았던 이론 기반 가설 검정과 마찬가지로, 회귀 추론을 위한 신뢰 구간을 구축하고 가설 검정을 수행할 수 있게 해주는 수학적 공식들이 존재합니다. 이러한 공식들은 컴퓨터가 존재하지 않던 시절에 도출되었으므로, 이 책에서 우리가 했던 광범위한 컴퓨터 시뮬레이션을 실행하는 것은 불가능했을 것입니다. 우리는 이러한 공식들을 하위 <a href="#sec-theory-regression" class="quarto-xref"><span>회귀에 대한 이론 기반 추론</span></a> 절의 “회귀 분석을 위한 이론 기반 추론”에서 제시합니다.</p>
+<p><a href="#sec-infer-regression" class="quarto-xref"><span>시뮬레이션 기반 회귀 분석 추론</span></a> 절에서는 <code>infer</code> 패키지를 사용하여 신뢰 구간을 구축하고 가설 검정을 수행하는 시뮬레이션 기반 접근 방식을 살펴볼 것입니다. 특히 적합된 기울기 <span class="math inline">\(b_1\)</span>의 부트스트랩 분포가 보기에 정말 종 모양임을 확인시켜 드릴 것입니다.</p>
 </section>
 </section>
-<section id="regression-conditions" class="level2">
-<h2 class="anchored" data-anchor-id="regression-conditions">회귀 추론을 위한 조건</h2>
-<p>하위 <span class="quarto-unresolved-ref">?sec-se-method절에서</span> 우리는 부트스트랩 분포가 종 모양인 경우에만 신뢰 구간 구축을 위해 표준 오차 기반 방법을 사용할 수 있다고 언급했습니다. 마찬가지로, <span class="quarto-unresolved-ref">?sec-regression-interp절에서</span> 설명한 가설 검정과 신뢰 구간 결과가 유효한 의미를 갖기 위해 충족되어야 하는 몇 가지 조건이 있습니다. 이러한 조건들은 가정된 근간의 수학 및 확률 이론이 성립하기 위해 반드시 충족되어야 합니다.</p>
+<section id="sec-regression-conditions" class="level2">
+<h2 class="anchored" data-anchor-id="sec-regression-conditions">회귀 추론을 위한 조건</h2>
+<p>하위 <a href="08-confidence-intervals.html#sec-se-method" class="quarto-xref"><span>표준 오차 방법</span></a> 절에서 우리는 부트스트랩 분포가 종 모양인 경우에만 신뢰 구간 구축을 위해 표준 오차 기반 방법을 사용할 수 있다고 언급했습니다. 마찬가지로, <a href="#sec-regression-interp" class="quarto-xref"><span>회귀 표 해석하기</span></a> 절에서 설명한 가설 검정과 신뢰 구간 결과가 유효한 의미를 갖기 위해 충족되어야 하는 몇 가지 조건이 있습니다. 이러한 조건들은 가정된 근간의 수학 및 확률 이론이 성립하기 위해 반드시 충족되어야 합니다.</p>
 <p>회귀 추론을 위해서는 네 가지 조건을 충족해야 합니다. 다음 조건들의 첫 글자를 따서 <strong>LINE</strong>이라고 부릅니다. 이는 선형 회귀를 수행할 때마다 확인해야 할 사항들을 기억하는 데 도움이 됩니다. </p>
 <ol type="1">
 <li>변수 사이 관계의 <strong>선형성(Linearity)</strong></li>
@@ -709,7 +709,7 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 <p>이 섹션에서는 잔차에 대해 복습하고, 네 가지 <strong>LINE</strong> 조건이 각각 성립하는지 확인한 다음, 그 시사점에 대해 논의할 것입니다.</p>
 <section id="잔차-복습" class="level3">
 <h3 class="anchored" data-anchor-id="잔차-복습">잔차 복습</h3>
-<p>하위 <span class="quarto-unresolved-ref">?sec-model1points절에서</span> 정의한 잔차를 상기해 봅시다. 잔차는 <strong>관찰값(observed value)</strong>에서 <strong>적합값(fitted value)</strong>을 뺀 것으로, <span class="math inline">\(y - \widehat{y}\)</span>로 표시합니다. 잔차는 그림 <span class="quarto-unresolved-ref">?fig-regline의</span> 회귀선 위에 있는 관찰값 <span class="math inline">\(y\)</span>와 적합값 <span class="math inline">\(\widehat{y}\)</span> 사이의 오차 또는 “적합도 부족(lack-of-fit)”으로 생각할 수 있습니다. 그림 <span class="quarto-unresolved-ref">?fig-residual-example에서는</span> 463개의 잔차 중 하나를 화살표로 예시하고, 그에 해당하는 관찰값과 적합값을 각각 원과 사각형으로 표시했습니다.</p>
+<p>하위 <a href="05-regression.html#sec-model1points" class="quarto-xref"><span>관측값/적합값과 잔차</span></a> 절에서 정의한 잔차를 상기해 봅시다. 잔차는 <strong>관찰값(observed value)</strong>에서 <strong>적합값(fitted value)</strong>을 뺀 것으로, <span class="math inline">\(y - \widehat{y}\)</span>로 표시합니다. 잔차는 그림 <span class="quarto-unresolved-ref">?fig-regline</span> 의 회귀선 위에 있는 관찰값 <span class="math inline">\(y\)</span>와 적합값 <span class="math inline">\(\widehat{y}\)</span> 사이의 오차 또는 “적합도 부족(lack-of-fit)”으로 생각할 수 있습니다. 그림 <span class="quarto-unresolved-ref">?fig-residual-example</span> 에서는 463개의 잔차 중 하나를 화살표로 예시하고, 그에 해당하는 관찰값과 적합값을 각각 원과 사각형으로 표시했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -748,8 +748,8 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </section>
 <section id="관계의-선형성" class="level3">
 <h3 class="anchored" data-anchor-id="관계의-선형성">관계의 선형성</h3>
-<p>첫 번째 조건은 결과 변수 <span class="math inline">\(y\)</span>와 설명 변수 <span class="math inline">\(x\)</span> 사이의 관계가 <strong>선형(Linear)</strong>이어야 한다는 것입니다. 설명 변수 <span class="math inline">\(x\)</span>를 “외모” 점수로, 결과 변수 <span class="math inline">\(y\)</span>를 강의 점수로 설정했던 그림 <span class="quarto-unresolved-ref">?fig-regline의</span> 산점도를 상기해 봅시다. 여러분은 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이의 관계가 선형이라고 하시겠습니까? 선 주위에 점들이 흩어져 있기 때문에 말하기가 조금 어렵습니다. 저자들의 의견으로는, 이 관계는 “충분히 선형적”이라고 느껴집니다.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-non-linear에서는</span> <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이의 관계가 명확하게 선형이 아닌 예를 제시합니다. 이 경우 점들은 명확하게 직선을 형성하지 않고 오히려 U자형 다항식 곡선을 형성합니다. 이런 경우 회귀 분석을 통한 추론의 어떤 결과도 유효하지 않을 것입니다.</p>
+<p>첫 번째 조건은 결과 변수 <span class="math inline">\(y\)</span>와 설명 변수 <span class="math inline">\(x\)</span> 사이의 관계가 <strong>선형(Linear)</strong>이어야 한다는 것입니다. 설명 변수 <span class="math inline">\(x\)</span>를 “외모” 점수로, 결과 변수 <span class="math inline">\(y\)</span>를 강의 점수로 설정했던 그림 <span class="quarto-unresolved-ref">?fig-regline</span> 의 산점도를 상기해 봅시다. 여러분은 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이의 관계가 선형이라고 하시겠습니까? 선 주위에 점들이 흩어져 있기 때문에 말하기가 조금 어렵습니다. 저자들의 의견으로는, 이 관계는 “충분히 선형적”이라고 느껴집니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-non-linear</span> 에서는 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이의 관계가 명확하게 선형이 아닌 예를 제시합니다. 이 경우 점들은 명확하게 직선을 형성하지 않고 오히려 U자형 다항식 곡선을 형성합니다. 이런 경우 회귀 분석을 통한 추론의 어떤 결과도 유효하지 않을 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -787,12 +787,12 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </div>
 <p>예를 들어, <code>prof_ID</code>가 1인 교수는 데이터의 처음 4개 강의를 가르쳤고, <code>prof_ID</code>가 2인 교수는 그다음 3개 강의를 가르치는 식입니다. 동일한 교수가 이 처음 4개 강의를 가르쳤다는 점을 고려하면, 이 4개의 강의 점수가 서로 관련이 있다고 생각하는 것이 타당합니다. 만약 어떤 교수가 한 수업에서 높은 <code>score</code>를 받는다면, 다른 수업에서도 높은 <code>score</code>를 받을 가능성이 꽤 큽니다. 따라서 이 데이터 세트는 463개 강의를 463명의 고유한 교수들이 가르쳤을 때와는 다른 정보를 제공합니다.</p>
 <p>이런 경우, 관찰값 사이에 <em>의존성(dependence)</em>이 존재한다고 말합니다. 교수 1이 가르친 처음 4개 강의는 서로 의존적이고, 교수 2가 가르친 그다음 3개 강의도 서로 관련이 있는 식입니다. 이 데이터를 적절하게 분석하려면 우리가 동일한 교수들에 대해 <em>반복 측정(repeated measures)</em>을 했다는 사실을 반드시 고려해야 합니다.</p>
-<p>따라서 이 사례에서는 독립성 조건이 충족되지 않습니다. 이것이 우리의 분석에 무엇을 의미할까요? 나머지 두 조건을 확인한 후, 다가올 하위 <span class="quarto-unresolved-ref">?sec-what-is-the-conclusion절에서</span> 이 문제를 다루겠습니다.</p>
+<p>따라서 이 사례에서는 독립성 조건이 충족되지 않습니다. 이것이 우리의 분석에 무엇을 의미할까요? 나머지 두 조건을 확인한 후, 다가올 하위 <a href="#sec-what-is-the-conclusion" class="quarto-xref"><span>결론이 무엇인가요?</span></a> 절에서 이 문제를 다루겠습니다.</p>
 </section>
 <section id="잔차의-정규성" class="level3">
 <h3 class="anchored" data-anchor-id="잔차의-정규성">잔차의 정규성</h3>
 <p>세 번째 조건은 잔차들이 <strong>정규(Normal)</strong> 분포를 따라야 한다는 것입니다. 또한, 이 분포의 중심은 0이어야 합니다. 즉, 때때로 회귀 모델은 양(+)의 오차(<span class="math inline">\(y - \widehat{y} &gt; 0\)</span>)를 낼 수 있고, 또 어떤 때는 그에 상응하는 음(-)의 오차(<span class="math inline">\(y - \widehat{y} &lt; 0\)</span>)를 낼 수 있습니다. 그러나 <em>평균적으로</em> 오차는 0이어야 하며, 그 모양은 종 모양과 비슷해야 합니다.</p>
-<p>잔차의 정규성을 확인하는 가장 간단한 방법은 그림 <span class="quarto-unresolved-ref">?fig-model1residualshist에</span> 시각화된 히스토그램을 살펴보는 것입니다.</p>
+<p>잔차의 정규성을 확인하는 가장 간단한 방법은 그림 <span class="quarto-unresolved-ref">?fig-model1residualshist</span> 에 시각화된 히스토그램을 살펴보는 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regression_points, <span class="fu">aes</span>(<span class="at">x =</span> residual)) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.25</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
@@ -810,7 +810,7 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </div>
 <p>이 히스토그램은 음수 잔차보다 양수 잔차가 더 많음을 보여줍니다. <span class="math inline">\(y &gt; \widehat{y}\)</span>일 때 잔차 <span class="math inline">\(y-\widehat{y}\)</span>가 양수이므로, 우리 회귀 모델의 적합된 강의 점수 <span class="math inline">\(\widehat{y}\)</span>가 실제 강의 점수 <span class="math inline">\(y\)</span>를 <strong>과소평가(underestimate)</strong>하는 경향이 있는 것 같습니다. 또한, 이 히스토그램은 왼쪽에 꼬리가 있다는 점에서 약간의 <strong>왼쪽으로 치우침(left-skew)</strong>을 보입니다. 이는 잔차들이 <strong>음의 왜도(negative skew)</strong>를 나타낸다고 말하는 또 다른 방법입니다.</p>
 <p>이것이 문제일까요? 다시 말씀드리자면, 대답에는 어느 정도의 주관성이 개입됩니다. 저자들의 생각으로는, 잔차의 왜도가 약간 있기는 하지만 급격하지는 않다고 느껴집니다. 반면에 다른 사람들은 우리의 판단에 동의하지 않을 수도 있습니다.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-normal-residuals에서는</span> 잔차가 정규 분포를 명확하게 따르는 예와 그렇지 않은 예를 제시합니다. 오른쪽에 있는 명확하게 비정규적인 잔차를 낳는 모델의 경우, 회귀 분석을 통한 추론의 어떤 결과도 유효하지 않을 것입니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-normal-residuals</span> 에서는 잔차가 정규 분포를 명확하게 따르는 예와 그렇지 않은 예를 제시합니다. 오른쪽에 있는 명확하게 비정규적인 잔차를 낳는 모델의 경우, 회귀 분석을 통한 추론의 어떤 결과도 유효하지 않을 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -825,7 +825,7 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 <section id="등분산성" class="level3">
 <h3 class="anchored" data-anchor-id="등분산성">등분산성</h3>
 <p>네 번째이자 마지막 조건은 잔차들이 설명 변수 <span class="math inline">\(x\)</span>의 모든 값에 대해 <strong>동일(Equal)</strong>한 분산을 가져야 한다는 것입니다. 다시 말해, 잔차의 값과 퍼짐 정도(spread)가 설명 변수 <span class="math inline">\(x\)</span>의 값에 의존해서는 안 됩니다.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-regline의</span> 산점도를 상기해 보십시오. x축에는 설명 변수 <span class="math inline">\(x\)</span>인 “외모” 점수가, y축에는 결과 변수 <span class="math inline">\(y\)</span>인 강의 점수가 있었습니다. 대신, 그림 <span class="quarto-unresolved-ref">?fig-numxplot6에서</span> 보는 것처럼 x축은 동일한 값을 유지하되 y축에 잔차 <span class="math inline">\(y-\widehat{y}\)</span>를 놓은 산점도를 만들어 보겠습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-regline</span> 의 산점도를 상기해 보십시오. x축에는 설명 변수 <span class="math inline">\(x\)</span>인 “외모” 점수가, y축에는 결과 변수 <span class="math inline">\(y\)</span>인 강의 점수가 있었습니다. 대신, 그림 <span class="quarto-unresolved-ref">?fig-numxplot6</span> 에서 보는 것처럼 x축은 동일한 값을 유지하되 y축에 잔차 <span class="math inline">\(y-\widehat{y}\)</span>를 놓은 산점도를 만들어 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regression_points, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> residual)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -842,8 +842,8 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </div>
 </div>
 </div>
-<p>그림 <span class="quarto-unresolved-ref">?fig-numxplot6은</span> 그림 <span class="quarto-unresolved-ref">?fig-regline의</span> 회귀선이 포함된 플롯에서 회귀선을 <span class="math inline">\(y=0\)</span>으로 평평하게 펴놓은 수정된 버전이라고 생각할 수 있습니다. 이 플롯을 볼 때, <span class="math inline">\(y=0\)</span> 선 주위의 잔차들의 퍼짐 정도가 설명 변수 <span class="math inline">\(x\)</span>인 “외모” 점수의 모든 값에 대해 일정하다고 하시겠습니까? 이 질문은 다분히 정성적이고 주관적인 성격을 띠기 때문에 사람마다 다른 대답을 내놓을 수 있습니다. 예를 들어, 어떤 사람들은 <span class="math inline">\(x\)</span> 값이 작을 때가 클 때보다 잔차의 변동이 약간 더 크다고 말할 수 있습니다. 하지만 분산이 <em>급격하게</em> 일정하지 않은 것은 아니라고 주장할 수도 있습니다.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-equal-variance-residuals에서는</span> 잔차의 분산이 설명 변수 <span class="math inline">\(x\)</span>의 모든 값에 대해 명확하게 동일하지 않은 예를 제시합니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-numxplot6</span> 은 그림 <span class="quarto-unresolved-ref">?fig-regline</span> 의 회귀선이 포함된 플롯에서 회귀선을 <span class="math inline">\(y=0\)</span>으로 평평하게 펴놓은 수정된 버전이라고 생각할 수 있습니다. 이 플롯을 볼 때, <span class="math inline">\(y=0\)</span> 선 주위의 잔차들의 퍼짐 정도가 설명 변수 <span class="math inline">\(x\)</span>인 “외모” 점수의 모든 값에 대해 일정하다고 하시겠습니까? 이 질문은 다분히 정성적이고 주관적인 성격을 띠기 때문에 사람마다 다른 대답을 내놓을 수 있습니다. 예를 들어, 어떤 사람들은 <span class="math inline">\(x\)</span> 값이 작을 때가 클 때보다 잔차의 변동이 약간 더 크다고 말할 수 있습니다. 하지만 분산이 <em>급격하게</em> 일정하지 않은 것은 아니라고 주장할 수도 있습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-equal-variance-residuals</span> 에서는 잔차의 분산이 설명 변수 <span class="math inline">\(x\)</span>의 모든 값에 대해 명확하게 동일하지 않은 예를 제시합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -856,8 +856,8 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </div>
 <p><span class="math inline">\(x\)</span> 값이 커짐에 따라 잔차의 퍼짐 정도가 어떻게 증가하는지 관찰해 보십시오. 이러한 상황을 <strong>이분산성(heteroskedasticity)</strong>이라고 합니다. 잔차에서 이러한 패턴을 보이는 모델에 기반한 회귀 분석 추론의 결과는 유효하지 않을 것입니다.</p>
 </section>
-<section id="what-is-the-conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-conclusion">결론이 무엇인가요?</h3>
+<section id="sec-what-is-the-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="sec-what-is-the-conclusion">결론이 무엇인가요?</h3>
 <p>회귀 분석을 위한 네 가지 조건을 다시 나열하고, 우리 분석에서 이 조건들이 충족되었는지 표시해 보겠습니다.</p>
 <ol type="1">
 <li>변수 사이 관계의 <strong>선형성(Linearity)</strong>: 예</li>
@@ -865,9 +865,9 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 <li>잔차의 <strong>정규성(Normality)</strong>: 어느 정도</li>
 <li>잔차 분산의 <strong>등분산성(Equality of variance)</strong>: 예</li>
 </ol>
-<p>그렇다면 이것이 <span class="quarto-unresolved-ref">?sec-regression-interp절에서</span> 얻은 신뢰 구간과 가설 검정 결과에 어떤 의미가 있을까요?</p>
+<p>그렇다면 이것이 <a href="#sec-regression-interp" class="quarto-xref"><span>회귀 표 해석하기</span></a> 절에서 얻은 신뢰 구간과 가설 검정 결과에 어떤 의미가 있을까요?</p>
 <p>첫째, <strong>독립성(Independence)</strong> 조건입니다. <code>evals_ch5</code> 데이터의 서로 다른 행들 사이에 의존성이 존재한다는 사실은 반드시 해결되어야 합니다. 더 발전된 통계학 과정에서는 이러한 의존성을 회귀 모델에 어떻게 통합하는지 배우게 될 것입니다. 그러한 기술 중 하나가 <strong>계층형/다층 모델링(hierarchical/multilevel modeling)</strong>입니다.</p>
-<p>둘째, 조건 <strong>L</strong>, <strong>N</strong>, <strong>E</strong>가 충족되지 않을 때는 종종 우리 모델에 결함이 있음을 의미합니다. 예를 들어, 우리가 “외모” 점수에서 했던 것처럼 단일 설명 변수만 사용하는 것이 불충분할 수 있습니다. <span class="quarto-unresolved-ref">?sec-multiple-regression에서</span> 했던 것처럼 다중 회귀 모델에 더 많은 설명 변수를 포함하거나, 하나 이상의 변수를 변환하거나, 아예 다른 모델링 기술을 사용해야 할 수도 있습니다. 이러한 결함을 해결하는 방법에 대해 더 알고 싶다면, 더 발전된 회귀 모델링 방법에 대한 수업을 듣거나 관련 서적을 찾아보아야 합니다.</p>
+<p>둘째, 조건 <strong>L</strong>, <strong>N</strong>, <strong>E</strong>가 충족되지 않을 때는 종종 우리 모델에 결함이 있음을 의미합니다. 예를 들어, 우리가 “외모” 점수에서 했던 것처럼 단일 설명 변수만 사용하는 것이 불충분할 수 있습니다. <a href="06-multiple-regression.html" class="quarto-xref"><span>다중 회귀 분석</span></a> 에서 했던 것처럼 다중 회귀 모델에 더 많은 설명 변수를 포함하거나, 하나 이상의 변수를 변환하거나, 아예 다른 모델링 기술을 사용해야 할 수도 있습니다. 이러한 결함을 해결하는 방법에 대해 더 알고 싶다면, 더 발전된 회귀 모델링 방법에 대한 수업을 듣거나 관련 서적을 찾아보아야 합니다.</p>
 <p>우리 사례에서 우리가 할 수 있는 최선은 신뢰 구간과 가설 검정이 제시하는 결과를 “예비적인(preliminary)” 것으로 보는 것입니다. 예비 분석은 강의 점수와 외모 점수 사이에 유의미한 관계가 있음을 시사하지만, 특히 네 가지 조건이 충족되도록 예비 모델 <code>score ~ bty_avg</code>를 개선하는 등의 추가 조사가 필요합니다. 네 가지 조건이 대략적으로 충족될 때, 우리는 신뢰 구간과 p-값에 더 큰 확신을 가질 수 있습니다.</p>
 <p>회귀 문제에서 추론을 위한 조건은 신뢰 구간 구축과 가설 검정 수행 과정에서 매우 중요한 회귀 분석의 핵심 부분입니다. 하지만 실제 세상의 회귀 분석에서는 모든 조건이 완벽하게 충족되지 않는 경우가 많습니다. 또한 보셨다시피, <strong>L</strong>, <strong>N</strong>, <strong>E</strong> 조건을 확인하기 위한 잔차 분석에는 어느 정도 주관성이 개입됩니다. 그렇다면 무엇을 할 수 있을까요? 저자로서 우리는 모든 결과를 전달할 때 투명성을 가질 것을 권장합니다. 이를 통해 분석의 이해관계자들은 모델의 결함이나 모델이 “충분히 좋은지” 여부를 알 수 있습니다. 가정을 확인하는 과정이 다소 모호한 “상황에 따라 다르다”는 결과로 이어지기도 했지만, 저자들은 여러분이 앞으로 마주하게 될 어려운 통계적 결정을 내리는 데 도움을 주기 위해 이러한 시나리오들을 보여주기로 결정했습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
@@ -889,17 +889,17 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </div>
 </section>
 </section>
-<section id="infer-regression" class="level2">
-<h2 class="anchored" data-anchor-id="infer-regression">시뮬레이션 기반 회귀 분석 추론</h2>
-<p>하위 <span class="quarto-unresolved-ref">?sec-regression-table-computation절에서</span> 회귀 표의 세 번째부터 일곱 번째 열을 해석할 때, R은 이러한 값을 계산하기 위해 시뮬레이션을 수행하지 않는다고 언급했습니다. 대신 R은 수학 공식을 포함하는 이론 기반 방법을 사용합니다.</p>
-<p>이 섹션에서는 이전에 <span class="quarto-unresolved-ref">?sec-confidence-intervals와</span> <span class="quarto-unresolved-ref">?sec-hypothesis-testing에서</span> 배운 시뮬레이션 기반 방법을 사용하여 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에 있는 값들을 재현해 보겠습니다. 구체적으로 다음과 같이 <code>infer</code> 패키지 워크플로를 사용할 것입니다.</p>
+<section id="sec-infer-regression" class="level2">
+<h2 class="anchored" data-anchor-id="sec-infer-regression">시뮬레이션 기반 회귀 분석 추론</h2>
+<p>하위 <a href="#sec-regression-table-computation" class="quarto-xref"><span>R은 이 표를 어떻게 계산할까요?</span></a> 절에서 회귀 표의 세 번째부터 일곱 번째 열을 해석할 때, R은 이러한 값을 계산하기 위해 시뮬레이션을 수행하지 않는다고 언급했습니다. 대신 R은 수학 공식을 포함하는 이론 기반 방법을 사용합니다.</p>
+<p>이 섹션에서는 이전에 <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 와 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 에서 배운 시뮬레이션 기반 방법을 사용하여 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에 있는 값들을 재현해 보겠습니다. 구체적으로 다음과 같이 <code>infer</code> 패키지 워크플로를 사용할 것입니다.</p>
 <ul>
-<li>복원 추출 부트스트랩을 사용하여 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축합니다. 우리는 이전에 <code>pennies</code> 데이터를 사용한 <span class="quarto-unresolved-ref">?sec-bootstrap-process절와</span> <code>mythbusters_yawn</code> 데이터를 사용한 <span class="quarto-unresolved-ref">?sec-case-study-two-prop-ci절에서</span> 이 작업을 수행했습니다.</li>
-<li>순열 검정(permutation test)을 사용하여 <span class="math inline">\(H_0: \beta_1 = 0\)</span> 대 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>의 가설 검정을 수행합니다. 우리는 이전에 <code>promotions</code> 데이터를 사용한 <span class="quarto-unresolved-ref">?sec-ht-infer절와</span> <code>movies_sample</code> IMDb 데이터를 사용한 <span class="quarto-unresolved-ref">?sec-ht-case-study절에서</span> 이 작업을 수행했습니다.</li>
+<li>복원 추출 부트스트랩을 사용하여 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축합니다. 우리는 이전에 <code>pennies</code> 데이터를 사용한 <a href="08-confidence-intervals.html#sec-bootstrap-process" class="quarto-xref"><span>신뢰 구간 구축하기</span></a> 절와 <code>mythbusters_yawn</code> 데이터를 사용한 <a href="08-confidence-intervals.html#sec-case-study-two-prop-ci" class="quarto-xref"><span>사례 연구: 하품은 전염되나요?</span></a> 절에서 이 작업을 수행했습니다.</li>
+<li>순열 검정(permutation test)을 사용하여 <span class="math inline">\(H_0: \beta_1 = 0\)</span> 대 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>의 가설 검정을 수행합니다. 우리는 이전에 <code>promotions</code> 데이터를 사용한 <a href="09-hypothesis-testing.html#sec-ht-infer" class="quarto-xref"><span>가설 검정 수행</span></a> 절와 <code>movies_sample</code> IMDb 데이터를 사용한 <a href="09-hypothesis-testing.html#sec-ht-case-study" class="quarto-xref"><span>사례 연구: 액션 영화와 로맨스 영화 중 어느 쪽의 평점이 더 높을까요?</span></a> 절에서 이 작업을 수행했습니다.</li>
 </ul>
 <section id="기울기에-대한-신뢰-구간" class="level3">
 <h3 class="anchored" data-anchor-id="기울기에-대한-신뢰-구간">기울기에 대한 신뢰 구간</h3>
-<p>하위 <span class="quarto-unresolved-ref">?sec-infer-workflow절에서</span> 설명한 <code>infer</code> 워크플로를 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축해 보겠습니다. 구체적으로, 먼저 463개 강의로 구성된 우리의 단일 표본을 사용하여 적합된 기울기 <span class="math inline">\(b_1\)</span>에 대한 부트스트랩 분포를 구축할 것입니다.</p>
+<p>하위 <a href="08-confidence-intervals.html#sec-infer-workflow" class="quarto-xref"><span>infer 패키지 워크플로우</span></a> 절에서 설명한 <code>infer</code> 워크플로를 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축해 보겠습니다. 구체적으로, 먼저 463개 강의로 구성된 우리의 단일 표본을 사용하여 적합된 기울기 <span class="math inline">\(b_1\)</span>에 대한 부트스트랩 분포를 구축할 것입니다.</p>
 <ol type="1">
 <li><code>score ~ bty_avg</code> 공식을 사용하여 <code>evals_ch5</code>에서 관심 있는 변수들을 <code>specify()</code> 합니다.</li>
 <li>원래 463개 강의 표본에서 복원 추출을 통한 <code>bootstrap</code> 리샘플링을 사용하여 복제본을 <code>generate()</code> 합니다. <code>type = "bootstrap"</code>을 사용하여 <code>reps = 1000</code>개의 복제본을 생성합니다.</li>
@@ -932,7 +932,7 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
-<p><code>stat</code> 열에 1000개의 부트스트랩된 기울기 <span class="math inline">\(b_1\)</span> 값이 있는 것을 확인해 보십시오. 그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-slope에서</span> 1000개의 부트스트랩된 값들을 시각화해 보겠습니다.</p>
+<p><code>stat</code> 열에 1000개의 부트스트랩된 기울기 <span class="math inline">\(b_1\)</span> 값이 있는 것을 확인해 보십시오. 그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-slope</span> 에서 1000개의 부트스트랩된 값들을 시각화해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(bootstrap_distn_slope)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -944,7 +944,7 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 </div>
 </div>
 </div>
-<p>부트스트랩 분포가 대략 종 모양인 것을 확인해 보십시오. 하위 <span class="quarto-unresolved-ref">?sec-bootstrap-vs-sampling절에서</span> 보았듯이, <span class="math inline">\(b_1\)</span>의 부트스트랩 분포의 모양은 <span class="math inline">\(b_1\)</span>의 표집 분포 모양과 매우 비슷합니다.</p>
+<p>부트스트랩 분포가 대략 종 모양인 것을 확인해 보십시오. 하위 <a href="08-confidence-intervals.html#sec-bootstrap-vs-sampling" class="quarto-xref"><span>붓스트랩 분포와 표본 분포 비교</span></a> 절에서 보았듯이, <span class="math inline">\(b_1\)</span>의 부트스트랩 분포의 모양은 <span class="math inline">\(b_1\)</span>의 표집 분포 모양과 매우 비슷합니다.</p>
 <section id="백분위수-방법" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="백분위수-방법">백분위수 방법</h4>
 <p>먼저, 백분위수 방법을 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 계산해 보겠습니다. 중앙의 95% 값을 포함하는 2.5% 백분위수와 97.5% 백분위수를 찾아낼 것입니다. 이 방법은 부트스트랩 분포가 반드시 정규 분포를 따를 필요는 없다는 점을 상기하십시오.</p>
@@ -959,12 +959,12 @@ b_1 \pm 1.96 \cdot \text{SE}_{b_1} &amp;= 0.067 \pm 1.96 \cdot 0.016 = 0.067 \pm
 1   0.0323   0.0990</code></pre>
 </div>
 </div>
-<p>이에 따라 도출된 <span class="math inline">\(\beta_1\)</span>에 대한 백분위수 기반 95% 신뢰 구간 (0.032, 0.099)은 회귀 표 <span class="quarto-unresolved-ref">?tbl-regtable-11에</span> 있는 신뢰 구간 (0.035, 0.099)과 유사합니다.</p>
+<p>이에 따라 도출된 <span class="math inline">\(\beta_1\)</span>에 대한 백분위수 기반 95% 신뢰 구간 (0.032, 0.099)은 회귀 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 에 있는 신뢰 구간 (0.035, 0.099)과 유사합니다.</p>
 </section>
 <section id="표준-오차-방법" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="표준-오차-방법">표준 오차 방법</h4>
-<p>그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-slope의</span> 부트스트랩 분포가 대략 종 모양으로 보이므로, 표준 오차 방법을 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축할 수도 있습니다.</p>
-<p>이를 위해 먼저 표준 오차 기반 신뢰 구간의 중심 역할을 할 적합된 기울기 <span class="math inline">\(b_1\)</span>을 계산해야 합니다. 회귀 표 <span class="quarto-unresolved-ref">?tbl-regtable-11에서</span> 이것이 <span class="math inline">\(b_1\)</span> = 0.067임을 확인했지만, <code>generate()</code> 단계를 제외한 <code>infer</code> 파이프라인을 사용하여 계산할 수도 있습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-slope</span> 의 부트스트랩 분포가 대략 종 모양으로 보이므로, 표준 오차 방법을 사용하여 <span class="math inline">\(\beta_1\)</span>에 대한 95% 신뢰 구간을 구축할 수도 있습니다.</p>
+<p>이를 위해 먼저 표준 오차 기반 신뢰 구간의 중심 역할을 할 적합된 기울기 <span class="math inline">\(b_1\)</span>을 계산해야 합니다. 회귀 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 에서 이것이 <span class="math inline">\(b_1\)</span> = 0.067임을 확인했지만, <code>generate()</code> 단계를 제외한 <code>infer</code> 파이프라인을 사용하여 계산할 수도 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>observed_slope <span class="ot">&lt;-</span> evals <span class="sc">%&gt;%</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(score <span class="sc">~</span> bty_avg) <span class="sc">%&gt;%</span> </span>
@@ -991,11 +991,11 @@ Explanatory: bty_avg (numeric)
 1   0.0334   0.0999</code></pre>
 </div>
 </div>
-<p>이에 따라 도출된 <span class="math inline">\(\beta_1\)</span>에 대한 표준 오차 기반 95% 신뢰 구간 <span class="math inline">\((0.033, 0.1)\)</span>은 회귀 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 신뢰 구간 <span class="math inline">\((0.035, 0.099)\)</span>과 약간 다릅니다.</p>
+<p>이에 따라 도출된 <span class="math inline">\(\beta_1\)</span>에 대한 표준 오차 기반 95% 신뢰 구간 <span class="math inline">\((0.033, 0.1)\)</span>은 회귀 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 신뢰 구간 <span class="math inline">\((0.035, 0.099)\)</span>과 약간 다릅니다.</p>
 </section>
 <section id="세-가지-방법-비교" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="세-가지-방법-비교">세 가지 방법 비교</h4>
-<p>그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-slope-CI에서</span> 세 가지 신뢰 구간을 비교해 보겠습니다. 백분위수 기반 신뢰 구간은 실선으로, 표준 오차 기반 신뢰 구간은 파란색 점선으로, 그리고 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에서 얻은 이론 기반 신뢰 구간 (0.035, 0.099)은 검은색 점선(dotted)으로 표시되어 있습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-bootstrap-distribution-slope-CI</span> 에서 세 가지 신뢰 구간을 비교해 보겠습니다. 백분위수 기반 신뢰 구간은 실선으로, 표준 오차 기반 신뢰 구간은 파란색 점선으로, 그리고 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에서 얻은 이론 기반 신뢰 구간 (0.035, 0.099)은 검은색 점선(dotted)으로 표시되어 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(bootstrap_distn_slope) <span class="sc">+</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_confidence_interval</span>(<span class="at">endpoints =</span> percentile_ci, <span class="at">fill =</span> <span class="cn">NULL</span>, </span>
@@ -1020,12 +1020,12 @@ Explanatory: bty_avg (numeric)
 </section>
 <section id="기울기에-대한-가설-검정" class="level3">
 <h3 class="anchored" data-anchor-id="기울기에-대한-가설-검정">기울기에 대한 가설 검정</h3>
-<p>이제 <span class="math inline">\(H_0: \beta_1 = 0\)</span> 대 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>의 가설 검정을 수행해 보겠습니다. 그림 <span class="quarto-unresolved-ref">?fig-htdowney의</span> “오직 하나의 검정만 존재한다” 다이어그램에 있는 가설 검정 패러다임을 따르는 <code>infer</code> 패키지를 사용할 것입니다.</p>
+<p>이제 <span class="math inline">\(H_0: \beta_1 = 0\)</span> 대 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>의 가설 검정을 수행해 보겠습니다. 그림 <span class="quarto-unresolved-ref">?fig-htdowney</span> 의 “오직 하나의 검정만 존재한다” 다이어그램에 있는 가설 검정 패러다임을 따르는 <code>infer</code> 패키지를 사용할 것입니다.</p>
 <p>먼저 귀무 가설 <span class="math inline">\(H_0\)</span>에서 가정한 것처럼 <span class="math inline">\(\beta_1\)</span>이 0이라는 것이 무엇을 의미하는지 생각해 봅시다. <span class="math inline">\(\beta_1 = 0\)</span>이면 강의 점수와 “외모” 점수 사이에 아무런 관계가 없음을 의미한다고 언급했습니다. 따라서 이 특정한 귀무 가설 <span class="math inline">\(H_0\)</span>를 가정한다는 것은 우리의 “가설된 우주”에서는 <code>score</code>와 <code>bty_avg</code> 사이에 아무런 관계가 없음을 의미합니다. 따라서 우리는 아무런 문제 없이 <code>bty_avg</code> 변수를 무작위로 섞거나(shuffle 순열(permute)을 수행할 수 있습니다.</p>
-<p>우리는 다음과 같은 단계들을 수행하여 적합된 기울기 <span class="math inline">\(b_1\)</span>의 귀무 분포를 구축합니다. 용어, 표기법 및 정의와 관련된 <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> <strong>귀무 분포(null distribution)</strong>를 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정했을 때 우리 검정 통계량 <span class="math inline">\(b_1\)</span>의 표집 분포로 정의했음을 상기하십시오.</p>
+<p>우리는 다음과 같은 단계들을 수행하여 적합된 기울기 <span class="math inline">\(b_1\)</span>의 귀무 분포를 구축합니다. 용어, 표기법 및 정의와 관련된 <a href="09-hypothesis-testing.html#sec-understanding-ht" class="quarto-xref"><span>가설 검정의 이해</span></a> 절에서 <strong>귀무 분포(null distribution)</strong>를 귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정했을 때 우리 검정 통계량 <span class="math inline">\(b_1\)</span>의 표집 분포로 정의했음을 상기하십시오.</p>
 <ol type="1">
 <li><code>score ~ bty_avg</code> 공식을 사용하여 <code>evals_ch5</code>에서 관심 있는 변수들을 <code>specify()</code> 합니다.</li>
-<li><code>independence</code>라는 귀무 가설을 <code>hypothesize()</code> 합니다. <span class="quarto-unresolved-ref">?sec-ht-infer절에서</span> 보았듯이, 이는 가설 검정을 위해 추가되어야 하는 단계입니다.</li>
+<li><code>independence</code>라는 귀무 가설을 <code>hypothesize()</code> 합니다. <a href="09-hypothesis-testing.html#sec-ht-infer" class="quarto-xref"><span>가설 검정 수행</span></a> 절에서 보았듯이, 이는 가설 검정을 위해 추가되어야 하는 단계입니다.</li>
 <li>원래 463개 강의 표본에서 값들을 순열/섞기를 수행하여 복제본을 <code>generate()</code> 합니다. 여기서 <code>type = "permute"</code>를 사용하여 <code>reps = 1000</code>개의 복제본을 생성합니다.</li>
 <li>관심 있는 검정 통계량인 적합된 <code>slope</code> <span class="math inline">\(b_1\)</span>을 <code>calculate()</code> 합니다.</li>
 </ol>
@@ -1037,7 +1037,7 @@ Explanatory: bty_avg (numeric)
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"slope"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>그림 <span class="quarto-unresolved-ref">?fig-null-distribution-slope에서</span> 적합된 기울기 <span class="math inline">\(b_1\)</span>에 대한 귀무 분포 결과를 확인해 보십시오.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-null-distribution-slope</span> 에서 적합된 기울기 <span class="math inline">\(b_1\)</span>에 대한 귀무 분포 결과를 확인해 보십시오.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1049,7 +1049,7 @@ Explanatory: bty_avg (numeric)
 </div>
 </div>
 <p>이 분포가 <span class="math inline">\(b_1 = 0\)</span>을 중심으로 하고 있음에 주목하십시오. 이는 우리의 가설된 우주에서 <code>score</code>와 <code>bty_avg</code> 사이에 아무런 관계가 없으므로 <span class="math inline">\(\beta_1 = 0\)</span>이라고 가정했기 때문입니다. 따라서 시뮬레이션을 통해 관찰되는 가장 전형적인 적합된 기울기 <span class="math inline">\(b_1\)</span>은 0입니다. 또한 이 중심값 0을 중심으로 변동이 있음을 확인해 보십시오.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-p-value-slope에서</span> 관찰된 검정 통계량 <span class="math inline">\(b_1\)</span> = 0.067과 비교하여 귀무 분포의 p-값을 시각화해 보겠습니다. 이전의 <code>visualize()</code> 코드에 <code>shade_p_value()</code> 레이어를 추가하여 이를 수행할 것입니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-p-value-slope</span> 에서 관찰된 검정 통계량 <span class="math inline">\(b_1\)</span> = 0.067과 비교하여 귀무 분포의 p-값을 시각화해 보겠습니다. 이전의 <code>visualize()</code> 코드에 <code>shade_p_value()</code> 레이어를 추가하여 이를 수행할 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1071,8 +1071,8 @@ Explanatory: bty_avg (numeric)
 1       0</code></pre>
 </div>
 </div>
-<p>이는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에 있는 p-값 0과 일치합니다. 따라서 우리는 대립 가설 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>을 지지하며 귀무 가설 <span class="math inline">\(H_0: \beta_1 = 0\)</span>을 기각합니다. 즉, UT 오스틴의 <strong>모든</strong> 강사에 대해 강의 점수와 “외모” 점수 사이에 유의미한 관계가 있음을 시사하는 증거가 있습니다.</p>
-<p>회귀 분석의 추론 조건이 충족되고 귀무 분포가 종 모양인 경우, 방금 보여드린 시뮬레이션 기반 결과와 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표에 표시된 이론 기반 결과 사이에 유사한 결과를 얻을 가능성이 높습니다.</p>
+<p>이는 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에 있는 p-값 0과 일치합니다. 따라서 우리는 대립 가설 <span class="math inline">\(H_A: \beta_1 \neq 0\)</span>을 지지하며 귀무 가설 <span class="math inline">\(H_0: \beta_1 = 0\)</span>을 기각합니다. 즉, UT 오스틴의 <strong>모든</strong> 강사에 대해 강의 점수와 “외모” 점수 사이에 유의미한 관계가 있음을 시사하는 증거가 있습니다.</p>
+<p>회귀 분석의 추론 조건이 충족되고 귀무 분포가 종 모양인 경우, 방금 보여드린 시뮬레이션 기반 결과와 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표에 표시된 이론 기반 결과 사이에 유사한 결과를 얻을 가능성이 높습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1103,15 +1103,15 @@ To conclude this chapter, we'll be investigating how regression relates to two d
 
 
 -->
-<section id="theory-regression" class="level3">
-<h3 class="anchored" data-anchor-id="theory-regression">회귀에 대한 이론 기반 추론</h3>
-<p>하위 <span class="quarto-unresolved-ref">?sec-regression-table-computation절에서</span> 표 <span class="quarto-unresolved-ref">?tbl-regtable-11의</span> 회귀 표를 해석할 때, R은 우리가 <code>infer</code> 패키지를 사용하여 <span class="quarto-unresolved-ref">?sec-confidence-intervals와</span> <span class="quarto-unresolved-ref">?sec-hypothesis-testing에서</span> 했던 것처럼 신뢰 구간을 구축하고 가설 검정을 수행하기 위해 시뮬레이션 기반 방법을 사용하지 않는다고 언급했습니다. 대신 R은 하위 <span class="quarto-unresolved-ref">?sec-theory-ci절에서</span> 본 이론 기반 신뢰 구간과 하위 <span class="quarto-unresolved-ref">?sec-theory-hypo절에서</span> 본 이론 기반 가설 검정과 매우 유사하게 수학 공식을 사용하는 이론 기반 접근 방식을 사용합니다. 이러한 공식들은 컴퓨터가 존재하지 않던 시절에 유도되었으므로 대규모 시뮬레이션을 실행하는 것은 매우 노동 집약적인 일이었을 것입니다.</p>
-<p>특히, 하위 <span class="quarto-unresolved-ref">?sec-theory-se절에서</span> 본 표본 비율 <span class="math inline">\(\widehat{p}\)</span>의 표준 오차 공식과 하위 <span class="quarto-unresolved-ref">?sec-theory-hypo절에서</span> 본 표본 평균의 차이 <span class="math inline">\(\overline{x}_1 - \overline{x}_2\)</span>의 표준 오차 공식과 마찬가지로, 적합된 기울기 <span class="math inline">\(b_1\)</span>의 표준 오차를 구하는 공식이 있습니다.</p>
+<section id="sec-theory-regression" class="level3">
+<h3 class="anchored" data-anchor-id="sec-theory-regression">회귀에 대한 이론 기반 추론</h3>
+<p>하위 <a href="#sec-regression-table-computation" class="quarto-xref"><span>R은 이 표를 어떻게 계산할까요?</span></a> 절에서 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 의 회귀 표를 해석할 때, R은 우리가 <code>infer</code> 패키지를 사용하여 <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 와 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 에서 했던 것처럼 신뢰 구간을 구축하고 가설 검정을 수행하기 위해 시뮬레이션 기반 방법을 사용하지 않는다고 언급했습니다. 대신 R은 하위 <a href="08-confidence-intervals.html#sec-theory-ci" class="quarto-xref"><span>이론 기반 신뢰 구간</span></a> 절에서 본 이론 기반 신뢰 구간과 하위 <a href="09-hypothesis-testing.html#sec-theory-hypo" class="quarto-xref"><span>이론 기반 가설 검정</span></a> 절에서 본 이론 기반 가설 검정과 매우 유사하게 수학 공식을 사용하는 이론 기반 접근 방식을 사용합니다. 이러한 공식들은 컴퓨터가 존재하지 않던 시절에 유도되었으므로 대규모 시뮬레이션을 실행하는 것은 매우 노동 집약적인 일이었을 것입니다.</p>
+<p>특히, 하위 <a href="07-sampling.html#sec-theory-se" class="quarto-xref"><span>이론 기반 표준 오차</span></a> 절에서 본 표본 비율 <span class="math inline">\(\widehat{p}\)</span>의 표준 오차 공식과 하위 <a href="09-hypothesis-testing.html#sec-theory-hypo" class="quarto-xref"><span>이론 기반 가설 검정</span></a> 절에서 본 표본 평균의 차이 <span class="math inline">\(\overline{x}_1 - \overline{x}_2\)</span>의 표준 오차 공식과 마찬가지로, 적합된 기울기 <span class="math inline">\(b_1\)</span>의 표준 오차를 구하는 공식이 있습니다.</p>
 <p><span class="math display">\[\text{SE}_{b_1} = \dfrac{\dfrac{s_y}{s_x} \cdot \sqrt{1-r^2}}{\sqrt{n-2}}\]</span></p>
-<p>이 공식에는 많은 것이 담겨 있으므로, 먼저 각 기호가 무엇을 나타내는지 분석해 보겠습니다. 먼저 <span class="math inline">\(s_x\)</span>와 <span class="math inline">\(s_y\)</span>는 각각 설명 변수 <code>bty_avg</code>와 결과 변수 <code>score</code>의 <strong>표본 표준 편차</strong>입니다. 둘째, <span class="math inline">\(r\)</span>은 <code>score</code>와 <code>bty_avg</code> 사이의 표본 <strong>상관 계수</strong>입니다. 이는 <span class="quarto-unresolved-ref">?sec-regression에서</span> 0.187로 계산되었습니다. 마지막으로, <span class="math inline">\(n\)</span>은 <code>evals_ch5</code> 데이터 프레임에 있는 점들의 쌍의 수로, 여기서는 463입니다.</p>
+<p>이 공식에는 많은 것이 담겨 있으므로, 먼저 각 기호가 무엇을 나타내는지 분석해 보겠습니다. 먼저 <span class="math inline">\(s_x\)</span>와 <span class="math inline">\(s_y\)</span>는 각각 설명 변수 <code>bty_avg</code>와 결과 변수 <code>score</code>의 <strong>표본 표준 편차</strong>입니다. 둘째, <span class="math inline">\(r\)</span>은 <code>score</code>와 <code>bty_avg</code> 사이의 표본 <strong>상관 계수</strong>입니다. 이는 <a href="05-regression.html" class="quarto-xref"><span>기초 회귀 분석</span></a> 에서 0.187로 계산되었습니다. 마지막으로, <span class="math inline">\(n\)</span>은 <code>evals_ch5</code> 데이터 프레임에 있는 점들의 쌍의 수로, 여기서는 463입니다.</p>
 <p>이 공식을 말로 풀어서 설명하면, <span class="math inline">\(b_1\)</span>의 표준 오차는 <span class="math inline">\(s_y / s_x\)</span> 항에서 측정된 결과 변수의 변동성과 설명 변수의 변동성 사이의 관계에 달려 있습니다. 다음으로, <span class="math inline">\(\sqrt{1-r^2}\)</span> 항에서 두 변수가 서로 어떻게 관련되어 있는지를 살펴봅니다.</p>
-<p>하지만 앞의 공식에서 주목해야 할 가장 중요한 사실은 분모에 <span class="math inline">\(n - 2\)</span>가 있다는 것입니다. 즉, 표본 크기 <span class="math inline">\(n\)</span>이 증가할수록 표준 오차 <span class="math inline">\(\text{SE}_{b_1}\)</span>은 감소합니다. 하위 <span class="quarto-unresolved-ref">?sec-moral-of-the-story절에서</span> <span class="math inline">\(n\)</span> = 25, 50, 100개의 구멍이 있는 삽을 사용하여 시연했듯이, 적합된 기울기 <span class="math inline">\(b_1\)</span>의 표집 변동량은 표본 크기 <span class="math inline">\(n\)</span>에 따라 달라질 것입니다. 특히 표본 크기가 증가함에 따라 표집 분포와 부트스트랩 분포가 좁아지고 표준 오차 <span class="math inline">\(\text{SE}_{b_1}\)</span>이 감소합니다. 따라서 실제 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 <span class="math inline">\(b_1\)</span>의 추정치는 점점 더 <strong>정밀(precise)</strong>해집니다.</p>
-<p>R은 회귀 표의 세 번째 열에서 <span class="math inline">\(b_1\)</span>의 표준 오차를 구하기 위해 이 공식을 사용하며, 이어서 95% 신뢰 구간을 구축하는 데에도 사용합니다. 그렇다면 가설 검정은 어떨까요? 하위 <span class="quarto-unresolved-ref">?sec-theory-hypo절의</span> 이론 기반 가설 검정에서와 마찬가지로 R은 가설 검정을 위한 검정 통계량으로 다음과 같은 <strong><span class="math inline">\(t\)</span>-통계량</strong>을 사용합니다.</p>
+<p>하지만 앞의 공식에서 주목해야 할 가장 중요한 사실은 분모에 <span class="math inline">\(n - 2\)</span>가 있다는 것입니다. 즉, 표본 크기 <span class="math inline">\(n\)</span>이 증가할수록 표준 오차 <span class="math inline">\(\text{SE}_{b_1}\)</span>은 감소합니다. 하위 <a href="07-sampling.html#sec-moral-of-the-story" class="quarto-xref"><span>요약: 정확도와 정밀도</span></a> 절에서 <span class="math inline">\(n\)</span> = 25, 50, 100개의 구멍이 있는 삽을 사용하여 시연했듯이, 적합된 기울기 <span class="math inline">\(b_1\)</span>의 표집 변동량은 표본 크기 <span class="math inline">\(n\)</span>에 따라 달라질 것입니다. 특히 표본 크기가 증가함에 따라 표집 분포와 부트스트랩 분포가 좁아지고 표준 오차 <span class="math inline">\(\text{SE}_{b_1}\)</span>이 감소합니다. 따라서 실제 모집단 기울기 <span class="math inline">\(\beta_1\)</span>에 대한 <span class="math inline">\(b_1\)</span>의 추정치는 점점 더 <strong>정밀(precise)</strong>해집니다.</p>
+<p>R은 회귀 표의 세 번째 열에서 <span class="math inline">\(b_1\)</span>의 표준 오차를 구하기 위해 이 공식을 사용하며, 이어서 95% 신뢰 구간을 구축하는 데에도 사용합니다. 그렇다면 가설 검정은 어떨까요? 하위 <a href="09-hypothesis-testing.html#sec-theory-hypo" class="quarto-xref"><span>이론 기반 가설 검정</span></a> 절의 이론 기반 가설 검정에서와 마찬가지로 R은 가설 검정을 위한 검정 통계량으로 다음과 같은 <strong><span class="math inline">\(t\)</span>-통계량</strong>을 사용합니다.</p>
 <p><span class="math display">\[
 t = \dfrac{ b_1 - \beta_1}{ \text{SE}_{b_1}}
 \]</span></p>
@@ -1120,12 +1120,12 @@ t = \dfrac{ b_1 - \beta_1}{ \text{SE}_{b_1}}
 t = \dfrac{ b_1 - 0}{ \text{SE}_{b_1}} = \dfrac{ b_1 }{ \text{SE}_{b_1}}
 \]</span></p>
 <p><span class="math inline">\(b_1\)</span>과 <span class="math inline">\(\text{SE}_{b_1}\)</span>의 값은 무엇일까요? 이들은 표 <span class="quarto-unresolved-ref">?tbl-regtable-11</span> 회귀 표의 <code>estimate</code>와 <code>std_error</code> 열에 있습니다. 따라서 표에 있는 4.09 값은 0.067/0.016 = 4.188로 계산됩니다. 여기에는 반올림 오차로 인해 약간의 차이가 있음에 유의하십시오.</p>
-<p>마지막으로, p-값을 계산하려면 관찰된 검정 통계량 4.09을 적절한 귀무 분포와 비교해야 합니다. <span class="quarto-unresolved-ref">?sec-understanding-ht절에서</span> 귀무 분포는 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정했을 때</strong> 검정 통계량의 표집 분포임을 상기하십시오. 하위 <span class="quarto-unresolved-ref">?sec-theory-hypo절의</span> 이론 기반 가설 검정에서와 마찬가지로, 이 분포는 자유도가 <span class="math inline">\(df = n - 2 = 463 - 2 = 461\)</span>인 <span class="math inline">\(t\)</span>-분포임을 수학적으로 증명할 수 있습니다.</p>
+<p>마지막으로, p-값을 계산하려면 관찰된 검정 통계량 4.09을 적절한 귀무 분포와 비교해야 합니다. <a href="09-hypothesis-testing.html#sec-understanding-ht" class="quarto-xref"><span>가설 검정의 이해</span></a> 절에서 귀무 분포는 <strong>귀무 가설 <span class="math inline">\(H_0\)</span>가 참이라고 가정했을 때</strong> 검정 통계량의 표집 분포임을 상기하십시오. 하위 <a href="09-hypothesis-testing.html#sec-theory-hypo" class="quarto-xref"><span>이론 기반 가설 검정</span></a> 절의 이론 기반 가설 검정에서와 마찬가지로, 이 분포는 자유도가 <span class="math inline">\(df = n - 2 = 463 - 2 = 461\)</span>인 <span class="math inline">\(t\)</span>-분포임을 수학적으로 증명할 수 있습니다.</p>
 <p>이 시점에서 약간 압도당하는 느낌이 들더라도 걱정하지 마십시오. 이론 기반 방법의 방정식을 완전히 이해하기 위해서는 이해해야 할 배경 이론이 많습니다. 하지만 신뢰 구간을 구축하고 가설 검정을 수행할 때 이론 기반 방법과 시뮬레이션 기반 방법은 종종 일관된 결과를 산출합니다. 앞서 언급했듯이, 저희의 의견으로는 이론 기반 방법보다 시뮬레이션 기반 방법이 갖는 두 가지 큰 장점은 (1) 통계적 추론을 처음 배우는 사람들이 이해하기 더 쉽고, (2) 이론 기반 방법과 수학 공식이 존재하지 않는 상황에서도 작동한다는 것입니다.</p>
 </section>
 <section id="통계적-추론-요약" class="level3">
 <h3 class="anchored" data-anchor-id="통계적-추론-요약">통계적 추론 요약</h3>
-<p>하위 <span class="quarto-unresolved-ref">?sec-sampling-conclusion-table절의</span> “추론을 위한 표집 시나리오” 표에서 마지막 두 시나리오를 마쳤으며, 이를 표 <span class="quarto-unresolved-ref">?tbl-table-ch11에</span> 다시 표시했습니다.</p>
+<p>하위 <a href="07-sampling.html#sec-sampling-conclusion-table" class="quarto-xref"><span>표본 추출 시나리오</span></a> 절의 “추론을 위한 표집 시나리오” 표에서 마지막 두 시나리오를 마쳤으며, 이를 표 <span class="quarto-unresolved-ref">?tbl-table-ch11</span> 에 다시 표시했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -1179,7 +1179,7 @@ t = \dfrac{ b_1 - 0}{ \text{SE}_{b_1}} = \dfrac{ b_1 }{ \text{SE}_{b_1}}
 </table>
 </div>
 </div>
-<p><span class="quarto-unresolved-ref">?sec-regression와</span> <span class="quarto-unresolved-ref">?sec-multiple-regression에서</span> 배운 회귀 모델링 기술, <span class="quarto-unresolved-ref">?sec-sampling에서의</span> 추론을 위한 표집에 대한 이해, 그리고 <span class="quarto-unresolved-ref">?sec-confidence-intervals와</span> <span class="quarto-unresolved-ref">?sec-hypothesis-testing의</span> 신뢰 구간 및 가설 검정과 같은 통계적 추론 도구들을 갖춘 여러분은 이제 광범위한 데이터에서 변수 사이의 관계의 유의성을 연구할 준비가 되었습니다! 여기서 제시된 많은 아이디어는 다중 회귀 및 기타 더 발전된 모델링 기술로 확장될 수 있습니다.</p>
+<p><a href="05-regression.html" class="quarto-xref"><span>기초 회귀 분석</span></a> 와 <a href="06-multiple-regression.html" class="quarto-xref"><span>다중 회귀 분석</span></a> 에서 배운 회귀 모델링 기술, <a href="07-sampling.html" class="quarto-xref"><span>표본 추출</span></a> 에서의 추론을 위한 표집에 대한 이해, 그리고 <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 와 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 의 신뢰 구간 및 가설 검정과 같은 통계적 추론 도구들을 갖춘 여러분은 이제 광범위한 데이터에서 변수 사이의 관계의 유의성을 연구할 준비가 되었습니다! 여기서 제시된 많은 아이디어는 다중 회귀 및 기타 더 발전된 모델링 기술로 확장될 수 있습니다.</p>
 </section>
 <section id="추가-자료" class="level3">
 <h3 class="anchored" data-anchor-id="추가-자료">추가 자료</h3>
@@ -1189,7 +1189,7 @@ t = \dfrac{ b_1 - 0}{ \text{SE}_{b_1}} = \dfrac{ b_1 }{ \text{SE}_{b_1}}
 </section>
 <section id="앞으로의-내용" class="level3">
 <h3 class="anchored" data-anchor-id="앞으로의-내용">앞으로의 내용</h3>
-<p>이제 이 책의 마지막 주요 부분인 “<code>infer</code>를 이용한 통계적 추론”을 마쳤습니다. 마지막 챕터인 <span class="quarto-unresolved-ref">?sec-thinking-with-data는</span> 미국 워싱턴주 시애틀의 주택 가격과 같은 실제 데이터를 포함한 다양한 짧은 사례 연구들로 이 책을 마무리합니다. 이 책의 원칙들이 여러분이 데이터를 통해 훌륭한 스토리텔러가 되는 데 어떻게 도움이 되는지 확인하게 될 것입니다!</p>
+<p>이제 이 책의 마지막 주요 부분인 “<code>infer</code>를 이용한 통계적 추론”을 마쳤습니다. 마지막 챕터인 <a href="11-tell-your-story-with-data.html" class="quarto-xref"><span>데이터로 이야기 들려주기</span></a> 는 미국 워싱턴주 시애틀의 주택 가격과 같은 실제 데이터를 포함한 다양한 짧은 사례 연구들로 이 책을 마무리합니다. 이 책의 원칙들이 여러분이 데이터를 통해 훌륭한 스토리텔러가 되는 데 어떻게 도움이 되는지 확인하게 될 것입니다!</p>
 
 
 </section>

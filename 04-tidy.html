@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>데이터 불러오기와 “깔끔한” 데이터 – ModernDive: Statistical Inference via Data Science</title>
+<title>데이터 불러오기와 “깔끔한” 데이터 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -184,7 +184,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -356,19 +356,19 @@ window.Quarto = {
    
   <ul>
   <li><a href="#tidy-packages" id="toc-tidy-packages" class="nav-link active" data-scroll-target="#tidy-packages">필요한 패키지</a></li>
-  <li><a href="#csv" id="toc-csv" class="nav-link" data-scroll-target="#csv">데이터 불러오기</a>
+  <li><a href="#sec-csv" id="toc-sec-csv" class="nav-link" data-scroll-target="#sec-csv">데이터 불러오기</a>
   <ul class="collapse">
   <li><a href="#콘솔-사용하기" id="toc-콘솔-사용하기" class="nav-link" data-scroll-target="#콘솔-사용하기">콘솔 사용하기</a></li>
   <li><a href="#rstudio-인터페이스-사용하기" id="toc-rstudio-인터페이스-사용하기" class="nav-link" data-scroll-target="#rstudio-인터페이스-사용하기">RStudio 인터페이스 사용하기</a></li>
   </ul></li>
-  <li><a href="#tidy-data-ex" id="toc-tidy-data-ex" class="nav-link" data-scroll-target="#tidy-data-ex">“깔끔한” 데이터</a>
+  <li><a href="#sec-tidy-data-ex" id="toc-sec-tidy-data-ex" class="nav-link" data-scroll-target="#sec-tidy-data-ex">“깔끔한” 데이터</a>
   <ul class="collapse">
-  <li><a href="#tidy-definition" id="toc-tidy-definition" class="nav-link" data-scroll-target="#tidy-definition">“깔끔한” 데이터의 정의</a></li>
+  <li><a href="#sec-tidy-definition" id="toc-sec-tidy-definition" class="nav-link" data-scroll-target="#sec-tidy-definition">“깔끔한” 데이터의 정의</a></li>
   <li><a href="#깔끔한-데이터로-변환하기" id="toc-깔끔한-데이터로-변환하기" class="nav-link" data-scroll-target="#깔끔한-데이터로-변환하기">“깔끔한” 데이터로 변환하기</a></li>
   <li><a href="#nycflights13-패키지" id="toc-nycflights13-패키지" class="nav-link" data-scroll-target="#nycflights13-패키지"><code>nycflights13</code> 패키지</a></li>
   </ul></li>
-  <li><a href="#case-study-tidy" id="toc-case-study-tidy" class="nav-link" data-scroll-target="#case-study-tidy">사례 연구: 과테말라의 민주주의</a></li>
-  <li><a href="#tidyverse-package" id="toc-tidyverse-package" class="nav-link" data-scroll-target="#tidyverse-package"><code>tidyverse</code> 패키지</a></li>
+  <li><a href="#sec-case-study-tidy" id="toc-sec-case-study-tidy" class="nav-link" data-scroll-target="#sec-case-study-tidy">사례 연구: 과테말라의 민주주의</a></li>
+  <li><a href="#sec-tidyverse-package" id="toc-sec-tidyverse-package" class="nav-link" data-scroll-target="#sec-tidyverse-package"><code>tidyverse</code> 패키지</a></li>
   <li><a href="#tidy-data-conclusion" id="toc-tidy-data-conclusion" class="nav-link" data-scroll-target="#tidy-data-conclusion">결론</a>
   <ul class="collapse">
   <li><a href="#추가-자료" id="toc-추가-자료" class="nav-link" data-scroll-target="#추가-자료">추가 자료</a></li>
@@ -382,7 +382,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-visualization.html">데이터 과학</a></li><li class="breadcrumb-item"><a href="./04-tidy.html"><span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="tidy" class="quarto-section-identifier"><span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></h1>
+<h1 class="title"><span id="sec-tidy" class="quarto-section-identifier"><span class="chapter-title">데이터 불러오기와 “깔끔한” 데이터</span></span></h1>
 </div>
 
 
@@ -399,12 +399,12 @@ window.Quarto = {
 </header>
 
 
-<p><span class="quarto-unresolved-ref">?sec-programming-concepts절에서</span> R의 데이터 프레임 개념을 소개했습니다. 데이터 프레임은 행(row)이 관측치에 해당하고 열(column)이 각 관측치를 설명하는 변수에 해당하는, 마치 스프레드시트와 같은 직사각형의 데이터 표현 방식입니다. <span class="quarto-unresolved-ref">?sec-nycflights13절에서는</span> <code>nycflights13</code> 패키지에 포함된 <code>flights</code> 데이터 프레임을 통해 첫 번째 데이터를 탐색하기 시작했습니다. <span class="quarto-unresolved-ref">?sec-viz장에서는</span> <code>flights</code> 및 <code>weather</code>와 같은 다른 데이터 프레임에 포함된 데이터를 기반으로 시각화를 생성했습니다. <span class="quarto-unresolved-ref">?sec-wrangling장에서는</span> 기존 데이터 프레임을 가져와 우리의 목적에 맞게 변형하고 수정하는 방법을 배웠습니다.</p>
+<p><a href="01-getting-started.html#sec-programming-concepts" class="quarto-xref"><span>기초 프로그래밍 개념 및 용어</span></a> 절에서 R의 데이터 프레임 개념을 소개했습니다. 데이터 프레임은 행(row)이 관측치에 해당하고 열(column)이 각 관측치를 설명하는 변수에 해당하는, 마치 스프레드시트와 같은 직사각형의 데이터 표현 방식입니다. <a href="01-getting-started.html#sec-nycflights13" class="quarto-xref"><span>첫 데이터셋 탐색하기</span></a> 절에서는 <code>nycflights13</code> 패키지에 포함된 <code>flights</code> 데이터 프레임을 통해 첫 번째 데이터를 탐색하기 시작했습니다. <a href="02-visualization.html" class="quarto-xref"><span>데이터 시각화</span></a> 장에서는 <code>flights</code> 및 <code>weather</code>와 같은 다른 데이터 프레임에 포함된 데이터를 기반으로 시각화를 생성했습니다. <a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장에서는 기존 데이터 프레임을 가져와 우리의 목적에 맞게 변형하고 수정하는 방법을 배웠습니다.</p>
 <p>이 책의 “<code>tidyverse</code>를 사용한 데이터 과학” 부분의 마지막 장인 이번 장에서는, “깔끔한(tidy)” 데이터라고 불리는 데이터 포맷 유형을 논의하며 이러한 아이디어를 확장해 보겠습니다. 데이터를 “깔끔한” 포맷으로 저장한다는 것은 “깔끔하게 정리됨”이라는 일상적인 의미 이상의 뜻을 가지고 있음을 알게 될 것입니다. 대신, R을 사용하는 데이터 과학자들이 사전에 정의된 일련의 규칙에 따라 데이터가 저장되는 방식인 “깔끔한(tidy)”이라는 용어를 정의하고 그 규칙들을 개괄적으로 설명할 것입니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-viz장의</span> 데이터 시각화와 <span class="quarto-unresolved-ref">?sec-wrangling장의</span> 데이터 전처리를 다룰 때는 이러한 유형의 데이터 포맷에 대한 지식이 필요하지 않았습니다. 사용된 모든 데이터가 이미 “깔끔한” 포맷이었기 때문입니다. 이번 장에서는 지금까지 다룬 도구들을 효과적으로 사용하기 위해 이 포맷이 왜 필수적인지 살펴보겠습니다. 나아가 회귀 분석과 통계적 추론을 다루는 이 책의 모든 후속 장에서도 이 개념은 매우 유용할 것입니다. 하지만 그 전에, R에서 스프레드시트 데이터를 불러오는 방법부터 먼저 알아보겠습니다.</p>
+<p><a href="02-visualization.html" class="quarto-xref"><span>데이터 시각화</span></a> 장의 데이터 시각화와 <a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장의 데이터 전처리를 다룰 때는 이러한 유형의 데이터 포맷에 대한 지식이 필요하지 않았습니다. 사용된 모든 데이터가 이미 “깔끔한” 포맷이었기 때문입니다. 이번 장에서는 지금까지 다룬 도구들을 효과적으로 사용하기 위해 이 포맷이 왜 필수적인지 살펴보겠습니다. 나아가 회귀 분석과 통계적 추론을 다루는 이 책의 모든 후속 장에서도 이 개념은 매우 유용할 것입니다. 하지만 그 전에, R에서 스프레드시트 데이터를 불러오는 방법부터 먼저 알아보겠습니다.</p>
 <section id="tidy-packages" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="tidy-packages">필요한 패키지</h3>
-<p>이번 장에 필요한 모든 패키지들을 로드해 봅시다(앞서 이미 설치했다고 가정합니다). 필요한 경우 R 패키지 설치 및 로드 방법에 대한 정보는 <span class="quarto-unresolved-ref">?sec-packages절을</span> 참고하세요.</p>
+<p>이번 장에 필요한 모든 패키지들을 로드해 봅시다(앞서 이미 설치했다고 가정합니다). 필요한 경우 R 패키지 설치 및 로드 방법에 대한 정보는 <a href="01-getting-started.html#sec-packages" class="quarto-xref"><span>R 패키지란 무엇인가?</span></a> 절을 참고하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -414,8 +414,8 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fivethirtyeight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="csv" class="level2">
-<h2 class="anchored" data-anchor-id="csv">데이터 불러오기</h2>
+<section id="sec-csv" class="level2">
+<h2 class="anchored" data-anchor-id="sec-csv">데이터 불러오기</h2>
 <p>지금까지 우리는 거의 전적으로 R 패키지 내부에 저장된 데이터만을 사용해 왔습니다. 하지만 여러분의 컴퓨터나 온라인 어딘가에 저장된 여러분만의 데이터를 사용하고 싶다면 어떨까요? R에서 이 데이터를 어떻게 분석할 수 있을까요? 스프레드시트 데이터는 대개 다음 세 가지 포맷 중 하나로 저장됩니다.</p>
 <p>첫째, <em>쉼표로 구분된 값(Comma Separated Values)</em>인 <code>.csv</code> 파일입니다. <code>.csv</code> 파일을 다음과 같은 아주 핵심적인 정보만 담긴 스프레드시트라고 생각하면 됩니다.</p>
 <ul>
@@ -423,12 +423,12 @@ window.Quarto = {
 <li>각 줄의 값들은 쉼표로 구분됩니다. 즉, 서로 다른 변수의 값들이 각 행에서 쉼표로 나뉩니다.</li>
 <li>첫 번째 줄은 종종(항상 그런 것은 아니지만 열과 변수의 이름을 나타내는 <em>헤더(header)</em> 행입니다.</li>
 </ul>
-<p>둘째, 엑셀 <code>.xlsx</code> 스프레드시트 파일입니다. 이 포맷은 마이크로소프트의 독점 소프트웨어인 엑셀을 기반으로 합니다. 핵심 정보만 담긴 <code>.csv</code> 파일과 달리, <code>.xlsx</code> 엑셀 파일은 많은 메타데이터(데이터에 대한 데이터)를 포함하고 있습니다. <span class="quarto-unresolved-ref">?sec-groupby절에서</span> <code>group_by()</code> 동사를 사용하여 데이터 프레임에 “그룹 구조” 메타데이터를 추가했던 예시를 떠올려 보세요. 엑셀 스프레드시트 메타데이터의 예로는 굵게 또는 기울임 글꼴 사용, 셀 색상 지정, 다양한 열 너비, 수식 매크로 등이 있습니다.</p>
+<p>둘째, 엑셀 <code>.xlsx</code> 스프레드시트 파일입니다. 이 포맷은 마이크로소프트의 독점 소프트웨어인 엑셀을 기반으로 합니다. 핵심 정보만 담긴 <code>.csv</code> 파일과 달리, <code>.xlsx</code> 엑셀 파일은 많은 메타데이터(데이터에 대한 데이터)를 포함하고 있습니다. <a href="03-wrangling.html#sec-groupby" class="quarto-xref"><span>group_by 행 그룹화</span></a> 절에서 <code>group_by()</code> 동사를 사용하여 데이터 프레임에 “그룹 구조” 메타데이터를 추가했던 예시를 떠올려 보세요. 엑셀 스프레드시트 메타데이터의 예로는 굵게 또는 기울임 글꼴 사용, 셀 색상 지정, 다양한 열 너비, 수식 매크로 등이 있습니다.</p>
 <p>셋째, 스프레드시트 작업을 위한 “클라우드” 또는 온라인 기반 방식인 [구글 스프레드시트](https://www.google.com/sheets/about/ 파일입니다. 구글 스프레드시트를 사용하면 데이터를 쉼표로 구분된 값인 <code>.csv</code>와 엑셀인 <code>.xlsx</code> 포맷 모두로 다운로드할 수 있습니다. 구글 스프레드시트 데이터를 R로 불러오는 한 가지 방법은 구글 스프레드시트 메뉴 바에서 파일 -&gt; 다운로드 -&gt; “Microsoft Excel” 또는 “쉼표로 구분된 값”을 선택한 다음 해당 데이터를 R로 로드하는 것입니다. 구글 스프레드시트 데이터를 R로 불러오는 더 고급 방법은 [<code>googlesheets4</code>](https://googlesheets4.tidyverse.org/ 패키지를 사용하는 것인데, 이 방법은 더 심화된 데이터 과학 서적에 맡기도록 하겠습니다.</p>
 <p>우리는 R에서 <code>.csv</code> 및 <code>.xlsx</code> 스프레드시트 데이터를 불러오는 두 가지 방법, 즉 콘솔을 사용하는 방법과 “GUI”라고 축약해서 부르는 RStudio의 그래픽 사용자 인터페이스를 사용하는 방법을 살펴볼 것입니다.</p>
 <section id="콘솔-사용하기" class="level3">
 <h3 class="anchored" data-anchor-id="콘솔-사용하기">콘솔 사용하기</h3>
-<p>먼저, 인터넷상에 존재하는 쉼표로 구분된 값 <code>.csv</code> 파일을 불러와 보겠습니다. <code>dem_score.csv</code> 파일은 1952년부터 1992년까지 여러 국가의 민주주의 수준 등급을 포함하고 있으며, <a href="https://moderndive.com/data/dem_score.csv" class="uri">https://moderndive.com/data/dem_score.csv</a>에서 확인할 수 있습니다. <code>readr</code> <span class="citation" data-cites="R-readr">(<a href="#ref-R-readr" role="doc-biblioref">Wickham, Hester, and Bryan 2026</a>)</span> 패키지의 <code>read_csv()</code> 함수를 사용하여 웹에서 이 파일을 읽어와 R로 가져온 후 <code>dem_score</code>라는 데이터 프레임에 저장해 봅시다.</p>
+<p>먼저, 인터넷상에 존재하는 쉼표로 구분된 값 <code>.csv</code> 파일을 불러와 보겠습니다. <code>dem_score.csv</code> 파일은 1952년부터 1992년까지 여러 국가의 민주주의 수준 등급을 포함하고 있으며, <a href="https://moderndive.com/data/dem_score.csv" class="uri">https://moderndive.com/data/dem_score.csv</a>에서 확인할 수 있습니다. <code>readr</code> <span class="citation" data-cites="R-readr">(<a href="99-references.html#ref-R-readr" role="doc-biblioref">Wickham, Hester, and Bryan 2026</a>)</span> 패키지의 <code>read_csv()</code> 함수를 사용하여 웹에서 이 파일을 읽어와 R로 가져온 후 <code>dem_score</code>라는 데이터 프레임에 저장해 봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dem_score <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://moderndive.com/data/dem_score.csv"</span>)</span>
@@ -452,14 +452,14 @@ window.Quarto = {
 # ℹ 86 more rows</code></pre>
 </div>
 </div>
-<p>이 <code>dem_score</code> 데이터 프레임에서 최솟값 <code>-10</code>은 고도로 독점적인 국가를 나타내고, 최댓값 <code>10</code>은 고도로 민주적인 국가를 나타냅니다. 또한 서로 다른 변수 이름들을 백틱(<code>)이 감싸고 있다는 점에 주목하세요. R의 변수 이름은 기본적으로 숫자로 시작하거나 공백을 포함할 수 없지만, 열 이름을 백틱으로 감싸면 이를 우회할 수 있습니다. 이어지는 @sec-case-study-tidy절의 사례 연구에서</code>dem_score` 데이터 프레임을 다시 살펴보겠습니다.</p>
+<p>이 <code>dem_score</code> 데이터 프레임에서 최솟값 <code>-10</code>은 고도로 독점적인 국가를 나타내고, 최댓값 <code>10</code>은 고도로 민주적인 국가를 나타냅니다. 또한 서로 다른 변수 이름들을 백틱(<code>)이 감싸고 있다는 점에 주목하세요. R의 변수 이름은 기본적으로 숫자로 시작하거나 공백을 포함할 수 없지만, 열 이름을 백틱으로 감싸면 이를 우회할 수 있습니다. 이어지는 @sec-case-study-tidy 절의 사례 연구에서</code>dem_score` 데이터 프레임을 다시 살펴보겠습니다.</p>
 <p><code>readr</code> 패키지에 포함된 <code>read_csv()</code> 함수는 R에 기본으로 설치된 <code>read.csv()</code> 함수와는 다릅니다. 이름의 차이는 미묘해 보일 수 있지만(<code>.</code> 대신 <code>_</code> 사용), <code>read_csv()</code> 함수가 웹에서 데이터를 읽어오는 데 훨씬 더 편리하고 일반적으로 데이터를 불러오는 속도도 훨씬 빠릅니다. 게다가 <code>readr</code> 패키지의 <code>read_csv()</code> 함수는 데이터를 기본적으로 <code>tibble</code> 형태로 저장합니다.</p>
 </section>
 <section id="rstudio-인터페이스-사용하기" class="level3">
 <h3 class="anchored" data-anchor-id="rstudio-인터페이스-사용하기">RStudio 인터페이스 사용하기</h3>
 <p>동일한 데이터를 불러오되, 이번에는 여러분의 컴퓨터에 저장된 엑셀 파일에서 읽어와 보겠습니다. 나아가 콘솔에서 <code>read_csv()</code>를 실행하는 대신 RStudio의 그래픽 인터페이스를 사용하여 이 작업을 수행하겠습니다. 먼저, <a href="https://moderndive.com/data/dem_score.xlsx" download="">https://moderndive.com/data/dem_score.xlsx</a>로 이동하여 엑셀 파일 <code>dem_score.xlsx</code>를 다운로드한 후 다음 단계를 따르세요.</p>
 <ol type="1">
-<li>RStudio의 파일(Files 창으로 이동합니다.</li>
+<li>RStudio의 파일(Files) 창으로 이동합니다.</li>
 <li>다운로드한 <code>dem_score.xlsx</code> 엑셀 파일이 저장된 디렉토리(즉, 컴퓨터 폴더)로 이동합니다. 예를 들어, 다운로드 폴더에 저장되어 있을 수 있습니다.</li>
 <li><code>dem_score.xlsx</code>를 클릭합니다.</li>
 <li>“Import Dataset…”을 클릭합니다.</li>
@@ -478,9 +478,9 @@ window.Quarto = {
 <p>또한, 그림 <span class="quarto-unresolved-ref">?fig-read-excel</span> 의 오른쪽 하단에 있는 “Code Preview” 블록을 눈여겨보세요. 매번 번거롭게 마우스로 클릭하는 대신, 이 코드를 복사해서 나중에 데이터를 프로그래밍 방식으로 다시 불러오는 데 사용할 수 있습니다.</p>
 </section>
 </section>
-<section id="tidy-data-ex" class="level2">
-<h2 class="anchored" data-anchor-id="tidy-data-ex">“깔끔한” 데이터</h2>
-<p>이제 화제를 바꿔서 <code>fivethirtyeight</code> 패키지의 흥미로운 예시를 통해 “깔끔한(tidy)” 데이터 포맷의 개념에 대해 알아보겠습니다. <code>fivethirtyeight</code> 패키지 <span class="citation" data-cites="R-fivethirtyeight">(<a href="#ref-R-fivethirtyeight" role="doc-biblioref">Kim, Ismay, and Chunn 2021</a>)</span>는 데이터 저널리즘 웹사이트인 <a href="https://fivethirtyeight.com/">FiveThirtyEight.com</a>에 게시된 많은 기사에서 사용된 데이터셋에 접근할 수 있게 해줍니다. <code>fivethirtyeight</code> 패키지에 포함된 총 129개의 데이터셋 전체 목록을 확인하려면 패키지 웹페이지 <a href="https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html" class="uri">https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html</a>를 방문하세요.</p>
+<section id="sec-tidy-data-ex" class="level2">
+<h2 class="anchored" data-anchor-id="sec-tidy-data-ex">“깔끔한” 데이터</h2>
+<p>이제 화제를 바꿔서 <code>fivethirtyeight</code> 패키지의 흥미로운 예시를 통해 “깔끔한(tidy)” 데이터 포맷의 개념에 대해 알아보겠습니다. <code>fivethirtyeight</code> 패키지 <span class="citation" data-cites="R-fivethirtyeight">(<a href="99-references.html#ref-R-fivethirtyeight" role="doc-biblioref">Kim, Ismay, and Chunn 2021</a>)</span>는 데이터 저널리즘 웹사이트인 <a href="https://fivethirtyeight.com/">FiveThirtyEight.com</a>에 게시된 많은 기사에서 사용된 데이터셋에 접근할 수 있게 해줍니다. <code>fivethirtyeight</code> 패키지에 포함된 총 129개의 데이터셋 전체 목록을 확인하려면 패키지 웹페이지 <a href="https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html" class="uri">https://fivethirtyeight-r.netlify.app/articles/fivethirtyeight.html</a>를 방문하세요.</p>
 <p><code>drinks</code> 데이터 프레임에 집중하여 처음 5개 행을 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
@@ -496,7 +496,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>?drinks</code>를 실행하여 도움말 파일을 읽어보면, <code>drinks</code>가 193개 국가에서 소비되는 맥주, 증류주, 와인의 평균 서빙 횟수에 대한 설문 조사 결과를 담은 데이터 프레임임을 알 수 있습니다. 이 데이터는 원래 FiveThirtyEight.com의 Mona Chalabi 기사인 <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">“Dear Mona Followup: Where Do People Drink The Most Beer, Wine And Spirits?”</a>에 보도되었습니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-wrangling장에서</span> 배운 데이터 전처리 동사 중 몇 가지를 <code>drinks</code> 데이터 프레임에 적용해 봅시다.</p>
+<p><a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장에서 배운 데이터 전처리 동사 중 몇 가지를 <code>drinks</code> 데이터 프레임에 적용해 봅시다.</p>
 <ol type="1">
 <li><code>filter()</code>를 사용하여 미국(USA), 중국(China), 이탈리아(Italy), 사우디아라비아(Saudi Arabia 4개 국가만 골라낸 <em>다음</em></li>
 <li><code>-</code> 기호를 사용하여 <code>total_litres_of_pure_alcohol</code>을 제외한 모든 열을 <code>select()</code>한 <em>다음</em></li>
@@ -519,7 +519,7 @@ window.Quarto = {
 4 USA            249    158    84</code></pre>
 </div>
 </div>
-<p>이제 다음과 같은 질문을 던져 봅시다. “<code>drinks_smaller</code> 데이터 프레임을 사용하여 그림 <span class="quarto-unresolved-ref">?fig-drinks-smaller</span> 와 같은 나란히 배치된 막대 그래프를 어떻게 만들 수 있을까요?” <span class="quarto-unresolved-ref">?sec-two-categ-barplot</span> 절에서 두 개의 범주형 변수를 표시하는 막대 그래프를 살펴봤던 것을 떠올려 보세요.</p>
+<p>이제 다음과 같은 질문을 던져 봅시다. “<code>drinks_smaller</code> 데이터 프레임을 사용하여 그림 <span class="quarto-unresolved-ref">?fig-drinks-smaller</span> 와 같은 나란히 배치된 막대 그래프를 어떻게 만들 수 있을까요?” <a href="02-visualization.html#sec-two-categ-barplot" class="quarto-xref"><span>두 범주형 변수</span></a> 절에서 두 개의 범주형 변수를 표시하는 막대 그래프를 살펴봤던 것을 떠올려 보세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -530,7 +530,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p><span class="quarto-unresolved-ref">?sec-grammarofgraphics절에서</span> 소개한 그래픽 문법을 분석해 봅시다.</p>
+<p><a href="02-visualization.html#sec-grammarofgraphics" class="quarto-xref"><span>그래픽 문법</span></a> 절에서 소개한 그래픽 문법을 분석해 봅시다.</p>
 <ol type="1">
 <li>4개 수준(China, Italy, Saudi Arabia, USA)을 가진 범주형 변수 <code>country</code>는 막대의 <code>x</code> 위치에 매핑되어야 합니다.</li>
 <li>수치형 변수 <code>servings</code>는 막대의 <code>y</code> 위치(막대의 높이)에 매핑되어야 합니다.</li>
@@ -559,8 +559,8 @@ window.Quarto = {
 </div>
 <p><code>drinks_smaller</code>와 <code>drinks_smaller_tidy</code>는 모두 직사각형 모양이고 동일한 12개의 수치 데이터(3종의 술 <span class="math inline">\(\times\)</span> 4개 국가)를 포함하고 있지만, 포맷이 서로 다릅니다. <code>drinks_smaller</code>는 <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">“와이드(wide)”</a> 포맷인 반면, <code>drinks_smaller_tidy</code>는 <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow">“롱(long)/내로우(narrow)”</a> 포맷입니다.</p>
 <p>R에서 데이터 과학을 수행할 때, 롱/내로우 포맷 은 “깔끔한(tidy)” 포맷으로도 알려져 있습니다. 데이터 시각화와 데이터 전처리를 위해 <code>ggplot2</code> 및 <code>dplyr</code> 패키지를 사용하려면 입력 데이터 프레임이 반드시 “깔끔한” 포맷이어야 합니다. 따라서 “깔끔하지 않은” 모든 데이터는 먼저 “깔끔한” 포맷으로 변환해야 합니다. <code>drinks_smaller</code>와 같은 “깔끔하지 않은” 데이터 프레임을 <code>drinks_smaller_tidy</code>와 같은 “깔끔한” 데이터 프레임으로 변환하기 전에, 먼저 “깔끔한” 데이터가 무엇인지 정의해 보겠습니다.</p>
-<section id="tidy-definition" class="level3">
-<h3 class="anchored" data-anchor-id="tidy-definition">“깔끔한” 데이터의 정의</h3>
+<section id="sec-tidy-definition" class="level3">
+<h3 class="anchored" data-anchor-id="sec-tidy-definition">“깔끔한” 데이터의 정의</h3>
 <p>“깔끔한(tidy)”이라는 단어는 일상생활에서도 자주 사용됩니다.</p>
 <ul>
 <li>“방 좀 깔끔하게 치워라!”</li>
@@ -568,7 +568,7 @@ window.Quarto = {
 <li>곤도 마리에의 베스트셀러 저서 <a href="https://www.powells.com/book/-9781607747307"><em>정리의 힘: 깔끔한 정리를 위한 일본의 분류 예술</em></a>과 넷플릭스 TV 시리즈 <a href="https://www.netflix.com/title/80209379"><em>곤도 마리에와 함께하는 설레는 정리</em></a>.</li>
 <li>“나는 상상할 수 있는 범주 내에서 결코 깔끔한 사람이 아니다. 커피 탁자와 침대 옆에 쌓여 있는 읽지 않은 책들더미는 마치 ’제발 저를 읽어주세요!’라고 애원하는 듯하다.” - 린다 그랜트</li>
 </ul>
-<p>데이터가 “깔끔하다(tidy)”는 것은 무엇을 의미할까요? 일상적인 의미에서 “깔끔함”이 “정돈된” 상태를 뜻한다면, R을 사용한 데이터 과학에서 “깔끔함(tidy)”이라는 단어는 데이터가 표준화된 포맷을 따르고 있음을 의미합니다. 우리는 Hadley Wickham 이 정의한 <em>“깔끔한” 데이터</em> <span class="citation" data-cites="tidy">(<a href="#ref-tidy" role="doc-biblioref">Wickham 2014</a>)</span>의 정의를 따를 것이며, 이는 그림 <span class="quarto-unresolved-ref">?fig-tidyfig</span> 에 잘 나타나 있습니다.</p>
+<p>데이터가 “깔끔하다(tidy)”는 것은 무엇을 의미할까요? 일상적인 의미에서 “깔끔함”이 “정돈된” 상태를 뜻한다면, R을 사용한 데이터 과학에서 “깔끔함(tidy)”이라는 단어는 데이터가 표준화된 포맷을 따르고 있음을 의미합니다. 우리는 Hadley Wickham 이 정의한 <em>“깔끔한” 데이터</em> <span class="citation" data-cites="tidy">(<a href="99-references.html#ref-tidy" role="doc-biblioref">Wickham 2014</a>)</span>의 정의를 따를 것이며, 이는 그림 <span class="quarto-unresolved-ref">?fig-tidyfig</span> 에 잘 나타나 있습니다.</p>
 <blockquote class="blockquote">
 <p><em>데이터셋</em>은 값들의 집합이며, 대개 숫자(정량적 데이터의 경우)나 문자열 즉 텍스트 데이터(정성적/범주형 데이터의 경우)로 이루어집니다. 값들은 두 가지 방식으로 조직됩니다. 모든 값은 변수와 관측치에 속합니다. 변수는 여러 단위에 걸쳐 동일한 기저 속성(키, 온도, 기간 등)을 측정하는 모든 값을 포함합니다. 관측치는 동일한 단위(사람, 날짜, 도시 등)에 대해 여러 속성에 걸쳐 측정된 모든 값을 포함합니다.</p>
 <p>“깔끔한” 데이터는 데이터셋의 의미를 그 구조에 매핑하는 표준화된 방법입니다. 행, 열, 표가 관측치, 변수, 유형과 어떻게 매치되느냐에 따라 데이터셋은 지저분할 수도 있고 깔끔할 수도 있습니다. <em>깔끔한 데이터</em>에서는 다음과 같은 규칙을 따릅니다.</p>
@@ -711,7 +711,7 @@ window.Quarto = {
 </section>
 <section id="깔끔한-데이터로-변환하기" class="level3">
 <h3 class="anchored" data-anchor-id="깔끔한-데이터로-변환하기">“깔끔한” 데이터로 변환하기</h3>
-<p>이 책에서 지금까지 여러분은 이미 “깔끔한” 포맷인 데이터 프레임만을 확인했습니다. 또한 이 책의 나머지 부분에서도 대부분 이미 “깔끔한” 포맷으로 정리된 데이터 프레임들을 보게 될 것입니다. 하지만 세상의 모든 데이터셋이 항상 그런 것은 아닙니다. 만약 여러분의 원본 데이터 프레임이 와이드(깔끔하지 않은 포맷이고 이를 <code>ggplot2</code>나 <code>dplyr</code> 패키지에서 사용하고 싶다면, 먼저 “깔끔한” 포맷으로 변환해야 합니다. 이를 위해 <code>tidyr</code> 패키지 <span class="citation" data-cites="R-tidyr">(<a href="#ref-R-tidyr" role="doc-biblioref">Wickham, Vaughan, and Girlich 2025</a>)</span>의 <code>pivot_longer()</code> 함수를 사용할 것을 권장합니다.</p>
+<p>이 책에서 지금까지 여러분은 이미 “깔끔한” 포맷인 데이터 프레임만을 확인했습니다. 또한 이 책의 나머지 부분에서도 대부분 이미 “깔끔한” 포맷으로 정리된 데이터 프레임들을 보게 될 것입니다. 하지만 세상의 모든 데이터셋이 항상 그런 것은 아닙니다. 만약 여러분의 원본 데이터 프레임이 와이드(깔끔하지 않은 포맷이고 이를 <code>ggplot2</code>나 <code>dplyr</code> 패키지에서 사용하고 싶다면, 먼저 “깔끔한” 포맷으로 변환해야 합니다. 이를 위해 <code>tidyr</code> 패키지 <span class="citation" data-cites="R-tidyr">(<a href="99-references.html#ref-R-tidyr" role="doc-biblioref">Wickham, Vaughan, and Girlich 2025</a>)</span>의 <code>pivot_longer()</code> 함수를 사용할 것을 권장합니다.</p>
 <p>앞서 보았던 <code>drinks_smaller</code> 데이터 프레임을 다시 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>drinks_smaller</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -770,7 +770,7 @@ window.Quarto = {
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"servings"</span>, </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols =</span> beer<span class="sc">:</span>wine)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>이제 “깔끔한” 포맷의 <code>drinks_smaller_tidy</code> 데이터 프레임을 사용하여 <code>geom_col()</code>로 그림 <span class="quarto-unresolved-ref">?fig-drinks-smaller</span> 의 막대 그래프를 생성할 수 있습니다. 이는 그림 <span class="quarto-unresolved-ref">?fig-drinks-smaller-tidy-barplot</span> 에서 확인할 수 있습니다. 막대 그래프를 다루었던 <span class="quarto-unresolved-ref">?sec-geombar</span> 절에서 보았듯이, “이미 계산된(pre-counted)” <code>servings</code> 변수를 막대의 <code>y</code> 미적 속성에 매핑하기 위해 <code>geom_bar()</code>가 아닌 <code>geom_col()</code>을 사용합니다.</p>
+<p>이제 “깔끔한” 포맷의 <code>drinks_smaller_tidy</code> 데이터 프레임을 사용하여 <code>geom_col()</code>로 그림 <span class="quarto-unresolved-ref">?fig-drinks-smaller</span> 의 막대 그래프를 생성할 수 있습니다. 이는 그림 <span class="quarto-unresolved-ref">?fig-drinks-smaller-tidy-barplot</span> 에서 확인할 수 있습니다. 막대 그래프를 다루었던 <a href="02-visualization.html#sec-geombar" class="quarto-xref"><span>5NG#5: 막대 그래프</span></a> 절에서 보았듯이, “이미 계산된(pre-counted)” <code>servings</code> 변수를 막대의 <code>y</code> 미적 속성에 매핑하기 위해 <code>geom_bar()</code>가 아닌 <code>geom_col()</code>을 사용합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(drinks_smaller_tidy, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> servings, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -786,7 +786,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>“와이드” 포맷의 데이터를 “깔끔한” 포맷으로 변환하는 것은 처음 R을 접하는 사용자들에게 혼란을 줄 수 있습니다. <code>pivot_longer()</code> 함수에 익숙해지는 유일한 방법은 다양한 데이터셋을 사용하여 반복해서 연습하는 것입니다. 예를 들어 <code>?pivot_longer</code>를 실행하고 도움말 파일 하단의 예제들을 살펴보세요. <span class="quarto-unresolved-ref">?sec-case-study-tidy절의</span> 사례 연구에서 <code>pivot_longer()</code>를 사용하여 와이드 포맷을 깔끔한 포맷으로 변환하는 또 다른 예시를 보여드리겠습니다.</p>
+<p>“와이드” 포맷의 데이터를 “깔끔한” 포맷으로 변환하는 것은 처음 R을 접하는 사용자들에게 혼란을 줄 수 있습니다. <code>pivot_longer()</code> 함수에 익숙해지는 유일한 방법은 다양한 데이터셋을 사용하여 반복해서 연습하는 것입니다. 예를 들어 <code>?pivot_longer</code>를 실행하고 도움말 파일 하단의 예제들을 살펴보세요. <a href="#sec-case-study-tidy" class="quarto-xref"><span>사례 연구: 과테말라의 민주주의</span></a> 절의 사례 연구에서 <code>pivot_longer()</code>를 사용하여 와이드 포맷을 깔끔한 포맷으로 변환하는 또 다른 예시를 보여드리겠습니다.</p>
 <p>반대로 “깔끔한” 데이터 프레임을 “와이드” 포맷으로 변환하고 싶다면 <code>pivot_wider()</code> 함수를 대신 사용해야 합니다. <code>?pivot_wider</code>를 실행하여 도움말 하단의 예제들을 확인해 보세요.</p>
 <p>또한 <a href="https://tidyr.tidyverse.org/dev/articles/pivot.html#pew">tidyverse.org</a> 웹페이지에서 <code>pivot_longer()</code>와 <code>pivot_wider()</code>의 더 많은 예시를 볼 수 있습니다. 해당 페이지에는 데이터 정리에 사용할 수 있는 다양한 함수들에 대한 훌륭한 예시와 세계보건기구(WHO 데이터를 사용한 사례 연구가 수록되어 있습니다. 나아가 매주 R4DS 온라인 학습 커뮤니티는 <a href="https://github.com/rfordatascience/tidytuesday">#TidyTuesday 이벤트</a>를 위해 데이터셋을 게시하는데, 이 역시 데이터를 탐색하고 변형해 볼 수 있는 좋은 기회가 될 것입니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
@@ -831,8 +831,8 @@ window.Quarto = {
 </section>
 <section id="nycflights13-패키지" class="level3">
 <h3 class="anchored" data-anchor-id="nycflights13-패키지"><code>nycflights13</code> 패키지</h3>
-<p><span class="quarto-unresolved-ref">?sec-nycflights13절에서</span> 소개했던 2013년 뉴욕에서 출발하는 모든 국내선 항공편 데이터인 <code>nycflights13</code> 패키지를 떠올려 보세요. <code>View(flights)</code>를 실행하여 <code>flights</code> 데이터 프레임을 다시 살펴보겠습니다. <code>flights</code>는 직사각형 모양이며, 336,776개의 행은 각각 하나의 항공편에 대응하고 19개의 열은 각 항공편의 다양한 특성/측정값에 대응합니다. 이는 <span class="quarto-unresolved-ref">?sec-tidy-definition절에서</span> 배운 “깔끔한” 데이터의 정의 중 첫 두 가지 기준, 즉 “각 변수는 하나의 열을 형성한다”와 “각 관측치는 하나의 행을 형성한다”를 충족합니다. 그렇다면 세 번째 속성인 “각 관측 단위 유형은 하나의 표를 형성한다”는 어떠할까요?</p>
-<p><span class="quarto-unresolved-ref">?sec-exploredataframes절에서</span> <code>flights</code> 데이터 프레임의 관측 단위가 개별 항공편임을 확인했습니다. 즉, <code>flights</code> 데이터 프레임의 행들은 개별 항공편의 특성/측정값을 나타냅니다. 또한 <code>nycflights13</code> 패키지에는 행이 서로 다른 관측 단위를 나타내는 다른 데이터 프레임들도 포함되어 있습니다 <span class="citation" data-cites="R-nycflights13">(<a href="#ref-R-nycflights13" role="doc-biblioref">Wickham 2021</a>)</span>.</p>
+<p><a href="01-getting-started.html#sec-nycflights13" class="quarto-xref"><span>첫 데이터셋 탐색하기</span></a> 절에서 소개했던 2013년 뉴욕에서 출발하는 모든 국내선 항공편 데이터인 <code>nycflights13</code> 패키지를 떠올려 보세요. <code>View(flights)</code>를 실행하여 <code>flights</code> 데이터 프레임을 다시 살펴보겠습니다. <code>flights</code>는 직사각형 모양이며, 336,776개의 행은 각각 하나의 항공편에 대응하고 19개의 열은 각 항공편의 다양한 특성/측정값에 대응합니다. 이는 <a href="#sec-tidy-definition" class="quarto-xref"><span>“깔끔한” 데이터의 정의</span></a> 절에서 배운 “깔끔한” 데이터의 정의 중 첫 두 가지 기준, 즉 “각 변수는 하나의 열을 형성한다”와 “각 관측치는 하나의 행을 형성한다”를 충족합니다. 그렇다면 세 번째 속성인 “각 관측 단위 유형은 하나의 표를 형성한다”는 어떠할까요?</p>
+<p><a href="01-getting-started.html#sec-exploredataframes" class="quarto-xref"><span>데이터 프레임 탐색하기</span></a> 절에서 <code>flights</code> 데이터 프레임의 관측 단위가 개별 항공편임을 확인했습니다. 즉, <code>flights</code> 데이터 프레임의 행들은 개별 항공편의 특성/측정값을 나타냅니다. 또한 <code>nycflights13</code> 패키지에는 행이 서로 다른 관측 단위를 나타내는 다른 데이터 프레임들도 포함되어 있습니다 <span class="citation" data-cites="R-nycflights13">(<a href="99-references.html#ref-R-nycflights13" role="doc-biblioref">Wickham 2021</a>)</span>.</p>
 <ul>
 <li><code>airlines</code>: 두 글자로 된 IATA 항공사 코드와 항공사 이름 간의 변환표(총 16개). 관측 단위는 항공사입니다.</li>
 <li><code>planes</code>: 사용된 3,322대 항공기 각각에 대한 정보. 즉, 관측 단위는 항공기입니다.</li>
@@ -842,11 +842,11 @@ window.Quarto = {
 <p>정보를 이 다섯 개의 데이터 프레임으로 조직한 방식은 “깔끔한” 데이터의 세 번째 속성을 따릅니다. 즉, 동일한 관측 단위에 해당하는 관측치들은 동일한 표(데이터 프레임)에 저장되어야 한다는 것입니다. 이 속성을 “끼리끼리 모인다”는 의미의 속담인 “유유상종(birds of a feather flock together)”으로 생각할 수 있습니다.</p>
 </section>
 </section>
-<section id="case-study-tidy" class="level2">
-<h2 class="anchored" data-anchor-id="case-study-tidy">사례 연구: 과테말라의 민주주의</h2>
+<section id="sec-case-study-tidy" class="level2">
+<h2 class="anchored" data-anchor-id="sec-case-study-tidy">사례 연구: 과테말라의 민주주의</h2>
 <p>이 명칭에서는 “깔끔하지 않은” 포맷(와이드 포맷)의 데이터 프레임을 “깔끔한” 포맷(롱/내로우 포맷)의 데이터 프레임으로 변환하는 또 다른 예시를 보여드리겠습니다. 이번에도 <code>tidyr</code> 패키지의 <code>pivot_longer()</code> 함수를 사용하겠습니다.</p>
-<p>나아가 <code>ggplot2</code>와 <code>dplyr</code> 패키지의 함수들을 활용하여, 1952년부터 1992년까지 40년 동안 과테말라의 민주주의 점수가 어떻게 변했는지 보여주는 <em>시계열 그래프(time-series plot)</em>를 만들어 보겠습니다. <span class="quarto-unresolved-ref">?sec-linegraphs절에서</span> <code>geom_line()</code>을 사용하여 시계열 그래프(선 그래프)를 만드는 방법을 배웠던 것을 떠올려 보세요.</p>
-<p><span class="quarto-unresolved-ref">?sec-csv절에서</span> 불러온 <code>dem_score</code> 데이터 프레임을 사용하되, 과테말라에 해당하는 데이터에만 집중해 보겠습니다.</p>
+<p>나아가 <code>ggplot2</code>와 <code>dplyr</code> 패키지의 함수들을 활용하여, 1952년부터 1992년까지 40년 동안 과테말라의 민주주의 점수가 어떻게 변했는지 보여주는 <em>시계열 그래프(time-series plot)</em>를 만들어 보겠습니다. <a href="02-visualization.html#sec-linegraphs" class="quarto-xref"><span>5NG#2: 선 그래프</span></a> 절에서 <code>geom_line()</code>을 사용하여 시계열 그래프(선 그래프)를 만드는 방법을 배웠던 것을 떠올려 보세요.</p>
+<p><a href="#sec-csv" class="quarto-xref"><span>데이터 불러오기</span></a> 절에서 불러온 <code>dem_score</code> 데이터 프레임을 사용하되, 과테말라에 해당하는 데이터에만 집중해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>guat_dem <span class="ot">&lt;-</span> dem_score <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Guatemala"</span>)</span>
@@ -858,13 +858,13 @@ window.Quarto = {
 1 Guatemala      2     -6     -5      3      1     -3     -7      3      3</code></pre>
 </div>
 </div>
-<p><span class="quarto-unresolved-ref">?sec-grammarofgraphics절에서</span> 보았던 그래픽 문법을 적용해 봅시다.</p>
+<p><a href="02-visualization.html#sec-grammarofgraphics" class="quarto-xref"><span>그래픽 문법</span></a> 절에서 보았던 그래픽 문법을 적용해 봅시다.</p>
 <p>먼저 <code>data = guat_dem</code>을 설정하고 <code>geom_line()</code> 레이어를 사용해야 한다는 것은 알지만, 변수의 미적 속성 매핑은 어떻게 해야 할까요? 연도에 따라 민주주의 점수가 어떻게 변했는지 보고 싶으므로, 다음과 같이 매핑해야 합니다.</p>
 <ul>
 <li><code>year</code>를 x 위치 미적 속성에 매핑</li>
 <li><code>democracy_score</code>를 y 위치 미적 속성에 매핑</li>
 </ul>
-<p>그런데 여기서 <span class="quarto-unresolved-ref">?sec-tidy-data-ex절의</span> <code>drinks_smaller</code> 예시와 마찬가지로 곤란한 상황에 직면하게 됩니다. <code>country</code>라는 변수가 있지만 유일한 값은 <code>"Guatemala"</code>입니다. 다른 변수들은 서로 다른 연도 값으로 표시되어 있습니다. 안타깝게도 <code>guat_dem</code> 데이터 프레임은 “깔끔한” 상태가 아니며, 따라서 그래픽 문법을 적용하기에 적절한 포맷이 아닙니다. 이대로는 <code>ggplot2</code> 패키지를 사용할 수 없습니다.</p>
+<p>그런데 여기서 <a href="#sec-tidy-data-ex" class="quarto-xref"><span>“깔끔한” 데이터</span></a> 절의 <code>drinks_smaller</code> 예시와 마찬가지로 곤란한 상황에 직면하게 됩니다. <code>country</code>라는 변수가 있지만 유일한 값은 <code>"Guatemala"</code>입니다. 다른 변수들은 서로 다른 연도 값으로 표시되어 있습니다. 안타깝게도 <code>guat_dem</code> 데이터 프레임은 “깔끔한” 상태가 아니며, 따라서 그래픽 문법을 적용하기에 적절한 포맷이 아닙니다. 이대로는 <code>ggplot2</code> 패키지를 사용할 수 없습니다.</p>
 <p><code>guat_dem</code>에서 연도에 해당하는 열들의 값을 가져와 <code>year</code>라는 새로운 “이름(names)” 변수로 변환해야 합니다. 또한, 데이터 프레임 내부의 민주주의 점수 값들을 가져와 <code>democracy_score</code>라는 새로운 “값(values)” 변수로 만들어야 합니다. 결과적으로 데이터 프레임은 <code>country</code>, <code>year</code>, <code>democracy_score</code>라는 세 개의 열을 갖게 될 것입니다. <code>tidyr</code> 패키지의 <code>pivot_longer()</code> 함수가 이 작업을 수행해 줍니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>guat_dem_tidy <span class="ot">&lt;-</span> guat_dem <span class="sc">%&gt;%</span> </span>
@@ -928,8 +928,8 @@ v2 TODO: remove this message
 </div>
 </div>
 </section>
-<section id="tidyverse-package" class="level2">
-<h2 class="anchored" data-anchor-id="tidyverse-package"><code>tidyverse</code> 패키지</h2>
+<section id="sec-tidyverse-package" class="level2">
+<h2 class="anchored" data-anchor-id="sec-tidyverse-package"><code>tidyverse</code> 패키지</h2>
 <p>이번 장의 시작 부분에서 데이터 과학을 위해 가장 빈번하게 사용되는 R 패키지 4개를 로드했다는 사실에 주목하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -938,7 +938,7 @@ v2 TODO: remove this message
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>ggplot2</code>는 데이터 시각화, <code>dplyr</code>는 데이터 전처리, <code>readr</code>는 스프레드시트 데이터를 R로 불러오기, 그리고 <code>tidyr</code>는 데이터를 “깔끔한” 포맷으로 변환하기 위한 것입니다. 이 패키지들을 하나씩 로드하는 것보다 훨씬 빠른 방법이 있는데, 바로 <code>tidyverse</code> 패키지를 설치하고 로드하는 것입니다. <code>tidyverse</code> 패키지는 “우산(umbrella)” 패키지 역할을 하여, 이를 설치하거나 로드하면 여러 패키지를 한꺼번에 설치/로드해 줍니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-packages절에서</span> 보았던 것처럼 일반적인 패키지 설치 방법대로 <code>tidyverse</code> 패키지를 설치한 후, 다음과 같이 실행하면 됩니다.</p>
+<p><a href="01-getting-started.html#sec-packages" class="quarto-xref"><span>R 패키지란 무엇인가?</span></a> 절에서 보았던 것처럼 일반적인 패키지 설치 방법대로 <code>tidyverse</code> 패키지를 설치한 후, 다음과 같이 실행하면 됩니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -987,8 +987,8 @@ v2 TODO: remove this message
 </section>
 <section id="앞으로-배울-내용" class="level3">
 <h3 class="anchored" data-anchor-id="앞으로-배울-내용">앞으로 배울 내용</h3>
-<p>축하합니다! 이 책의 “<code>tidyverse</code>를 사용한 데이터 과학” 부분을 모두 마쳤습니다. 이제 이 책의 “moderndive를 사용한 데이터 모델링” 부분인 <span class="quarto-unresolved-ref">?sec-regression장과</span> <span class="quarto-unresolved-ref">?sec-multiple-regression장으로</span> 넘어가 보겠습니다. 여기서는 여러분이 익힌 데이터 시각화와 데이터 전처리 기술을 활용하여 데이터 프레임의 다양한 변수 간 관계를 모델링하는 방법을 배울 것입니다.</p>
-<p>단, <span class="quarto-unresolved-ref">?sec-inference-for-regression</span> 장의 “회귀 분석을 위한 추론”은 <span class="quarto-unresolved-ref">?sec-sampling</span> 장, <span class="quarto-unresolved-ref">?sec-confidence-intervals</span> 장, <span class="quarto-unresolved-ref">?sec-hypothesis-testing</span> 장에서 통계적 추론을 다룬 후에 살펴볼 예정입니다. 그림 <span class="quarto-unresolved-ref">?fig-part2</span> 에 표시된 것처럼, 이제 데이터 모델링의 세계로 힘차게 나아가 봅시다!</p>
+<p>축하합니다! 이 책의 “<code>tidyverse</code>를 사용한 데이터 과학” 부분을 모두 마쳤습니다. 이제 이 책의 “moderndive를 사용한 데이터 모델링” 부분인 <a href="05-regression.html" class="quarto-xref"><span>기초 회귀 분석</span></a> 장과 <a href="06-multiple-regression.html" class="quarto-xref"><span>다중 회귀 분석</span></a> 장으로 넘어가 보겠습니다. 여기서는 여러분이 익힌 데이터 시각화와 데이터 전처리 기술을 활용하여 데이터 프레임의 다양한 변수 간 관계를 모델링하는 방법을 배울 것입니다.</p>
+<p>단, <a href="10-inference-for-regression.html" class="quarto-xref"><span>회귀 분석을 위한 추론</span></a> 장의 “회귀 분석을 위한 추론”은 <a href="07-sampling.html" class="quarto-xref"><span>표본 추출</span></a> 장, <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 장, <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 장에서 통계적 추론을 다룬 후에 살펴볼 예정입니다. 그림 <span class="quarto-unresolved-ref">?fig-part2</span> 에 표시된 것처럼, 이제 데이터 모델링의 세계로 힘차게 나아가 봅시다!</p>
 <p>(ref:flowchart-partii) <em>ModernDive</em> 플로우차트 - 2부로 이동!</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1002,7 +1002,7 @@ v2 TODO: remove this message
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-R-fivethirtyeight" class="csl-entry" role="listitem">
 Kim, Albert Y., Chester Ismay, and Jennifer Chunn. 2021. <em>Fivethirtyeight: Data and Code Behind the Stories and Interactives at FiveThirtyEight</em>. <a href="https://github.com/rudeboybert/fivethirtyeight">https://github.com/rudeboybert/fivethirtyeight</a>.
 </div>

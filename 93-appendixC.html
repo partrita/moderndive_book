@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>팁과 요령 – ModernDive: Statistical Inference via Data Science</title>
+<title>팁과 요령 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -317,13 +317,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#필요한-패키지" id="toc-필요한-패키지" class="nav-link active" data-scroll-target="#필요한-패키지">필요한 패키지</a></li>
   <li><a href="#데이터-전처리-data-wrangling" id="toc-데이터-전처리-data-wrangling" class="nav-link" data-scroll-target="#데이터-전처리-data-wrangling">데이터 전처리 (Data wrangling)</a>
   <ul class="collapse">
-  <li><a href="#appendix-missing-values" id="toc-appendix-missing-values" class="nav-link" data-scroll-target="#appendix-missing-values">결측치 처리하기</a></li>
-  <li><a href="#appendix-reordering-bars" id="toc-appendix-reordering-bars" class="nav-link" data-scroll-target="#appendix-reordering-bars">막대 그래프의 막대 순서 재정렬하기</a></li>
-  <li><a href="#appendix-money-on-axis" id="toc-appendix-money-on-axis" class="nav-link" data-scroll-target="#appendix-money-on-axis">축에 화폐 단위 표시하기</a></li>
-  <li><a href="#appendix-changing-values" id="toc-appendix-changing-values" class="nav-link" data-scroll-target="#appendix-changing-values">셀 내부의 값 변경하기</a></li>
-  <li><a href="#appendix-convert-numerical-categorical" id="toc-appendix-convert-numerical-categorical" class="nav-link" data-scroll-target="#appendix-convert-numerical-categorical">수치형 변수를 범주형 변수로 변환하기</a></li>
-  <li><a href="#appendix-prop" id="toc-appendix-prop" class="nav-link" data-scroll-target="#appendix-prop">비율 계산하기</a></li>
-  <li><a href="#appendix-commas" id="toc-appendix-commas" class="nav-link" data-scroll-target="#appendix-commas">%, 콤마(,), $ 기호 처리하기</a></li>
+  <li><a href="#sec-appendix-missing-values" id="toc-sec-appendix-missing-values" class="nav-link" data-scroll-target="#sec-appendix-missing-values">결측치 처리하기</a></li>
+  <li><a href="#sec-appendix-reordering-bars" id="toc-sec-appendix-reordering-bars" class="nav-link" data-scroll-target="#sec-appendix-reordering-bars">막대 그래프의 막대 순서 재정렬하기</a></li>
+  <li><a href="#sec-appendix-money-on-axis" id="toc-sec-appendix-money-on-axis" class="nav-link" data-scroll-target="#sec-appendix-money-on-axis">축에 화폐 단위 표시하기</a></li>
+  <li><a href="#sec-appendix-changing-values" id="toc-sec-appendix-changing-values" class="nav-link" data-scroll-target="#sec-appendix-changing-values">셀 내부의 값 변경하기</a></li>
+  <li><a href="#sec-appendix-convert-numerical-categorical" id="toc-sec-appendix-convert-numerical-categorical" class="nav-link" data-scroll-target="#sec-appendix-convert-numerical-categorical">수치형 변수를 범주형 변수로 변환하기</a></li>
+  <li><a href="#sec-appendix-prop" id="toc-sec-appendix-prop" class="nav-link" data-scroll-target="#sec-appendix-prop">비율 계산하기</a></li>
+  <li><a href="#sec-appendix-commas" id="toc-sec-appendix-commas" class="nav-link" data-scroll-target="#sec-appendix-commas">%, 콤마(,), $ 기호 처리하기</a></li>
   </ul></li>
   <li><a href="#대화형-그래픽-interactive-graphics" id="toc-대화형-그래픽-interactive-graphics" class="nav-link" data-scroll-target="#대화형-그래픽-interactive-graphics">대화형 그래픽 (Interactive graphics)</a>
   <ul class="collapse">
@@ -356,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="필요한-패키지" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="필요한-패키지">필요한 패키지</h3>
-<p>이 장에서 필요한 모든 패키지를 불러옵니다(이미 설치되어 있다고 가정합니다). 5.1.2절(<span class="quarto-unresolved-ref">?sec-tidyverse-package</span>)에서 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 불러오면 다음과 같이 자주 사용되는 데이터 과학용 패키지들을 한 번에 불러올 수 있습니다.</p>
+<p>이 장에서 필요한 모든 패키지를 불러옵니다(이미 설치되어 있다고 가정합니다). 5.1.2절(<a href="04-tidy.html#sec-tidyverse-package" class="quarto-xref"><span>tidyverse 패키지</span></a>)에서 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 불러오면 다음과 같이 자주 사용되는 데이터 과학용 패키지들을 한 번에 불러올 수 있습니다.</p>
 <ul>
 <li>데이터 시각화를 위한 <code>ggplot2</code></li>
 <li>데이터 전처리를 위한 <code>dplyr</code></li>
@@ -364,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>스프레드시트 데이터를 R로 가져오기 위한 <code>readr</code></li>
 <li>그리고 더 고급 패키지인 <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code> 패키지들.</li>
 </ul>
-<p>필요하다면 1.3절(<span class="quarto-unresolved-ref">?sec-packages</span>)을 읽고 R 패키지를 설치하고 불러오는 방법에 대한 정보를 확인하세요.</p>
+<p>필요하다면 1.3절(<a href="01-getting-started.html#sec-packages" class="quarto-xref"><span>R 패키지란 무엇인가?</span></a>)을 읽고 R 패키지를 설치하고 불러오는 방법에 대한 정보를 확인하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
@@ -377,13 +377,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="데이터-전처리-data-wrangling">데이터 전처리 (Data wrangling)</h2>
 <p>이 절에서는 학생 프로젝트에서 자주 접하게 되는 가장 일반적인 데이터 전처리 관련 질문들을 다룹니다(이를 정리해준 <a href="https://www.scsparkscience.org/fellow/jennifer-smetzer/">Dr.&nbsp;Jenny Smetzer</a>에게 감사를 표합니다!):</p>
 <ul>
-<li><span class="quarto-unresolved-ref">?sec-appendix-missing-values</span>: 결측치 처리하기</li>
-<li><span class="quarto-unresolved-ref">?sec-appendix-reordering-bars</span>: 막대 그래프의 막대 순서 재정렬하기</li>
-<li><span class="quarto-unresolved-ref">?sec-appendix-money-on-axis</span>: 축에 화폐 단위 표시하기</li>
-<li><span class="quarto-unresolved-ref">?sec-appendix-changing-values</span>: 셀 내부의 값 변경하기</li>
-<li><span class="quarto-unresolved-ref">?sec-appendix-convert-numerical-categorical</span>: 수치형 변수를 범주형 변수로 변환하기</li>
-<li><span class="quarto-unresolved-ref">?sec-appendix-prop</span>: 비율 계산하기</li>
-<li><span class="quarto-unresolved-ref">?sec-appendix-commas</span>: %, 콤마(,), $ 기호 처리하기</li>
+<li><a href="#sec-appendix-missing-values" class="quarto-xref"><span>결측치 처리하기</span></a> : 결측치 처리하기</li>
+<li><a href="#sec-appendix-reordering-bars" class="quarto-xref"><span>막대 그래프의 막대 순서 재정렬하기</span></a> : 막대 그래프의 막대 순서 재정렬하기</li>
+<li><a href="#sec-appendix-money-on-axis" class="quarto-xref"><span>축에 화폐 단위 표시하기</span></a> : 축에 화폐 단위 표시하기</li>
+<li><a href="#sec-appendix-changing-values" class="quarto-xref"><span>셀 내부의 값 변경하기</span></a> : 셀 내부의 값 변경하기</li>
+<li><a href="#sec-appendix-convert-numerical-categorical" class="quarto-xref"><span>수치형 변수를 범주형 변수로 변환하기</span></a> : 수치형 변수를 범주형 변수로 변환하기</li>
+<li><a href="#sec-appendix-prop" class="quarto-xref"><span>비율 계산하기</span></a> : 비율 계산하기</li>
+<li><a href="#sec-appendix-commas" class="quarto-xref"><span>%, 콤마(,), $ 기호 처리하기</span></a> : %, 콤마(,), $ 기호 처리하기</li>
 </ul>
 <p><img src="images/data_ninja1.png" class="img-fluid" style="width:30.0%"></p>
 <p>예제 영화 데이터셋을 불러와서 행과 열을 조금 줄인 다음, <code>slice()</code>를 사용하여 처음 10개 행을 확인해 보겠습니다.</p>
@@ -412,9 +412,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 Bad Boys II       38.1 R      action       138.  </code></pre>
 </div>
 </div>
-<section id="appendix-missing-values" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-missing-values">결측치 처리하기</h3>
-<p>영화 “2 Fast 2 Furious”의 <code>millions</code> 열(수익 값이 <code>NA</code>(결측치)인 것을 볼 수 있습니다. 따라서 수익의 중앙값을 계산할 때 다음과 같은 결과가 발생합니다.</p>
+<section id="sec-appendix-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-missing-values">결측치 처리하기</h3>
+<p>영화 “2 Fast 2 Furious”의 <code>millions</code> 열수익 값이 <code>NA</code>(결측치)인 것을 볼 수 있습니다. 따라서 수익의 중앙값을 계산할 때 다음과 같은 결과가 발생합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>movies_ex <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_profit =</span> <span class="fu">median</span>(millions))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -463,8 +463,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>이제 “2 Fast 2 Furious”가 사라진 것을 확인할 수 있습니다.</p>
 </section>
-<section id="appendix-reordering-bars" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-reordering-bars">막대 그래프의 막대 순서 재정렬하기</h3>
+<section id="sec-appendix-reordering-bars" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-reordering-bars">막대 그래프의 막대 순서 재정렬하기</h3>
 <p>각 영화 유형별 총 수익을 계산하고 막대 그래프를 그려보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>revenue_by_type <span class="ot">&lt;-</span> movies_ex <span class="sc">%&gt;%</span></span>
@@ -550,8 +550,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>더 고급스러운 범주형 변수(즉, 요인(factor) 조작에 대해서는 <a href="https://forcats.tidyverse.org/" target="_blank"><code>forcats</code> 패키지</a>를 확인해 보세요. 참고로 <code>forcats</code>는 <code>factors</code>의 애너그램(철자 바꾸기)입니다.</p>
 <p><img src="https://raw.githubusercontent.com/tidyverse/forcats/refs/heads/main/man/figures/logo.png" class="img-fluid" style="width:20.0%"></p>
 </section>
-<section id="appendix-money-on-axis" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-money-on-axis">축에 화폐 단위 표시하기</h3>
+<section id="sec-appendix-money-on-axis" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-money-on-axis">축에 화폐 단위 표시하기</h3>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>movies_ex <span class="ot">&lt;-</span> movies_ex <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">revenue =</span> millions <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>)</span>
@@ -585,8 +585,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="appendix-changing-values" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-changing-values">셀 내부의 값 변경하기</h3>
+<section id="sec-appendix-changing-values" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-changing-values">셀 내부의 값 변경하기</h3>
 <p><code>dplyr</code> 패키지의 <code>rename()</code> 함수는 열/변수의 이름을 바꿉니다. 특정 열의 셀 내부의 값을 “바꾸려면”, 아래의 세 가지 함수 중 하나를 사용하여 열을 <code>mutate()</code>해야 합니다. 다른 함수들도 있을 수 있지만, 이 세 가지가 가장 자주 쓰입니다. 이 예제들에서는 <code>type</code> 변수의 값을 변경해 보겠습니다.</p>
 <ol type="1">
 <li><code>if_else()</code></li>
@@ -671,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="case_when" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="case_when"><code>case_when()</code></h4>
-<p><code>case_when()</code>은 조금 더 까다롭지만, <code>==</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&amp;</code>, <code>|</code> 등을 사용하여 불리언(boolean 연산을 평가할 수 있게 해줍니다.</p>
+<p><code>case_when()</code>은 조금 더 까다롭지만, <code>==</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&amp;</code>, <code>|</code> 등을 사용하여 불리언(boolean) 연산을 평가할 수 있게 해줍니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>movies_ex <span class="sc">%&gt;%</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -702,8 +702,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="appendix-convert-numerical-categorical" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-convert-numerical-categorical">수치형 변수를 범주형 변수로 변환하기</h3>
+<section id="sec-appendix-convert-numerical-categorical" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-convert-numerical-categorical">수치형 변수를 범주형 변수로 변환하기</h3>
 <p>가끔 수치형 연속 변수를 범주형 변수로 바꾸고 싶을 때가 있습니다. 예를 들어, 영화가 1억 달러 이상의 수익을 올렸는지 여부를 나타내는 변수를 만들고 싶다고 해봅시다. 즉, 2개의 레벨을 가진 범주형 변수인 이진 변수(binary variable)를 만들 수 있습니다. 이때 다시 <code>mutate()</code> 함수를 사용할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>movies_ex <span class="sc">%&gt;%</span></span>
@@ -762,8 +762,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>R이 변수를 균형 잡힌 개수의 그룹으로 똑같이 나누게 할 수도 있습니다. 예를 들어, <code>breaks = 3</code>을 지정하면 각 그룹에 대략 같은 수의 값이 포함된 3개의 그룹이 생성됩니다.</li>
 </ul>
 </section>
-<section id="appendix-prop" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-prop">비율 계산하기</h3>
+<section id="sec-appendix-prop" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-prop">비율 계산하기</h3>
 <p>자주 사용되는 <code>group_by()</code> 뒤에 <code>summarize()</code>가 오는 대신 <code>mutate()</code>를 사용하는 방법입니다. 각 영화 등급(rating)과 유형(type)에 따른 총 수익(백만 달러)을 계산한다고 해봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>rating_by_type_millions <span class="ot">&lt;-</span> movies_ex <span class="sc">%&gt;%</span></span>
@@ -828,8 +828,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>예를 들어, R 등급 영화에 해당하는 4개의 비율을 합하면 0.596 + 0.142 + 0.213 + 0.0491 = 1이 됩니다.</p>
 </section>
-<section id="appendix-commas" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-commas">%, 콤마(,), $ 기호 처리하기</h3>
+<section id="sec-appendix-commas" class="level3">
+<h3 class="anchored" data-anchor-id="sec-appendix-commas">%, 콤마(,), $ 기호 처리하기</h3>
 <p>퍼센트로 기록되어 있거나, 콤마가 있거나, 달러 형태여서 문자열로 처리된 수치 데이터가 있다고 해봅시다. 이를 어떻게 수치형 값으로 변환할까요? <code>mutate()</code> 내부에서 <code>readr</code> 패키지의 <code>parse_number()</code> 함수를 사용하면 됩니다! <a href="https://stackoverflow.com/a/52965808/3674500" target="_blank">Stack Overflow</a>에 감사를 표합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>

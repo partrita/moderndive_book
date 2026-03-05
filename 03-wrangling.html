@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>데이터 전처리 – ModernDive: Statistical Inference via Data Science</title>
+<title>데이터 전처리 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -184,7 +184,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -356,25 +356,25 @@ window.Quarto = {
    
   <ul>
   <li><a href="#wrangling-packages" id="toc-wrangling-packages" class="nav-link active" data-scroll-target="#wrangling-packages">필요한 패키지</a></li>
-  <li><a href="#piping" id="toc-piping" class="nav-link" data-scroll-target="#piping">파이프 연산자: <code>%&gt;%</code></a></li>
-  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>filter</code> 행 추출</a></li>
-  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><code>summarize</code> 변수 요약</a></li>
-  <li><a href="#groupby" id="toc-groupby" class="nav-link" data-scroll-target="#groupby"><code>group_by</code> 행 그룹화</a>
+  <li><a href="#sec-piping" id="toc-sec-piping" class="nav-link" data-scroll-target="#sec-piping">파이프 연산자: <code>%&gt;%</code></a></li>
+  <li><a href="#sec-filter" id="toc-sec-filter" class="nav-link" data-scroll-target="#sec-filter"><code>filter</code> 행 추출</a></li>
+  <li><a href="#sec-summarize" id="toc-sec-summarize" class="nav-link" data-scroll-target="#sec-summarize"><code>summarize</code> 변수 요약</a></li>
+  <li><a href="#sec-groupby" id="toc-sec-groupby" class="nav-link" data-scroll-target="#sec-groupby"><code>group_by</code> 행 그룹화</a>
   <ul class="collapse">
   <li><a href="#두-개-이상의-변수로-그룹화하기" id="toc-두-개-이상의-변수로-그룹화하기" class="nav-link" data-scroll-target="#두-개-이상의-변수로-그룹화하기">두 개 이상의 변수로 그룹화하기</a></li>
   </ul></li>
-  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><code>mutate</code> 기존 변수 변형</a></li>
-  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><code>arrange</code> 행 정렬</a></li>
+  <li><a href="#sec-mutate" id="toc-sec-mutate" class="nav-link" data-scroll-target="#sec-mutate"><code>mutate</code> 기존 변수 변형</a></li>
+  <li><a href="#sec-arrange" id="toc-sec-arrange" class="nav-link" data-scroll-target="#sec-arrange"><code>arrange</code> 행 정렬</a></li>
   <li><a href="#joins" id="toc-joins" class="nav-link" data-scroll-target="#joins"><code>join</code> 데이터 프레임 결합</a>
   <ul class="collapse">
   <li><a href="#일치하는-키key-변수-이름" id="toc-일치하는-키key-변수-이름" class="nav-link" data-scroll-target="#일치하는-키key-변수-이름">일치하는 “키(key)” 변수 이름</a></li>
-  <li><a href="#diff-key" id="toc-diff-key" class="nav-link" data-scroll-target="#diff-key">서로 다른 “키(key)” 변수 이름</a></li>
+  <li><a href="#sec-diff-key" id="toc-sec-diff-key" class="nav-link" data-scroll-target="#sec-diff-key">서로 다른 “키(key)” 변수 이름</a></li>
   <li><a href="#여러-개의-키key-변수" id="toc-여러-개의-키key-변수" class="nav-link" data-scroll-target="#여러-개의-키key-변수">여러 개의 “키(key)” 변수</a></li>
-  <li><a href="#normal-forms" id="toc-normal-forms" class="nav-link" data-scroll-target="#normal-forms">정규형</a></li>
+  <li><a href="#sec-normal-forms" id="toc-sec-normal-forms" class="nav-link" data-scroll-target="#sec-normal-forms">정규형</a></li>
   </ul></li>
-  <li><a href="#other-verbs" id="toc-other-verbs" class="nav-link" data-scroll-target="#other-verbs">기타 동사들</a>
+  <li><a href="#sec-other-verbs" id="toc-sec-other-verbs" class="nav-link" data-scroll-target="#sec-other-verbs">기타 동사들</a>
   <ul class="collapse">
-  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><code>select</code> 변수 선택</a></li>
+  <li><a href="#sec-select" id="toc-sec-select" class="nav-link" data-scroll-target="#sec-select"><code>select</code> 변수 선택</a></li>
   <li><a href="#rename" id="toc-rename" class="nav-link" data-scroll-target="#rename"><code>rename</code> 변수 이름 변경</a></li>
   <li><a href="#변수의-top_n-값-추출" id="toc-변수의-top_n-값-추출" class="nav-link" data-scroll-target="#변수의-top_n-값-추출">변수의 <code>top_n</code> 값 추출</a></li>
   </ul></li>
@@ -391,7 +391,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-visualization.html">데이터 과학</a></li><li class="breadcrumb-item"><a href="./03-wrangling.html"><span class="chapter-title">데이터 전처리</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="wrangling" class="quarto-section-identifier"><span class="chapter-title">데이터 전처리</span></span></h1>
+<h1 class="title"><span id="sec-wrangling" class="quarto-section-identifier"><span class="chapter-title">데이터 전처리</span></span></h1>
 </div>
 
 
@@ -408,7 +408,7 @@ window.Quarto = {
 </header>
 
 
-<p>지금까지 우리는 <span class="quarto-unresolved-ref">?sec-getting-started장에서</span> <code>glimpse()</code>와 <code>View()</code> 함수를 사용하여 데이터 프레임에 저장된 데이터를 탐색하는 방법과, <span class="quarto-unresolved-ref">?sec-viz장에서</span> <code>ggplot2</code> 패키지를 사용하여 데이터 시각화를 생성하는 방법을 살펴보았습니다. 특히 우리는 “다섯 가지 주요 그래프”(5NG)라고 부르는 다음 그래프들을 공부했습니다.</p>
+<p>지금까지 우리는 <a href="01-getting-started.html" class="quarto-xref"><span>R 데이터 시작하기</span></a> 장에서 <code>glimpse()</code>와 <code>View()</code> 함수를 사용하여 데이터 프레임에 저장된 데이터를 탐색하는 방법과, <a href="02-visualization.html" class="quarto-xref"><span>데이터 시각화</span></a> 장에서 <code>ggplot2</code> 패키지를 사용하여 데이터 시각화를 생성하는 방법을 살펴보았습니다. 특히 우리는 “다섯 가지 주요 그래프”(5NG)라고 부르는 다음 그래프들을 공부했습니다.</p>
 <ol type="1">
 <li><code>geom_point()</code>를 이용한 산점도</li>
 <li><code>geom_line()</code>을 이용한 선 그래프</li>
@@ -416,29 +416,29 @@ window.Quarto = {
 <li><code>geom_histogram()</code>을 이용한 히스토그램</li>
 <li><code>geom_bar()</code> 또는 <code>geom_col()</code>을 이용한 막대 그래프</li>
 </ol>
-<p>우리는 데이터 프레임의 변수를 5가지 <code>geom</code> 객체 중 하나의 미적 속성에 매핑하는 그래픽 문법을 사용하여 이러한 시각화를 생성했습니다. 또한 그림 <span class="quarto-unresolved-ref">?fig-gapminder의</span> Gapminder 데이터 예시에서 보았듯이 크기나 색상과 같은 기하학적 객체의 다른 미적 속성도 제어할 수 있습니다.</p>
+<p>우리는 데이터 프레임의 변수를 5가지 <code>geom</code> 객체 중 하나의 미적 속성에 매핑하는 그래픽 문법을 사용하여 이러한 시각화를 생성했습니다. 또한 그림 <span class="quarto-unresolved-ref">?fig-gapminder</span> 의 Gapminder 데이터 예시에서 보았듯이 크기나 색상과 같은 기하학적 객체의 다른 미적 속성도 제어할 수 있습니다.</p>
 <p>이번 장에서는 데이터 프레임을 가져와 필요에 맞게 “전처리(wrangle)”(변형 할 수 있게 해주는 <code>dplyr</code> 패키지의 일련의 데이터 전처리 함수들을 소개합니다. 이러한 함수들은 다음과 같습니다.</p>
 <ol type="1">
 <li><code>filter()</code>: 데이터 프레임의 기존 행 중에서 하위 집합만 골라냅니다. 예를 들어, <code>alaska_flights</code> 데이터 프레임이 있습니다.</li>
-<li><code>summarize()</code>: 하나 이상의 열/변수를 <em>요약 통계량</em>으로 요약합니다. 요약 통계량의 예로는 박스 플롯에 관한 <span class="quarto-unresolved-ref">?sec-boxplots절에서</span> 보았던 기온의 중앙값과 사분위수 범위 등이 있습니다.</li>
+<li><code>summarize()</code>: 하나 이상의 열/변수를 <em>요약 통계량</em>으로 요약합니다. 요약 통계량의 예로는 박스 플롯에 관한 <a href="02-visualization.html#sec-boxplots" class="quarto-xref"><span>5NG#4: 박스 플롯</span></a> 절에서 보았던 기온의 중앙값과 사분위수 범위 등이 있습니다.</li>
 <li><code>group_by()</code>: 행들을 그룹화합니다. 즉, 서로 다른 행들을 동일한 <em>그룹</em>의 일부로 할당합니다. 그런 다음 <code>group_by()</code>를 <code>summarize()</code>와 결합하여 각 그룹에 대한 요약 통계량을 <em>별도로</em> 보고할 수 있습니다. 예를 들어, 세 개의 <code>origin</code> 공항 전체에 대한 하나의 평균 출발 지연 시간(<code>dep_delay</code>)이 아니라, 각 세 공항에 대해 개별적으로 계산된 세 개의 평균 출발 지연 시간을 원한다고 가정해 봅시다.</li>
 <li><code>mutate()</code>: 기존 열/변수를 변형하여 새로운 열을 생성합니다. 예를 들어, 매시간 기온 기록을 화씨에서 섭씨로 변환하는 작업이 있습니다.</li>
 <li><code>arrange()</code>: 행을 정렬합니다. 예를 들어, <code>weather</code>의 행을 <code>temp</code>에 따라 오름차순 또는 내림차순으로 정렬합니다.</li>
 <li><code>join()</code>: “키(key)” 변수를 매칭하여 다른 데이터 프레임과 결합합니다. 즉, 이 두 데이터 프레임을 병합합니다.</li>
 </ol>
 <p>데이터 프레임에서 수행하려는 작업을 설명하기 위해 <code>computer_code</code> 폰트를 사용한 것에 주목하세요. 이는 데이터 전처리를 위한 <code>dplyr</code> 패키지가 기억하기 쉬운 직관적인 동사 이름의 함수들을 가지고 있기 때문입니다.</p>
-<p>데이터 전처리를 위해 <code>dplyr</code> 패키지 사용법을 배우는 것에는 또 다른 이점이 있습니다. 바로 데이터베이스 쿼리 언어인 <a href="https://en.wikipedia.org/wiki/SQL">SQL</a>(“시퀄”이라고 발음하거나 “S”, “Q”, “L”로 읽음)과의 유사성입니다. SQL(“Structured Query Language”의 약자)은 대규모 데이터베이스를 빠르고 효율적으로 관리하는 데 사용되며, 많은 데이터를 보유한 여러 기관에서 널리 사용됩니다. SQL은 데이터베이스 관리에 관한 책이나 강의에서 다룰 주제이긴 하지만, <code>dplyr</code>을 배우고 나면 SQL도 쉽게 배울 수 있다는 점을 기억하세요. <span class="quarto-unresolved-ref">?sec-normal-forms절에서</span> 이들의 유사성에 대해 더 자세히 이야기하겠습니다.</p>
+<p>데이터 전처리를 위해 <code>dplyr</code> 패키지 사용법을 배우는 것에는 또 다른 이점이 있습니다. 바로 데이터베이스 쿼리 언어인 <a href="https://en.wikipedia.org/wiki/SQL">SQL</a>(“시퀄”이라고 발음하거나 “S”, “Q”, “L”로 읽음)과의 유사성입니다. SQL(“Structured Query Language”의 약자)은 대규모 데이터베이스를 빠르고 효율적으로 관리하는 데 사용되며, 많은 데이터를 보유한 여러 기관에서 널리 사용됩니다. SQL은 데이터베이스 관리에 관한 책이나 강의에서 다룰 주제이긴 하지만, <code>dplyr</code>을 배우고 나면 SQL도 쉽게 배울 수 있다는 점을 기억하세요. <a href="#sec-normal-forms" class="quarto-xref"><span>정규형</span></a> 절에서 이들의 유사성에 대해 더 자세히 이야기하겠습니다.</p>
 <section id="wrangling-packages" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="wrangling-packages">필요한 패키지</h3>
-<p>이번 장에 필요한 모든 패키지를 로드해 봅시다(앞서 이미 설치했다고 가정합니다). 필요한 경우 R 패키지 설치 및 로드 방법에 대한 정보는 <span class="quarto-unresolved-ref">?sec-packages절을</span> 참고하세요.</p>
+<p>이번 장에 필요한 모든 패키지를 로드해 봅시다(앞서 이미 설치했다고 가정합니다). 필요한 경우 R 패키지 설치 및 로드 방법에 대한 정보는 <a href="01-getting-started.html#sec-packages" class="quarto-xref"><span>R 패키지란 무엇인가?</span></a> 절을 참고하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="piping" class="level2">
-<h2 class="anchored" data-anchor-id="piping">파이프 연산자: <code>%&gt;%</code></h2>
+<section id="sec-piping" class="level2">
+<h2 class="anchored" data-anchor-id="sec-piping">파이프 연산자: <code>%&gt;%</code></h2>
 <p>데이터 전처리를 시작하기 전에, 먼저 <code>dplyr</code> 패키지와 함께 로드되는 아주 유용한 도구인 파이프 연산자 <code>%&gt;%</code>를 소개하겠습니다. 파이프 연산자를 사용하면 R의 여러 작업을 하나의 순차적인 작업 <em>체인(chain)</em>으로 결합할 수 있습니다.</p>
 <p>가상의 예시부터 시작해 보죠. 가상의 데이터 프레임 <code>x</code>에 대해 가상의 함수 <code>f()</code>, <code>g()</code>, <code>h()</code>를 사용하여 다음과 같은 가상의 작업 시퀀스를 수행하고 싶다고 가정해 봅시다.</p>
 <ol type="1">
@@ -467,7 +467,7 @@ window.Quarto = {
 </ol>
 <p>두 접근 방식 모두 동일한 목표를 달성하지만, 후자가 훨씬 인간 친화적인 읽기 방식입니다. 작업 시퀀스를 한 줄씩 명확하게 읽을 수 있기 때문입니다. 그런데 가상의 <code>x</code>, <code>f()</code>, <code>g()</code>, <code>h()</code>는 무엇일까요? 이 데이터 전처리 장 전체에서 다음과 같이 적용됩니다.</p>
 <ol type="1">
-<li>시작 값 <code>x</code>는 데이터 프레임이 될 것입니다. 예를 들어, <span class="quarto-unresolved-ref">?sec-nycflights13절에서</span> 탐색한 <code>flights</code> 데이터 프레임입니다.</li>
+<li>시작 값 <code>x</code>는 데이터 프레임이 될 것입니다. 예를 들어, <a href="01-getting-started.html#sec-nycflights13" class="quarto-xref"><span>첫 데이터셋 탐색하기</span></a> 절에서 탐색한 <code>flights</code> 데이터 프레임입니다.</li>
 <li>함수의 시퀀스(여기서는 <code>f()</code>, <code>g()</code>, <code>h()</code>)는 대부분 이번 장의 서론에서 나열한 6가지 데이터 전처리 동사 이름의 함수들로 이루어진 시퀀스가 될 것입니다. 예를 들어, 앞서 미리 보았던 <code>filter(carrier == "AS")</code> 함수와 지정된 인자가 있습니다.</li>
 <li>결과는 여러분이 원하는 변형/수정된 데이터 프레임이 될 것입니다. 우리 예제에서는 <code>alaska_flights &lt;-</code>와 같이 <code>&lt;-</code> 할당 연산자를 사용하여 결과를 <code>alaska_flights</code>라는 새로운 데이터 프레임에 저장할 것입니다.</li>
 </ol>
@@ -476,10 +476,10 @@ window.Quarto = {
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carrier <span class="sc">==</span> <span class="st">"AS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>+</code> 기호를 사용하여 <code>ggplot()</code>에 레이어를 추가할 때와 마찬가지로, 파이프 연산자 <code>%&gt;%</code>를 사용하여 동사 이름의 함수들을 하나의 시퀀스로 결합함으로써 단일 데이터 전처리 작업 <em>체인</em>을 형성합니다. 또한, 그래프를 구성할 때 <code>+</code> 기호가 줄 끝에 와야 하는 것처럼 파이프 연산자 <code>%&gt;%</code> 도 줄 끝에 와야 합니다.</p>
-<p>이번 장 서론에 나열된 6가지 함수 외에도 훨씬 더 많은 고급 데이터 전처리 함수가 있다는 점을 기억하세요. <span class="quarto-unresolved-ref">?sec-other-verbs절에서</span> 그 예시들을 보게 될 것입니다. 하지만 이 6가지 동사 이름의 함수만으로도 이 책의 나머지 부분에서 광범위한 데이터 전처리 작업을 수행할 수 있을 것입니다.</p>
+<p>이번 장 서론에 나열된 6가지 함수 외에도 훨씬 더 많은 고급 데이터 전처리 함수가 있다는 점을 기억하세요. <a href="#sec-other-verbs" class="quarto-xref"><span>기타 동사들</span></a> 절에서 그 예시들을 보게 될 것입니다. 하지만 이 6가지 동사 이름의 함수만으로도 이 책의 나머지 부분에서 광범위한 데이터 전처리 작업을 수행할 수 있을 것입니다.</p>
 </section>
-<section id="filter" class="level2">
-<h2 class="anchored" data-anchor-id="filter"><code>filter</code> 행 추출</h2>
+<section id="sec-filter" class="level2">
+<h2 class="anchored" data-anchor-id="sec-filter"><code>filter</code> 행 추출</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -535,13 +535,13 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>dest <span class="sc">==</span> <span class="st">"BTV"</span> <span class="sc">|</span> dest <span class="sc">==</span> <span class="st">"SEA"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>이 경우 <code>"BTV"</code>로 향하지 않는 모든 항공편 <em>또는</em> <code>"SEA"</code>로 향하는 모든 항공편을 반환하게 되는데, 이는 전혀 다른 결과의 데이터 프레임입니다.</p>
-<p>이제 필터링하려는 공항의 수가 더 많아졌다고 가정해 봅시다. 예를 들어 <code>"SEA"</code>, <code>"SFO"</code>, <code>"PDX"</code>, <code>"BTV"</code>, <code>"BDL"</code>입니다. 계속해서 <code>|</code> (<em>또는</em> 연산자를 사용할 수도 있습니다.</p>
+<p>이제 필터링하려는 공항의 수가 더 많아졌다고 가정해 봅시다. 예를 들어 <code>"SEA"</code>, <code>"SFO"</code>, <code>"PDX"</code>, <code>"BTV"</code>, <code>"BDL"</code>입니다. 계속해서 <code>|</code> (<em>또는</em>) 연산자를 사용할 수도 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>many_airports <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dest <span class="sc">==</span> <span class="st">"SEA"</span> <span class="sc">|</span> dest <span class="sc">==</span> <span class="st">"SFO"</span> <span class="sc">|</span> dest <span class="sc">==</span> <span class="st">"PDX"</span> <span class="sc">|</span> </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>         dest <span class="sc">==</span> <span class="st">"BTV"</span> <span class="sc">|</span> dest <span class="sc">==</span> <span class="st">"BDL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>하지만 포함하려는 공항이 점차 늘어날수록 코드를 작성하기가 번거로워질 것입니다. 조금 더 짧은 접근 방식은 <code>c()</code> 함수와 함께 <code>%in%</code> 연산자를 사용하는 것입니다. <span class="quarto-unresolved-ref">?sec-programming-concepts절에서</span> 배운 대로 <code>c()</code> 함수는 값들을 하나의 값 <em>벡터(vector)</em>로 “결합”하거나 “연결”합니다. </p>
+<p>하지만 포함하려는 공항이 점차 늘어날수록 코드를 작성하기가 번거로워질 것입니다. 조금 더 짧은 접근 방식은 <code>c()</code> 함수와 함께 <code>%in%</code> 연산자를 사용하는 것입니다. <a href="01-getting-started.html#sec-programming-concepts" class="quarto-xref"><span>기초 프로그래밍 개념 및 용어</span></a> 절에서 배운 대로 <code>c()</code> 함수는 값들을 하나의 값 <em>벡터(vector)</em>로 “결합”하거나 “연결”합니다. </p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>many_airports <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dest <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SEA"</span>, <span class="st">"SFO"</span>, <span class="st">"PDX"</span>, <span class="st">"BTV"</span>, <span class="st">"BDL"</span>))</span>
@@ -563,10 +563,10 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="summarize" class="level2">
-<h2 class="anchored" data-anchor-id="summarize"><code>summarize</code> 변수 요약</h2>
-<p>데이터 프레임으로 작업할 때 다음으로 흔히 수행하는 작업은 <em>요약 통계량</em>을 계산하는 것입니다. 요약 통계량은 수많은 값을 하나의 수치로 요약한 값입니다. 흔히 알려진 요약 통계량의 예로는 평균(mean)과 중앙값(median)이 있습니다. 즉시 떠오르지 않을 수도 있는 다른 요약 통계량으로는 <em>합계(sum)</em>, 최솟값인 <em>최소(minimum)</em>, 최댓값인 <em>최대(maximum)</em>, 그리고 <em>표준편차(standard deviation)</em> 등이 있습니다. 이러한 요약 통계량에 대한 용어 사전은 부록 <span class="quarto-unresolved-ref">?sec-appendix-stat-terms를</span> 참조하세요.</p>
-<p><code>weather</code> 데이터 프레임에 있는 <code>temp</code> 기온 변수의 두 가지 요약 통계량인 평균과 표준편차를 계산해 봅시다 ( <span class="quarto-unresolved-ref">?sec-nycflights13절에서</span> 보았듯이 <code>weather</code> 데이터 프레임은 <code>nycflights13</code> 패키지에 포함되어 있습니다). 이러한 요약 통계량을 계산하려면 R의 <code>mean()</code>과 <code>sd()</code> <em>요약 함수</em>가 필요합니다. 그림 <span class="quarto-unresolved-ref">?fig-summary-function에서</span> 알 수 있듯이, R의 요약 함수는 여러 값을 입력받아 단일 값을 반환합니다.</p>
+<section id="sec-summarize" class="level2">
+<h2 class="anchored" data-anchor-id="sec-summarize"><code>summarize</code> 변수 요약</h2>
+<p>데이터 프레임으로 작업할 때 다음으로 흔히 수행하는 작업은 <em>요약 통계량</em>을 계산하는 것입니다. 요약 통계량은 수많은 값을 하나의 수치로 요약한 값입니다. 흔히 알려진 요약 통계량의 예로는 평균(mean)과 중앙값(median)이 있습니다. 즉시 떠오르지 않을 수도 있는 다른 요약 통계량으로는 <em>합계(sum)</em>, 최솟값인 <em>최소(minimum)</em>, 최댓값인 <em>최대(maximum)</em>, 그리고 <em>표준편차(standard deviation)</em> 등이 있습니다. 이러한 요약 통계량에 대한 용어 사전은 부록 <a href="91-appendixA.html#sec-appendix-stat-terms" class="quarto-xref"><span>기초 통계 용어</span></a> 를 참조하세요.</p>
+<p><code>weather</code> 데이터 프레임에 있는 <code>temp</code> 기온 변수의 두 가지 요약 통계량인 평균과 표준편차를 계산해 봅시다 ( <a href="01-getting-started.html#sec-nycflights13" class="quarto-xref"><span>첫 데이터셋 탐색하기</span></a> 절에서 보았듯이 <code>weather</code> 데이터 프레임은 <code>nycflights13</code> 패키지에 포함되어 있습니다). 이러한 요약 통계량을 계산하려면 R의 <code>mean()</code>과 <code>sd()</code> <em>요약 함수</em>가 필요합니다. 그림 <span class="quarto-unresolved-ref">?fig-summary-function</span> 에서 알 수 있듯이, R의 요약 함수는 여러 값을 입력받아 단일 값을 반환합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -577,13 +577,13 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>더 정확하게는 <code>dplyr</code> 패키지의 <code>summarize()</code> 함수 내에서 <code>mean()</code>과 <code>sd()</code> 요약 함수를 사용할 것입니다. 참고로 영국식 영어 철자인 <code>summarise()</code>도 사용할 수 있습니다. 그림 <span class="quarto-unresolved-ref">?fig-sum1에서</span> 보듯이 <code>summarize()</code> 함수는 데이터 프레임을 입력받아 요약 통계량에 해당하는 단 하나의 행만 있는 데이터 프레임을 반환합니다.</p>
+<p>더 정확하게는 <code>dplyr</code> 패키지의 <code>summarize()</code> 함수 내에서 <code>mean()</code>과 <code>sd()</code> 요약 함수를 사용할 것입니다. 참고로 영국식 영어 철자인 <code>summarise()</code>도 사용할 수 있습니다. 그림 <span class="quarto-unresolved-ref">?fig-sum1</span> 에서 보듯이 <code>summarize()</code> 함수는 데이터 프레임을 입력받아 요약 통계량에 해당하는 단 하나의 행만 있는 데이터 프레임을 반환합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/cheatsheets/summarize1.png" style="width:80.0%;height:80.0%" class="figure-img"></p>
-<figcaption>summarize( 행 요약 다이어그램.</figcaption>
+<figcaption>summarize 행 요약 다이어그램.</figcaption>
 </figure>
 </div>
 </div>
@@ -600,7 +600,7 @@ window.Quarto = {
 1    NA      NA</code></pre>
 </div>
 </div>
-<p>왜 반환된 값이 <code>NA</code>일까요? <span class="quarto-unresolved-ref">?sec-geompoint절에서</span> <code>alaska_flights</code>의 출발 및 도착 지연 시간 산점도를 생성할 때 보았듯이, <code>NA</code>는 R에서 <em>결측값(missing values)</em> 을 인코딩하는 방식입니다. 여기서 <code>NA</code>는 “기록 없음(not available)” 또는 “해당 없음(not applicable)”을 나타냅니다. 특정 행과 특정 열의 값이 존재하지 않으면 대신 <code>NA</code>가 저장됩니다. 값은 여러 가지 이유로 누락될 수 있습니다. 데이터를 수집했지만 누군가 입력을 잊었을 수도 있고, 수집하기가 너무 어려워 아예 수집하지 못했을 수도 있습니다. 혹은 누군가 잘못 입력한 값을 결측값으로 수정했을 수도 있습니다. 실제 데이터를 다룰 때 결측값 문제는 자주 발생합니다.</p>
+<p>왜 반환된 값이 <code>NA</code>일까요? <a href="02-visualization.html#sec-geompoint" class="quarto-xref"><span>geom_point를 이용한 산점도</span></a> 절에서 <code>alaska_flights</code>의 출발 및 도착 지연 시간 산점도를 생성할 때 보았듯이, <code>NA</code>는 R에서 <em>결측값(missing values)</em> 을 인코딩하는 방식입니다. 여기서 <code>NA</code>는 “기록 없음(not available)” 또는 “해당 없음(not applicable)”을 나타냅니다. 특정 행과 특정 열의 값이 존재하지 않으면 대신 <code>NA</code>가 저장됩니다. 값은 여러 가지 이유로 누락될 수 있습니다. 데이터를 수집했지만 누군가 입력을 잊었을 수도 있고, 수집하기가 너무 어려워 아예 수집하지 못했을 수도 있습니다. 혹은 누군가 잘못 입력한 값을 결측값으로 수정했을 수도 있습니다. 실제 데이터를 다룰 때 결측값 문제는 자주 발생합니다.</p>
 <p>다시 <code>summary_temp</code> 출력값으로 돌아가 보면, 기본적으로 R에서 하나 이상의 <code>NA</code> 결측값이 있는 변수의 요약 통계량을 계산하려고 하면 <code>NA</code>가 반환됩니다. 이 사실을 우회하려면 <code>na.rm</code> 인자를 <code>TRUE</code>로 설정하면 됩니다. 여기서 <code>rm</code>은 “제거(remove)”의 약자입니다. 이렇게 하면 모든 <code>NA</code> 결측값을 무시하고 결측값이 없는 모든 값에 대한 요약값만 반환합니다.</p>
 <p>다음 코드는 <code>temp</code>의 결측값이 아닌 모든 값의 평균과 표준편차를 계산합니다.</p>
 <div class="cell" data-layout-align="center">
@@ -617,14 +617,14 @@ window.Quarto = {
 </div>
 <p><code>na.rm = TRUE</code> 인자가 <code>summarize()</code> 함수가 아니라 <code>mean()</code> 및 <code>sd()</code> 요약 함수에 각각 개별적으로 사용되었음에 주목하세요.</p>
 <p>하지만 방금 한 것처럼 결측값을 무시할 때는 주의가 필요합니다. 이어지는 <em>학습 확인</em> 문제에서 결측값이 있는 행을 맹목적으로 무시할 때 발생할 수 있는 잠재적인 결과에 대해 생각해 볼 것입니다. 이것이 실제로 R의 모든 요약 통계 함수에서 <code>na.rm</code> 인자의 기본값이 <code>FALSE</code>로 설정된 이유이기도 합니다. 즉, R은 기본적으로 결측값이 있는 행을 무시하지 않습니다. R은 결측 데이터의 존재를 사용자에게 알리고 있으며, 분석 전반에 걸쳐 이러한 결측값과 그 잠재적 원인에 유의해야 합니다.</p>
-<p>요약 통계량을 계산하기 위해 <code>summarize()</code> 동사 안에서 사용할 수 있는 다른 요약 함수에는 무엇이 있을까요? 그림 <span class="quarto-unresolved-ref">?fig-summary-function의</span> 다이어그램에서 보았듯이, 여러 값을 입력받아 단 하나를 반환하는 R의 모든 함수를 사용할 수 있습니다. 다음은 그 몇 가지 예입니다.</p>
+<p>요약 통계량을 계산하기 위해 <code>summarize()</code> 동사 안에서 사용할 수 있는 다른 요약 함수에는 무엇이 있을까요? 그림 <span class="quarto-unresolved-ref">?fig-summary-function</span> 의 다이어그램에서 보았듯이, 여러 값을 입력받아 단 하나를 반환하는 R의 모든 함수를 사용할 수 있습니다. 다음은 그 몇 가지 예입니다.</p>
 <ul>
 <li><code>mean()</code>: 평균</li>
 <li><code>sd()</code>: 데이터의 퍼짐 정도를 측정하는 표준편차</li>
 <li><code>min()</code> 및 <code>max()</code>: 각각 최솟값과 최댓값</li>
 <li><code>IQR()</code>: 사분위수 범위</li>
 <li><code>sum()</code>: 여러 숫자를 더한 총합</li>
-<li><code>n()</code>: 각 그룹의 행 개수 카운트. 이 특정 요약 함수는 <span class="quarto-unresolved-ref">?sec-groupby절에서</span> <code>group_by()</code>를 다룰 때 더 확실히 이해될 것입니다.</li>
+<li><code>n()</code>: 각 그룹의 행 개수 카운트. 이 특정 요약 함수는 <a href="#sec-groupby" class="quarto-xref"><span>group_by 행 그룹화</span></a> 절에서 <code>group_by()</code>를 다룰 때 더 확실히 이해될 것입니다.</li>
 </ul>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
@@ -647,8 +647,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="groupby" class="level2">
-<h2 class="anchored" data-anchor-id="groupby"><code>group_by</code> 행 그룹화</h2>
+<section id="sec-groupby" class="level2">
+<h2 class="anchored" data-anchor-id="sec-groupby"><code>group_by</code> 행 그룹화</h2>
 <!-- To get `_` to work in caption title. Found at https://github.com/rstudio/bookdown/issues/209 -->
 <p>(ref:groupby) group_by()와 summarize()의 다이어그램.</p>
 <div class="cell" data-layout-align="center">
@@ -795,7 +795,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 3 LGA    104662</code></pre>
 </div>
 </div>
-<p>2013년에 뉴어크(<code>"EWR"</code> 공항에서 가장 많은 항공편이 출발했고, <code>"JFK"</code>, 그리고 마지막으로 라과디아(<code>"LGA"</code> 공항 순으로 이어졌음을 알 수 있습니다. <code>sum()</code>과 <code>n()</code> 사이에는 미묘하지만 중요한 차이가 있습니다. <code>sum()</code>은 수치형 변수의 합계를 반환하는 반면, <code>n()</code>은 행/관측치의 개수(카운트)를 반환합니다.</p>
+<p>2013년에 뉴어크(<code>"EWR"</code>) 공항에서 가장 많은 항공편이 출발했고, <code>"JFK"</code>, 그리고 마지막으로 라과디아(<code>"LGA"</code>) 공항 순으로 이어졌음을 알 수 있습니다. <code>sum()</code>과 <code>n()</code> 사이에는 미묘하지만 중요한 차이가 있습니다. <code>sum()</code>은 수치형 변수의 합계를 반환하는 반면, <code>n()</code>은 행/관측치의 개수(카운트)를 반환합니다.</p>
 <section id="두-개-이상의-변수로-그룹화하기" class="level3">
 <h3 class="anchored" data-anchor-id="두-개-이상의-변수로-그룹화하기">두 개 이상의 변수로 그룹화하기</h3>
 <p>꼭 하나의 변수로만 그룹화할 수 있는 것은 아닙니다. 예를 들어, 세 개의 뉴욕 공항에서 출발하는 항공편 수를 <em>월별로</em> 알고 싶다고 가정해 봅시다. <code>group_by(origin, month)</code>를 사용하여 두 번째 변수인 <code>month</code>로 함께 그룹화할 수 있습니다.</p>
@@ -864,7 +864,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </p>
 </div>
 </div>
-<p><strong>(LC3.5)</strong> 뉴욕 시의 월별 기온을 살펴봤던 <span class="quarto-unresolved-ref">?sec-viz장을</span> 떠올려 보세요. <code>summary_monthly_temp</code> 데이터 프레임의 표준편차 열은 일 년 동안 뉴욕 시의 기온에 대해 무엇을 말해주나요?</p>
+<p><strong>(LC3.5)</strong> 뉴욕 시의 월별 기온을 살펴봤던 <a href="02-visualization.html" class="quarto-xref"><span>데이터 시각화</span></a> 장을 떠올려 보세요. <code>summary_monthly_temp</code> 데이터 프레임의 표준편차 열은 일 년 동안 뉴욕 시의 기온에 대해 무엇을 말해주나요?</p>
 <p><strong>(LC3.6)</strong> 2013년 뉴욕 시의 매일매일 평균 기온과 표준편차를 구하려면 어떤 코드가 필요할까요?</p>
 <p><strong>(LC3.7)</strong> <code>by_monthly_origin</code>을 다시 만들어 보되, <code>group_by(origin, month)</code> 대신 변수 순서를 바꿔서 <code>group_by(month, origin)</code>으로 그룹화해 보세요. 결과 데이터셋에서 무엇이 달라지나요?</p>
 <p><strong>(LC3.8)</strong> 세 개의 공항에서 각 항공사(<code>carrier</code>)별로 얼마나 많은 항공편이 출발했는지 어떻게 확인할 수 있을까요?</p>
@@ -876,8 +876,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 </section>
 </section>
-<section id="mutate" class="level2">
-<h2 class="anchored" data-anchor-id="mutate"><code>mutate</code> 기존 변수 변형</h2>
+<section id="sec-mutate" class="level2">
+<h2 class="anchored" data-anchor-id="sec-mutate"><code>mutate</code> 기존 변수 변형</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -897,8 +897,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>weather <span class="ot">&lt;-</span> weather <span class="sc">%&gt;%</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">temp_in_C =</span> (temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">/</span> <span class="fl">1.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>이 코드에서는 새로운 변수 <code>temp_in_C = (temp - 32 / 1.8</code>을 생성하여 <code>weather</code> 데이터 프레임을 <code>mutate()</code>한 다음, 기존의 <code>weather</code> 데이터 프레임을 <em>덮어씁니다</em>. 왜 <code>weather_new</code>와 같은 새로운 데이터 프레임에 결과를 할당하지 않고 기존의 <code>weather</code> 데이터 프레임을 덮어썼을까요? 대략적인 규칙으로, 나중에 필요할 수 있는 원본 정보를 잃지 않는 한 위와 같이 기존 데이터 프레임을 업데이트된 것으로 덮어쓰는 것은 허용되는 관행입니다. 반대로, 왜 <code>temp</code> 변수를 덮어쓰지 않고 <code>temp_in_C</code>라는 새로운 변수를 만들었을까요? 만약 <code>temp</code>를 덮어썼다면 여전히 가치가 있을 수 있는 화씨 기온 정보를 지워버렸을 것이기 때문입니다.</p>
-<p>이제 <span class="quarto-unresolved-ref">?sec-groupby절에서</span> 보았던 <code>group_by()</code>와 <code>summarize()</code> 코드를 사용하여 화씨와 섭씨 모두에 대한 월별 평균 기온을 계산해 봅시다.</p>
+<p>이 코드에서는 새로운 변수 <code>temp_in_C = (temp - 32 / 1.8)</code>을 생성하여 <code>weather</code> 데이터 프레임을 <code>mutate()</code>한 다음, 기존의 <code>weather</code> 데이터 프레임을 <em>덮어씁니다</em>. 왜 <code>weather_new</code>와 같은 새로운 데이터 프레임에 결과를 할당하지 않고 기존의 <code>weather</code> 데이터 프레임을 덮어썼을까요? 대략적인 규칙으로, 나중에 필요할 수 있는 원본 정보를 잃지 않는 한 위와 같이 기존 데이터 프레임을 업데이트된 것으로 덮어쓰는 것은 허용되는 관행입니다. 반대로, 왜 <code>temp</code> 변수를 덮어쓰지 않고 <code>temp_in_C</code>라는 새로운 변수를 만들었을까요? 만약 <code>temp</code>를 덮어썼다면 여전히 가치가 있을 수 있는 화씨 기온 정보를 지워버렸을 것이기 때문입니다.</p>
+<p>이제 <a href="#sec-groupby" class="quarto-xref"><span>group_by 행 그룹화</span></a> 절에서 보았던 <code>group_by()</code>와 <code>summarize()</code> 코드를 사용하여 화씨와 섭씨 모두에 대한 월별 평균 기온을 계산해 봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>summary_monthly_temp <span class="ot">&lt;-</span> weather <span class="sc">%&gt;%</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
@@ -928,7 +928,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>업데이트된 <code>flights</code> 데이터 프레임에서 처음 5개 행에 대해 <code>dep_delay</code>, <code>arr_delay</code>, 그리고 그 결과인 <code>gain</code> 변수만 표 <span class="quarto-unresolved-ref">?tbl-first-five-flights에서</span> 살펴보겠습니다.</p>
+<p>업데이트된 <code>flights</code> 데이터 프레임에서 처음 5개 행에 대해 <code>dep_delay</code>, <code>arr_delay</code>, 그리고 그 결과인 <code>gain</code> 변수만 표 <span class="quarto-unresolved-ref">?tbl-first-five-flights</span> 에서 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -992,8 +992,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 1  -196    -3      7    17   109  5.66  18.0    9430</code></pre>
 </div>
 </div>
-<p>예를 들어 평균 시간 단축은 +5분이고, 최대치는 +109분임을 알 수 있습니다! 하지만 이 코드를 실제로 다 입력하는 데는 시간이 꽤 걸릴 것입니다. 나중에 <span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> 다양한 일반 요약 통계량을 훨씬 더 간결하게 계산하는 방법인 <code>skimr</code> 패키지의 <code>skim()</code> 함수 사용법을 살펴볼 것입니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-histograms절에서</span> 보았듯이 <code>gain</code>은 수치형 변수이므로 히스토그램을 사용하여 분포를 시각화할 수 있습니다.</p>
+<p>예를 들어 평균 시간 단축은 +5분이고, 최대치는 +109분임을 알 수 있습니다! 하지만 이 코드를 실제로 다 입력하는 데는 시간이 꽤 걸릴 것입니다. 나중에 <a href="05-regression.html#sec-model1EDA" class="quarto-xref"><span>탐색적 데이터 분석</span></a> 절에서 다양한 일반 요약 통계량을 훨씬 더 간결하게 계산하는 방법인 <code>skimr</code> 패키지의 <code>skim()</code> 함수 사용법을 살펴볼 것입니다.</p>
+<p><a href="02-visualization.html#sec-histograms" class="quarto-xref"><span>5NG#3: 히스토그램</span></a> 절에서 보았듯이 <code>gain</code>은 수치형 변수이므로 히스토그램을 사용하여 분포를 시각화할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> flights, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gain)) <span class="sc">+</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">bins =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1006,8 +1006,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 </div>
 </div>
-<p>그림 <span class="quarto-unresolved-ref">?fig-gain-hist의</span> 결과 히스토그램은 앞서 계산한 요약 통계량과는 또 다른 관점에서 <code>gain</code> 변수를 보여줍니다. 예를 들어, <code>gain</code> 변수의 대부분 값이 0 근처에 있음을 알 수 있습니다.</p>
-<p>새 변수를 생성하기 위한 <code>mutate()</code> 함수 논의를 마무리하며, 하나의 <code>mutate()</code> 코드 안에서 여러 개의 새 변수를 동시에 생성할 수 있다는 점을 기억하세요. 또한 동일한 <code>mutate()</code> 코드 내에서 방금 생성한 새로운 변수를 바로 참조할 수도 있습니다. Hadley Wickham 과 Garrett Grolemund 가 <em>R for Data Science</em> <span class="citation" data-cites="rds2016">(<a href="#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>의 5장에서 보여주는 <code>mutate()</code> 코드 예시를 참고하세요.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-gain-hist</span> 의 결과 히스토그램은 앞서 계산한 요약 통계량과는 또 다른 관점에서 <code>gain</code> 변수를 보여줍니다. 예를 들어, <code>gain</code> 변수의 대부분 값이 0 근처에 있음을 알 수 있습니다.</p>
+<p>새 변수를 생성하기 위한 <code>mutate()</code> 함수 논의를 마무리하며, 하나의 <code>mutate()</code> 코드 안에서 여러 개의 새 변수를 동시에 생성할 수 있다는 점을 기억하세요. 또한 동일한 <code>mutate()</code> 코드 내에서 방금 생성한 새로운 변수를 바로 참조할 수도 있습니다. Hadley Wickham 과 Garrett Grolemund 가 <em>R for Data Science</em> <span class="citation" data-cites="rds2016">(<a href="99-references.html#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>의 5장에서 보여주는 <code>mutate()</code> 코드 예시를 참고하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -1032,8 +1032,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 </div>
 </section>
-<section id="arrange" class="level2">
-<h2 class="anchored" data-anchor-id="arrange"><code>arrange</code> 행 정렬</h2>
+<section id="sec-arrange" class="level2">
+<h2 class="anchored" data-anchor-id="sec-arrange"><code>arrange</code> 행 정렬</h2>
 <p>가장 흔히 수행되는 데이터 전처리 작업 중 하나는 데이터 프레임의 행을 특정 변수의 영문자 또는 숫자 순서대로 정렬하는 것입니다. <code>dplyr</code> 패키지의 <code>arrange()</code> 함수 를 사용하면 지정된 변수의 값에 따라 데이터 프레임의 행을 정렬하거나 재정렬할 수 있습니다.</p>
 <p>2013년 뉴욕 시에서 출발한 모든 국내선 항공편에 대해 가장 빈번한 목적지 공항이 어디인지 알아보고 싶다고 가정해 봅시다.</p>
 <div class="cell" data-layout-align="center">
@@ -1108,7 +1108,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(airlines)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>airlines</code>에서 <code>carrier</code>는 항공사 코드이고, <code>name</code>은 항공사 회사의 전체 이름임을 알 수 있습니다. 이 표를 통해 <code>"VX"</code>, <code>"HA"</code>, <code>"B6"</code>가 각각 Virgin America, Hawaiian Airlines, JetBlue에 해당한다는 것을 확인할 수 있습니다. 그런데 이 모든 정보를 두 개의 별도 데이터 프레임이 아닌 하나의 데이터 프레임에 모아서 볼 수 있다면 좋지 않을까요? <code>flights</code>와 <code>airlines</code> 데이터 프레임을 “결합”하여 이를 수행할 수 있습니다.</p>
-<p><code>flights</code> 데이터 프레임의 <code>carrier</code> 변수 값과 <code>airlines</code> 데이터 프레임의 <code>carrier</code> 변수 값이 일치한다는 점에 주목하세요. 이 경우 <code>carrier</code> 변수를 두 데이터 프레임의 행을 매칭하기 위한 <em>키(key 변수</em>로 사용할 수 있습니다. 키 변수는 거의 항상 <span class="quarto-unresolved-ref">?sec-identification-vs-measurement-variables절에서</span> 보았던 것처럼 관측 단위를 고유하게 식별하는 <em>식별 변수</em>입니다. 이를 통해 결합 과정에서 두 데이터 프레임의 행이 적절하게 매칭됩니다. Hadley와 Garrett <span class="citation" data-cites="rds2016">(<a href="#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>은 <code>nycflights13</code> 패키지의 각 데이터 프레임이 다양한 키 변수로 어떻게 연결되는지 이해를 돕기 위해 그림 <span class="quarto-unresolved-ref">?fig-reldiagram과</span> 같은 다이어그램을 만들었습니다.</p>
+<p><code>flights</code> 데이터 프레임의 <code>carrier</code> 변수 값과 <code>airlines</code> 데이터 프레임의 <code>carrier</code> 변수 값이 일치한다는 점에 주목하세요. 이 경우 <code>carrier</code> 변수를 두 데이터 프레임의 행을 매칭하기 위한 <em>키(key 변수</em>로 사용할 수 있습니다. 키 변수는 거의 항상 <a href="01-getting-started.html#sec-identification-vs-measurement-variables" class="quarto-xref"><span>식별 변수와 측정 변수</span></a> 절에서 보았던 것처럼 관측 단위를 고유하게 식별하는 <em>식별 변수</em>입니다. 이를 통해 결합 과정에서 두 데이터 프레임의 행이 적절하게 매칭됩니다. Hadley와 Garrett <span class="citation" data-cites="rds2016">(<a href="99-references.html#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>은 <code>nycflights13</code> 패키지의 각 데이터 프레임이 다양한 키 변수로 어떻게 연결되는지 이해를 돕기 위해 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 과 같은 다이어그램을 만들었습니다.</p>
 <p>(ref:relationships-nycflights13) <em>R for Data Science</em>에 수록된 nycflights13 데이터 관계도.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1143,14 +1143,14 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 </div>
 </section>
-<section id="diff-key" class="level3">
-<h3 class="anchored" data-anchor-id="diff-key">서로 다른 “키(key)” 변수 이름</h3>
+<section id="sec-diff-key" class="level3">
+<h3 class="anchored" data-anchor-id="sec-diff-key">서로 다른 “키(key)” 변수 이름</h3>
 <p>이번에는 2013년 뉴욕에서 출발하는 모든 국내선 항공편의 목적지에 대해 “이 공항들은 어떤 도시에 있을까?”, “<code>"ORD"</code>가 올랜도인가?”, “<code>"FLL"</code>은 어디지?”와 같은 질문이 생겼다고 가정해 봅시다.</p>
 <p><code>airports</code> 데이터 프레임에는 각 공항의 공항 코드가 포함되어 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(airports)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>하지만 <code>airports</code>와 <code>flights</code> 데이터 프레임을 모두 살펴보면 공항 코드가 서로 다른 이름의 변수에 저장되어 있음을 알 수 있습니다. <code>airports</code>에서는 공항 코드가 <code>faa</code>에 있지만, <code>flights</code>에서는 <code>origin</code>과 <code>dest</code>에 있습니다. 이 사실은 그림 <span class="quarto-unresolved-ref">?fig-reldiagram의</span> 데이터 프레임 간 관계도에서도 명확히 확인할 수 있습니다.</p>
+<p>하지만 <code>airports</code>와 <code>flights</code> 데이터 프레임을 모두 살펴보면 공항 코드가 서로 다른 이름의 변수에 저장되어 있음을 알 수 있습니다. <code>airports</code>에서는 공항 코드가 <code>faa</code>에 있지만, <code>flights</code>에서는 <code>origin</code>과 <code>dest</code>에 있습니다. 이 사실은 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 의 데이터 프레임 간 관계도에서도 명확히 확인할 수 있습니다.</p>
 <p>공항 코드를 기준으로 이 두 데이터 프레임을 결합하기 위해 <code>inner_join()</code> 작업 시 키 변수 이름이 다른 경우에도 결합할 수 있도록 수정된 코드 문법인 <code>by = c("dest" = "faa")</code> 인자를 사용합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>flights_with_airport_names <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
@@ -1187,8 +1187,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </section>
 <section id="여러-개의-키key-변수" class="level3">
 <h3 class="anchored" data-anchor-id="여러-개의-키key-변수">여러 개의 “키(key)” 변수</h3>
-<p><em>여러 개의 키 변수</em>를 사용하여 두 데이터 프레임을 결합하고 싶을 때도 있습니다. 예를 들어 그림 <span class="quarto-unresolved-ref">?fig-reldiagram에서</span> 보듯이 <code>flights</code>와 <code>weather</code> 데이터 프레임을 결합하려면 <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code>이라는 5개의 키 변수가 필요합니다. 그 이유는 이 5개 변수의 조합이 <code>weather</code> 데이터 프레임의 각 관측 단위(뉴욕의 3개 공항에서 매시간 측정된 기상 정보)를 고유하게 식별하기 때문입니다.</p>
-<p><code>c()</code> 함수를 사용하여 결합할 키 변수들의 <em>벡터</em>를 지정하면 됩니다. <span class="quarto-unresolved-ref">?sec-programming-concepts절에서</span> 배운 것처럼 <code>c()</code>는 “결합” 또는 “연결”의 약자입니다. </p>
+<p><em>여러 개의 키 변수</em>를 사용하여 두 데이터 프레임을 결합하고 싶을 때도 있습니다. 예를 들어 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 에서 보듯이 <code>flights</code>와 <code>weather</code> 데이터 프레임을 결합하려면 <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code>이라는 5개의 키 변수가 필요합니다. 그 이유는 이 5개 변수의 조합이 <code>weather</code> 데이터 프레임의 각 관측 단위(뉴욕의 3개 공항에서 매시간 측정된 기상 정보)를 고유하게 식별하기 때문입니다.</p>
+<p><code>c()</code> 함수를 사용하여 결합할 키 변수들의 <em>벡터</em>를 지정하면 됩니다. <a href="01-getting-started.html#sec-programming-concepts" class="quarto-xref"><span>기초 프로그래밍 개념 및 용어</span></a> 절에서 배운 것처럼 <code>c()</code>는 “결합” 또는 “연결”의 약자입니다. </p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>flights_weather_joined <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(weather, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"hour"</span>, <span class="st">"origin"</span>))</span>
@@ -1201,7 +1201,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </p>
 </div>
 </div>
-<p><strong>(LC3.13)</strong> 그림 <span class="quarto-unresolved-ref">?fig-reldiagram를</span> 보고 <code>flights</code>와 <code>weather</code>를 결합할 때(즉, 매시간 기상 정보를 각 항공편과 매칭할 때 왜 <code>hour</code>뿐만 아니라 <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code> 모두를 사용해서 결합해야 할까요?</p>
+<p><strong>(LC3.13)</strong> 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 를 보고 <code>flights</code>와 <code>weather</code>를 결합할 때(즉, 매시간 기상 정보를 각 항공편과 매칭할 때 왜 <code>hour</code>뿐만 아니라 <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code> 모두를 사용해서 결합해야 할까요?</p>
 <p><strong>(LC3.14)</strong> 2013년 뉴욕 출발 항공편의 상위 10개 목적지에 대해 놀라운 점은 무엇인가요?</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
@@ -1209,8 +1209,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 </div>
 </section>
-<section id="normal-forms" class="level3">
-<h3 class="anchored" data-anchor-id="normal-forms">정규형</h3>
+<section id="sec-normal-forms" class="level3">
+<h3 class="anchored" data-anchor-id="sec-normal-forms">정규형</h3>
 <p><code>nycflights13</code> 패키지에 포함된 데이터 프레임들은 데이터의 중복을 최소화하는 형태입니다. 예를 들어 <code>flights</code> 데이터 프레임은 항공사의 <code>carrier</code> 코드만 저장하고 실제 항공사 이름은 포함하지 않습니다. <code>flights</code>의 첫 번째 행에서 <code>carrier</code>는 <code>UA</code>이지만 “United Air Lines Inc.”라는 전체 이름은 들어있지 않습니다.</p>
 <p>항공사 이름은 <code>airlines</code> 데이터 프레임의 <code>name</code> 변수에 들어있습니다. <code>flights</code>에 항공사 이름을 포함하려면 다음과 같이 두 데이터 프레임을 결합하면 됩니다.</p>
 <div class="cell" data-layout-align="center">
@@ -1236,16 +1236,16 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 </section>
 </section>
-<section id="other-verbs" class="level2">
-<h2 class="anchored" data-anchor-id="other-verbs">기타 동사들</h2>
+<section id="sec-other-verbs" class="level2">
+<h2 class="anchored" data-anchor-id="sec-other-verbs">기타 동사들</h2>
 <p>여기에 유용한 몇 가지 다른 데이터 전처리 동사들이 있습니다.</p>
 <ul>
 <li><code>select()</code>: 특정 변수/열만 선택합니다.</li>
 <li><code>rename()</code>: 변수/열의 이름을 새 이름으로 바꿉니다.</li>
 <li><code>top_n()</code>: 변수의 상위 <code>n</code>개 값을 반환합니다.</li>
 </ul>
-<section id="select" class="level3">
-<h3 class="anchored" data-anchor-id="select"><code>select</code> 변수 선택</h3>
+<section id="sec-select" class="level3">
+<h3 class="anchored" data-anchor-id="sec-select"><code>select</code> 변수 선택</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1265,7 +1265,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(carrier, flight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>이 함수를 사용하면 가장 관심 있는 변수로만 범위를 좁힐 수 있어 대규모 데이터셋을 탐색하기가 훨씬 수월해집니다. 예를 들어, 그림 <span class="quarto-unresolved-ref">?fig-selectfig에</span> 표시된 것처럼 적은 수의 변수만 <code>select()</code>하면 RStudio의 스프레드시트 뷰어에서 데이터셋을 더 읽기 편하게 볼 수 있습니다.</p>
+<p>이 함수를 사용하면 가장 관심 있는 변수로만 범위를 좁힐 수 있어 대규모 데이터셋을 탐색하기가 훨씬 수월해집니다. 예를 들어, 그림 <span class="quarto-unresolved-ref">?fig-selectfig</span> 에 표시된 것처럼 적은 수의 변수만 <code>select()</code>하면 RStudio의 스프레드시트 뷰어에서 데이터셋을 더 읽기 편하게 볼 수 있습니다.</p>
 <p>반대로 특정 변수를 제외하거나 선택을 취소하고 싶을 수도 있습니다. 예를 들어 <code>flights</code> 데이터 프레임의 <code>year</code> 변수를 생각해 봅시다. 이 변수는 항상 <code>2013</code>이고 값이 변하지 않으므로 데이터로서의 큰 의미는 없습니다. 데이터 프레임에서 이 변수를 제거하고 싶다면 <code>-</code> 기호를 사용하여 <code>year</code>의 선택을 취소할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>flights_no_year <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>year)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1302,7 +1302,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </section>
 <section id="변수의-top_n-값-추출" class="level3">
 <h3 class="anchored" data-anchor-id="변수의-top_n-값-추출">변수의 <code>top_n</code> 값 추출</h3>
-<p><code>top_n()</code> 함수를 사용하여 변수의 상위 <code>n</code>개 값을 반환할 수도 있습니다. 예를 들어 <span class="quarto-unresolved-ref">?sec-diff-key절의</span> 예제를 활용하여 상위 10개 목적지 공항의 데이터 프레임을 반환할 수 있습니다. 반환할 값의 개수를 <code>n = 10</code>으로 설정하고 <code>wt = num_flights</code>를 지정하여 <code>num_flights</code>의 상위 10개 값에 해당하는 행을 원한다는 것을 명시합니다. 자세한 정보는 <code>?top_n</code>을 실행하여 도움말 파일을 확인하세요.</p>
+<p><code>top_n()</code> 함수를 사용하여 변수의 상위 <code>n</code>개 값을 반환할 수도 있습니다. 예를 들어 <a href="#sec-diff-key" class="quarto-xref"><span>서로 다른 “키(key)” 변수 이름</span></a> 절의 예제를 활용하여 상위 10개 목적지 공항의 데이터 프레임을 반환할 수 있습니다. 반환할 값의 개수를 <code>n = 10</code>으로 설정하고 <code>wt = num_flights</code>를 지정하여 <code>num_flights</code>의 상위 10개 값에 해당하는 행을 원한다는 것을 명시합니다. 자세한 정보는 <code>?top_n</code>을 실행하여 도움말 파일을 확인하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>named_dests <span class="sc">%&gt;%</span> <span class="fu">top_n</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">wt =</span> num_flights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1334,7 +1334,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <h2 class="anchored" data-anchor-id="wrangling-conclusion">결론</h2>
 <section id="요약-표" class="level3">
 <h3 class="anchored" data-anchor-id="요약-표">요약 표</h3>
-<p>표 <span class="quarto-unresolved-ref">?tbl-wrangle-summary-table에서</span> 데이터 전처리 동사들을 다시 정리해 봅시다. 이 동사들과 <span class="quarto-unresolved-ref">?sec-piping절의</span> 파이프 <code>%&gt;%</code> 연산자를 사용하면, 이 책의 나머지 부분에서 필요한 거의 모든 데이터 전처리 및 변형 작업을 수행할 수 있는 가독성 높은 코드를 작성할 수 있을 것입니다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-wrangle-summary-table</span> 에서 데이터 전처리 동사들을 다시 정리해 봅시다. 이 동사들과 <a href="#sec-piping" class="quarto-xref"><span>파이프 연산자: %&gt;%</span></a> 절의 파이프 <code>%&gt;%</code> 연산자를 사용하면, 이 책의 나머지 부분에서 필요한 거의 모든 데이터 전처리 및 변형 작업을 수행할 수 있는 가독성 높은 코드를 작성할 수 있을 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1383,7 +1383,7 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 </div>
 <p><strong>(LC3.20)</strong> 이제 여러분이 새롭게 습득한 데이터 전처리 기술을 시험해 볼 시간입니다!</p>
 <p>항공업계에서 여객 항공사의 역량을 측정하는 지표 중 하나는 <a href="https://en.wikipedia.org/wiki/Available_seat_miles">유효 좌석 마일(available seat miles)</a>입니다. 이는 사용 가능한 좌석 수에 비행 거리를 곱한 값을 모든 항공편에 대해 합산한 것과 같습니다.</p>
-<p>예를 들어 그림 <span class="quarto-unresolved-ref">?fig-available-seat-miles의</span> 시나리오를 생각해 봅시다. 비행기에 4개의 좌석이 있고 200마일을 비행한다면, 유효 좌석 마일은 <span class="math inline">\(4 \times 200 = 800\)</span>이 됩니다.</p>
+<p>예를 들어 그림 <span class="quarto-unresolved-ref">?fig-available-seat-miles</span> 의 시나리오를 생각해 봅시다. 비행기에 4개의 좌석이 있고 200마일을 비행한다면, 유효 좌석 마일은 <span class="math inline">\(4 \times 200 = 800\)</span>이 됩니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1399,8 +1399,8 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <ol type="1">
 <li><strong>중요</strong>: 자신의 실력에 아주 자신이 있는 경우가 아니라면, 바로 코딩을 시작하지 않는 것이 좋습니다. 대신 먼저 종이에 필요한 모든 데이터 전처리 단계를 정확한 코드가 아닌, 여러분이 하려는 작업을 명확히 설명할 수 있을 만큼 구체적인 수준의 <em>의사 코드(pseudocode)</em>로 그려보세요. 이렇게 하면 여러분이 하려는 “무엇(알고리즘)”과 그것을 “어떻게(dplyr 코드 작성)” 할 것인지를 혼동하지 않게 됩니다.</li>
 <li><code>View()</code> 함수를 사용하여 <code>flights</code>, <code>weather</code>, <code>planes</code>, <code>airports</code>, <code>airlines</code> 등 모든 데이터셋을 자세히 살펴보고 유효 좌석 마일을 계산하는 데 어떤 변수가 필요한지 확인하세요.</li>
-<li>다양한 데이터셋이 어떻게 결합될 수 있는지 보여주는 그림 <span class="quarto-unresolved-ref">?fig-reldiagram도</span> 유용할 것입니다.</li>
-<li>표 <span class="quarto-unresolved-ref">?tbl-wrangle-summary-table에</span> 있는 데이터 전처리 동사들을 여러분의 도구함으로 활용하세요!</li>
+<li>다양한 데이터셋이 어떻게 결합될 수 있는지 보여주는 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 도 유용할 것입니다.</li>
+<li>표 <span class="quarto-unresolved-ref">?tbl-wrangle-summary-table</span> 에 있는 데이터 전처리 동사들을 여러분의 도구함으로 활용하세요!</li>
 </ol>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
@@ -1423,11 +1423,11 @@ v2 TODO: Address this warning message explicitly in text and fix index.Rmd
 <li>비율 계산하기</li>
 <li>%, 쉼표, $ 기호 처리하기</li>
 </ul>
-<p>이어지는 <span class="quarto-unresolved-ref">?sec-tidy장에서는</span> 스프레드시트 형태의 직사각형 포맷으로 데이터를 표현하는 두 가지 방법인 (1 “와이드(wide)” 포맷과 (2 “롱(long)/내로우(narrow)” 포맷에 대해 알아볼 것입니다. 롱/내로우 포맷은 R 사용자들 사이에서 <em>“깔끔한(tidy)”</em> 데이터 포맷으로도 알려져 있습니다. “깔끔한” 데이터와 그렇지 않은 데이터의 차이는 미묘해 보이지만, 데이터 과학 작업에 엄청난 영향을 미칩니다. 데이터 시각화를 위한 <code>ggplot2</code> 패키지와 데이터 전처리를 위한 <code>dplyr</code> 패키지를 포함하여 이 책에서 사용하는 거의 모든 패키지가 모든 데이터 프레임이 “깔끔한” 포맷이라고 가정하기 때문입니다.</p>
-<p>나아가 지금까지 우리는 R 패키지에 저장된 데이터만을 탐색, 시각화 및 전처리해 왔습니다. 하지만 Microsoft Excel, Google Sheets 또는 “쉼표로 구분된 값(CSV)” 파일에 저장된 데이터를 분석하고 싶다면 어떻게 해야 할까요? <span class="quarto-unresolved-ref">?sec-csv절에서는</span> <code>readr</code> 패키지를 사용하여 이러한 데이터를 R로 불러오는 방법을 보여드릴 것입니다.</p>
+<p>이어지는 <a href="04-tidy.html" class="quarto-xref"><span>데이터 불러오기와 “깔끔한” 데이터</span></a> 장에서는 스프레드시트 형태의 직사각형 포맷으로 데이터를 표현하는 두 가지 방법인 (1 “와이드(wide)” 포맷과 (2 “롱(long)/내로우(narrow)” 포맷에 대해 알아볼 것입니다. 롱/내로우 포맷은 R 사용자들 사이에서 <em>“깔끔한(tidy)”</em> 데이터 포맷으로도 알려져 있습니다. “깔끔한” 데이터와 그렇지 않은 데이터의 차이는 미묘해 보이지만, 데이터 과학 작업에 엄청난 영향을 미칩니다. 데이터 시각화를 위한 <code>ggplot2</code> 패키지와 데이터 전처리를 위한 <code>dplyr</code> 패키지를 포함하여 이 책에서 사용하는 거의 모든 패키지가 모든 데이터 프레임이 “깔끔한” 포맷이라고 가정하기 때문입니다.</p>
+<p>나아가 지금까지 우리는 R 패키지에 저장된 데이터만을 탐색, 시각화 및 전처리해 왔습니다. 하지만 Microsoft Excel, Google Sheets 또는 “쉼표로 구분된 값(CSV)” 파일에 저장된 데이터를 분석하고 싶다면 어떻게 해야 할까요? <a href="04-tidy.html#sec-csv" class="quarto-xref"><span>데이터 불러오기</span></a> 절에서는 <code>readr</code> 패키지를 사용하여 이러한 데이터를 R로 불러오는 방법을 보여드릴 것입니다.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-rds2016" class="csl-entry" role="listitem">
 Grolemund, Garrett, and Hadley Wickham. 2017. <em>R for Data Science</em>. First. Sebastopol, CA: O’Reilly Media. <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.
 </div>

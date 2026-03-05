@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>학습 확인 문제 풀이 – ModernDive: Statistical Inference via Data Science</title>
+<title>학습 확인 문제 풀이 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -164,7 +164,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -355,7 +355,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./91-appendixA.html">부록</a></li><li class="breadcrumb-item"><a href="./94-appendixD.html"><span class="chapter-title">학습 확인 문제 풀이</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="appendixD" class="quarto-section-identifier"><span class="chapter-title">학습 확인 문제 풀이</span></span></h1>
+<h1 class="title"><span id="sec-appendixD" class="quarto-section-identifier"><span class="chapter-title">학습 확인 문제 풀이</span></span></h1>
 </div>
 
 
@@ -395,7 +395,7 @@ window.Quarto = {
 <li>C. Data on an airport</li>
 <li>D. Data on multiple flights</li>
 </ul>
-<p><strong>Solution</strong>: This is data on a flight. Not a flight path! Example:</p>
+<p><strong>풀이</strong>: 이것은 비행 경로(flight path)가 아닌 개별 항공편(flight)에 대한 데이터입니다! 예:</p>
 <ul>
 <li>비행 경로는 휴스턴행 United 1545편과 같은 것입니다.</li>
 <li>항공편은 특정 날짜/시간에 운항되는 휴스턴행 United 1545편입니다. 예를 들어, 2013년 1월 1일 오전 5시 15분입니다.</li>
@@ -461,7 +461,7 @@ window.Quarto = {
 </div>
 <p><strong>(LC2.7)</strong> 산점도에서 <code>alpha</code> 인자 값을 설정하는 것이 왜 유용할까요? 일반 산점도가 제공하지 못하는 어떤 추가 정보를 제공하나요?</p>
 <p><strong>풀이</strong>: 점들을 옅게 만들어 겹침(overplotting) 문제를 해결해 줍니다. 하지만 더 중요한 것은 점들의 (통계적) <strong>밀도(density)</strong>와 <strong>분포(distribution)</strong>에 대한 힌트를 준다는 점입니다. 즉, 점들이 어디에 집중되어 있고 어디서 발생하는지를 보여줍니다.</p>
-<p><strong>(LC2.8)</strong> 위의 그림 <span class="quarto-unresolved-ref">?fig-alpha를</span> 보고, 가장 빈번하게 발생하는 도착 지연과 출발 지연의 대략적인 범위를 제시하세요. <code>alpha = 0.2</code>를 설정하지 않은 그림 <span class="quarto-unresolved-ref">?fig-noalpha와</span> 비교했을 때 해당 영역이 어떻게 변했나요?</p>
+<p><strong>(LC2.8)</strong> 위의 그림 <span class="quarto-unresolved-ref">?fig-alpha</span> 를 보고, 가장 빈번하게 발생하는 도착 지연과 출발 지연의 대략적인 범위를 제시하세요. <code>alpha = 0.2</code>를 설정하지 않은 그림 <span class="quarto-unresolved-ref">?fig-noalpha</span> 와 비교했을 때 해당 영역이 어떻게 변했나요?</p>
 <p><strong>풀이</strong>: 아래쪽 그래프는 NYC에서 출발하는 대부분의 알래스카 항공편이 예정 시간보다 12분 일찍 출발하거나 정시에 출발하고, 50분 일찍 도착하거나 정시에 도착함을 시사합니다.</p>
 <p><strong>(LC2.9)</strong> <code>nycflights13</code> 패키지의 <code>weather</code> 데이터 프레임과 <code>moderndive</code> 패키지의 <code>early_january_weather</code> 데이터 프레임을 <code>View(weather)</code> 및 <code>View(early_january_weather)</code>를 실행하여 살펴보세요. 이 데이터 프레임들은 어떤 점에서 다른가요?</p>
 <p><strong>풀이</strong>: <code>early_january_weather</code>의 행들은 <code>weather</code>의 부분 집합입니다.</p>
@@ -547,7 +547,7 @@ window.Quarto = {
 <li>11월의 IQR이 가장 큰데(상자가 가장 넓음), 따라서 기온 변화가 가장 심합니다.</li>
 <li>8월의 IQR이 가장 작은데(상자가 가장 좁음), 따라서 기온 측면에서 가장 일정합니다.</li>
 </ul>
-<p>각 월별 정확한 IQR 값을 계산하는 법은 다음과 같습니다(본문의 <span class="quarto-unresolved-ref">?sec-wrangling</span> 장에서 더 자세히 다룰 것입니다).</p>
+<p>각 월별 정확한 IQR 값을 계산하는 법은 다음과 같습니다(본문의 <a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장에서 더 자세히 다룰 것입니다).</p>
 <ol type="1">
 <li>관측치를 <code>month</code>로 그룹(<code>group</code>)화합니다.</li>
 <li>각 그룹(즉, <code>month</code>)에 대해 요약 통계 함수 <code>IQR()</code>을 적용하여 <code>summarize</code> 하되, <code>na.rm=TRUE</code>를 통해 결측 데이터는 건너뛰도록 합니다.</li>
@@ -621,8 +621,8 @@ window.Quarto = {
 </table>
 </div>
 </div>
-<p><strong>(LC2.24)</strong> We looked at the distribution of the numerical variable <code>temp</code> split by the numerical variable <code>month</code> that we converted to a categorical variable using the <code>factor()</code> function. Why would a boxplot of <code>temp</code> split by the numerical variable <code>pressure</code> similarly converted to a categorical variable using the <code>factor()</code> not be informative?</p>
-<p><strong>Solution</strong>: Because there are 12 unique values of <code>month</code> yielding only 12 boxes in our boxplot. There are many more unique values of <code>pressure</code> (469 unique values in fact), because values are to the first decimal place. This would lead to 469 boxes, which is too many for people to digest.</p>
+<p><strong>(LC2.24)</strong> 우리는 <code>factor()</code> 함수를 사용하여 범주형 변수로 변환한 수치형 변수 <code>month</code>를 기준으로 수치형 변수 <code>temp</code>의 분포를 살펴보았습니다. 왜 수치형 변수 <code>pressure</code>를 마찬가지로 <code>factor()</code>를 사용하여 범주형 변수로 변환하여 <code>temp</code>를 나누어 그린 박스 그래프는 유익하지 않을까요?</p>
+<p><strong>풀이</strong>: 박스 그래프에서 <code>month</code>는 12개의 고유한 값을 가지므로 12개의 박스만 생성됩니다. 하지만 <code>pressure</code>는 첫째 자리 소수점까지 표시되는 훨씬 더 많은 고유한 값(469개)을 가집니다. 이로 인해 469개의 박스가 생성되어 사람들이 이해하기에는 너무 많아집니다.</p>
 <p><strong>(LC2.25)</strong> 박스 플롯은 이상치를 식별하는 간단한 방법을 제공합니다. 면 분할 히스토그램을 볼 때보다 박스 플롯을 볼 때 이상치를 식별하기가 왜 더 쉬울까요?</p>
 <p><strong>풀이</strong>: 히스토그램에서는 이상치가 있는 빈(bin)의 높이가 너무 낮아서 보이지 않을 수 있습니다. 박스 플롯에서는 이상치가 별도로 명확하게 표시됩니다.</p>
 <p><strong>(LC2.26)</strong> 왜 범주형 변수를 시각화하는 데 히스토그램이 부적절한가요?</p>
@@ -632,7 +632,7 @@ window.Quarto = {
 <p><strong>(LC2.28)</strong> 2013년에 NYC에서 출발한 Envoy Air 항공편은 몇 편인가요?</p>
 <p><strong>풀이</strong>: Envoy Air의 항공사 코드는 <code>MQ</code>이며, 2013년에 NYC에서 26,397편이 출발했습니다.</p>
 <p><strong>(LC2.29)</strong> 2013년 NYC에서 출발한 항공편 수 기준으로 7위를 차지한 항공사는 어디입니까? 이 답을 빨리 얻기 위해 표를 어떻게 더 잘 제시할 수 있을까요?</p>
-<p><strong>풀이</strong>: 정답은 US, 즉 U.S. Airways이며 20,536편입니다. 하지만 행이 항공사 코드별로 알파벳 순 정렬되어 있을 때 7위 항공사를 골라내는 것은 어렵습니다. 행이 숫자에 따라 정렬되어 있다면 더 쉬울 것입니다. 데이터 전처리에 관한 <span class="quarto-unresolved-ref">?sec-wrangling</span> 장에서 이 방법을 배울 것입니다.</p>
+<p><strong>풀이</strong>: 정답은 US, 즉 U.S. Airways이며 20,536편입니다. 하지만 행이 항공사 코드별로 알파벳 순 정렬되어 있을 때 7위 항공사를 골라내는 것은 어렵습니다. 행이 숫자에 따라 정렬되어 있다면 더 쉬울 것입니다. 데이터 전처리에 관한 <a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장에서 이 방법을 배울 것입니다.</p>
 <p><strong>(LC2.30)</strong> 왜 원 그래프(pie chart)를 피하고 막대 그래프로 대체해야 하나요?</p>
 <p><strong>풀이</strong>: 저희 <strong>의견</strong>으로는, 원의 각도와 면적을 비교하는 것보다 수평선을 사용하여 비교하는 것이 더 쉽기 때문입니다.</p>
 <p><strong>(LC2.31)</strong> 원 그래프가 계속 사용되는 이유에 대해 어떻게 생각하시나요?</p>
@@ -709,7 +709,7 @@ window.Quarto = {
 </div>
 </div>
 <p>첫 번째 <code>summarize()</code> 이후에 <code>temp</code> 변수는 <code>mean</code> 값으로 요약되어 사라지기 때문입니다. 따라서 두 번째 <code>summarize()</code>를 실행하려고 하면 표준편차를 계산할 <code>temp</code> 변수를 찾을 수 없습니다.</p>
-<p><strong>(LC3.5)</strong> NYC의 월별 기온을 살펴봤던 <span class="quarto-unresolved-ref">?sec-viz</span> 장을 떠올려 보세요. <code>summary_monthly_temp</code> 데이터 프레임의 표준편차 열은 일 년 동안 뉴욕시의 기온에 대해 무엇을 말해주나요?</p>
+<p><strong>(LC3.5)</strong> NYC의 월별 기온을 살펴봤던 <a href="02-visualization.html" class="quarto-xref"><span>데이터 시각화</span></a> 장을 떠올려 보세요. <code>summary_monthly_temp</code> 데이터 프레임의 표준편차 열은 일 년 동안 뉴욕시의 기온에 대해 무엇을 말해주나요?</p>
 <p><strong>풀이</strong>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1277,7 +1277,7 @@ window.Quarto = {
 <p><strong>풀이</strong>: 아니요, 시간 데이터에 직접 산술 연산을 할 수 없기 때문입니다. 12:03과 11:59의 시간 차이는 4분이지만, <code>1203 - 1159 = 44</code>가 됩니다.</p>
 <p><strong>(LC3.12)</strong> <code>gain</code>의 분포에 대해 무엇을 말할 수 있을까요? 그래프와 <code>gain_summary</code> 데이터 프레임 값을 참고하여 몇 문장으로 설명해 보세요.</p>
 <p><strong>풀이</strong>: 대부분의 경우 gain은 0보다 약간 높으며(중앙값이 7이므로 최소한 50%의 경우 gain이 0보다 크며), -50분에서 50분 사이입니다. 하지만 극단적인 경우들도 있습니다!</p>
-<p><strong>(LC3.13)</strong> 그림 <span class="quarto-unresolved-ref">?fig-reldiagram를</span> 보고 <code>flights</code>와 <code>weather</code>를 결합할 때(즉, 매시간 기상 정보를 각 항공편과 매칭할 때) 왜 <code>hour</code>뿐만 아니라 <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code> 모두를 사용해서 결합해야 할까요?</p>
+<p><strong>(LC3.13)</strong> 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 를 보고 <code>flights</code>와 <code>weather</code>를 결합할 때(즉, 매시간 기상 정보를 각 항공편과 매칭할 때) 왜 <code>hour</code>뿐만 아니라 <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code> 모두를 사용해서 결합해야 할까요?</p>
 <p><strong>풀이</strong>: <code>hour</code>는 단지 0에서 23 사이의 값일 뿐이기 때문입니다. <em>특정한</em> 시간을 식별하려면 어떤 연도, 월, 일 그리고 어느 공항인지를 알아야 합니다.</p>
 <p><strong>(LC3.14)</strong> 2013년 NYC 출발 항공편의 상위 10개 목적지에 대해 놀라운 점은 무엇인가요?</p>
 <p><strong>풀이</strong>: 이 질문은 주관적입니다! 저에게 놀라운 점은 보스턴행 항공편 수가 매우 많다는 것입니다. 기차를 타는 것이 더 쉽고 빠르지 않을까요?</p>
@@ -1438,8 +1438,8 @@ window.Quarto = {
 <ol type="1">
 <li><strong>중요</strong>: 자신이 하는 일에 매우 확신이 있지 않은 한, 바로 코딩을 시작하지 말고 먼저 정확한 코드가 아닌 대략적인 <em>의사 코드(pseudocode)</em>를 종이에 써보는 것이 좋습니다. 의사 코드는 비공식적이지만 무엇을 할지 명확하게 표현할 수 있을 만큼 상세해야 합니다. 이렇게 하면 <em>무엇</em>을 하려는지(알고리즘)와 그것을 <em>어떻게</em> 할지(<code>dplyr</code> 코드 작성)를 혼동하지 않을 수 있습니다.</li>
 <li><code>View()</code> 함수를 사용하여 <code>flights</code>, <code>weather</code>, <code>planes</code>, <code>airports</code>, <code>airlines</code> 모든 데이터셋을 면밀히 살펴보고 가용 좌석 마일을 계산하는 데 어떤 변수가 필요한지 식별하세요.</li>
-<li>다양한 데이터셋들이 어떻게 결합되는지 보여주는 위 그림 <span class="quarto-unresolved-ref">?fig-reldiagram도</span> 유용할 것입니다.</li>
-<li>표 <span class="quarto-unresolved-ref">?tbl-wrangle-summary-table에</span> 있는 데이터 전처리 동사들을 여러분의 도구 상자로 생각하세요!</li>
+<li>다양한 데이터셋들이 어떻게 결합되는지 보여주는 위 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 도 유용할 것입니다.</li>
+<li>표 <span class="quarto-unresolved-ref">?tbl-wrangle-summary-table</span> 에 있는 데이터 전처리 동사들을 여러분의 도구 상자로 생각하세요!</li>
 </ol>
 <p><strong>풀이</strong>: 다음은 학생들이 작성한 <a href="https://twitter.com/rudeboybert/status/964181298691629056">의사 코드</a>의 예시입니다. 우리만의 의사 코드를 바탕으로 전체 솔루션을 먼저 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center">
@@ -1472,7 +1472,7 @@ window.Quarto = {
 16 OO          1299835</code></pre>
 </div>
 </div>
-<p>이제 단계별로 나누어 보겠습니다. 특정 항공편의 가용 좌석 마일을 계산하려면 <code>flights</code> 데이터 프레임의 <code>distance</code> 변수와 <code>planes</code> 데이터 프레임의 <code>seats</code> 변수가 필요하며, 그림 <span class="quarto-unresolved-ref">?fig-reldiagram에서</span> 볼 수 있듯이 키 변수인 <code>tailnum</code>으로 결합해야 합니다. 결과 데이터 프레임을 보기 쉽게 유지하기 위해 이 두 변수와 <code>carrier</code>만 <code>select()</code> 하겠습니다.</p>
+<p>이제 단계별로 나누어 보겠습니다. 특정 항공편의 가용 좌석 마일을 계산하려면 <code>flights</code> 데이터 프레임의 <code>distance</code> 변수와 <code>planes</code> 데이터 프레임의 <code>seats</code> 변수가 필요하며, 그림 <span class="quarto-unresolved-ref">?fig-reldiagram</span> 에서 볼 수 있듯이 키 변수인 <code>tailnum</code>으로 결합해야 합니다. 결과 데이터 프레임을 보기 쉽게 유지하기 위해 이 두 변수와 <code>carrier</code>만 <code>select()</code> 하겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(planes, <span class="at">by =</span> <span class="st">"tailnum"</span>) <span class="sc">%&gt;%</span></span>
@@ -1549,7 +1549,7 @@ window.Quarto = {
 16 YV         20163632</code></pre>
 </div>
 </div>
-<p>하지만 특정 항공사의 특정 항공편에 결측값 <code>NA</code>가 있기 때문에 결과 표에도 <code>NA</code>가 반환됩니다. <code>sum()</code>에 <code>na.rm = TRUE</code> 인자를 추가하여 합계에서 <code>NA</code>를 제거함으로써 이를 해결할 수 있습니다. 이는 <span class="quarto-unresolved-ref">?sec-summarize</span> 절에서 보았습니다.</p>
+<p>하지만 특정 항공사의 특정 항공편에 결측값 <code>NA</code>가 있기 때문에 결과 표에도 <code>NA</code>가 반환됩니다. <code>sum()</code>에 <code>na.rm = TRUE</code> 인자를 추가하여 합계에서 <code>NA</code>를 제거함으로써 이를 해결할 수 있습니다. 이는 <a href="03-wrangling.html#sec-summarize" class="quarto-xref"><span>summarize 변수 요약</span></a> 절에서 보았습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(planes, <span class="at">by =</span> <span class="st">"tailnum"</span>) <span class="sc">%&gt;%</span></span>
@@ -1657,8 +1657,8 @@ window.Quarto = {
 <span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fivethirtyeight)</span>
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>dem_score <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/dem_score.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>(LC4.1)</strong> What are common characteristics of “tidy” datasets?</p>
-<p><strong>Solution</strong>: Rows correspond to observations, while columns correspond to variables.</p>
+<p><strong>(LC4.1)</strong> “깔끔한(tidy)” 데이터셋의 공통적인 특징은 무엇인가요?</p>
+<p><strong>풀이</strong>: 행은 관측치(observations)에 해당하고, 열은 변수(variables)에 해당합니다.</p>
 <p><strong>(LC4.2)</strong> 데이터를 정리하는 데 있어 “깔끔한(tidy)” 데이터셋이 유용한 이유는 무엇인가요?</p>
 <p><strong>풀이</strong>: 깔끔한 데이터셋은 데이터를 보는 조직적인 방법입니다. 이 형식은 데이터 시각화 및 전처리를 위한 <code>ggplot2</code> 및 <code>dplyr</code> 패키지에 필수적입니다.</p>
 <p><strong>(LC4.3)</strong> <code>fivethirtyeight</code> 데이터에 포함된 <code>airline_safety</code> 데이터 프레임을 살펴보세요. 다음을 실행하세요:</p>
@@ -2271,10 +2271,10 @@ TODO: Albert will double check Starry's interpretation:
 <p><strong>(LC7.4)</strong> 왜 50개 공으로 된 “촉각적(tactile)” 샘플 1000개를 직접 손으로 채취하지 않았나요?</p>
 <p><strong>풀이</strong>:</p>
 <p>그것은 너무 많은 반복 작업이 될 것이기 때문입니다.</p>
-<p><strong>(LC7.5)</strong> 그림 <span class="quarto-unresolved-ref">?fig-samplingdistribution-virtual-1000를</span> 보고, 50개의 공을 샘플링했을 때 그중 30%가 빨간색일 가능성이 높다고 생각하시나요, 아니면 아니라고 생각하시나요? 50개의 공을 샘플링했을 때 그중 10%가 빨간색인 경우는 어떠한가요?</p>
+<p><strong>(LC7.5)</strong> 그림 <span class="quarto-unresolved-ref">?fig-samplingdistribution-virtual-1000</span> 를 보고, 50개의 공을 샘플링했을 때 그중 30%가 빨간색일 가능성이 높다고 생각하시나요, 아니면 아니라고 생각하시나요? 50개의 공을 샘플링했을 때 그중 10%가 빨간색인 경우는 어떠한가요?</p>
 <p><strong>풀이</strong>:</p>
 <p>그림에 따르면, 1000번의 횟수 중 30%가 빨간색인 경우는 150번 미만입니다. 따라서 50개의 공을 샘플링하여 30%가 빨간색일 가능성은 그리 높지 않다고 말할 수 있습니다. 10%만 빨간색인 경우는 거의 없었으므로, 50개의 공을 샘플링하여 10%가 빨간색일 가능성은 극히 낮습니다.</p>
-<p><strong>(LC7.6)</strong> 그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions에서</span> 우리는 각각 1000개의 샘플을 채취하기 위해 삽을 사용했고, 삽에 담긴 공 중 빨간색인 1000개의 비율을 계산한 다음, 이 1000개 비율의 분포를 히스토그램으로 시각화했습니다. 우리는 삽의 구멍이 25개, 50개, 100개인 경우에 대해 이 작업을 수행했습니다. 삽의 크기가 커질수록 히스토그램은 좁아졌습니다. 다시 말해, 삽의 크기가 25에서 50, 100으로 증가함에 따라 1000개의 비율은 다음과 같이 변했나요?</p>
+<p><strong>(LC7.6)</strong> 그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions</span> 에서 우리는 각각 1000개의 샘플을 채취하기 위해 삽을 사용했고, 삽에 담긴 공 중 빨간색인 1000개의 비율을 계산한 다음, 이 1000개 비율의 분포를 히스토그램으로 시각화했습니다. 우리는 삽의 구멍이 25개, 50개, 100개인 경우에 대해 이 작업을 수행했습니다. 삽의 크기가 커질수록 히스토그램은 좁아졌습니다. 다시 말해, 삽의 크기가 25에서 50, 100으로 증가함에 따라 1000개의 비율은 다음과 같이 변했나요?</p>
 <ul>
 <li><p>A. 가변성이 줄어들었다(vary less)</p></li>
 <li><p>B. 동일한 양만큼 변했다</p></li>
@@ -2314,7 +2314,7 @@ TODO: Albert will double check Starry's interpretation:
 <p><strong>(LC7.15)</strong> 샘플 비율 <span class="math inline">\(\widehat{p}\)</span>의 <em>표준 오차(standard error)</em>는 무엇을 수치화한 것인가요?</p>
 <p><strong>풀이</strong>:</p>
 <p>표준 오차는 우리 추정치에 유도된 샘플링 변동의 효과를 수치화합니다.</p>
-<p><strong>(LC7.16)</strong> 다음 표는 샘플 크기 <span class="math inline">\(n\)</span>을 샘플 비율 <span class="math inline">\(\widehat{p}\)</span>의 서로 다른 <em>표준 오차</em>로 연결한 표 <span class="quarto-unresolved-ref">?tbl-comparing-n-2의</span> 변형이지만, 행들이 무작위로 재정렬되고 샘플 크기가 제거되었습니다. 올바른 샘플 크기를 올바른 표준 오차에 연결하여 표를 완성하세요.</p>
+<p><strong>(LC7.16)</strong> 다음 표는 샘플 크기 <span class="math inline">\(n\)</span>을 샘플 비율 <span class="math inline">\(\widehat{p}\)</span>의 서로 다른 <em>표준 오차</em>로 연결한 표 <span class="quarto-unresolved-ref">?tbl-comparing-n-2</span> 의 변형이지만, 행들이 무작위로 재정렬되고 샘플 크기가 제거되었습니다. 올바른 샘플 크기를 올바른 표준 오차에 연결하여 표를 완성하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -2353,7 +2353,7 @@ TODO: Albert will double check Starry's interpretation:
 <p><strong>(LC7.19)</strong> 실제 상황에서 우리는 모집단을 추론하기 위해 1000개의 서로 다른 샘플을 채취하지 않고 오직 하나만 채취합니다. 그렇다면 우리가 1000개의 서로 다른 샘플을 채취했던 연습 문제의 목적은 무엇이었나요?</p>
 <p><strong>풀이</strong>:</p>
 <p>추정치의 범위를 좁히기 위해서입니다.</p>
-<p><strong>(LC7.20)</strong> 과녁이 그려진 그림 <span class="quarto-unresolved-ref">?fig-accuracy-vs-precision는</span> “정확함 대 정밀함” 추정치의 네 가지 조합을 보여줍니다. 그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions-3의</span> 가장 왼쪽 그래프와 같이, 샘플 비율 <span class="math inline">\(\widehat{p}\)</span>의 이에 대응하는 네 개의 <em>샘플링 분포</em>를 그리세요.</p>
+<p><strong>(LC7.20)</strong> 과녁이 그려진 그림 <span class="quarto-unresolved-ref">?fig-accuracy-vs-precision</span> 는 “정확함 대 정밀함” 추정치의 네 가지 조합을 보여줍니다. 그림 <span class="quarto-unresolved-ref">?fig-comparing-sampling-distributions-3</span> 의 가장 왼쪽 그래프와 같이, 샘플 비율 <span class="math inline">\(\widehat{p}\)</span>의 이에 대응하는 네 개의 <em>샘플링 분포</em>를 그리세요.</p>
 <p><strong>풀이</strong>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2389,15 +2389,15 @@ TODO: Albert will double check Starry's interpretation:
 <p><strong>(LC8.1)</strong> 붓스트랩(bootstrap) 분포와 샘플링 분포의 주요 차이점은 무엇인가요?</p>
 <p><strong>풀이</strong>:</p>
 <p>붓스트랩 샘플은 더 큰 샘플에서 “붓스트랩”된 더 작은 샘플입니다. 붓스트랩 방식은 하나의 원본 샘플에서 복원 추출을 통해 동일한 크기의 수많은 작은 샘플들을 반복해서 뽑는 재표집(resampling)의 한 유형입니다.</p>
-<p><strong>(LC8.2)</strong> 그림 <span class="quarto-unresolved-ref">?fig-one-thousand-sample-means에</span> 있는 샘플 평균의 붓스트랩 분포를 보고, <em>대부분의</em> 값들이 어떤 두 값 사이에 있다고 말할 수 있을까요?</p>
+<p><strong>(LC8.2)</strong> 그림 <span class="quarto-unresolved-ref">?fig-one-thousand-sample-means</span> 에 있는 샘플 평균의 붓스트랩 분포를 보고, <em>대부분의</em> 값들이 어떤 두 값 사이에 있다고 말할 수 있을까요?</p>
 <p><strong>풀이</strong>:</p>
 <p><em>대부분의</em> 값들은 1990년과 2000년 사이에 있습니다.</p>
 <p><strong>(LC8.3)</strong> 표준 오차법을 사용하여 신뢰 구간을 구축하기 위해 붓스트랩 분포가 충족해야 하는 조건은 무엇인가요?</p>
 <p><strong>풀이</strong>:</p>
 <p>붓스트랩 분포가 대략적으로 정규 분포를 따를 때만 표준 오차 규칙을 사용할 수 있습니다.</p>
-<p><strong>(LC8.4)</strong> <span class="math inline">\(\mu\)</span>에 대해 95% 신뢰 구간 대신 68% 신뢰 구간을 구축하고 싶다고 가정해 봅시다. 이를 위해 어떤 변경이 필요한지 설명하세요. 힌트: 부록 <span class="quarto-unresolved-ref">?sec-appendix-normal-curve의</span> 정규 분포 섹션을 참고하세요.</p>
+<p><strong>(LC8.4)</strong> <span class="math inline">\(\mu\)</span>에 대해 95% 신뢰 구간 대신 68% 신뢰 구간을 구축하고 싶다고 가정해 봅시다. 이를 위해 어떤 변경이 필요한지 설명하세요. 힌트: 부록 <a href="91-appendixA.html#sec-appendix-normal-curve" class="quarto-xref"><span>정규 분포</span></a> 의 정규 분포 섹션을 참고하세요.</p>
 <p><strong>풀이</strong>:</p>
-<p>따라서 부록 <span class="quarto-unresolved-ref">?sec-appendix-normal-curve의</span> 정규 분포에 관한 68% 경험적 법칙에 따라, 다음 공식을 사용하여 <span class="math inline">\(\mu\)</span>에 대한 95% 신뢰 구간의 하한 및 상한 끝점을 결정할 수 있습니다:</p>
+<p>따라서 부록 <a href="91-appendixA.html#sec-appendix-normal-curve" class="quarto-xref"><span>정규 분포</span></a> 의 정규 분포에 관한 68% 경험적 법칙에 따라, 다음 공식을 사용하여 <span class="math inline">\(\mu\)</span>에 대한 95% 신뢰 구간의 하한 및 상한 끝점을 결정할 수 있습니다:</p>
 <p><span class="math display">\[\overline{x} \pm 1 \cdot SE = (\overline{x} - 1 \cdot SE, \overline{x} + 1 \cdot SE)\]</span></p>
 <p><strong>(LC8.5)</strong> <em>모든</em> 미국 페니 동전의 주조 연도 <em>중앙값</em>에 대한 95% 신뢰 구간을 구축하세요. 백분위수법(percentile method)을 사용하고, 적절하다면 표준 오차법도 사용하세요.</p>
 <p><strong>풀이</strong>:</p>
@@ -2665,7 +2665,7 @@ TODO: Clarify what the deliverable for this LC should be.
 <span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
 <span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fivethirtyeight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>(LC11.1)</strong> <span class="quarto-unresolved-ref">?sec-house-prices-regression</span> 절의 회귀 모델링과 <span class="quarto-unresolved-ref">?sec-house-prices-making-predictions</span> 절에서 수행한 ’condition’이 5이고 크기가 1900제곱피트인 주택에 대한 예측 생성을 반복하되, 그림 <span class="quarto-unresolved-ref">?fig-house-price-parallel-slopes에서</span> 시각화한 평행 직선 모델을 사용하세요. 예측값이 $525,191임을 보여주세요!</p>
+<p><strong>(LC11.1)</strong> <a href="11-tell-your-story-with-data.html#sec-house-prices-regression" class="quarto-xref"><span>회귀 모델링</span></a> 절의 회귀 모델링과 <a href="11-tell-your-story-with-data.html#sec-house-prices-making-predictions" class="quarto-xref"><span>예측하기</span></a> 절에서 수행한 ’condition’이 5이고 크기가 1900제곱피트인 주택에 대한 예측 생성을 반복하되, 그림 <span class="quarto-unresolved-ref">?fig-house-price-parallel-slopes</span> 에서 시각화한 평행 직선 모델을 사용하세요. 예측값이 $525,191임을 보여주세요!</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>house_prices <span class="ot">&lt;-</span> house_prices <span class="sc">%&gt;%</span></span>
 <span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -2710,14 +2710,14 @@ TODO: Clarify what the deliverable for this LC should be.
 <h2 class="anchored" data-anchor-id="부록-a2-풀이">부록 A2 풀이</h2>
 <p><strong>(LCA2.1)</strong> 정규 곡선 아래 면적 중 3보다 작은 부분의 비율은 얼마인가요? 12보다 큰 부분은요? 0과 12 사이는요?</p>
 <ul>
-<li>3보다 작음: <span class="math inline">\(\frac{3 - \mu}{\sigma} = \frac{3-6}{3} = -1\)</span>이므로 3은 평균인 6보다 1표준편차 작습니다. 따라서 그림 <span class="quarto-unresolved-ref">?fig-normal-rule-of-thumb에서</span> z = -1의 왼쪽 면적을 계산하면 다음과 같습니다: 0.15% + 2.35% + 13.5% = 16%.</li>
-<li>12보다 큼: <span class="math inline">\(\frac{12 - \mu}{\sigma} = \frac{12-6}{3} = +2\)</span>이므로 12는 평균인 6보다 2표준편차 큽니다. 그림 <span class="quarto-unresolved-ref">?fig-normal-rule-of-thumb에서</span> z = +2의 오른쪽 면적을 계산하면 다음과 같습니다: 2.35% + 0.15% = 2.5%.</li>
-<li>0과 12 사이: <span class="math inline">\(\frac{0 - \mu}{\sigma} = \frac{0-6}{3} = -2\)</span>이므로 0은 평균인 6보다 2표준편차 작습니다. 따라서 그림 <span class="quarto-unresolved-ref">?fig-normal-rule-of-thumb에서</span> z = -2와 z = +2 사이의 면적을 계산하면 다음과 같습니다: 13.5% + 34% + 34% + 13.5% = 95%.</li>
+<li>3보다 작음: <span class="math inline">\(\frac{3 - \mu}{\sigma} = \frac{3-6}{3} = -1\)</span>이므로 3은 평균인 6보다 1표준편차 작습니다. 따라서 그림 <a href="91-appendixA.html#fig-normal-rule-of-thumb" class="quarto-xref">Figure&nbsp;<span>13.2</span></a> 에서 z = -1의 왼쪽 면적을 계산하면 다음과 같습니다: 0.15% + 2.35% + 13.5% = 16%.</li>
+<li>12보다 큼: <span class="math inline">\(\frac{12 - \mu}{\sigma} = \frac{12-6}{3} = +2\)</span>이므로 12는 평균인 6보다 2표준편차 큽니다. 그림 <a href="91-appendixA.html#fig-normal-rule-of-thumb" class="quarto-xref">Figure&nbsp;<span>13.2</span></a> 에서 z = +2의 오른쪽 면적을 계산하면 다음과 같습니다: 2.35% + 0.15% = 2.5%.</li>
+<li>0과 12 사이: <span class="math inline">\(\frac{0 - \mu}{\sigma} = \frac{0-6}{3} = -2\)</span>이므로 0은 평균인 6보다 2표준편차 작습니다. 따라서 그림 <a href="91-appendixA.html#fig-normal-rule-of-thumb" class="quarto-xref">Figure&nbsp;<span>13.2</span></a> 에서 z = -2와 z = +2 사이의 면적을 계산하면 다음과 같습니다: 13.5% + 34% + 34% + 13.5% = 95%.</li>
 </ul>
 <p><strong>(LCA2.2)</strong> 정규 곡선 아래 면적의 2.5번째 백분위수는 얼마인가요? 97.5번째 백분위수는요? 100번째 백분위수는요?</p>
 <ul>
-<li>2.5번째 백분위수: 그림 <span class="quarto-unresolved-ref">?fig-normal-rule-of-thumb의</span> 왼쪽부터 시작하여 0.15% + 2.35% = 2.5%이므로 2.5번째 백분위수는 z = -2입니다. 그러나 이는 표준 단위입니다. 따라서 정규 분포에서 평균보다 2표준편차 낮은 값을 구해야 합니다: <span class="math inline">\(\mu - 2 \cdot\sigma = 6 - 2 \cdot 3 = 0\)</span>.</li>
-<li>97.5번째 백분위수: 그림 <span class="quarto-unresolved-ref">?fig-normal-rule-of-thumb의</span> 왼쪽부터 시작하여 0.15% + 2.35% + 13.5% + 34% + 34% + 13.5% = 97.5%이므로 97.5번째 백분위수는 z = +2입니다. 그러나 이는 표준 단위입니다. 따라서 정규 분포에서 평균보다 2표준편차 높은 값을 구해야 합니다: <span class="math inline">\(\mu + 2 \cdot\sigma = 6 + 2 \cdot 3 = 12\)</span>.</li>
+<li>2.5번째 백분위수: 그림 <a href="91-appendixA.html#fig-normal-rule-of-thumb" class="quarto-xref">Figure&nbsp;<span>13.2</span></a> 의 왼쪽부터 시작하여 0.15% + 2.35% = 2.5%이므로 2.5번째 백분위수는 z = -2입니다. 그러나 이는 표준 단위입니다. 따라서 정규 분포에서 평균보다 2표준편차 낮은 값을 구해야 합니다: <span class="math inline">\(\mu - 2 \cdot\sigma = 6 - 2 \cdot 3 = 0\)</span>.</li>
+<li>97.5번째 백분위수: 그림 <a href="91-appendixA.html#fig-normal-rule-of-thumb" class="quarto-xref">Figure&nbsp;<span>13.2</span></a> 의 왼쪽부터 시작하여 0.15% + 2.35% + 13.5% + 34% + 34% + 13.5% = 97.5%이므로 97.5번째 백분위수는 z = +2입니다. 그러나 이는 표준 단위입니다. 따라서 정규 분포에서 평균보다 2표준편차 높은 값을 구해야 합니다: <span class="math inline">\(\mu + 2 \cdot\sigma = 6 + 2 \cdot 3 = 12\)</span>.</li>
 <li>100번째 백분위수: <span class="math inline">\(+\infty\)</span>. 다시 말해, 100%의 값이 양의 무한대보다 작을 것입니다.</li>
 </ul>
 

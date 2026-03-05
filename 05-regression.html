@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>(PART moderndive를 활용한 데이터 모델링 – ModernDive: Statistical Inference via Data Science</title>
+<title>기초 회귀 분석 – ModernDive: 데이터 과학을 통한 통계적 추론</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -184,7 +184,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ModernDive: Statistical Inference via Data Science</a> 
+      <a href="./">ModernDive: 데이터 과학을 통한 통계적 추론</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -355,32 +355,29 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#regression" id="toc-regression" class="nav-link active" data-scroll-target="#regression">기초 회귀 분석</a>
+  <li><a href="#reg-packages" id="toc-reg-packages" class="nav-link active" data-scroll-target="#reg-packages">필요한 패키지</a></li>
+  <li><a href="#sec-model1" id="toc-sec-model1" class="nav-link" data-scroll-target="#sec-model1">하나의 수치형 설명 변수</a>
   <ul class="collapse">
-  <li><a href="#reg-packages" id="toc-reg-packages" class="nav-link" data-scroll-target="#reg-packages">필요한 패키지</a></li>
-  <li><a href="#model1" id="toc-model1" class="nav-link" data-scroll-target="#model1">하나의 수치형 설명 변수</a>
-  <ul class="collapse">
-  <li><a href="#model1EDA" id="toc-model1EDA" class="nav-link" data-scroll-target="#model1EDA">탐색적 데이터 분석</a></li>
-  <li><a href="#model1table" id="toc-model1table" class="nav-link" data-scroll-target="#model1table">단순 선형 회귀</a></li>
-  <li><a href="#model1points" id="toc-model1points" class="nav-link" data-scroll-target="#model1points">관측값/적합값과 잔차</a></li>
+  <li><a href="#sec-model1EDA" id="toc-sec-model1EDA" class="nav-link" data-scroll-target="#sec-model1EDA">탐색적 데이터 분석</a></li>
+  <li><a href="#sec-model1table" id="toc-sec-model1table" class="nav-link" data-scroll-target="#sec-model1table">단순 선형 회귀</a></li>
+  <li><a href="#sec-model1points" id="toc-sec-model1points" class="nav-link" data-scroll-target="#sec-model1points">관측값/적합값과 잔차</a></li>
   </ul></li>
-  <li><a href="#model2" id="toc-model2" class="nav-link" data-scroll-target="#model2">하나의 범주형 설명 변수</a>
+  <li><a href="#sec-model2" id="toc-sec-model2" class="nav-link" data-scroll-target="#sec-model2">하나의 범주형 설명 변수</a>
   <ul class="collapse">
-  <li><a href="#model2EDA" id="toc-model2EDA" class="nav-link" data-scroll-target="#model2EDA">탐색적 데이터 분석</a></li>
-  <li><a href="#model2table" id="toc-model2table" class="nav-link" data-scroll-target="#model2table">선형 회귀</a></li>
+  <li><a href="#sec-model2EDA" id="toc-sec-model2EDA" class="nav-link" data-scroll-target="#sec-model2EDA">탐색적 데이터 분석</a></li>
+  <li><a href="#sec-model2table" id="toc-sec-model2table" class="nav-link" data-scroll-target="#sec-model2table">선형 회귀</a></li>
   <li><a href="#model2points" id="toc-model2points" class="nav-link" data-scroll-target="#model2points">관측값/적합값과 잔차</a></li>
   </ul></li>
   <li><a href="#reg-related-topics" id="toc-reg-related-topics" class="nav-link" data-scroll-target="#reg-related-topics">관련 주제</a>
   <ul class="collapse">
-  <li><a href="#correlation-is-not-causation" id="toc-correlation-is-not-causation" class="nav-link" data-scroll-target="#correlation-is-not-causation">상관관계가 반드시 인과관계를 의미하지는 않는다</a></li>
-  <li><a href="#leastsquares" id="toc-leastsquares" class="nav-link" data-scroll-target="#leastsquares">가장 잘 맞는 직선</a></li>
-  <li><a href="#underthehood" id="toc-underthehood" class="nav-link" data-scroll-target="#underthehood"><code>get_regression_x()</code> 함수들</a></li>
+  <li><a href="#sec-correlation-is-not-causation" id="toc-sec-correlation-is-not-causation" class="nav-link" data-scroll-target="#sec-correlation-is-not-causation">상관관계가 반드시 인과관계를 의미하지는 않는다</a></li>
+  <li><a href="#sec-leastsquares" id="toc-sec-leastsquares" class="nav-link" data-scroll-target="#sec-leastsquares">가장 잘 맞는 직선</a></li>
+  <li><a href="#sec-underthehood" id="toc-sec-underthehood" class="nav-link" data-scroll-target="#sec-underthehood"><code>get_regression_x()</code> 함수들</a></li>
   </ul></li>
   <li><a href="#reg-conclusion" id="toc-reg-conclusion" class="nav-link" data-scroll-target="#reg-conclusion">결론</a>
   <ul class="collapse">
-  <li><a href="#additional-resources-basic-regression" id="toc-additional-resources-basic-regression" class="nav-link" data-scroll-target="#additional-resources-basic-regression">추가 자료</a></li>
+  <li><a href="#sec-additional-resources-basic-regression" id="toc-sec-additional-resources-basic-regression" class="nav-link" data-scroll-target="#sec-additional-resources-basic-regression">추가 자료</a></li>
   <li><a href="#다음에는-무엇을-배울까요" id="toc-다음에는-무엇을-배울까요" class="nav-link" data-scroll-target="#다음에는-무엇을-배울까요">다음에는 무엇을 배울까요?</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -390,7 +387,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-regression.html">데이터 모델링</a></li><li class="breadcrumb-item"><a href="./05-regression.html"><span class="chapter-title">기초 회귀 분석</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">(PART moderndive를 활용한 데이터 모델링</span></h1>
+<h1 class="title"><span id="sec-regression" class="quarto-section-identifier"><span class="chapter-title">기초 회귀 분석</span></span></h1>
 </div>
 
 
@@ -407,10 +404,7 @@ window.Quarto = {
 </header>
 
 
-<p>(ref:moderndivepart) <code>moderndive</code>를 활용한 데이터 모델링</p>
-<section id="regression" class="level1">
-<h1>기초 회귀 분석</h1>
-<p>이제 <span class="quarto-unresolved-ref">?sec-viz장의</span> 데이터 시각화 기술, <span class="quarto-unresolved-ref">?sec-wrangling장의</span> 데이터 전처리 기술, 그리고 <span class="quarto-unresolved-ref">?sec-tidy장의</span> 데이터 불러오기 및 “깔끔한(tidy)” 데이터 형식에 대한 이해를 바탕으로 데이터 모델링을 진행해 보겠습니다. 데이터 모델링의 근본적인 전제는 다음 두 변수 사이의 관계를 명확히 하는 것입니다.</p>
+<p>이제 <a href="02-visualization.html" class="quarto-xref"><span>데이터 시각화</span></a> 장의 데이터 시각화 기술, <a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장의 데이터 전처리 기술, 그리고 <a href="04-tidy.html" class="quarto-xref"><span>데이터 불러오기와 “깔끔한” 데이터</span></a> 장의 데이터 불러오기 및 “깔끔한(tidy)” 데이터 형식에 대한 이해를 바탕으로 데이터 모델링을 진행해 보겠습니다. 데이터 모델링의 근본적인 전제는 다음 두 변수 사이의 관계를 명확히 하는 것입니다.</p>
 <ul>
 <li><em>결과 변수(outcome variable)</em> <span class="math inline">\(y\)</span> : <em>종속 변수(dependent variable)</em> 또는 반응 변수(response variable)라고도 불립니다. </li>
 <li><em>설명/예측 변수(explanatory/predictor variable)</em> <span class="math inline">\(x\)</span> : <em>독립 변수(independent variable)</em> 또는 공변량(covariate)이라고도 불립니다. </li>
@@ -421,17 +415,17 @@ window.Quarto = {
 <li><strong>예측을 위한 모델링(Modeling for prediction)</strong>: 일련의 예측 변수 <span class="math inline">\(x\)</span>에 포함된 정보를 바탕으로 결과 변수 <span class="math inline">\(y\)</span>를 예측하고 싶을 때 사용합니다. 설명을 위한 모델링과 달리, 모든 변수가 서로 어떻게 관련되고 상호작용하는지 이해하는 것보다는 <span class="math inline">\(x\)</span>의 정보를 사용하여 <span class="math inline">\(y\)</span>에 대해 얼마나 좋은 예측을 할 수 있는지에만 관심을 가집니다.</li>
 </ol>
 <p>예를 들어, 환자의 폐암 발생 여부라는 결과 변수 <span class="math inline">\(y\)</span>와 흡연 습관, 연령, 사회경제적 지위 등 위험 요인에 대한 정보 <span class="math inline">\(x\)</span>에 관심이 있다고 가정해 봅시다. 만약 설명을 위한 모델링을 한다면, 각 위험 요인의 효과를 설명하고 정량화하는 데 관심을 가질 것입니다. 그 이유 중 하나는 특정 연령대의 흡연자를 대상으로 금연 프로그램 광고를 하는 것과 같이 인구 집단의 폐암 발생률을 낮추기 위한 개입(intervention)을 설계하고 싶기 때문일 수 있습니다. 반면 예측을 위한 모델링을 한다면, 각 개별 위험 요인이 폐암에 어떻게 기여하는지 이해하는 것보다는 어떤 사람이 폐암에 걸릴지 잘 예측할 수 있는지에만 관심을 가질 것입니다.</p>
-<p>이 책에서는 설명을 위한 모델링에 집중할 것이며, 따라서 <span class="math inline">\(x\)</span>를 <em>설명 변수</em>라고 부를 것입니다. 예측을 위한 모델링에 대해 배우고 싶다면 [<em>An Introduction to Statistical Learning with Applications in R (ISLR)</em>](https://www.statlearning.com/ <span class="citation" data-cites="islr2017">(<a href="#ref-islr2017" role="doc-biblioref">James et al. 2017</a>)</span>과 같은 <em>머신러닝(machine learning)</em> 분야의 책과 강의를 참고하시기 바랍니다. 또한 트리 기반 모델이나 신경망과 같은 많은 모델링 기법이 존재하지만, 이 책에서는 특히 한 가지 기법인 <em>선형 회귀(linear regression)</em>에 집중할 것입니다. 선형 회귀는 가장 흔히 사용되고 이해하기 쉬운 모델링 접근 방식 중 하나입니다.</p>
+<p>이 책에서는 설명을 위한 모델링에 집중할 것이며, 따라서 <span class="math inline">\(x\)</span>를 <em>설명 변수</em>라고 부를 것입니다. 예측을 위한 모델링에 대해 배우고 싶다면 [<em>An Introduction to Statistical Learning with Applications in R (ISLR)</em>](https://www.statlearning.com/ <span class="citation" data-cites="islr2017">(<a href="99-references.html#ref-islr2017" role="doc-biblioref">James et al. 2017</a>)</span>과 같은 <em>머신러닝(machine learning)</em> 분야의 책과 강의를 참고하시기 바랍니다. 또한 트리 기반 모델이나 신경망과 같은 많은 모델링 기법이 존재하지만, 이 책에서는 특히 한 가지 기법인 <em>선형 회귀(linear regression)</em>에 집중할 것입니다. 선형 회귀는 가장 흔히 사용되고 이해하기 쉬운 모델링 접근 방식 중 하나입니다.</p>
 <p>선형 회귀는 <em>수치형</em> 결과 변수 <span class="math inline">\(y\)</span>와 <em>수치형</em> 또는 <em>범주형</em>인 설명 변수 <span class="math inline">\(x\)</span>를 다룹니다. 또한 <span class="math inline">\(y\)</span>와 <span class="math inline">\(x\)</span>의 관계는 선형(linear), 즉 직선이라고 가정합니다. 하지만 설명 변수 <span class="math inline">\(x\)</span>의 성격에 따라 무엇이 “직선”을 구성하는지는 달라질 것임을 보게 될 것입니다.</p>
-<p>기초 회귀 분석을 다루는 <span class="quarto-unresolved-ref">?sec-regression장에서는</span> 단일 설명 변수 <span class="math inline">\(x\)</span>를 갖는 모델만 고려할 것입니다. <span class="quarto-unresolved-ref">?sec-model1절에서는</span> 설명 변수가 수치형일 것입니다. 이 시나리오는 <em>단순 선형 회귀(simple linear regression)</em>로 알려져 있습니다. <span class="quarto-unresolved-ref">?sec-model2절에서는</span> 설명 변수가 범주형일 것입니다.</p>
-<p>다중 회귀 분석을 다루는 <span class="quarto-unresolved-ref">?sec-multiple-regression장에서는</span> 기초 회귀 분석의 아이디어를 확장하여 두 개의 설명 변수 <span class="math inline">\(x_1\)</span>과 <span class="math inline">\(x_2\)</span>를 갖는 모델을 고려할 것입니다. <span class="quarto-unresolved-ref">?sec-model4절에서는</span> 두 개의 수치형 설명 변수를 가질 것입니다. <span class="quarto-unresolved-ref">?sec-model3절에서는</span> 하나의 수치형 설명 변수와 하나의 범주형 설명 변수를 가질 것입니다. 특히 <em>상호작용(interaction)</em> 모델과 <em>평행 직선(parallel slopes)</em> 모델이라는 두 가지 모델을 살펴볼 것입니다.</p>
-<p>회귀 분석을 위한 추론을 다루는 <span class="quarto-unresolved-ref">?sec-inference-for-regression장에서는</span> 회귀 모델을 다시 살펴보고, <span class="quarto-unresolved-ref">?sec-sampling장의</span> 샘플링, <span class="quarto-unresolved-ref">?sec-confidence-intervals장의</span> 부트스트래핑과 신뢰 구간, 그리고 <span class="quarto-unresolved-ref">?sec-hypothesis-testing장의</span> 가설 검정과 <span class="math inline">\(p\)</span>-값 등을 통해 익히게 될 <em>통계적 추론(statistical inference)</em> 도구들을 사용하여 결과를 분석할 것입니다.</p>
+<p>기초 회귀 분석을 다루는 <a href="#sec-regression" class="quarto-xref"><span>기초 회귀 분석</span></a> 장에서는 단일 설명 변수 <span class="math inline">\(x\)</span>를 갖는 모델만 고려할 것입니다. <a href="#sec-model1" class="quarto-xref"><span>하나의 수치형 설명 변수</span></a> 절에서는 설명 변수가 수치형일 것입니다. 이 시나리오는 <em>단순 선형 회귀(simple linear regression)</em>로 알려져 있습니다. <a href="#sec-model2" class="quarto-xref"><span>하나의 범주형 설명 변수</span></a> 절에서는 설명 변수가 범주형일 것입니다.</p>
+<p>다중 회귀 분석을 다루는 <a href="06-multiple-regression.html" class="quarto-xref"><span>다중 회귀 분석</span></a> 장에서는 기초 회귀 분석의 아이디어를 확장하여 두 개의 설명 변수 <span class="math inline">\(x_1\)</span>과 <span class="math inline">\(x_2\)</span>를 갖는 모델을 고려할 것입니다. <a href="06-multiple-regression.html#sec-model4" class="quarto-xref"><span>수치형 설명 변수 하나와 범주형 설명 변수 하나</span></a> 절에서는 두 개의 수치형 설명 변수를 가질 것입니다. <a href="06-multiple-regression.html#sec-model3" class="quarto-xref"><span>두 수치형 설명 변수</span></a> 절에서는 하나의 수치형 설명 변수와 하나의 범주형 설명 변수를 가질 것입니다. 특히 <em>상호작용(interaction)</em> 모델과 <em>평행 직선(parallel slopes)</em> 모델이라는 두 가지 모델을 살펴볼 것입니다.</p>
+<p>회귀 분석을 위한 추론을 다루는 <a href="10-inference-for-regression.html" class="quarto-xref"><span>회귀 분석을 위한 추론</span></a> 장에서는 회귀 모델을 다시 살펴보고, <a href="07-sampling.html" class="quarto-xref"><span>표본 추출</span></a> 장의 샘플링, <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 장의 부트스트래핑과 신뢰 구간, 그리고 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 장의 가설 검정과 <span class="math inline">\(p\)</span>-값 등을 통해 익히게 될 <em>통계적 추론(statistical inference)</em> 도구들을 사용하여 결과를 분석할 것입니다.</p>
 <p>이제 단일 설명 변수 <span class="math inline">\(x\)</span>를 갖는 선형 회귀 모델인 기초 회귀 분석을 시작해 보겠습니다. 또한 <em>상관 계수(correlation coefficient)</em>, “상관관계가 반드시 인과관계를 의미하지는 않는다”는 사실, 그리고 직선이 “가장 잘 맞는다(best-fitting)”는 것이 무엇을 의미하는지와 같은 중요한 통계적 개념들도 논의할 것입니다.</p>
 <section id="reg-packages" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="reg-packages">필요한 패키지</h3>
 <p>이제 이번 장에 필요한 모든 패키지를 로드해 보겠습니다(이미 설치했다고 가정합니다). 이번 장에서는 몇 가지 새로운 패키지를 소개합니다.</p>
 <ol type="1">
-<li><code>tidyverse</code> “우산” <span class="citation" data-cites="R-tidyverse">(<a href="#ref-R-tidyverse" role="doc-biblioref">Wickham 2023</a>)</span> 패키지: <span class="quarto-unresolved-ref">?sec-tidyverse-package절에서</span> 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 로드하면 다음과 같이 자주 사용되는 데이터 과학 패키지들을 한꺼번에 로드합니다.
+<li><code>tidyverse</code> “우산” <span class="citation" data-cites="R-tidyverse">(<a href="99-references.html#ref-R-tidyverse" role="doc-biblioref">Wickham 2023</a>)</span> 패키지: <a href="04-tidy.html#sec-tidyverse-package" class="quarto-xref"><span>tidyverse 패키지</span></a> 절에서 논의했듯이, <code>library(tidyverse)</code>를 실행하여 <code>tidyverse</code> 패키지를 로드하면 다음과 같이 자주 사용되는 데이터 과학 패키지들을 한꺼번에 로드합니다.
 <ul>
 <li>데이터 시각화를 위한 <code>ggplot2</code></li>
 <li>데이터 전처리를 위한 <code>dplyr</code></li>
@@ -440,9 +434,9 @@ window.Quarto = {
 <li>그 외 심화 패키지인 <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code></li>
 </ul></li>
 <li><code>moderndive</code> 패키지: tidyverse 친화적인 기초 선형 회귀 분석을 위한 데이터셋과 함수들을 제공합니다.</li>
-<li><code>skimr</code> <span class="citation" data-cites="R-skimr">(<a href="#ref-R-skimr" role="doc-biblioref">Waring et al. 2026</a>)</span> 패키지: 자주 사용되는 다양한 요약 통계량을 빠르게 계산할 수 있는 사용하기 쉬운 함수를 제공합니다. </li>
+<li><code>skimr</code> <span class="citation" data-cites="R-skimr">(<a href="99-references.html#ref-R-skimr" role="doc-biblioref">Waring et al. 2026</a>)</span> 패키지: 자주 사용되는 다양한 요약 통계량을 빠르게 계산할 수 있는 사용하기 쉬운 함수를 제공합니다. </li>
 </ol>
-<p>필요하다면 <span class="quarto-unresolved-ref">?sec-packages절을</span> 참고하여 R 패키지를 설치하고 로드하는 방법을 다시 확인하세요.</p>
+<p>필요하다면 <a href="01-getting-started.html#sec-packages" class="quarto-xref"><span>R 패키지란 무엇인가?</span></a> 절을 참고하여 R 패키지를 설치하고 로드하는 방법을 다시 확인하세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moderndive)</span>
@@ -450,8 +444,8 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="model1" class="level2">
-<h2 class="anchored" data-anchor-id="model1">하나의 수치형 설명 변수</h2>
+<section id="sec-model1" class="level2">
+<h2 class="anchored" data-anchor-id="sec-model1">하나의 수치형 설명 변수</h2>
 <p>왜 대학의 어떤 교수님들은 학생들로부터 높은 강의 평가 점수를 받는 반면, 어떤 분들은 낮은 점수를 받을까요? 서로 다른 인구통계학적 집단의 강사들 사이에 강의 평가 점수 차이가 있을까요? 학생들의 편견이 영향을 미칠 수 있을까요? 강의 평가는 강사와 교수의 승진을 결정할 때 고려되는 많은 기준 중 하나이기 때문에, 이러한 질문들은 대학 행정가들에게 큰 관심사입니다.</p>
 <p>텍사스주 오스틴에 위치한 텍사스 대학교(UT Austin)의 연구원들은 다음 연구 질문에 답하려고 노력했습니다: 강사의 강의 평가 점수 차이를 설명하는 요인은 무엇인가? 이를 위해 그들은 463개 강좌에 대한 강사 및 강좌 정보를 수집했습니다. 연구에 대한 전체 설명은 <a href="https://www.openintro.org/stat/data/?data=evals">openintro.org</a>에서 확인할 수 있습니다.</p>
 <p>이 섹션에서는 우선 상황을 단순하게 유지하여, 강사의 강의 평가 점수 차이를 하나의 수치형 변수, 즉 강사의 “미모(beauty)” 점수(이 점수가 어떻게 결정되었는지는 곧 설명하겠습니다)의 함수로 설명해 보려 합니다. 미모 점수가 높은 강사가 강의 평가 점수도 더 높을까요? 아니면 반대로 미모 점수가 높은 강사가 강의 평가 점수는 더 낮은 경향이 있을까요? 그것도 아니면 미모 점수와 강의 평가 점수 사이에는 아무런 관계가 없을까요? 우리는 다음과 같은 조건의 <em>단순 선형 회귀(simple linear regression)</em>를 사용하여 강의 평가 점수와 미모 점수 사이의 관계를 모델링함으로써 이 질문들에 답할 것입니다. </p>
@@ -459,8 +453,8 @@ window.Quarto = {
 <li>수치형 결과 변수 <span class="math inline">\(y\)</span> (강사의 강의 평가 점수)</li>
 <li>단일 수치형 설명 변수 <span class="math inline">\(x\)</span> (강사의 “미모” 점수)</li>
 </ol>
-<section id="model1EDA" class="level3">
-<h3 class="anchored" data-anchor-id="model1EDA">탐색적 데이터 분석</h3>
+<section id="sec-model1EDA" class="level3">
+<h3 class="anchored" data-anchor-id="sec-model1EDA">탐색적 데이터 분석</h3>
 <p>UT Austin의 463개 강좌에 대한 데이터는 <code>moderndive</code> 패키지에 포함된 <code>evals</code> 데이터 프레임에서 찾을 수 있습니다. 하지만 상황을 단순하게 유지하기 위해, 이번 장에서 고려할 변수들만 <code>select()</code>하여 <code>evals_ch5</code>라는 새로운 데이터 프레임에 저장해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>evals_ch5 <span class="ot">&lt;-</span> evals <span class="sc">%&gt;%</span></span>
@@ -473,7 +467,7 @@ window.Quarto = {
 <li>데이터 시각화를 수행합니다.</li>
 </ol>
 <p>탐색적 데이터 분석의 첫 번째 단계인 원시 데이터 값 살펴보기를 수행해 봅시다. 이 단계는 너무 사소해 보이기 때문에 안타깝게도 많은 데이터 분석가들이 무시하곤 합니다. 하지만 원시 데이터가 어떻게 생겼는지 초기에 파악하는 것은 나중에 발생할 수 있는 많은 큰 문제들을 예방할 수 있게 해줍니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-exploredataframes절의</span> 데이터 프레임 탐색하기에서 소개한 것처럼 RStudio의 스프레드시트 뷰어를 사용하거나 <code>glimpse()</code> 함수를 사용할 수 있습니다.</p>
+<p><a href="01-getting-started.html#sec-exploredataframes" class="quarto-xref"><span>데이터 프레임 탐색하기</span></a> 절의 데이터 프레임 탐색하기에서 소개한 것처럼 RStudio의 스프레드시트 뷰어를 사용하거나 <code>glimpse()</code> 함수를 사용할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(evals_ch5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -485,7 +479,7 @@ $ bty_avg &lt;dbl&gt; 5.00, 5.00, 5.00, 5.00, 3.00, 3.00, 3.00, 3.33, 3.33, 3.17
 $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40, 40…</code></pre>
 </div>
 </div>
-<p><code>Rows: 463</code>는 <code>evals_ch5</code>에 463개의 행/관측치가 있음을 나타내며, 각 행은 UT Austin에서 관측된 하나의 강좌에 해당합니다. 여기서 <em>관측 단위(observational unit)</em>는 개별 강사가 아니라 개별 강좌라는 점에 주목하는 것이 중요합니다. <span class="quarto-unresolved-ref">?sec-exploredataframes절에서</span> 배웠듯이 관측 단위는 변수들에 의해 측정되는 “항목의 유형”입니다. 강사들은 한 학년도에 하나 이상의 강좌를 가르치기 때문에, 동일한 강사가 데이터에 한 번 이상 나타날 수 있습니다. 따라서 <code>evals_ch5</code>에 나타난 고유한 강사의 수는 463명보다 적습니다. 이 아이디어는 <span class="quarto-unresolved-ref">?sec-regression-conditions절에서</span> 회귀 분석을 위한 추론의 “독립성 가정”에 대해 이야기할 때 다시 다룰 것입니다.</p>
+<p><code>Rows: 463</code>는 <code>evals_ch5</code>에 463개의 행/관측치가 있음을 나타내며, 각 행은 UT Austin에서 관측된 하나의 강좌에 해당합니다. 여기서 <em>관측 단위(observational unit)</em>는 개별 강사가 아니라 개별 강좌라는 점에 주목하는 것이 중요합니다. <a href="01-getting-started.html#sec-exploredataframes" class="quarto-xref"><span>데이터 프레임 탐색하기</span></a> 절에서 배웠듯이 관측 단위는 변수들에 의해 측정되는 “항목의 유형”입니다. 강사들은 한 학년도에 하나 이상의 강좌를 가르치기 때문에, 동일한 강사가 데이터에 한 번 이상 나타날 수 있습니다. 따라서 <code>evals_ch5</code>에 나타난 고유한 강사의 수는 463명보다 적습니다. 이 아이디어는 <a href="10-inference-for-regression.html#sec-regression-conditions" class="quarto-xref"><span>회귀 추론을 위한 조건</span></a> 절에서 회귀 분석을 위한 추론의 “독립성 가정”에 대해 이야기할 때 다시 다룰 것입니다.</p>
 <p><code>evals</code>에 포함된 모든 변수에 대한 전체 설명은 <a href="https://www.openintro.org/stat/data/?data=evals">openintro.org</a>에서 확인하거나 관련 도움말 파일(콘솔에서 <code>?evals</code> 실행)을 통해 읽을 수 있습니다. 여기서는 우리가 <code>evals_ch5</code>에서 선택한 4개 변수만 자세히 설명하겠습니다.</p>
 <ol type="1">
 <li><code>ID</code>: 데이터셋에 있는 1번부터 463번까지의 강좌를 구분하는 데 사용되는 식별 변수입니다.</li>
@@ -493,7 +487,7 @@ $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40
 <li><code>bty_avg</code>: 6명의 학생으로 구성된 별도의 패널이 평가한 강사의 평균 “미모” 점수(수치형 변수)입니다. 미모 점수는 1점이 가장 낮고 10점이 가장 높습니다. 이것이 우리가 관심을 갖는 설명 변수 <span class="math inline">\(x\)</span>입니다.</li>
 <li><code>age</code>: 강사의 연령(수치형 변수)입니다. 이 변수는 이 소섹션 끝에 있는 <em>학습 확인</em> 문제에서 또 다른 설명 변수 <span class="math inline">\(x\)</span>로 사용할 것입니다.</li>
 </ol>
-<p>원시 데이터 값을 확인하는 또 다른 방법은 <code>evals_ch5</code>를 <code>dplyr</code> 패키지의 <code>sample_n()</code> 함수에 파이프로 연결하여 임의의 행 샘플을 선택하는 것입니다. 여기서는 <code>size</code> 인자를 <code>5</code>로 설정하여 5개의 행을 무작위로 샘플링해 보겠습니다. 결과는 표 <span class="quarto-unresolved-ref">?tbl-five-random-courses와</span> 같습니다. 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개의 행을 보게 될 것입니다.</p>
+<p>원시 데이터 값을 확인하는 또 다른 방법은 <code>evals_ch5</code>를 <code>dplyr</code> 패키지의 <code>sample_n()</code> 함수에 파이프로 연결하여 임의의 행 샘플을 선택하는 것입니다. 여기서는 <code>size</code> 인자를 <code>5</code>로 설정하여 5개의 행을 무작위로 샘플링해 보겠습니다. 결과는 표 <span class="quarto-unresolved-ref">?tbl-five-random-courses</span> 와 같습니다. 샘플링의 무작위성 때문에 여러분은 아마도 다른 5개의 행을 보게 될 것입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>evals_ch5 <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -545,7 +539,7 @@ $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40
 </table>
 </div>
 </div>
-<p>이제 <code>evals_ch5</code> 데이터 프레임의 원시 값들을 살펴보고 데이터에 대한 예비적인 파악을 마쳤으므로, 탐색적 데이터 분석의 다음 단계인 요약 통계량 계산으로 넘어가 보겠습니다. 먼저 수치형 결과 변수 <code>score</code>와 수치형 설명 변수인 “미모” 점수 <code>bty_avg</code>의 평균과 중앙값을 계산해 봅시다. <span class="quarto-unresolved-ref">?sec-summarize절에서</span> 보았던 <code>mean()</code> 및 <code>median()</code> 요약 함수와 함께 <code>dplyr</code>의 <code>summarize()</code> 함수를 사용하겠습니다.</p>
+<p>이제 <code>evals_ch5</code> 데이터 프레임의 원시 값들을 살펴보고 데이터에 대한 예비적인 파악을 마쳤으므로, 탐색적 데이터 분석의 다음 단계인 요약 통계량 계산으로 넘어가 보겠습니다. 먼저 수치형 결과 변수 <code>score</code>와 수치형 설명 변수인 “미모” 점수 <code>bty_avg</code>의 평균과 중앙값을 계산해 봅시다. <a href="03-wrangling.html#sec-summarize" class="quarto-xref"><span>summarize 변수 요약</span></a> 절에서 보았던 <code>mean()</code> 및 <code>median()</code> 요약 함수와 함께 <code>dplyr</code>의 <code>summarize()</code> 함수를 사용하겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>evals_ch5 <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_bty_avg =</span> <span class="fu">mean</span>(bty_avg), <span class="at">mean_score =</span> <span class="fu">mean</span>(score),</span>
@@ -601,7 +595,7 @@ instead.
 <li>0은 아무런 관계 없음: 두 변수의 값이 서로 독립적으로 증감합니다.</li>
 <li>+1은 완벽한 <em>양의 관계</em>: 한 변수가 증가함에 따라 다른 변수의 값도 선형적으로 증가하는 경향이 있습니다.</li>
 </ul>
-<p>그림 <span class="quarto-unresolved-ref">?fig-correlation1은</span> 가상의 수치형 변수 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span>에 대해 9가지 다른 상관 계수 값의 예시를 보여줍니다. 예를 들어 오른쪽 상단 플롯에서 상관 계수가 -0.75인 경우 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이에 음의 선형 관계가 있지만, 상관 계수가 -0.9나 -1인 경우만큼 강하지는 않음을 확인할 수 있습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-correlation1</span> 은 가상의 수치형 변수 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span>에 대해 9가지 다른 상관 계수 값의 예시를 보여줍니다. 예를 들어 오른쪽 상단 플롯에서 상관 계수가 -0.75인 경우 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 사이에 음의 선형 관계가 있지만, 상관 계수가 -0.9나 -1인 경우만큼 강하지는 않음을 확인할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -629,8 +623,8 @@ instead.
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>evals_ch5 <span class="sc">%&gt;%</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">correlation =</span> <span class="fu">cor</span>(score, bty_avg))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>우리의 경우, 상관 계수 0.187는 강의 평가 점수와 평균 “미모” 점수 사이의 관계가 “약한 양의 관계”임을 나타냅니다. 특히 상관 계수가 -1, 0, 1과 같은 극단적인 값에 가깝지 않을 때, 이를 해석하는 데에는 어느 정도 주관성이 개입됩니다. 상관 계수에 대한 여러분의 직관을 키우고 싶다면, <span class="quarto-unresolved-ref">?sec-additional-resources-basic-regression절에서</span> 언급된 1980년대 스타일의 비디오 게임 “상관 계수 맞추기(Guess the Correlation)”를 플레이해 보세요.</p>
-<p>탐색적 데이터 분석의 마지막 단계인 데이터 시각화를 수행해 봅시다. <code>score</code>와 <code>bty_avg</code> 변수가 모두 수치형이므로, 이 데이터를 시각화하기에 적절한 그래프는 산점도(scatterplot)입니다. <code>geom_point()</code>를 사용하여 시각화하고 결과는 그림 <span class="quarto-unresolved-ref">?fig-numxplot1에</span> 표시하겠습니다. 또한 시각화의 오른쪽 상단에 있는 6개의 점을 상자로 강조하겠습니다.</p>
+<p>우리의 경우, 상관 계수 0.187는 강의 평가 점수와 평균 “미모” 점수 사이의 관계가 “약한 양의 관계”임을 나타냅니다. 특히 상관 계수가 -1, 0, 1과 같은 극단적인 값에 가깝지 않을 때, 이를 해석하는 데에는 어느 정도 주관성이 개입됩니다. 상관 계수에 대한 여러분의 직관을 키우고 싶다면, <a href="#sec-additional-resources-basic-regression" class="quarto-xref"><span>추가 자료</span></a> 절에서 언급된 1980년대 스타일의 비디오 게임 “상관 계수 맞추기(Guess the Correlation)”를 플레이해 보세요.</p>
+<p>탐색적 데이터 분석의 마지막 단계인 데이터 시각화를 수행해 봅시다. <code>score</code>와 <code>bty_avg</code> 변수가 모두 수치형이므로, 이 데이터를 시각화하기에 적절한 그래프는 산점도(scatterplot)입니다. <code>geom_point()</code>를 사용하여 시각화하고 결과는 그림 <span class="quarto-unresolved-ref">?fig-numxplot1</span> 에 표시하겠습니다. 또한 시각화의 오른쪽 상단에 있는 6개의 점을 상자로 강조하겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals_ch5, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -649,7 +643,7 @@ instead.
 </div>
 </div>
 <p>대부분의 “미모” 점수는 2점에서 8점 사이에 있고, 대부분의 강의 평가 점수는 3점에서 5점 사이에 있음을 알 수 있습니다. 또한 의견이 다를 수 있지만, 강의 평가 점수와 “미모” 점수 사이의 관계는 “약한 양의 관계”라고 생각됩니다. 이는 앞서 계산한 상관 계수 0.187와 일치합니다.</p>
-<p>또한 이 플롯의 오른쪽 상단에 상자로 강조된 6개의 점이 있는 것처럼 보입니다. 하지만 실제로는 그렇지 않은데, 이 플롯이 <em>중복 플로팅(overplotting)</em> 문제를 겪고 있기 때문입니다. <span class="quarto-unresolved-ref">?sec-overplotting절에서</span> 배웠듯이, 중복 플로팅은 여러 개의 점이 서로 바로 위에 겹쳐 쌓여 있어 이를 구분하기 어려울 때 발생합니다. 따라서 상자 안에 6개의 점만 있는 것처럼 보일 수 있지만, 실제로는 더 많습니다. 이 사실은 <code>geom_point()</code> 대신 <code>geom_jitter()</code>를 사용할 때만 명확해집니다. 그 결과를 그림 <span class="quarto-unresolved-ref">?fig-numxplot2에</span> 표시하고, 그림 <span class="quarto-unresolved-ref">?fig-numxplot1과</span> 동일한 작은 상자를 함께 두었습니다.</p>
+<p>또한 이 플롯의 오른쪽 상단에 상자로 강조된 6개의 점이 있는 것처럼 보입니다. 하지만 실제로는 그렇지 않은데, 이 플롯이 <em>중복 플로팅(overplotting)</em> 문제를 겪고 있기 때문입니다. <a href="02-visualization.html#sec-overplotting" class="quarto-xref"><span>오버플로팅</span></a> 절에서 배웠듯이, 중복 플로팅은 여러 개의 점이 서로 바로 위에 겹쳐 쌓여 있어 이를 구분하기 어려울 때 발생합니다. 따라서 상자 안에 6개의 점만 있는 것처럼 보일 수 있지만, 실제로는 더 많습니다. 이 사실은 <code>geom_point()</code> 대신 <code>geom_jitter()</code>를 사용할 때만 명확해집니다. 그 결과를 그림 <span class="quarto-unresolved-ref">?fig-numxplot2</span> 에 표시하고, 그림 <span class="quarto-unresolved-ref">?fig-numxplot1</span> 과 동일한 작은 상자를 함께 두었습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals_ch5, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
@@ -666,8 +660,8 @@ instead.
 </div>
 </div>
 </div>
-<p>이제 그림 <span class="quarto-unresolved-ref">?fig-numxplot1에서</span> 처럼 6개가 아니라 상자로 강조된 영역에 12개의 점이 있음이 분명해졌습니다. <span class="quarto-unresolved-ref">?sec-overplotting절의</span> 중복 플로팅에서 보았듯이, 지터링은 각 점에 약간의 무작위 “밀어내기(nudge)”를 추가하여 겹친 점들을 떼어놓습니다. 또한 지터링은 엄격히 시각화 도구일 뿐이며, 데이터 프레임 <code>evals_ch5</code>의 원래 값을 변경하지 않는다는 점을 기억하세요. 하지만 앞으로의 설명을 단순하게 유지하기 위해 지터링된 버전보다는 일반 산점도만을 제시하겠습니다.</p>
-<p>그림 <span class="quarto-unresolved-ref">?fig-numxplot1의</span> 지터링되지 않은 산점도에 “가장 잘 맞는(best-fitting)” 직선을 추가하여 발전시켜 봅시다. 이 직선은 산점도에 그릴 수 있는 모든 가능한 직선 중에서 점들의 구름(cloud)을 가자 “잘” 통과하는 직선입니다. 그림 <span class="quarto-unresolved-ref">?fig-numxplot1을</span> 생성한 <code>ggplot()</code> 코드에 새로운 <code>geom_smooth(method = "lm", se = FALSE)</code> 레이어를 추가하여 이를 수행합니다. <code>method = "lm"</code> 인자는 직선을 “선형 모델(<code>l</code>inear <code>m</code>odel)”로 설정합니다. <code>se = FALSE</code> 인자는 <em>표준 오차(standard error)</em> 불확실성 막대를 표시하지 않도록 합니다. (표준 오차의 개념은 나중에 <span class="quarto-unresolved-ref">?sec-sampling-definitions절에서</span> 정의하겠습니다.)</p>
+<p>이제 그림 <span class="quarto-unresolved-ref">?fig-numxplot1</span> 에서 처럼 6개가 아니라 상자로 강조된 영역에 12개의 점이 있음이 분명해졌습니다. <a href="02-visualization.html#sec-overplotting" class="quarto-xref"><span>오버플로팅</span></a> 절의 중복 플로팅에서 보았듯이, 지터링은 각 점에 약간의 무작위 “밀어내기(nudge)”를 추가하여 겹친 점들을 떼어놓습니다. 또한 지터링은 엄격히 시각화 도구일 뿐이며, 데이터 프레임 <code>evals_ch5</code>의 원래 값을 변경하지 않는다는 점을 기억하세요. 하지만 앞으로의 설명을 단순하게 유지하기 위해 지터링된 버전보다는 일반 산점도만을 제시하겠습니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-numxplot1</span> 의 지터링되지 않은 산점도에 “가장 잘 맞는(best-fitting)” 직선을 추가하여 발전시켜 봅시다. 이 직선은 산점도에 그릴 수 있는 모든 가능한 직선 중에서 점들의 구름(cloud)을 가자 “잘” 통과하는 직선입니다. 그림 <span class="quarto-unresolved-ref">?fig-numxplot1</span> 을 생성한 <code>ggplot()</code> 코드에 새로운 <code>geom_smooth(method = "lm", se = FALSE)</code> 레이어를 추가하여 이를 수행합니다. <code>method = "lm"</code> 인자는 직선을 “선형 모델(<code>l</code>inear <code>m</code>odel)”로 설정합니다. <code>se = FALSE</code> 인자는 <em>표준 오차(standard error)</em> 불확실성 막대를 표시하지 않도록 합니다. (표준 오차의 개념은 나중에 <a href="07-sampling.html#sec-sampling-definitions" class="quarto-xref"><span>Statistical definitions</span></a> 절에서 정의하겠습니다.)</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evals_ch5, <span class="fu">aes</span>(<span class="at">x =</span> bty_avg, <span class="at">y =</span> score)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -683,8 +677,8 @@ instead.
 </div>
 </div>
 </div>
-<p>그림 <span class="quarto-unresolved-ref">?fig-numxplot3의</span> 직선은 “회귀 직선(regression line)”이라고 불립니다. 회귀 직선은 두 수치형 변수(우리의 경우 결과 변수 <code>score</code>와 설명 변수 <code>bty_avg</code> 사이의 관계를 시각적으로 요약한 것입니다. 파란색 직선의 양(+)의 기울기는 강사의 “미모” 점수가 높을수록 강의 평가 점수도 더 높게 받는다는 점을 시사하며, 이는 앞서 관찰한 상관 계수 0.187와 일치합니다. 하지만 나중에 보겠지만 상관 계수와 회귀 직선의 기울기는 항상 같은 부호(양수 또는 음수)를 가지지만, 일반적으로 같은 값을 가지지는 않습니다.</p>
-<p>또한 회귀 직선은 어떤 수학적 기준을 최소화한다는 점에서 “가장 잘 맞는(best-fitting)” 직선입니다. <span class="quarto-unresolved-ref">?sec-leastsquares절에서</span> 이 수학적 기준을 제시하겠지만, 이 섹션의 나머지 부분인 하나의 수치형 설명 변수를 이용한 회귀 분석을 모두 읽은 후에 해당 소섹션을 읽어보시길 권장합니다.</p>
+<p>그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 의 직선은 “회귀 직선(regression line)”이라고 불립니다. 회귀 직선은 두 수치형 변수(우리의 경우 결과 변수 <code>score</code>와 설명 변수 <code>bty_avg</code> 사이의 관계를 시각적으로 요약한 것입니다. 파란색 직선의 양(+)의 기울기는 강사의 “미모” 점수가 높을수록 강의 평가 점수도 더 높게 받는다는 점을 시사하며, 이는 앞서 관찰한 상관 계수 0.187와 일치합니다. 하지만 나중에 보겠지만 상관 계수와 회귀 직선의 기울기는 항상 같은 부호(양수 또는 음수)를 가지지만, 일반적으로 같은 값을 가지지는 않습니다.</p>
+<p>또한 회귀 직선은 어떤 수학적 기준을 최소화한다는 점에서 “가장 잘 맞는(best-fitting)” 직선입니다. <a href="#sec-leastsquares" class="quarto-xref"><span>가장 잘 맞는 직선</span></a> 절에서 이 수학적 기준을 제시하겠지만, 이 섹션의 나머지 부분인 하나의 수치형 설명 변수를 이용한 회귀 분석을 모두 읽은 후에 해당 소섹션을 읽어보시길 권장합니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -693,7 +687,11 @@ instead.
 </div>
 </div>
 <p><strong>(LC5.1)</strong> 동일한 결과 변수 <span class="math inline">\(y\)</span>인 <code>score</code>를 사용하되 설명 변수 <span class="math inline">\(x\)</span>를 <code>age</code>(연령)로 바꾸어 새로운 탐색적 데이터 분석을 수행하세요. 다음 세 가지를 포함해야 함을 기억하세요.</p>
-<p>(a 원시 데이터 값 살펴보기 (b 요약 통계량 계산하기 (c 데이터 시각화 수행하기</p>
+<ul>
+<li>원시 데이터 값 살펴보기</li>
+<li>요약 통계량 계산하기</li>
+<li>데이터 시각화 수행하기</li>
+</ul>
 <p>이 탐색 결과를 바탕으로 연령과 강의 평가 점수 사이의 관계에 대해 무엇을 말할 수 있나요?</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
@@ -701,11 +699,11 @@ instead.
 </div>
 </div>
 </section>
-<section id="model1table" class="level3">
-<h3 class="anchored" data-anchor-id="model1table">단순 선형 회귀</h3>
-<p>중고등학교 대수학 시간에 직선의 방정식이 <span class="math inline">\(y = a + b\cdot x\)</span>라고 배웠던 것을 기억하실 겁니다. (여기서 <span class="math inline">\(\cdot\)</span> 기호는 수학의 곱하기 기호인 <span class="math inline">\(\times\)</span>와 동일합니다. 이 책에서는 간결함을 위해 이후로도 <span class="math inline">\(\cdot\)</span> 기호를 사용하겠습니다. 직선은 두 개의 계수(coefficients) <span class="math inline">\(a\)</span>와 <span class="math inline">\(b\)</span>에 의해 정의됩니다. 절편(intercept) 계수 <span class="math inline">\(a\)</span>는 <span class="math inline">\(x = 0\)</span>일 때의 <span class="math inline">\(y\)</span> 값입니다. 기울기(slope) 계수 <span class="math inline">\(b\)</span>는 <span class="math inline">\(x\)</span>가 1만큼 증가할 때 <span class="math inline">\(y\)</span>의 증가량을 의미합니다.</p>
-<p>하지만 그림 <span class="quarto-unresolved-ref">?fig-numxplot3과</span> 같은 회귀 직선을 정의할 때는 약간 다른 표기법을 사용합니다. 회귀 직선의 방정식은 <span class="math inline">\(\widehat{y} = b_0 + b_1 \cdot x\)</span>입니다. 절편 계수는 <span class="math inline">\(b_0\)</span>이며, 따라서 <span class="math inline">\(b_0\)</span>는 <span class="math inline">\(x = 0\)</span>일 때의 <span class="math inline">\(\widehat{y}\)</span> 값입니다. <span class="math inline">\(x\)</span>에 대한 기울기 계수는 <span class="math inline">\(b_1\)</span>이며, 즉 <span class="math inline">\(x\)</span>가 1만큼 증가할 때 <span class="math inline">\(\widehat{y}\)</span>의 증가량을 나타냅니다. 왜 <span class="math inline">\(y\)</span> 위에 “모자(hat)”를 씌웠을까요? 이는 회귀 분석에서 흔히 사용되는 표기법으로, 특정 <span class="math inline">\(x\)</span> 값에 대한 회귀 직선 위의 값인 “적합값(fitted value)”임을 나타냅니다. 이에 대해서는 이어지는 <span class="quarto-unresolved-ref">?sec-model1points절에서</span> 더 자세히 논의하겠습니다.</p>
-<p>우리는 그림 <span class="quarto-unresolved-ref">?fig-numxplot3의</span> 회귀 직선이 설명 변수 <span class="math inline">\(x\)</span>인 <code>bty_avg</code>에 대해 양(+)의 기울기 <span class="math inline">\(b_1\)</span>을 가진다는 것을 알고 있습니다. 왜 그럴까요? 강사들의 <code>bty_avg</code> 점수가 높을수록 강의 평가 <code>score</code> 점수도 높은 경향이 있기 때문입니다. 그렇다면 기울기 <span class="math inline">\(b_1\)</span>의 수치적 값은 얼마일까요? 절편 <span class="math inline">\(b_0\)</span>는 어떨까요? 이 두 값을 손으로 계산하지 말고 컴퓨터를 사용하여 구해 봅시다!</p>
+<section id="sec-model1table" class="level3">
+<h3 class="anchored" data-anchor-id="sec-model1table">단순 선형 회귀</h3>
+<p>중고등학교 대수학 시간에 직선의 방정식이 <span class="math inline">\(y = a + b\cdot x\)</span>라고 배웠던 것을 기억하실 겁니다. (여기서 <span class="math inline">\(\cdot\)</span> 기호는 수학의 곱하기 기호인 <span class="math inline">\(\times\)</span>와 동일합니다.) 이 책에서는 간결함을 위해 이후로도 <span class="math inline">\(\cdot\)</span> 기호를 사용하겠습니다. 직선은 두 개의 계수(coefficients) <span class="math inline">\(a\)</span>와 <span class="math inline">\(b\)</span>에 의해 정의됩니다. 절편(intercept) 계수 <span class="math inline">\(a\)</span>는 <span class="math inline">\(x = 0\)</span>일 때의 <span class="math inline">\(y\)</span> 값입니다. 기울기(slope) 계수 <span class="math inline">\(b\)</span>는 <span class="math inline">\(x\)</span>가 1만큼 증가할 때 <span class="math inline">\(y\)</span>의 증가량을 의미합니다.</p>
+<p>하지만 그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 과 같은 회귀 직선을 정의할 때는 약간 다른 표기법을 사용합니다. 회귀 직선의 방정식은 <span class="math inline">\(\widehat{y} = b_0 + b_1 \cdot x\)</span>입니다. 절편 계수는 <span class="math inline">\(b_0\)</span>이며, 따라서 <span class="math inline">\(b_0\)</span>는 <span class="math inline">\(x = 0\)</span>일 때의 <span class="math inline">\(\widehat{y}\)</span> 값입니다. <span class="math inline">\(x\)</span>에 대한 기울기 계수는 <span class="math inline">\(b_1\)</span>이며, 즉 <span class="math inline">\(x\)</span>가 1만큼 증가할 때 <span class="math inline">\(\widehat{y}\)</span>의 증가량을 나타냅니다. 왜 <span class="math inline">\(y\)</span> 위에 “모자(hat)”를 씌웠을까요? 이는 회귀 분석에서 흔히 사용되는 표기법으로, 특정 <span class="math inline">\(x\)</span> 값에 대한 회귀 직선 위의 값인 “적합값(fitted value)”임을 나타냅니다. 이에 대해서는 이어지는 <a href="#sec-model1points" class="quarto-xref"><span>관측값/적합값과 잔차</span></a> 절에서 더 자세히 논의하겠습니다.</p>
+<p>우리는 그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 의 회귀 직선이 설명 변수 <span class="math inline">\(x\)</span>인 <code>bty_avg</code>에 대해 양(+)의 기울기 <span class="math inline">\(b_1\)</span>을 가진다는 것을 알고 있습니다. 왜 그럴까요? 강사들의 <code>bty_avg</code> 점수가 높을수록 강의 평가 <code>score</code> 점수도 높은 경향이 있기 때문입니다. 그렇다면 기울기 <span class="math inline">\(b_1\)</span>의 수치적 값은 얼마일까요? 절편 <span class="math inline">\(b_0\)</span>는 어떨까요? 이 두 값을 손으로 계산하지 말고 컴퓨터를 사용하여 구해 봅시다!</p>
 <p>일련의 과정을 거쳐 <em>선형 회귀 표(linear regression table)</em>를 출력함으로써 절편 <span class="math inline">\(b_0\)</span>와 <code>bty_avg</code>에 대한 기울기 <span class="math inline">\(b_1\)</span>의 값을 얻을 수 있습니다. 이는 다음 두 단계로 수행됩니다.</p>
 <ol type="1">
 <li>먼저 <code>lm()</code> 함수를 사용하여 선형 회귀 모델을 “적합(fit)”시키고 이를 <code>score_model</code>에 저장합니다.</li>
@@ -755,7 +753,7 @@ instead.
 </table>
 </div>
 </div>
-<p>먼저 표 <span class="quarto-unresolved-ref">?tbl-regtable의</span> 회귀 표 출력을 해석하는 데 집중하고, 나중에 이를 생성한 코드를 다시 살펴보겠습니다. 표 <span class="quarto-unresolved-ref">?tbl-regtable의</span> <code>estimate</code> 열에는 절편 <span class="math inline">\(b_0\)</span> = 3.88과 <code>bty_avg</code>에 대한 기울기 <span class="math inline">\(b_1\)</span> = 0.067가 있습니다. 따라서 그림 <span class="quarto-unresolved-ref">?fig-numxplot3의</span> 회귀 직선 방정식은 다음과 같습니다.</p>
+<p>먼저 표 <span class="quarto-unresolved-ref">?tbl-regtable</span> 의 회귀 표 출력을 해석하는 데 집중하고, 나중에 이를 생성한 코드를 다시 살펴보겠습니다. 표 <span class="quarto-unresolved-ref">?tbl-regtable</span> 의 <code>estimate</code> 열에는 절편 <span class="math inline">\(b_0\)</span> = 3.88과 <code>bty_avg</code>에 대한 기울기 <span class="math inline">\(b_1\)</span> = 0.067가 있습니다. 따라서 그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 의 회귀 직선 방정식은 다음과 같습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
 \widehat{y} &amp;= b_0 + b_1 \cdot x\\
@@ -763,14 +761,14 @@ instead.
 &amp;= 3.88 + 0.067\cdot\text{bty}\_\text{avg}
 \end{aligned}
 \]</span></p>
-<p>절편 <span class="math inline">\(b_0\)</span> = 3.88은 강사의 “미모” 점수 <code>bty_avg</code>가 0인 강좌들의 평균 강의 평가 점수 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span>입니다. 기하학적으로 말하면 <span class="math inline">\(x=0\)</span>일 때 직선이 <span class="math inline">\(y\)</span>축과 만나는 지점입니다. 하지만 회귀 직선의 절편이 수학적 해석을 갖기는 하지만, 여기서는 <em>실질적인(practical)</em> 해석이 불가능하다는 점에 유의하세요. <code>bty_avg</code>가 0인 경우는 관측될 수 없는데, 이는 1점에서 10점 사이의 점수를 주는 6명 패널의 평균값이기 때문입니다. 게다가 그림 <span class="quarto-unresolved-ref">?fig-numxplot3의</span> 회귀 직선 산점도를 보면 어떤 강사도 0에 가까운 “미모” 점수를 받지 않았습니다.</p>
+<p>절편 <span class="math inline">\(b_0\)</span> = 3.88은 강사의 “미모” 점수 <code>bty_avg</code>가 0인 강좌들의 평균 강의 평가 점수 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{score}}\)</span>입니다. 기하학적으로 말하면 <span class="math inline">\(x=0\)</span>일 때 직선이 <span class="math inline">\(y\)</span>축과 만나는 지점입니다. 하지만 회귀 직선의 절편이 수학적 해석을 갖기는 하지만, 여기서는 <em>실질적인(practical)</em> 해석이 불가능하다는 점에 유의하세요. <code>bty_avg</code>가 0인 경우는 관측될 수 없는데, 이는 1점에서 10점 사이의 점수를 주는 6명 패널의 평균값이기 때문입니다. 게다가 그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 의 회귀 직선 산점도를 보면 어떤 강사도 0에 가까운 “미모” 점수를 받지 않았습니다.</p>
 <p>더 흥미로운 것은 <code>bty_avg</code>에 대한 기울기 <span class="math inline">\(b_1\)</span> = <span class="math inline">\(b_{\text{bty}\_\text{avg}}\)</span> = 0.067입니다. 이는 강의 평가 변수와 “미모” 점수 변수 사이의 관계를 요약해 줍니다. 부호가 양수(+)인 것에 주목하세요. 이는 두 변수 사이의 양의 관계를 시사하며, 미모 점수가 높은 교사가 강의 평가 점수도 더 높게 받는 경향이 있음을 의미합니다. 앞서 상관 계수가 0.187였음을 떠올려 보세요. 둘 다 동일한 양의 부호를 갖지만 값은 다릅니다. 상관관계의 해석은 “선형적 연관성의 강도”임을 다시 기억하세요. 기울기의 해석은 조금 다릅니다.</p>
 <blockquote class="blockquote">
 <p><code>bty_avg</code>가 1단위 증가할 때마다, <code>score</code>는 <em>평균적으로</em> 0.067단위만큼 <em>연관되어</em> 증가합니다.</p>
 </blockquote>
-<p>우리는 단지 <em>연관된(associated)</em> 증가라고 말할 뿐, 반드시 <em>인과적인(causal)</em> 증가라고 하지는 않습니다. 예를 들어 높은 “미모” 점수가 그 자체로 직접적으로 높은 강의 평가 점수를 유발하는 것이 아닐 수도 있습니다. 대신 다음과 같은 상황이 가능할 수 있습니다: 부유한 배경을 가진 개인들이 더 탄탄한 교육 배경을 갖는 경향이 있어 강의 평가 점수가 높으면서, 동시에 이 부유한 개인들이 높은 “미모” 점수를 받는 경향이 있을 수도 있습니다. 즉, 두 변수가 강하게 연관되어 있다고 해서 반드시 한 변수가 다른 변수를 유발한다는 의미는 아닙니다. 이는 “상관관계가 반드시 인과관계를 의미하지는 않는다”라는 자주 인용되는 문구로 요약됩니다. 이 아이디어에 대해서는 <span class="quarto-unresolved-ref">?sec-correlation-is-not-causation절에서</span> 더 자세히 논의합니다.</p>
+<p>우리는 단지 <em>연관된(associated)</em> 증가라고 말할 뿐, 반드시 <em>인과적인(causal)</em> 증가라고 하지는 않습니다. 예를 들어 높은 “미모” 점수가 그 자체로 직접적으로 높은 강의 평가 점수를 유발하는 것이 아닐 수도 있습니다. 대신 다음과 같은 상황이 가능할 수 있습니다: 부유한 배경을 가진 개인들이 더 탄탄한 교육 배경을 갖는 경향이 있어 강의 평가 점수가 높으면서, 동시에 이 부유한 개인들이 높은 “미모” 점수를 받는 경향이 있을 수도 있습니다. 즉, 두 변수가 강하게 연관되어 있다고 해서 반드시 한 변수가 다른 변수를 유발한다는 의미는 아닙니다. 이는 “상관관계가 반드시 인과관계를 의미하지는 않는다”라는 자주 인용되는 문구로 요약됩니다. 이 아이디어에 대해서는 <a href="#sec-correlation-is-not-causation" class="quarto-xref"><span>상관관계가 반드시 인과관계를 의미하지는 않는다</span></a> 절에서 더 자세히 논의합니다.</p>
 <p>또한 우리는 이 연관된 증가가 <em>평균적으로</em> 0.067단위의 강의 평가 <code>score</code>라고 말하는데, 그 이유는 <code>bty_avg</code> 점수가 1단위 차이 나는 두 강사의 실제 강의 평가 점수 차이가 반드시 정확히 0.067는 아닐 것이기 때문입니다. 기울기 0.067가 의미하는 바는 가능한 모든 강좌에 걸쳐, “미모” 점수가 1만큼 차이 나는 두 강사 사이의 강의 평가 점수의 <em>평균적인</em> 차이가 0.067라는 것입니다.</p>
-<p>이제 표 <span class="quarto-unresolved-ref">?tbl-regtable의</span> <code>estimate</code> 열에 있는 값들을 사용하여 그림 <span class="quarto-unresolved-ref">?fig-numxplot3의</span> 회귀 직선 방정식을 계산하는 법과 그 결과인 절편 및 기울기를 해석하는 법을 배웠으니, 이 표를 생성한 코드를 다시 살펴보겠습니다.</p>
+<p>이제 표 <span class="quarto-unresolved-ref">?tbl-regtable</span> 의 <code>estimate</code> 열에 있는 값들을 사용하여 그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 의 회귀 직선 방정식을 계산하는 법과 그 결과인 절편 및 기울기를 해석하는 법을 배웠으니, 이 표를 생성한 코드를 다시 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>score_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> bty_avg, <span class="at">data =</span> evals_ch5)</span>
@@ -781,10 +779,10 @@ instead.
 <ul>
 <li><code>y</code>는 결과 변수이며 뒤에 물결표 <code>~</code>가 옵니다. 우리의 경우 <code>y</code>는 <code>score</code>로 설정되었습니다.</li>
 <li><code>x</code>는 설명 변수입니다. 우리의 경우 <code>x</code>는 <code>bty_avg</code>로 설정되었습니다.</li>
-<li><code>y ~ x</code>의 조합을 <em>모델 포뮬라(model formula)</em>라고 부릅니다. (이때 <code>y</code>와 <code>x</code>의 순서에 유의하세요. 우리의 경우 모델 포뮬라는 <code>score ~ bty_avg</code>입니다. 이러한 모델 포뮬라는 앞서 <span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> <code>get_correlation()</code> 함수를 사용하여 상관 계수를 계산할 때도 보았습니다.</li>
+<li><code>y ~ x</code>의 조합을 <em>모델 포뮬라(model formula)</em>라고 부릅니다. (이때 <code>y</code>와 <code>x</code>의 순서에 유의하세요. 우리의 경우 모델 포뮬라는 <code>score ~ bty_avg</code>입니다. 이러한 모델 포뮬라는 앞서 <a href="#sec-model1EDA" class="quarto-xref"><span>탐색적 데이터 분석</span></a> 절에서 <code>get_correlation()</code> 함수를 사용하여 상관 계수를 계산할 때도 보았습니다.</li>
 <li><code>데이터_프레임_이름</code>은 변수 <code>y</code>와 <code>x</code>를 포함하고 있는 데이터 프레임의 이름입니다. 우리의 경우 <code>데이터_프레임_이름</code>은 <code>evals_ch5</code> 데이터 프레임입니다.</li>
 </ul>
-<p>둘째, <code>score_model</code>에 저장된 모델을 가져와 <code>moderndive</code> 패키지의 <code>get_regression_table()</code> 함수를 적용하여 표 <span class="quarto-unresolved-ref">?tbl-regtable과</span> 같은 회귀 표를 얻습니다. 이 함수는 컴퓨터 프로그래밍에서 <em>래퍼 함수(wrapper function)</em>라고 알려진 것의 한 예입니다. 래퍼 함수는 기존의 다른 함수들을 가져와 내부 작동 방식을 숨긴 채 하나의 함수로 “감싸(wrap)” 놓은 것입니다. 이 개념은 그림 <span class="quarto-unresolved-ref">?fig-moderndive-figure-wrapper에</span> 잘 나타나 있습니다.</p>
+<p>둘째, <code>score_model</code>에 저장된 모델을 가져와 <code>moderndive</code> 패키지의 <code>get_regression_table()</code> 함수를 적용하여 표 <span class="quarto-unresolved-ref">?tbl-regtable</span> 과 같은 회귀 표를 얻습니다. 이 함수는 컴퓨터 프로그래밍에서 <em>래퍼 함수(wrapper function)</em>라고 알려진 것의 한 예입니다. 래퍼 함수는 기존의 다른 함수들을 가져와 내부 작동 방식을 숨긴 채 하나의 함수로 “감싸(wrap)” 놓은 것입니다. 이 개념은 그림 <span class="quarto-unresolved-ref">?fig-moderndive-figure-wrapper</span> 에 잘 나타나 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -795,8 +793,8 @@ instead.
 </div>
 </div>
 </div>
-<p>따라서 여러분은 입력이 무엇이고 출력이 무엇인지만 걱정하면 되며, 나머지 세부 사항은 “자동차 엔진룸 안”의 일로 남겨두면 됩니다. 우리의 회귀 모델링 예시에서 <code>get_regression_table()</code> 함수는 저장된 <code>lm()</code> 선형 회귀 모델을 입력으로 받아 회귀 표 데이터 프레임을 출력으로 반환합니다. <code>get_regression_table()</code> 함수의 내부 작동 방식에 대해 더 알고 싶다면 <span class="quarto-unresolved-ref">?sec-underthehood절을</span> 참고하세요.</p>
-<p>마지막으로 표 <span class="quarto-unresolved-ref">?tbl-regtable의</span> 나머지 5개 열인 <code>std_error</code>, <code>statistic</code>, <code>p_value</code>, <code>lower_ci</code>, <code>upper_ci</code>가 무엇인지 궁금할 것입니다. 이들은 각각 <em>표준 오차(standard error)</em>, <em>검정 통계량(test statistic)</em>, <em>p-값(p-value)</em>, <em>95% 신뢰 구간의 하한</em>, <em>95% 신뢰 구간의 상한</em>입니다. 이들은 우리 결과의 <em>통계적 유의성(statistical significance)</em>과 <em>실질적 유의성(practical significance)</em> 모두에 대해 알려줍니다. 이는 통계적 관점에서 우리 결과가 얼마나 “의미 있는지”를 나타냅니다. 일단 이 개념들은 제쳐두고 <span class="quarto-unresolved-ref">?sec-inference-for-regression장</span> 회귀 분석을 위한 (통계적 추론에서 다시 다루도록 하겠습니다. <span class="quarto-unresolved-ref">?sec-sampling장의</span> 표준 오차, <span class="quarto-unresolved-ref">?sec-confidence-intervals장의</span> 신뢰 구간, 그리고 <span class="quarto-unresolved-ref">?sec-hypothesis-testing장의</span> 가설 검정과 <span class="math inline">\(p\)</span>-값을 모두 배운 후에 다시 살펴보겠습니다.</p>
+<p>따라서 여러분은 입력이 무엇이고 출력이 무엇인지만 걱정하면 되며, 나머지 세부 사항은 “자동차 엔진룸 안”의 일로 남겨두면 됩니다. 우리의 회귀 모델링 예시에서 <code>get_regression_table()</code> 함수는 저장된 <code>lm()</code> 선형 회귀 모델을 입력으로 받아 회귀 표 데이터 프레임을 출력으로 반환합니다. <code>get_regression_table()</code> 함수의 내부 작동 방식에 대해 더 알고 싶다면 <a href="#sec-underthehood" class="quarto-xref"><span>get_regression_x() 함수들</span></a> 절을 참고하세요.</p>
+<p>마지막으로 표 <span class="quarto-unresolved-ref">?tbl-regtable</span> 의 나머지 5개 열인 <code>std_error</code>, <code>statistic</code>, <code>p_value</code>, <code>lower_ci</code>, <code>upper_ci</code>가 무엇인지 궁금할 것입니다. 이들은 각각 <em>표준 오차(standard error)</em>, <em>검정 통계량(test statistic)</em>, <em>p-값(p-value)</em>, <em>95% 신뢰 구간의 하한</em>, <em>95% 신뢰 구간의 상한</em>입니다. 이들은 우리 결과의 <em>통계적 유의성(statistical significance)</em>과 <em>실질적 유의성(practical significance)</em> 모두에 대해 알려줍니다. 이는 통계적 관점에서 우리 결과가 얼마나 “의미 있는지”를 나타냅니다. 일단 이 개념들은 제쳐두고 <a href="10-inference-for-regression.html" class="quarto-xref"><span>회귀 분석을 위한 추론</span></a> 장 회귀 분석을 위한 (통계적 추론에서 다시 다루도록 하겠습니다. <a href="07-sampling.html" class="quarto-xref"><span>표본 추출</span></a> 장의 표준 오차, <a href="08-confidence-intervals.html" class="quarto-xref"><span>붓스트랩과 신뢰 구간</span></a> 장의 신뢰 구간, 그리고 <a href="09-hypothesis-testing.html" class="quarto-xref"><span>가설 검정</span></a> 장의 가설 검정과 <span class="math inline">\(p\)</span>-값을 모두 배운 후에 다시 살펴보겠습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -811,8 +809,8 @@ instead.
 </div>
 </div>
 </section>
-<section id="model1points" class="level3">
-<h3 class="anchored" data-anchor-id="model1points">관측값/적합값과 잔차</h3>
+<section id="sec-model1points" class="level3">
+<h3 class="anchored" data-anchor-id="sec-model1points">관측값/적합값과 잔차</h3>
 <p>우리는 방금 <code>get_regression_table()</code> 함수가 생성한 회귀 표의 <code>estimate</code> 열을 통해 회귀 직선의 절편과 기울기 값을 얻는 방법을 보았습니다. 이제 개별 관측치에 대한 정보를 알고 싶다고 가정해 봅시다. 예를 들어 <code>evals_ch5</code> 데이터 프레임에 있는 463개 강좌 중 21번째 강좌에 집중해 보겠습니다(표 <span class="quarto-unresolved-ref">?tbl-instructor-21</span>).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -837,7 +835,7 @@ instead.
 </table>
 </div>
 </div>
-<p>이 강사의 “미모” 점수 <code>bty_avg</code>가 7.333일 때, 이에 해당하는 회귀 직선 위의 값 <span class="math inline">\(\widehat{y}\)</span>는 얼마일까요? 그림 <span class="quarto-unresolved-ref">?fig-numxplot4에서는</span> 이 21번째 강좌의 강사에 해당하는 세 가지 값을 표시하고 각각의 통계적 명칭을 부여했습니다.</p>
+<p>이 강사의 “미모” 점수 <code>bty_avg</code>가 7.333일 때, 이에 해당하는 회귀 직선 위의 값 <span class="math inline">\(\widehat{y}\)</span>는 얼마일까요? 그림 <span class="quarto-unresolved-ref">?fig-numxplot4</span> 에서는 이 21번째 강좌의 강사에 해당하는 세 가지 값을 표시하고 각각의 통계적 명칭을 부여했습니다.</p>
 <ul>
 <li>원: <em>관측값(observed value)</em> <span class="math inline">\(y\)</span> = 4.9는 이 강좌 강사의 실제 강의 평가 점수입니다.</li>
 <li>사각형: <em>적합값(fitted value)</em> <span class="math inline">\(\widehat{y}\)</span>는 <span class="math inline">\(x\)</span> = <code>bty_avg</code> = 7.333일 때 회귀 직선 위의 값입니다. 이 값은 이전 회귀 표의 절편과 기울기를 사용하여 계산됩니다.</li>
@@ -856,8 +854,8 @@ instead.
 </div>
 </div>
 </div>
-<p>이제 연구에 포함된 <em>모든</em> 463개 강좌에 대해 적합값 <span class="math inline">\(\widehat{y} = b_0 + b_1 \cdot x\)</span>와 잔차 <span class="math inline">\(y - \widehat{y}\)</span>를 모두 계산하고 싶다고 가정해 봅시다. 각 강좌는 <code>evals_ch5</code> 데이터 프레임의 463개 행 중 하나에 해당하며, 동시에 그림 <span class="quarto-unresolved-ref">?fig-numxplot4의</span> 회귀 플롯에 있는 463개 점 중 하나에 해당함을 기억하세요.</p>
-<p>앞서 수행한 계산을 직접 463번 반복할 수도 있지만, 그것은 매우 지루하고 시간이 많이 걸리는 일일 것입니다. 대신 컴퓨터와 <code>get_regression_points()</code> 함수를 사용하여 이를 수행해 봅시다. <code>get_regression_table()</code> 함수와 마찬가지로 <code>get_regression_points()</code> 함수도 “래퍼” 함수입니다. 하지만 이 함수는 다른 결과를 반환합니다. 앞선 섹션에서 <code>lm()</code> 모델을 저장했던 <code>score_model</code>에 <code>get_regression_points()</code> 함수를 적용해 봅시다. 간결함을 위해 표 <span class="quarto-unresolved-ref">?tbl-regression-points-1에는</span> 21번째부터 24번째 강좌의 결과만 제시합니다.</p>
+<p>이제 연구에 포함된 <em>모든</em> 463개 강좌에 대해 적합값 <span class="math inline">\(\widehat{y} = b_0 + b_1 \cdot x\)</span>와 잔차 <span class="math inline">\(y - \widehat{y}\)</span>를 모두 계산하고 싶다고 가정해 봅시다. 각 강좌는 <code>evals_ch5</code> 데이터 프레임의 463개 행 중 하나에 해당하며, 동시에 그림 <span class="quarto-unresolved-ref">?fig-numxplot4</span> 의 회귀 플롯에 있는 463개 점 중 하나에 해당함을 기억하세요.</p>
+<p>앞서 수행한 계산을 직접 463번 반복할 수도 있지만, 그것은 매우 지루하고 시간이 많이 걸리는 일일 것입니다. 대신 컴퓨터와 <code>get_regression_points()</code> 함수를 사용하여 이를 수행해 봅시다. <code>get_regression_table()</code> 함수와 마찬가지로 <code>get_regression_points()</code> 함수도 “래퍼” 함수입니다. 하지만 이 함수는 다른 결과를 반환합니다. 앞선 섹션에서 <code>lm()</code> 모델을 저장했던 <code>score_model</code>에 <code>get_regression_points()</code> 함수를 적용해 봅시다. 간결함을 위해 표 <span class="quarto-unresolved-ref">?tbl-regression-points-1</span> 에는 21번째부터 24번째 강좌의 결과만 제시합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>regression_points <span class="ot">&lt;-</span> <span class="fu">get_regression_points</span>(score_model)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>regression_points</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -908,21 +906,21 @@ instead.
 </table>
 </div>
 </div>
-<p>개별 열을 검토하고 그림 <span class="quarto-unresolved-ref">?fig-numxplot4의</span> 요소들과 대조해 봅시다.</p>
+<p>개별 열을 검토하고 그림 <span class="quarto-unresolved-ref">?fig-numxplot4</span> 의 요소들과 대조해 봅시다.</p>
 <ul>
 <li><code>score</code> 열은 관측된 결과 변수 <span class="math inline">\(y\)</span>를 나타냅니다. 이는 463개 검은색 점의 y축 위치입니다.</li>
 <li><code>bty_avg</code> 열은 설명 변수 <span class="math inline">\(x\)</span>의 값을 나타냅니다. 이는 463개 검은색 점의 x축 위치입니다.</li>
 <li><code>score_hat</code> 열은 적합값 <span class="math inline">\(\widehat{y}\)</span>를 나타냅니다. 이는 463개 <span class="math inline">\(x\)</span> 값에 대해 회귀 직선 위에 대응하는 값입니다.</li>
 <li><code>residual</code> 열은 잔차 <span class="math inline">\(y - \widehat{y}\)</span>를 나타냅니다. 이는 463개 검은색 점과 회귀 직선 사이의 수직 거리입니다.</li>
 </ul>
-<p><code>evals_ch5</code> 데이터셋의 21번째 강좌 강사(표의 첫 번째 행)에 대해 했던 것처럼, 24번째 강좌 강사(표 <span class="quarto-unresolved-ref">?tbl-regression-points-1의</span> 네 번째 행)에 대해서도 계산을 반복해 봅시다.</p>
+<p><code>evals_ch5</code> 데이터셋의 21번째 강좌 강사(표의 첫 번째 행)에 대해 했던 것처럼, 24번째 강좌 강사(표 <span class="quarto-unresolved-ref">?tbl-regression-points-1</span> 의 네 번째 행)에 대해서도 계산을 반복해 봅시다.</p>
 <ul>
 <li><code>score</code> = 4.4는 이 강좌 강사의 관측된 강의 평가 점수 <span class="math inline">\(y\)</span>입니다.</li>
 <li><code>bty_avg</code> = 5.50는 이 강좌 강사의 설명 변수 <code>bty_avg</code>(<span class="math inline">\(x\)</span> 값입니다.</li>
 <li><code>score_hat</code> = 4.25 = 3.88 + 0.067 <span class="math inline">\(\cdot\)</span> 5.50는 이 강좌 강사에 대한 회귀 직선 위의 적합값 <span class="math inline">\(\widehat{y}\)</span>입니다.</li>
 <li><code>residual</code> = 0.153 = 4.4 - 4.25는 이 강사의 잔차 값입니다. 즉, 이 강좌 강사의 경우 모델의 적합값은 실제 강의 평가 점수와 0.153만큼 차이가 났습니다.</li>
 </ul>
-<p>이제 원하신다면 <span class="quarto-unresolved-ref">?sec-leastsquares절로</span> 건너뛰어 “가장 잘 맞는” 회귀 직선을 만드는 과정에 대해 배울 수 있습니다. 미리 귀띔해 드리자면, “가장 잘 맞는” 직선이란 점들을 통과하도록 그을 수 있는 모든 가능한 직선 중에서 <em>잔차 제곱합(sum of squared residuals)</em>을 최소화하는 직선을 의미합니다. <span class="quarto-unresolved-ref">?sec-model2절에서는</span> 범주형 설명 변수와 수치형 결과 변수가 있는 또 다른 일반적인 시나리오를 논의하겠습니다.</p>
+<p>이제 원하신다면 <a href="#sec-leastsquares" class="quarto-xref"><span>가장 잘 맞는 직선</span></a> 절로 건너뛰어 “가장 잘 맞는” 회귀 직선을 만드는 과정에 대해 배울 수 있습니다. 미리 귀띔해 드리자면, “가장 잘 맞는” 직선이란 점들을 통과하도록 그을 수 있는 모든 가능한 직선 중에서 <em>잔차 제곱합(sum of squared residuals)</em>을 최소화하는 직선을 의미합니다. <a href="#sec-model2" class="quarto-xref"><span>하나의 범주형 설명 변수</span></a> 절에서는 범주형 설명 변수와 수치형 결과 변수가 있는 또 다른 일반적인 시나리오를 논의하겠습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -938,22 +936,22 @@ instead.
 </div>
 </section>
 </section>
-<section id="model2" class="level2">
-<h2 class="anchored" data-anchor-id="model2">하나의 범주형 설명 변수</h2>
+<section id="sec-model2" class="level2">
+<h2 class="anchored" data-anchor-id="sec-model2">하나의 범주형 설명 변수</h2>
 <p>기대 수명이 전 세계 모든 국가에서 동일하지 않다는 것은 안타까운 사실입니다. 국제 개발 기구들은 정부가 이 문제를 해결하기 위해 어디에 자원을 할당해야 할지 파악하기 위해 기대 수명의 차이를 연구하는 데 관심이 많습니다. 이 섹션에서는 두 가지 방식으로 기대 수명의 차이를 탐색해 보겠습니다.</p>
 <ol type="1">
 <li>대륙 간 차이: 전 세계 사람이 거주하는 5개 대륙(아프리카, 미주, 아시아, 유럽, 오세아니아 사이에 평균 기대 수명의 유의미한 차이가 있는가?</li>
 <li>대륙 내 차이: 세계 5개 대륙 내에서 기대 수명은 어떻게 변하는가? 예를 들어, 아프리카 국가들 사이의 기대 수명 분포가 아시아 국가들 사이의 기대 수명 분포보다 더 넓은가?</li>
 </ol>
-<p>이러한 질문에 답하기 위해 <code>gapminder</code> 패키지에 포함된 <code>gapminder</code> 데이터 프레임을 사용할 것입니다. 이 데이터셋은 1952년부터 2007년 사이 5년 간격으로 조사된 142개 국가의 기대 수명, 1인당 GDP, 인구와 같은 국제 개발 통계를 담고 있습니다. 앞서 <span class="quarto-unresolved-ref">?sec-gapminder절의</span> 시각화 원리에서 그림 <span class="quarto-unresolved-ref">?fig-gapminder를</span> 통해 이 데이터의 일부를 시각화했던 것을 기억하실 겁니다.</p>
-<p>우리는 다시 기초 회귀 분석을 위해 이 데이터를 사용할 것인데, 이번에는 이전 <span class="quarto-unresolved-ref">?sec-model1절에서</span> 사용했던 수치형 설명 변수 모델과 달리 범주형 설명 변수 <span class="math inline">\(x\)</span>를 사용할 것입니다.</p>
+<p>이러한 질문에 답하기 위해 <code>gapminder</code> 패키지에 포함된 <code>gapminder</code> 데이터 프레임을 사용할 것입니다. 이 데이터셋은 1952년부터 2007년 사이 5년 간격으로 조사된 142개 국가의 기대 수명, 1인당 GDP, 인구와 같은 국제 개발 통계를 담고 있습니다. 앞서 <a href="02-visualization.html#sec-gapminder" class="quarto-xref"><span>Gapminder 데이터</span></a> 절의 시각화 원리에서 그림 <span class="quarto-unresolved-ref">?fig-gapminder</span> 를 통해 이 데이터의 일부를 시각화했던 것을 기억하실 겁니다.</p>
+<p>우리는 다시 기초 회귀 분석을 위해 이 데이터를 사용할 것인데, 이번에는 이전 <a href="#sec-model1" class="quarto-xref"><span>하나의 수치형 설명 변수</span></a> 절에서 사용했던 수치형 설명 변수 모델과 달리 범주형 설명 변수 <span class="math inline">\(x\)</span>를 사용할 것입니다.</p>
 <ol type="1">
 <li>수치형 결과 변수 <span class="math inline">\(y\)</span> (국가별 기대 수명)</li>
 <li>단일 범주형 설명 변수 <span class="math inline">\(x\)</span> (해당 국가가 속한 대륙)</li>
 </ol>
-<p>설명 변수 <span class="math inline">\(x\)</span>가 범주형일 때 “가장 잘 맞는” 회귀 직선의 개념은 설명 변수 <span class="math inline">\(x\)</span>가 수치형이었던 이전 <span class="quarto-unresolved-ref">?sec-model1절의</span> 개념과는 약간 다릅니다. <span class="quarto-unresolved-ref">?sec-model2table절에서</span> 이러한 차이점을 곧 살펴보겠지만, 그전에 먼저 탐색적 데이터 분석을 수행해 봅시다.</p>
-<section id="model2EDA" class="level3">
-<h3 class="anchored" data-anchor-id="model2EDA">탐색적 데이터 분석</h3>
+<p>설명 변수 <span class="math inline">\(x\)</span>가 범주형일 때 “가장 잘 맞는” 회귀 직선의 개념은 설명 변수 <span class="math inline">\(x\)</span>가 수치형이었던 이전 <a href="#sec-model1" class="quarto-xref"><span>하나의 수치형 설명 변수</span></a> 절의 개념과는 약간 다릅니다. <a href="#sec-model2table" class="quarto-xref"><span>선형 회귀</span></a> 절에서 이러한 차이점을 곧 살펴보겠지만, 그전에 먼저 탐색적 데이터 분석을 수행해 봅시다.</p>
+<section id="sec-model2EDA" class="level3">
+<h3 class="anchored" data-anchor-id="sec-model2EDA">탐색적 데이터 분석</h3>
 <p>142개 국가에 대한 데이터는 <code>gapminder</code> 패키지의 <code>gapminder</code> 데이터 프레임에서 찾을 수 있습니다. 하지만 상황을 단순하게 유지하기 위해, 2007년에 해당하는 관측치/행들만 <code>filter()</code>해 봅시다. 또한 이번 장에서 고려할 변수들만 <code>select()</code>하겠습니다. 이 데이터를 <code>gapminder2007</code>이라는 새로운 데이터 프레임에 저장하겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
@@ -966,7 +964,7 @@ instead.
 <pre><code>[1] 54.8</code></pre>
 </div>
 </div>
-<p>탐색적 데이터 분석의 첫 번째 단계인 원시 데이터 값 살펴보기를 수행해 봅시다. <span class="quarto-unresolved-ref">?sec-exploredataframes절에서</span> 배운 것처럼 RStudio의 스프레드시트 뷰어 또는 <code>glimpse()</code> 명령을 사용할 수 있습니다.</p>
+<p>탐색적 데이터 분석의 첫 번째 단계인 원시 데이터 값 살펴보기를 수행해 봅시다. <a href="01-getting-started.html#sec-exploredataframes" class="quarto-xref"><span>데이터 프레임 탐색하기</span></a> 절에서 배운 것처럼 RStudio의 스프레드시트 뷰어 또는 <code>glimpse()</code> 명령을 사용할 수 있습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder2007)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -986,7 +984,7 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 <li><code>continent</code>: 5개의 레벨을 가진 범주형 변수입니다. 여기서 “레벨(levels)”은 아프리카, 아시아, 미주, 유럽, 오세아니아라는 가능한 범주들에 해당합니다. 이것이 우리가 관심을 갖는 설명 변수 <span class="math inline">\(x\)</span>입니다.</li>
 <li><code>gdpPercap</code>: 미국 달러 기준으로 물가 상승률이 조정된 해당 국가의 1인당 GDP를 나타내는 수치형 변수입니다. 이 변수는 이 소섹션 끝에 있는 <em>학습 확인</em> 문제에서 또 다른 결과 변수 <span class="math inline">\(y\)</span>로 사용할 것입니다.</li>
 </ol>
-<p>표 <span class="quarto-unresolved-ref">?tbl-model2-data-preview에서</span> 142개 국가 중 무작위로 추출한 5개 샘플을 살펴봅시다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-model2-data-preview</span> 에서 142개 국가 중 무작위로 추출한 5개 샘플을 살펴봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gapminder2007 <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1062,7 +1060,7 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 <li><code>ordered</code>: 범주형 변수가 “순서형(ordinal)”인지, 즉 인코딩된 계층 구조(예: 낮음, 중간, 높음)가 있는지 알려줍니다. 이 경우 <code>continent</code>는 순서가 없습니다.</li>
 </ul>
 <p>수치형 변수인 <code>lifeExp</code>의 요약 통계량으로 시선을 돌려보면, 2007년 전 세계 기대 수명의 중앙값은 71.94세였습니다. 즉, 전 세계 국가의 절반(71개국)은 기대 수명이 71.94세 미만이었습니다. 그러나 평균 기대 수명은 67.01세로 이보다 낮습니다. 왜 평균 기대 수명이 중앙값보다 낮을까요?</p>
-<p>탐색적 데이터 분석의 마지막 단계인 데이터 시각화를 수행하여 이 질문에 답해 봅시다. 그림 <span class="quarto-unresolved-ref">?fig-lifeExp2007hist에서</span> 결과 변수 <span class="math inline">\(y\)</span> = <code>lifeExp</code>의 분포를 시각화해 보겠습니다.</p>
+<p>탐색적 데이터 분석의 마지막 단계인 데이터 시각화를 수행하여 이 질문에 답해 봅시다. 그림 <span class="quarto-unresolved-ref">?fig-lifeExp2007hist</span> 에서 결과 변수 <span class="math inline">\(y\)</span> = <code>lifeExp</code>의 분포를 시각화해 보겠습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder2007, <span class="fu">aes</span>(<span class="at">x =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
@@ -1078,7 +1076,7 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 </div>
 </div>
 <p>데이터가 <em>왼쪽으로 치우친(left-skewed)</em>, 또는 <em>음의 방향으로</em> 치우친 것을 볼 수 있습니다. 기대 수명이 낮은 몇몇 국가들이 평균 기대 수명을 깎아먹고 있습니다. 그러나 중앙값은 이러한 이상치의 영향을 덜 받기 때문에, 이 경우 중앙값이 평균보다 크게 나타납니다.</p>
-<p>하지만 우리의 목적은 대륙 간 및 대륙 내 기대 수명을 비교하는 것임을 기억하세요. 즉, 시각화에 <code>continent</code> 변수의 개념을 포함해야 합니다. 면 분할 히스토그램을 사용하면 이를 쉽게 수행할 수 있습니다. <span class="quarto-unresolved-ref">?sec-facets절에서</span> 배웠듯이 면 분할은 다른 변수의 값에 따라 시각화를 분할할 수 있게 해줍니다. <code>facet_wrap(~ continent, nrow = 2)</code> 레이어를 추가하여 그 결과를 그림 <span class="quarto-unresolved-ref">?fig-catxplot0b에</span> 나타냈습니다.</p>
+<p>하지만 우리의 목적은 대륙 간 및 대륙 내 기대 수명을 비교하는 것임을 기억하세요. 즉, 시각화에 <code>continent</code> 변수의 개념을 포함해야 합니다. 면 분할 히스토그램을 사용하면 이를 쉽게 수행할 수 있습니다. <a href="02-visualization.html#sec-facets" class="quarto-xref"><span>분할</span></a> 절에서 배웠듯이 면 분할은 다른 변수의 값에 따라 시각화를 분할할 수 있게 해줍니다. <code>facet_wrap(~ continent, nrow = 2)</code> 레이어를 추가하여 그 결과를 그림 <span class="quarto-unresolved-ref">?fig-catxplot0b</span> 에 나타냈습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder2007, <span class="fu">aes</span>(<span class="at">x =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
@@ -1098,7 +1096,7 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 </div>
 </div>
 <p>안타깝게도 아프리카의 기대 수명 분포는 다른 대륙보다 훨씬 낮으며, 유럽의 기대 수명은 더 높고 변동성도 크지 않음을 알 수 있습니다. 반면 아시아와 아프리카는 기대 수명의 변동이 가장 큽니다. 오세아니아는 변동이 가장 적지만, 오세아니아에는 호주와 뉴질랜드 두 국가뿐이라는 점을 유념하세요.</p>
-<p>범주형 변수에 따라 나뉜 수치형 변수의 분포를 시각화하는 또 다른 방법은 나란히 놓인 박스 플롯을 사용하는 것입니다. 그림 <span class="quarto-unresolved-ref">?fig-catxplot1에서는</span> 범주형 변수인 <code>continent</code>를 <span class="math inline">\(x\)</span>축에, 각 대륙 내의 다양한 기대 수명을 <span class="math inline">\(y\)</span>축에 매핑했습니다.</p>
+<p>범주형 변수에 따라 나뉜 수치형 변수의 분포를 시각화하는 또 다른 방법은 나란히 놓인 박스 플롯을 사용하는 것입니다. 그림 <span class="quarto-unresolved-ref">?fig-catxplot1</span> 에서는 범주형 변수인 <code>continent</code>를 <span class="math inline">\(x\)</span>축에, 각 대륙 내의 다양한 기대 수명을 <span class="math inline">\(y\)</span>축에 매핑했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder2007, <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
@@ -1113,9 +1111,9 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 </div>
 </div>
 </div>
-<p>어떤 사람들은 면 분할 히스토그램보다 박스 플롯을 사용하여 범주형 변수의 레벨 간 수치형 변수의 분포를 비교하는 것을 선호합니다. 가상의 수평선을 그어 범주형 변수의 레벨 사이를 빠르게 비교할 수 있기 때문입니다. 예를 들어 그림 <span class="quarto-unresolved-ref">?fig-catxplot1에서</span> <span class="math inline">\(y = 80\)</span>에 가상의 수평선을 그어보면, 오세아니아의 중앙 기대 수명이 가장 높다는 것을 금방 확인할 수 있습니다. 또한 그림 <span class="quarto-unresolved-ref">?fig-catxplot0b의</span> 히스토그램에서 관찰했듯이, 아프리카와 아시아는 사분위수 범위(IQR, 박스의 높이)가 넓어 기대 수명의 변동이 가장 크다는 것을 알 수 있습니다.</p>
+<p>어떤 사람들은 면 분할 히스토그램보다 박스 플롯을 사용하여 범주형 변수의 레벨 간 수치형 변수의 분포를 비교하는 것을 선호합니다. 가상의 수평선을 그어 범주형 변수의 레벨 사이를 빠르게 비교할 수 있기 때문입니다. 예를 들어 그림 <span class="quarto-unresolved-ref">?fig-catxplot1</span> 에서 <span class="math inline">\(y = 80\)</span>에 가상의 수평선을 그어보면, 오세아니아의 중앙 기대 수명이 가장 높다는 것을 금방 확인할 수 있습니다. 또한 그림 <span class="quarto-unresolved-ref">?fig-catxplot0b</span> 의 히스토그램에서 관찰했듯이, 아프리카와 아시아는 사분위수 범위(IQR, 박스의 높이)가 넓어 기대 수명의 변동이 가장 크다는 것을 알 수 있습니다.</p>
 <p>하지만 박스 내부의 굵은 가로선은 평균이 아니라 중앙값이라는 점을 기억하는 것이 중요합니다. 예를 들어 아시아의 경우, 중앙 기대 수명은 약 72세입니다. 이는 아시아 국가 전체의 절반은 기대 수명이 72세 미만이고, 나머지 절반은 72세 이상임을 의미합니다.</p>
-<p>데이터 전처리를 통해 각 대륙별 기대 수명의 중앙값과 평균을 계산하고 그 결과를 표 <span class="quarto-unresolved-ref">?tbl-catxplot0에</span> 나타내 봅시다.</p>
+<p>데이터 전처리를 통해 각 대륙별 기대 수명의 중앙값과 평균을 계산하고 그 결과를 표 <span class="quarto-unresolved-ref">?tbl-catxplot0</span> 에 나타내 봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>lifeExp_by_continent <span class="ot">&lt;-</span> gapminder2007 <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
@@ -1163,8 +1161,8 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 </table>
 </div>
 </div>
-<p>두 번째 열인 중앙값 순서를 살펴보면, 아프리카가 가장 낮고, 미주와 아시아가 비슷한 중앙값으로 그 뒤를 이으며, 그다음으로 유럽, 오세아니아 순입니다. 이 순서는 그림 <span class="quarto-unresolved-ref">?fig-catxplot1의</span> 박스 플롯 내부 굵은 검은색 선의 위치와 일치합니다.</p>
-<p>이제 세 번째 열인 평균(<code>mean</code> 값으로 시선을 돌려봅시다. 아프리카의 평균 기대 수명인 54.8를 <em>비교를 위한 기준점(baseline for comparison)</em>으로 삼아 다른 4개 대륙의 평균 기대 수명과 비교하고, 그 값들을 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에</span> 정리해 보겠습니다. 이 표는 이 섹션의 뒷부분에서 다시 살펴보겠습니다.</p>
+<p>두 번째 열인 중앙값 순서를 살펴보면, 아프리카가 가장 낮고, 미주와 아시아가 비슷한 중앙값으로 그 뒤를 이으며, 그다음으로 유럽, 오세아니아 순입니다. 이 순서는 그림 <span class="quarto-unresolved-ref">?fig-catxplot1</span> 의 박스 플롯 내부 굵은 검은색 선의 위치와 일치합니다.</p>
+<p>이제 세 번째 열인 평균(<code>mean</code> 값으로 시선을 돌려봅시다. 아프리카의 평균 기대 수명인 54.8를 <em>비교를 위한 기준점(baseline for comparison)</em>으로 삼아 다른 4개 대륙의 평균 기대 수명과 비교하고, 그 값들을 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에 정리해 보겠습니다. 이 표는 이 섹션의 뒷부분에서 다시 살펴보겠습니다.</p>
 <ol type="1">
 <li>미주의 경우: 73.6 - 54.8 = 18.8년 더 높습니다.</li>
 <li>아시아의 경우: 70.7 - 54.8 = 15.9년 더 높습니다.</li>
@@ -1226,9 +1224,9 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 </div>
 </div>
 </section>
-<section id="model2table" class="level3">
-<h3 class="anchored" data-anchor-id="model2table">선형 회귀</h3>
-<p><span class="quarto-unresolved-ref">?sec-model1table절에서</span> 수치형 결과 변수 <span class="math inline">\(y\)</span>와 수치형 설명 변수 <span class="math inline">\(x\)</span> 사이의 관계를 모델링하는 단순 선형 회귀를 소개했습니다. 이번 기대 수명 예제에서는 수치형 대신 범주형 설명 변수인 <code>continent</code>가 있습니다. 우리의 모델은 그림 <span class="quarto-unresolved-ref">?fig-numxplot3과</span> 같은 “가장 잘 맞는” 회귀 직선을 산출하는 것이 아니라, 비교 기준점에 대한 <em>오프셋(offsets)</em> 을 산출할 것입니다.</p>
+<section id="sec-model2table" class="level3">
+<h3 class="anchored" data-anchor-id="sec-model2table">선형 회귀</h3>
+<p><a href="#sec-model1table" class="quarto-xref"><span>단순 선형 회귀</span></a> 절에서 수치형 결과 변수 <span class="math inline">\(y\)</span>와 수치형 설명 변수 <span class="math inline">\(x\)</span> 사이의 관계를 모델링하는 단순 선형 회귀를 소개했습니다. 이번 기대 수명 예제에서는 수치형 대신 범주형 설명 변수인 <code>continent</code>가 있습니다. 우리의 모델은 그림 <span class="quarto-unresolved-ref">?fig-numxplot3</span> 과 같은 “가장 잘 맞는” 회귀 직선을 산출하는 것이 아니라, 비교 기준점에 대한 <em>오프셋(offsets)</em> 을 산출할 것입니다.</p>
 <p>강의 평가 점수와 “미모” 점수 사이의 관계를 연구했을 때처럼, 이 모델에 대한 회귀 표를 출력해 봅시다. 이는 다음 두 단계로 수행됨을 기억하세요.</p>
 <ol type="1">
 <li><code>lm(y ~ x, data)</code> 함수를 사용하여 선형 회귀 모델을 “적합”시키고 이를 <code>lifeExp_model</code>에 저장합니다.</li>
@@ -1303,21 +1301,17 @@ $ gdpPercap &lt;dbl&gt; 975, 5937, 6223, 4797, 12779, 34435, 36126, 29796, 1391,
 </table>
 </div>
 </div>
-<p>다시 한번 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b의</span> <code>term</code>과 <code>estimate</code> 열의 값들에 집중해 봅시다. 왜 이제는 5개의 행이 있을까요? 하나씩 분석해 보겠습니다.</p>
+<p>다시 한번 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b</span> 의 <code>term</code>과 <code>estimate</code> 열의 값들에 집중해 봅시다. 왜 이제는 5개의 행이 있을까요? 하나씩 분석해 보겠습니다.</p>
 <ol type="1">
 <li><code>intercept</code>는 아프리카 국가들의 평균 기대 수명인 54.8년에 해당합니다.</li>
-<li><code>continent: Americas</code>는 미주 국가들에 해당하며, 그 값인 +18.8는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에서</span> 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 미주 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 18.8 = 73.6\)</span>입니다.</li>
-<li><code>continent: Asia</code>는 아시아 국가들에 해당하며, 그 값인 +15.9는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에서</span> 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 아시아 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 15.9 = 70.7\)</span>입니다.</li>
-<li><code>continent: Europe</code>은 유럽 국가들에 해당하며, 그 값인 +22.8는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에서</span> 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 유럽 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 22.8 = 77.6\)</span>입니다.</li>
-<li><code>continent: Oceania</code>는 오세아니아 국가들에 해당하며, 그 값인 +25.9는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에서</span> 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 오세아니아 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 25.9 = 80.7\)</span>입니다.</li>
+<li><code>continent: Americas</code>는 미주 국가들에 해당하며, 그 값인 +18.8는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 미주 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 18.8 = 73.6\)</span>입니다.</li>
+<li><code>continent: Asia</code>는 아시아 국가들에 해당하며, 그 값인 +15.9는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 아시아 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 15.9 = 70.7\)</span>입니다.</li>
+<li><code>continent: Europe</code>은 유럽 국가들에 해당하며, 그 값인 +22.8는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 유럽 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 22.8 = 77.6\)</span>입니다.</li>
+<li><code>continent: Oceania</code>는 오세아니아 국가들에 해당하며, 그 값인 +25.9는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에서 보여준 아프리카 대비 평균 기대 수명의 차이와 동일합니다. 즉, 오세아니아 국가들의 평균 기대 수명은 <span class="math inline">\(54.8 + 25.9 = 80.7\)</span>입니다.</li>
 </ol>
-<p>요약하자면, 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b의</span> <code>estimate</code> 열에 있는 5개의 값은 “비교 기준점” 대륙인 아프리카(절편)와 나머지 4개 대륙(미주, 아시아, 유럽, 오세아니아)에 대한 이 기준점으로부터의 4개의 “오프셋”에 해당합니다.</p>
-<p>여기서 왜 아프리카가 “비교를 위한 기준점” 그룹으로 선택되었는지 궁금할 것입니다. 이는 단지 5개 대륙 중에서 알파벳 순서가 가장 빠르기 때문일 뿐입니다. 기본적으로 R은 팩터/범주형 변수를 알파벳 순서로 배열합니다. 만약 <code>forcats</code> 패키지를 사용하여 <code>continent</code> 변수의 팩터 “레벨”을 조작한다면 이 기준점 그룹을 다른 대륙으로 바꿀 수 있습니다. 예시는 <em>R for Data Science</em> <span class="citation" data-cites="rds2016">(<a href="#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>의 <a href="https://r4ds.had.co.nz/factors.html">제15장</a>을 참고하세요.</p>
+<p>요약하자면, 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b</span> 의 <code>estimate</code> 열에 있는 5개의 값은 “비교 기준점” 대륙인 아프리카(절편)와 나머지 4개 대륙(미주, 아시아, 유럽, 오세아니아)에 대한 이 기준점으로부터의 4개의 “오프셋”에 해당합니다.</p>
+<p>여기서 왜 아프리카가 “비교를 위한 기준점” 그룹으로 선택되었는지 궁금할 것입니다. 이는 단지 5개 대륙 중에서 알파벳 순서가 가장 빠르기 때문일 뿐입니다. 기본적으로 R은 팩터/범주형 변수를 알파벳 순서로 배열합니다. 만약 <code>forcats</code> 패키지를 사용하여 <code>continent</code> 변수의 팩터 “레벨”을 조작한다면 이 기준점 그룹을 다른 대륙으로 바꿀 수 있습니다. 예시는 <em>R for Data Science</em> <span class="citation" data-cites="rds2016">(<a href="99-references.html#ref-rds2016" role="doc-biblioref">Grolemund and Wickham 2017</a>)</span>의 <a href="https://r4ds.had.co.nz/factors.html">제15장</a>을 참고하세요.</p>
 <p>이제 적합값에 대한 방정식 <span class="math inline">\(\widehat{y} = \widehat{\text{life exp}}\)</span>를 써 봅시다.</p>
-<!--
-참고: 다음 LaTeX의 마크다운 미리보기가 깨져 보일 수 있지만, 
-HTML 출력물에서는 올바르게 나옵니다.
--->
 <p><span class="math display">\[
 \begin{aligned}
 \widehat{y} = \widehat{\text{life exp}} &amp;= b_0 + b_{\text{Amer}}\cdot\mathbb{1}_{\text{Amer}}(x + b_{\text{Asia}}\cdot\mathbb{1}_{\text{Asia}}(x + \\
@@ -1342,7 +1336,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 0 &amp; \text{그렇지 않다면}\end{array}
 \right.
 \]</span></p>
-<p>둘째, <span class="math inline">\(b_0\)</span>는 이전과 마찬가지로 절편에 해당하며, 이 경우 아프리카에 속한 모든 국가의 평균 기대 수명입니다. 셋째, <span class="math inline">\(b_{\text{Amer}}\)</span>, <span class="math inline">\(b_{\text{Asia}}\)</span>, <span class="math inline">\(b_{\text{Euro}}\)</span>, <span class="math inline">\(b_{\text{Ocean}}\)</span>은 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b의</span> 회귀 표 출력물에 있는 “비교를 위한 기준점 대비 4개의 오프셋”인 <code>continent: Americas</code>, <code>continent: Asia</code>, <code>continent: Europe</code>, <code>continent: Oceania</code>를 나타냅니다.</p>
+<p>둘째, <span class="math inline">\(b_0\)</span>는 이전과 마찬가지로 절편에 해당하며, 이 경우 아프리카에 속한 모든 국가의 평균 기대 수명입니다. 셋째, <span class="math inline">\(b_{\text{Amer}}\)</span>, <span class="math inline">\(b_{\text{Asia}}\)</span>, <span class="math inline">\(b_{\text{Euro}}\)</span>, <span class="math inline">\(b_{\text{Ocean}}\)</span>은 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b</span> 의 회귀 표 출력물에 있는 “비교를 위한 기준점 대비 4개의 오프셋”인 <code>continent: Americas</code>, <code>continent: Asia</code>, <code>continent: Europe</code>, <code>continent: Oceania</code>를 나타냅니다.</p>
 <p>이제 이 모든 것을 종합하여 아프리카에 있는 국가의 적합값 <span class="math inline">\(\widehat{y} = \widehat{\text{life exp}}\)</span>를 계산해 봅시다. 그 국가는 아프리카에 있으므로 4개의 지시 함수 <span class="math inline">\(\mathbb{1}_{\text{Amer}}(x)\)</span>, <span class="math inline">\(\mathbb{1}_{\text{Asia}}(x)\)</span>, <span class="math inline">\(\mathbb{1}_{\text{Euro}}(x)\)</span>, <span class="math inline">\(\mathbb{1}_{\text{Ocean}}(x)\)</span>는 모두 0이 되며, 따라서 다음과 같습니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1367,7 +1361,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 &amp; = 73.6
 \end{aligned}
 \]</span></p>
-<p>이는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에</span> 있는 미주 국가들의 평균 기대 수명인 73.6년입니다. 여기서 “비교를 위한 기준점 대비 오프셋”은 +18.8년임을 알 수 있습니다.</p>
+<p>이는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에 있는 미주 국가들의 평균 기대 수명인 73.6년입니다. 여기서 “비교를 위한 기준점 대비 오프셋”은 +18.8년임을 알 수 있습니다.</p>
 <p>하나 더 해봅시다. 아시아에 있는 국가를 고려한다고 해봅시다. 이 경우 아시아에 대한 지시 함수 <span class="math inline">\(\mathbb{1}_{\text{Asia}}(x)\)</span>만 1이 되고 나머지는 모두 0이 됩니다.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1379,9 +1373,9 @@ HTML 출력물에서는 올바르게 나옵니다.
 &amp; = 70.7
 \end{aligned}
 \]</span></p>
-<p>이는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에</span> 있는 아시아 국가들의 평균 기대 수명인 70.7년입니다. 여기서 “비교를 위한 기준점 대비 오프셋”은 +15.9년입니다.</p>
+<p>이는 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에 있는 아시아 국가들의 평균 기대 수명인 70.7년입니다. 여기서 “비교를 위한 기준점 대비 오프셋”은 +15.9년입니다.</p>
 <p>이 아이디어를 좀 더 일반화해 봅시다. 만약 <span class="math inline">\(k\)</span>개의 가능한 범주를 가진 범주형 설명 변수 <span class="math inline">\(x\)</span>를 사용하여 선형 회귀 모델을 적합시킨다면, 회귀 표는 절편과 <span class="math inline">\(k - 1\)</span>개의 “오프셋”을 반환할 것입니다. 우리의 경우 대륙이 <span class="math inline">\(k = 5\)</span>개이므로, 회귀 모델은 비교 기준점 그룹인 아프리카에 해당하는 절편과 나머지 4개 대륙(미주, 아시아, 유럽, 오세아니아)에 해당하는 <span class="math inline">\(k - 1 = 4\)</span>개의 오프셋을 반환합니다.</p>
-<p>범주형 설명 변수를 사용할 때 회귀 표의 출력물을 이해하는 것은 회귀 분석을 처음 접하는 사람들이 자주 어려워하는 주제입니다. 이러한 어려움에 대한 유일한 해결책은 연습, 연습, 또 연습뿐입니다. 하지만 일단 범주형 설명 변수를 사용하여 회귀 모델을 만드는 법을 익히고 나면, 세상의 많은 데이터가 범주형이라는 점을 고려할 때 모델에 많은 새로운 변수들을 포함할 수 있게 될 것입니다. 만약 이 시점에서도 여전히 어렵게 느껴진다면 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies와</span> 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b를</span> 주의 깊게 비교하면서 한 표의 값들을 사용하여 다른 표의 모든 값을 어떻게 계산할 수 있는지 확인해 보시기 바랍니다.</p>
+<p>범주형 설명 변수를 사용할 때 회귀 표의 출력물을 이해하는 것은 회귀 분석을 처음 접하는 사람들이 자주 어려워하는 주제입니다. 이러한 어려움에 대한 유일한 해결책은 연습, 연습, 또 연습뿐입니다. 하지만 일단 범주형 설명 변수를 사용하여 회귀 모델을 만드는 법을 익히고 나면, 세상의 많은 데이터가 범주형이라는 점을 고려할 때 모델에 많은 새로운 변수들을 포함할 수 있게 될 것입니다. 만약 이 시점에서도 여전히 어렵게 느껴진다면 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 와 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b</span> 를 주의 깊게 비교하면서 한 표의 값들을 사용하여 다른 표의 모든 값을 어떻게 계산할 수 있는지 확인해 보시기 바랍니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1398,7 +1392,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 </section>
 <section id="model2points" class="level3">
 <h3 class="anchored" data-anchor-id="model2points">관측값/적합값과 잔차</h3>
-<p><span class="quarto-unresolved-ref">?sec-model1points절에서</span> 정의한 다음 세 가지 개념을 떠올려 봅시다.</p>
+<p><a href="#sec-model1points" class="quarto-xref"><span>관측값/적합값과 잔차</span></a> 절에서 정의한 다음 세 가지 개념을 떠올려 봅시다.</p>
 <ol type="1">
 <li>관측값 <span class="math inline">\(y\)</span>: 결과 변수의 실제 관측된 값 </li>
 <li>적합값 <span class="math inline">\(\widehat{y}\)</span>: 주어진 <span class="math inline">\(x\)</span> 값에 대해 회귀 직선(또는 모델 위에 위치한 값</li>
@@ -1497,8 +1491,8 @@ HTML 출력물에서는 올바르게 나옵니다.
 </table>
 </div>
 </div>
-<p>표 <span class="quarto-unresolved-ref">?tbl-model2-residuals에서</span> <code>lifeExp_hat</code>이 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{lifeExp}}\)</span>를 포함하고 있음을 확인하세요. 자세히 보면 <code>lifeExp_hat</code>에 단 5가지의 가능한 값만 있다는 것을 알 수 있습니다. 이들은 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies에서</span> 보여주었던 5개 대륙의 평균 기대 수명에 해당하며, 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b의</span> 회귀 표에 있는 <code>estimate</code> 열의 값들을 사용하여 계산된 것들입니다.</p>
-<p><code>residual</code> 열은 단순히 <span class="math inline">\(y - \widehat{y}\)</span> = <code>lifeExp - lifeExp_hat</code>입니다. 이 값들은 한 국가의 기대 수명이 해당 대륙의 평균 기대 수명으로부터 얼마나 벗어나 있는지로 해석할 수 있습니다. 예를 들어 아프가니스탄(Afghanistan)에 해당하는 표 <span class="quarto-unresolved-ref">?tbl-model2-residuals의</span> 첫 번째 행을 보세요. 잔차 <span class="math inline">\(y - \widehat{y} = 43.8 - 70.7 = -26.9\)</span>은 아프가니스탄의 기대 수명이 모든 아시아 국가의 평균 기대 수명보다 무려 26.9년이나 낮다는 것을 말해줍니다. 이는 부분적으로 그 나라가 겪어온 오랜 전쟁으로 설명될 수 있습니다.</p>
+<p>표 <span class="quarto-unresolved-ref">?tbl-model2-residuals</span> 에서 <code>lifeExp_hat</code>이 적합값 <span class="math inline">\(\widehat{y}\)</span> = <span class="math inline">\(\widehat{\text{lifeExp}}\)</span>를 포함하고 있음을 확인하세요. 자세히 보면 <code>lifeExp_hat</code>에 단 5가지의 가능한 값만 있다는 것을 알 수 있습니다. 이들은 표 <span class="quarto-unresolved-ref">?tbl-continent-mean-life-expectancies</span> 에서 보여주었던 5개 대륙의 평균 기대 수명에 해당하며, 표 <span class="quarto-unresolved-ref">?tbl-catxplot4b</span> 의 회귀 표에 있는 <code>estimate</code> 열의 값들을 사용하여 계산된 것들입니다.</p>
+<p><code>residual</code> 열은 단순히 <span class="math inline">\(y - \widehat{y}\)</span> = <code>lifeExp - lifeExp_hat</code>입니다. 이 값들은 한 국가의 기대 수명이 해당 대륙의 평균 기대 수명으로부터 얼마나 벗어나 있는지로 해석할 수 있습니다. 예를 들어 아프가니스탄(Afghanistan)에 해당하는 표 <span class="quarto-unresolved-ref">?tbl-model2-residuals</span> 의 첫 번째 행을 보세요. 잔차 <span class="math inline">\(y - \widehat{y} = 43.8 - 70.7 = -26.9\)</span>은 아프가니스탄의 기대 수명이 모든 아시아 국가의 평균 기대 수명보다 무려 26.9년이나 낮다는 것을 말해줍니다. 이는 부분적으로 그 나라가 겪어온 오랜 전쟁으로 설명될 수 있습니다.</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 <p>
@@ -1506,8 +1500,8 @@ HTML 출력물에서는 올바르게 나옵니다.
 </p>
 </div>
 </div>
-<p><strong>(LC5.6)</strong> RStudio 스프레드시트 뷰어의 정렬 기능을 사용하거나 <span class="quarto-unresolved-ref">?sec-wrangling장에서</span> 배운 데이터 전처리 도구를 사용하여, 잔차가 가장 작은(가장 큰 음수 값 5개 국가를 찾아보세요. 이 음수 잔차들은 해당 대륙의 기대 수명과 비교했을 때 이 국가들의 기대 수명에 대해 무엇을 말해주고 있나요?</p>
-<p><strong>(LC5.7)</strong> 동일한 과정을 반복하되, 이번에는 잔차가 가장 큰(가장 큰 양수 값 5개 국가를 찾아보세요. 이 양수 잔차들은 해당 대륙의 기대 수명과 비교했을 때 이 국가들의 기대 수명에 대해 무엇을 말해주고 있나요?</p>
+<p><strong>(LC5.6)</strong> RStudio 스프레드시트 뷰어의 정렬 기능을 사용하거나 <a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장에서 배운 데이터 전처리 도구를 사용하여, 잔차가 가장 작은(가장 큰 음수 값 5개) 국가를 찾아보세요. 이 음수 잔차들은 해당 대륙의 기대 수명과 비교했을 때 이 국가들의 기대 수명에 대해 무엇을 말해주고 있나요?</p>
+<p><strong>(LC5.7)</strong> 동일한 과정을 반복하되, 이번에는 잔차가 가장 큰(가장 큰 양수) 값 5개 국가를 찾아보세요. 이 양수 잔차들은 해당 대륙의 기대 수명과 비교했을 때 이 국가들의 기대 수명에 대해 무엇을 말해주고 있나요?</p>
 <div class="cell" data-layout-align="center" type="learncheck">
 <div class="learncheck">
 
@@ -1517,9 +1511,9 @@ HTML 출력물에서는 올바르게 나옵니다.
 </section>
 <section id="reg-related-topics" class="level2">
 <h2 class="anchored" data-anchor-id="reg-related-topics">관련 주제</h2>
-<section id="correlation-is-not-causation" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-is-not-causation">상관관계가 반드시 인과관계를 의미하지는 않는다</h3>
-<p>이 장 전반에 걸쳐 우리는 회귀 계수의 기울기를 해석할 때 신중을 기했습니다. 우리는 항상 설명 변수 <span class="math inline">\(x\)</span>가 결과 변수 <span class="math inline">\(y\)</span>에 미치는 “연관된(associated)” 효과에 대해 논의했습니다. 예를 들어 <span class="quarto-unresolved-ref">?sec-model1table절에서</span> “<code>bty_avg</code>가 1단위 증가할 때마다, <code>score</code>는 평균적으로 0.067단위만큼 <em>연관되어</em> 증가한다”라고 기술했습니다. 우리가 “연관된”이라는 용어를 포함한 이유는 자칫 <em>인과적(causal)</em> 진술을 하는 것으로 오해받지 않도록 각별히 주의하기 위해서였습니다. 비록 “미모” 점수인 <code>bty_avg</code>가 강의 평가 점수인 <code>score</code>와 양의 상관관계가 있긴 하지만, 이 연구가 어떻게 수행되었는지에 대한 더 많은 정보 없이는 미모 점수가 강의 평가 점수에 직접적인 인과적 영향을 미친다고 단정할 수 없습니다.</p>
+<section id="sec-correlation-is-not-causation" class="level3">
+<h3 class="anchored" data-anchor-id="sec-correlation-is-not-causation">상관관계가 반드시 인과관계를 의미하지는 않는다</h3>
+<p>이 장 전반에 걸쳐 우리는 회귀 계수의 기울기를 해석할 때 신중을 기했습니다. 우리는 항상 설명 변수 <span class="math inline">\(x\)</span>가 결과 변수 <span class="math inline">\(y\)</span>에 미치는 “연관된(associated)” 효과에 대해 논의했습니다. 예를 들어 <a href="#sec-model1table" class="quarto-xref"><span>단순 선형 회귀</span></a> 절에서 “<code>bty_avg</code>가 1단위 증가할 때마다, <code>score</code>는 평균적으로 0.067단위만큼 <em>연관되어</em> 증가한다”라고 기술했습니다. 우리가 “연관된”이라는 용어를 포함한 이유는 자칫 <em>인과적(causal)</em> 진술을 하는 것으로 오해받지 않도록 각별히 주의하기 위해서였습니다. 비록 “미모” 점수인 <code>bty_avg</code>가 강의 평가 점수인 <code>score</code>와 양의 상관관계가 있긴 하지만, 이 연구가 어떻게 수행되었는지에 대한 더 많은 정보 없이는 미모 점수가 강의 평가 점수에 직접적인 인과적 영향을 미친다고 단정할 수 없습니다.</p>
 <p>추가적인 예를 들어보겠습니다: 실력이 부족한 한 의사가 진료 기록을 훑어보다가 신발을 신은 채 잠을 잔 환자들이 두통을 느끼며 깨어나는 경향이 있다는 것을 발견했습니다. 그래서 이 의사는 이렇게 선언합니다. “신발을 신고 자는 것이 두통을 유발한다!”</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1531,7 +1525,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 </div>
 </div>
 </div>
-<p>하지만 어떤 사람이 신발을 신은 채 잠을 잤다면, 그것은 아마도 술에 취했기 때문일 가능성이 큽니다. 그리고 과도한 음주는 숙취를 유발하고, 그에 따라 두통을 일으키게 됩니다. 여기서 음주량은 <em>혼란/잠재(confounding/lurking)</em> 변수라고 불리는 것입니다. 이는 배후에 “잠재해” 있으면서, “신발을 신고 자는 것”과 “두통과 함께 깨어나는 것” 사이의 인과 관계(혹은 만약 있다면 그 관계)를 혼란스럽게 만듭니다. 우리는 이를 그림 <span class="quarto-unresolved-ref">?fig-moderndive-figure-causal-graph의</span> <em>인과 그래프(causal graph)</em>로 요약할 수 있습니다.</p>
+<p>하지만 어떤 사람이 신발을 신은 채 잠을 잤다면, 그것은 아마도 술에 취했기 때문일 가능성이 큽니다. 그리고 과도한 음주는 숙취를 유발하고, 그에 따라 두통을 일으키게 됩니다. 여기서 음주량은 <em>혼란/잠재(confounding/lurking)</em> 변수라고 불리는 것입니다. 이는 배후에 “잠재해” 있으면서, “신발을 신고 자는 것”과 “두통과 함께 깨어나는 것” 사이의 인과 관계(혹은 만약 있다면 그 관계)를 혼란스럽게 만듭니다. 우리는 이를 그림 <span class="quarto-unresolved-ref">?fig-moderndive-figure-causal-graph</span> 의 <em>인과 그래프(causal graph)</em>로 요약할 수 있습니다.</p>
 <ul>
 <li>Y는 <em>반응(response)</em> 변수입니다. 여기서는 “두통과 함께 깨어나는 것”입니다. </li>
 <li>X는 우리가 인과적 효과에 관심을 갖는 <em>처치(treatment)</em> 변수입니다. 여기서는 “신발을 신고 자는 것”입니다. </li>
@@ -1546,7 +1540,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 </div>
 </div>
 </div>
-<p>Y와 X 사이의 관계를 연구하기 위해, 여러분이 이번 장 내내 해왔던 것처럼 결과 변수를 Y로, 설명 변수를 X로 설정한 회귀 모델을 사용할 수 있습니다. 그러나 그림 <span class="quarto-unresolved-ref">?fig-moderndive-figure-causal-graph에는</span> X와 Y 모두를 가리키는 화살표가 있는 세 번째 변수가 포함되어 있습니다.</p>
+<p>Y와 X 사이의 관계를 연구하기 위해, 여러분이 이번 장 내내 해왔던 것처럼 결과 변수를 Y로, 설명 변수를 X로 설정한 회귀 모델을 사용할 수 있습니다. 그러나 그림 <span class="quarto-unresolved-ref">?fig-moderndive-figure-causal-graph</span> 에는 X와 Y 모두를 가리키는 화살표가 있는 세 번째 변수가 포함되어 있습니다.</p>
 <ul>
 <li>Z는 X와 Y 모두에 영향을 미치며 그 둘의 관계를 “혼란스럽게” 만드는 <em>혼란(confounding)</em> 변수입니다. 여기서는 알코올입니다.</li>
 </ul>
@@ -1554,9 +1548,9 @@ HTML 출력물에서는 올바르게 나옵니다.
 <p>인과 관계를 규명하는 것은 까다로운 문제이며, 대개 정교하게 설계된 실험이나 혼란 변수의 효과를 통제하기 위한 방법들이 필요합니다. 이 두 가지 접근 방식은 가능한 모든 혼란 변수를 고려하거나 그 영향을 배제하기 위해 최선을 다합니다. 이를 통해 연구자들은 오직 관심 있는 관계, 즉 결과 변수 Y와 처치 변수 X 사이의 관계에만 집중할 수 있게 됩니다.</p>
 <p>뉴스를 읽을 때 상관관계가 반드시 인과관계를 의미한다는 함정에 빠지지 않도록 주의하세요. 상관관계는 있지만 인과 관계는 전혀 없는 다소 코믹한 사례들을 [가짜 상관(Spurious Correlations)](http://www.tylervigen.com/spurious-correlations 웹사이트에서 확인해 보세요.</p>
 </section>
-<section id="leastsquares" class="level3">
-<h3 class="anchored" data-anchor-id="leastsquares">가장 잘 맞는 직선</h3>
-<p>회귀 직선은 “가장 잘 맞는(best-fitting)” 직선이라고도 불립니다. 하지만 여기서 “가장 잘 맞는다”는 것은 무엇을 의미할까요? 회귀 분석에서 “가장 잘 맞는다”는 기준을 결정하는 요소를 파헤쳐 봅시다. 그림 <span class="quarto-unresolved-ref">?fig-numxplot4를</span> 떠올려 보세요. “미모” 점수가 <span class="math inline">\(x = 7.333\)</span>인 강사에 대해 <em>관측값</em> <span class="math inline">\(y\)</span>를 원으로, <em>적합값</em> <span class="math inline">\(\widehat{y}\)</span>를 정사각형으로, 그리고 <em>잔차</em> <span class="math inline">\(y - \widehat{y}\)</span>를 화살표로 표시했습니다. 그림 <span class="quarto-unresolved-ref">?fig-best-fitting-line의</span> 왼쪽 상단 그래프에 이 그림 <span class="quarto-unresolved-ref">?fig-numxplot4를</span> 다시 표시하고, 추가로 임의로 선택한 세 명의 강사 데이터를 더했습니다.</p>
+<section id="sec-leastsquares" class="level3">
+<h3 class="anchored" data-anchor-id="sec-leastsquares">가장 잘 맞는 직선</h3>
+<p>회귀 직선은 “가장 잘 맞는(best-fitting)” 직선이라고도 불립니다. 하지만 여기서 “가장 잘 맞는다”는 것은 무엇을 의미할까요? 회귀 분석에서 “가장 잘 맞는다”는 기준을 결정하는 요소를 파헤쳐 봅시다. 그림 <span class="quarto-unresolved-ref">?fig-numxplot4</span> 를 떠올려 보세요. “미모” 점수가 <span class="math inline">\(x = 7.333\)</span>인 강사에 대해 <em>관측값</em> <span class="math inline">\(y\)</span>를 원으로, <em>적합값</em> <span class="math inline">\(\widehat{y}\)</span>를 정사각형으로, 그리고 <em>잔차</em> <span class="math inline">\(y - \widehat{y}\)</span>를 화살표로 표시했습니다. 그림 <span class="quarto-unresolved-ref">?fig-best-fitting-line</span> 의 왼쪽 상단 그래프에 이 그림 <span class="quarto-unresolved-ref">?fig-numxplot4</span> 를 다시 표시하고, 추가로 임의로 선택한 세 명의 강사 데이터를 더했습니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1579,7 +1573,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 <p><span class="math display">\[
 \sum_{i=1}^{n}(y_i - \widehat{y}_i)^2
 \]</span></p>
-<p><span class="quarto-unresolved-ref">?sec-wrangling장에서</span> 배운 데이터 전처리 도구를 사용하여 잔차 제곱합을 정확하게 계산해 봅시다.</p>
+<p><a href="03-wrangling.html" class="quarto-xref"><span>데이터 전처리</span></a> 장에서 배운 데이터 전처리 도구를 사용하여 잔차 제곱합을 정확하게 계산해 봅시다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>score_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> bty_avg, </span>
@@ -1623,7 +1617,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 </p>
 </div>
 </div>
-<p><strong>(LC5.8)</strong> 그림 <span class="quarto-unresolved-ref">?fig-three-lines에는</span> 세 개의 점이 찍혀 있고 다음과 같은 선들이 있습니다.</p>
+<p><strong>(LC5.8)</strong> 그림 <span class="quarto-unresolved-ref">?fig-three-lines</span> 에는 세 개의 점이 찍혀 있고 다음과 같은 선들이 있습니다.</p>
 <ul>
 <li>실선: “가장 잘 맞는” 회귀 직선</li>
 <li>임의로 선택된 점선</li>
@@ -1646,15 +1640,15 @@ HTML 출력물에서는 올바르게 나옵니다.
 </div>
 </div>
 </section>
-<section id="underthehood" class="level3">
-<h3 class="anchored" data-anchor-id="underthehood"><code>get_regression_x()</code> 함수들</h3>
+<section id="sec-underthehood" class="level3">
+<h3 class="anchored" data-anchor-id="sec-underthehood"><code>get_regression_x()</code> 함수들</h3>
 <p>이 장에서 우리는 <code>moderndive</code> 패키지의 두 가지 함수를 소개했음을 떠올려 보세요.</p>
 <ol type="1">
-<li><span class="quarto-unresolved-ref">?sec-model1table절에서</span> 회귀 표를 반환하는 <code>get_regression_table()</code></li>
-<li><span class="quarto-unresolved-ref">?sec-model1points절에서</span> 회귀 모델로부터 각 포인트별 정보를 반환하는 <code>get_regression_points()</code></li>
+<li><a href="#sec-model1table" class="quarto-xref"><span>단순 선형 회귀</span></a> 절에서 회귀 표를 반환하는 <code>get_regression_table()</code></li>
+<li><a href="#sec-model1points" class="quarto-xref"><span>관측값/적합값과 잔차</span></a> 절에서 회귀 모델로부터 각 포인트별 정보를 반환하는 <code>get_regression_points()</code></li>
 </ol>
-<p><code>get_regression_table()</code>과 <code>get_regression_points()</code> 함수의 내부에서는 어떤 일이 벌어지고 있을까요? 우리는 <span class="quarto-unresolved-ref">?sec-model1table절에서</span> 이 함수들이 <em>래퍼 함수(wrapper functions)</em>의 예라고 언급했습니다. 이러한 함수들은 기존에 존재하던 다른 함수들을 가져와서, 사용자가 내부 작동 방식을 일일이 알 필요 없도록 하나의 함수로 “감싸(wrap)” 안으로 숨깁니다. 이렇게 하면 사용자는 입력값이 무엇인지, 그리고 출력 결과가 어떠해야 하는지만 신경 쓰면 됩니다. 이번 소섹션에서는 이 함수들의 “내부를 들여다보고(get under the hood)” 래퍼 함수의 “엔진”이 어떻게 작동하는지 살펴보겠습니다.</p>
-<p><span class="quarto-unresolved-ref">?sec-model1table절에서</span> 회귀 표를 생성하기 위해 거쳤던 2단계 과정을 떠올려 보세요.</p>
+<p><code>get_regression_table()</code>과 <code>get_regression_points()</code> 함수의 내부에서는 어떤 일이 벌어지고 있을까요? 우리는 <a href="#sec-model1table" class="quarto-xref"><span>단순 선형 회귀</span></a> 절에서 이 함수들이 <em>래퍼 함수(wrapper functions)</em>의 예라고 언급했습니다. 이러한 함수들은 기존에 존재하던 다른 함수들을 가져와서, 사용자가 내부 작동 방식을 일일이 알 필요 없도록 하나의 함수로 “감싸(wrap)” 안으로 숨깁니다. 이렇게 하면 사용자는 입력값이 무엇인지, 그리고 출력 결과가 어떠해야 하는지만 신경 쓰면 됩니다. 이번 소섹션에서는 이 함수들의 “내부를 들여다보고(get under the hood)” 래퍼 함수의 “엔진”이 어떻게 작동하는지 살펴보겠습니다.</p>
+<p><a href="#sec-model1table" class="quarto-xref"><span>단순 선형 회귀</span></a> 절에서 회귀 표를 생성하기 위해 거쳤던 2단계 과정을 떠올려 보세요.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀 모델 적합:</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>score_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> score <span class="sc">~</span> bty_avg, <span class="at">data =</span> evals_ch5)</span>
@@ -1701,10 +1695,10 @@ HTML 출력물에서는 올바르게 나옵니다.
 </div>
 <p><code>get_regression_table()</code> 래퍼 함수는 다른 R 패키지에 있는 다음 두 가지 함수를 가져와서 사용합니다.</p>
 <ul>
-<li>[<code>broom</code> 패키지](https://broom.tidyverse.org/ <span class="citation" data-cites="R-broom">(<a href="#ref-R-broom" role="doc-biblioref">Robinson et al. 2026</a>)</span>의 <code>tidy()</code> </li>
-<li>[<code>janitor</code> 패키지](https://github.com/sfirke/janitor <span class="citation" data-cites="R-janitor">(<a href="#ref-R-janitor" role="doc-biblioref">Firke 2024</a>)</span>의 <code>clean_names()</code> </li>
+<li>[<code>broom</code> 패키지](https://broom.tidyverse.org/ <span class="citation" data-cites="R-broom">(<a href="99-references.html#ref-R-broom" role="doc-biblioref">Robinson et al. 2026</a>)</span>의 <code>tidy()</code> </li>
+<li>[<code>janitor</code> 패키지](https://github.com/sfirke/janitor <span class="citation" data-cites="R-janitor">(<a href="99-references.html#ref-R-janitor" role="doc-biblioref">Firke 2024</a>)</span>의 <code>clean_names()</code> </li>
 </ul>
-<p>그리고 이들을 단일 함수로 “감싸서” 저장된 <code>lm()</code> 선형 모델(여기서는 <code>score_model</code>)을 입력받아 “정돈된(tidy)” 데이터 프레임 형태의 회귀 표를 반환합니다. 다음은 <code>tidy()</code>와 <code>clean_names()</code> 함수를 사용하여 표 <span class="quarto-unresolved-ref">?tbl-regtable-broom를</span> 생성하는 방법입니다.</p>
+<p>그리고 이들을 단일 함수로 “감싸서” 저장된 <code>lm()</code> 선형 모델(여기서는 <code>score_model</code>)을 입력받아 “정돈된(tidy)” 데이터 프레임 형태의 회귀 표를 반환합니다. 다음은 <code>tidy()</code>와 <code>clean_names()</code> 함수를 사용하여 표 <span class="quarto-unresolved-ref">?tbl-regtable-broom</span> 를 생성하는 방법입니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
@@ -1753,7 +1747,7 @@ HTML 출력물에서는 올바르게 나옵니다.
 </div>
 </div>
 <p>이런! 코드가 꽤 길군요! 그래서 여러분의 수고를 덜어드리기 위해, 저희는 모든 코드를 <code>get_regression_table()</code> 안에 “감싸서” 여러분이 함수의 내부 작동 방식을 이해해야 하는 부담에서 벗어나도록 결정했습니다. 참고로 <code>mutate_if()</code> 함수는 <code>dplyr</code> 패키지의 함수로, 수치형 변수들에 대해서만 <code>round()</code> 함수를 적용하여 소수점 셋째 자리까지 반올림합니다.</p>
-<p>마찬가지로 <code>get_regression_points()</code> 함수도 또 다른 래퍼 함수입니다. 이번에는 회귀 모델과 관련된 각 포인트의 정보인 적합값, 관측값, 잔차를 반환합니다. <code>get_regression_points()</code> 는 <code>get_regression_table()</code>에서 사용한 <code>tidy()</code> 함수 대신 <a href="https://broom.tidyverse.org/"><code>broom</code> 패키지</a>의 <code>augment()</code> 함수를 사용하여 표 <span class="quarto-unresolved-ref">?tbl-regpoints-augment와</span> 같은 데이터를 생성합니다.</p>
+<p>마찬가지로 <code>get_regression_points()</code> 함수도 또 다른 래퍼 함수입니다. 이번에는 회귀 모델과 관련된 각 포인트의 정보인 적합값, 관측값, 잔차를 반환합니다. <code>get_regression_points()</code> 는 <code>get_regression_table()</code>에서 사용한 <code>tidy()</code> 함수 대신 <a href="https://broom.tidyverse.org/"><code>broom</code> 패키지</a>의 <code>augment()</code> 함수를 사용하여 표 <span class="quarto-unresolved-ref">?tbl-regpoints-augment</span> 와 같은 데이터를 생성합니다.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
@@ -1846,12 +1840,12 @@ HTML 출력물에서는 올바르게 나옵니다.
 </section>
 <section id="reg-conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="reg-conclusion">결론</h2>
-<section id="additional-resources-basic-regression" class="level3">
-<h3 class="anchored" data-anchor-id="additional-resources-basic-regression">추가 자료</h3>
+<section id="sec-additional-resources-basic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="sec-additional-resources-basic-regression">추가 자료</h3>
 <div class="cell" data-layout-align="center">
 <p>이 장에서 사용된 모든 R 코드의 R 스크립트 파일은 <a href="scripts/05-regression.R">여기</a>에서 이용 가능합니다.</p>
 </div>
-<p><span class="quarto-unresolved-ref">?sec-model1EDA절에서</span> 제안했듯이, -1, 0, 1과 같은 극단적인 값에서 멀어진 상관계수를 해석하는 것은 다소 주관적일 수 있습니다. 상관계수에 대한 감각을 키우는 데 도움을 주기 위해, <a href="http://guessthecorrelation.com/" class="uri">http://guessthecorrelation.com/</a>에서 제공하는 80년대 스타일의 비디오 게임인 “Guess the Correlation(상관계수 맞추기)”을 해보시길 권장합니다.</p>
+<p><a href="#sec-model1EDA" class="quarto-xref"><span>탐색적 데이터 분석</span></a> 절에서 제안했듯이, -1, 0, 1과 같은 극단적인 값에서 멀어진 상관계수를 해석하는 것은 다소 주관적일 수 있습니다. 상관계수에 대한 감각을 키우는 데 도움을 주기 위해, <a href="http://guessthecorrelation.com/" class="uri">http://guessthecorrelation.com/</a>에서 제공하는 80년대 스타일의 비디오 게임인 “Guess the Correlation(상관계수 맞추기)”을 해보시길 권장합니다.</p>
 <p>(ref:guess-corr) “Guess the Correlation” 게임 미리보기.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1866,10 +1860,10 @@ HTML 출력물에서는 올바르게 나옵니다.
 </section>
 <section id="다음에는-무엇을-배울까요" class="level3">
 <h3 class="anchored" data-anchor-id="다음에는-무엇을-배울까요">다음에는 무엇을 배울까요?</h3>
-<p>이 장에서는 하나의 설명 변수만을 사용하는 모델을 적합시키는 <em>기초 회귀(basic regression)</em>에 대해 공부했습니다. <span class="quarto-unresolved-ref">?sec-multiple-regression장에서는</span> 두 개 이상의 설명 변수를 가질 수 있는 <em>다중 회귀(multiple regression)</em>에 대해 배울 것입니다! 특히 두 가지 시나리오를 다룰 것입니다. 하나는 수치형 설명 변수와 범주형 설명 변수를 각각 하나씩 사용하는 회귀 모델이고, 다른 하나는 두 개의 수치형 설명 변수를 사용하는 모델입니다. 이를 통해 결과 변수 <span class="math inline">\(y\)</span>를 더 잘 설명할 수 있는 더욱 정교하고 강력한 모델을 구축할 수 있게 될 것입니다.</p>
+<p>이 장에서는 하나의 설명 변수만을 사용하는 모델을 적합시키는 <em>기초 회귀(basic regression)</em>에 대해 공부했습니다. <a href="06-multiple-regression.html" class="quarto-xref"><span>다중 회귀 분석</span></a> 장에서는 두 개 이상의 설명 변수를 가질 수 있는 <em>다중 회귀(multiple regression)</em>에 대해 배울 것입니다! 특히 두 가지 시나리오를 다룰 것입니다. 하나는 수치형 설명 변수와 범주형 설명 변수를 각각 하나씩 사용하는 회귀 모델이고, 다른 하나는 두 개의 수치형 설명 변수를 사용하는 모델입니다. 이를 통해 결과 변수 <span class="math inline">\(y\)</span>를 더 잘 설명할 수 있는 더욱 정교하고 강력한 모델을 구축할 수 있게 될 것입니다.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-R-janitor" class="csl-entry" role="listitem">
 Firke, Sam. 2024. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://github.com/sfirke/janitor">https://github.com/sfirke/janitor</a>.
 </div>
@@ -1889,7 +1883,6 @@ Waring, Elin, Michael Quinn, Amelia McNamara, Eduardo Arino de la Rubia, Hao Zhu
 Wickham, Hadley. 2023. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://tidyverse.tidyverse.org">https://tidyverse.tidyverse.org</a>.
 </div>
 </div>
-</section>
 </section>
 </section>
 
